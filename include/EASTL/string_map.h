@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -32,7 +34,9 @@ public:
 	typedef typename base::base_type::value_type             value_type;
 	typedef typename base::mapped_type                       mapped_type;
 
-		                string_map(const allocator_type& allocator = allocator_type()) : base(allocator) {}
+		                string_map(const allocator_type& allocator = allocator_type()) : base(allocator) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 						string_map(const string_map& src, const allocator_type& allocator = allocator_type());
 						~string_map();
 	void				clear();
@@ -61,8 +65,7 @@ private:
 template<typename T, typename Predicate, typename Allocator>
 string_map<T, Predicate, Allocator>::string_map(const string_map& src, const allocator_type& allocator) : base(allocator)
 {
-	for (const_iterator i=src.begin(), e=src.end(); i!=e; ++i)
-		base::base_type::insert(eastl::make_pair(strduplicate(i->first), i->second));
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Predicate, typename Allocator>
@@ -75,90 +78,56 @@ template<typename T, typename Predicate, typename Allocator>
 void
 string_map<T, Predicate, Allocator>::clear()
 {
-	allocator_type& allocator = base::base_type::get_allocator();
-	for (const_iterator i=base::base_type::begin(), e=base::base_type::end(); i!=e; ++i)
-		allocator.deallocate((void*)i->first, 0);
-	base::base_type::clear();
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Predicate, typename Allocator>
 typename string_map<T, Predicate, Allocator>::this_type&
 string_map<T, Predicate, Allocator>::operator=(const this_type& x)
 {
-	allocator_type allocator = base::base_type::get_allocator();
-	this->~this_type();
-	new (this) this_type(x, allocator);
-	return *this;
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Predicate, typename Allocator>
 typename string_map<T, Predicate, Allocator>::insert_return_type
 string_map<T, Predicate, Allocator>::insert(const char* key)
 {
-	return insert(key, mapped_type());
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Predicate, typename Allocator>
 typename string_map<T, Predicate, Allocator>::insert_return_type
 string_map<T, Predicate, Allocator>::insert(const char* key, const T& value)
 {
-	EASTL_ASSERT(key);
-	iterator i = base::base_type::find(key);
-	if (i != base::base_type::end())
-	{
-		insert_return_type ret;
-		ret.first = i;
-		ret.second = false;
-		return ret;
-	}
-	return base::base_type::insert(eastl::make_pair(strduplicate(key), value));
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Predicate, typename Allocator>
 typename string_map<T, Predicate, Allocator>::iterator
 string_map<T, Predicate, Allocator>::erase(iterator position)
 {
-	const char* key = position->first;
-	iterator result = base::base_type::erase(position);
-	base::base_type::get_allocator().deallocate((void*)key, 0);
-	return result;
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Predicate, typename Allocator>
 typename string_map<T, Predicate, Allocator>::size_type
 string_map<T, Predicate, Allocator>::erase(const char* key)
 {
-	const iterator it(base::base_type::find(key));
-
-    if(it != base::base_type::end())
-    {
-        erase(it);
-        return 1;
-    }
-    return 0;
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Predicate, typename Allocator>
 typename string_map<T, Predicate, Allocator>::mapped_type&
 string_map<T, Predicate, Allocator>::operator[](const char* key)
 {
-	using base_value_type = typename base::base_type::value_type;
-
-	EASTL_ASSERT(key);
-	iterator i = base::base_type::find(key);
-	if (i != base::base_type::end())
-		return i->second;
-	return base::base_type::insert(base_value_type(pair_first_construct, strduplicate(key))).first->second;
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Predicate, typename Allocator>
 char*
 string_map<T, Predicate, Allocator>::strduplicate(const char* str)
 {
-	size_t len = strlen(str);
-	char* result = (char*)base::base_type::get_allocator().allocate(len + 1);
-	memcpy(result, str, len+1);
-	return result;
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 

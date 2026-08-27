@@ -50,7 +50,7 @@
 
 			// This constructor is private, but the C++ compiler has the ability to call it, as per the C++11 Standard.
 			initializer_list(const_iterator pArray, size_type arraySize)
-			  : mpArray(pArray), mArraySize(arraySize) { }
+			  : mpArray(pArray), mArraySize(arraySize) { __builtin_trap() /* STUB: not implemented */; }
 
 		public:
 			initializer_list() EA_NOEXCEPT  // EA_NOEXCEPT requires a recent version of EABase.  
@@ -61,26 +61,22 @@
 			// public.
 			// See: https://docs.microsoft.com/en-us/cpp/standard-library/initializer-list-class#initializer_list
 			initializer_list(const_iterator pFirst, const_iterator pLast) EA_NOEXCEPT
-			  : mpArray(pFirst), mArraySize(pLast - pFirst) { }
+			  : mpArray(pFirst), mArraySize(pLast - pFirst) { __builtin_trap() /* STUB: not implemented */; }
 #endif
 
-			size_type      size()  const EA_NOEXCEPT { return mArraySize; }
-			const_iterator begin() const EA_NOEXCEPT { return mpArray; }            // Must be const_iterator, as initializer_list (and its mpArray) is an immutable temp object.
-			const_iterator end()   const EA_NOEXCEPT { return mpArray + mArraySize; }
+			size_type      size()  const EA_NOEXCEPT { __builtin_trap() /* STUB: not implemented */; }
+			const_iterator begin() const EA_NOEXCEPT { __builtin_trap() /* STUB: not implemented */; }            // Must be const_iterator, as initializer_list (and its mpArray) is an immutable temp object.
+			const_iterator end()   const EA_NOEXCEPT { __builtin_trap() /* STUB: not implemented */; }
 		};
 
 
 		template<class T>
 		const T* begin(std::initializer_list<T> ilist) EA_NOEXCEPT
-		{
-			return ilist.begin();
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template<class T>
 		const T* end(std::initializer_list<T> ilist) EA_NOEXCEPT
-		{
-			return ilist.end();
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 	}
 
 #endif

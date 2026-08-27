@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -108,7 +110,8 @@ namespace eastl
 		    , m_create_callback(creator)
 		    , m_delete_callback(deletor)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// lru_cache destructor
 		///
@@ -126,9 +129,8 @@ namespace eastl
 		lru_cache(std::initializer_list<eastl::pair<Key, Value>> il)
 			: lru_cache(static_cast<size_type>(il.size()))
 		{
-			for(auto& p : il)
-				insert_or_assign(p.first, p.second);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// TODO(rparolin):  Why do we prevent copies? And what about moves?
 		lru_cache(const this_type&) = delete;
@@ -141,20 +143,8 @@ namespace eastl
 		/// If the key doesn't exist, the data is added to the map and the return value is true.
 		bool insert(const key_type& k, const value_type& v)
 		{
-			if (m_map.find(k) == m_map.end())
-			{
-				make_space();
-
-				m_list.push_front(k);
-				m_map[k] = data_container_type(v, m_list.begin());
-
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// emplace
 		/// 
@@ -164,19 +154,8 @@ namespace eastl
 		template <typename... Args>
 		eastl::pair<iterator, bool> emplace(const key_type& k, Args&&... args)
 		{
-			auto it = m_map.find(k);
-			if (it == m_map.end())
-			{
-				make_space();
-
-				m_list.push_front(k);
-				return m_map.emplace(k, data_container_type(piecewise_construct, eastl::forward_as_tuple(eastl::forward<Args>(args)...), make_tuple(m_list.begin())));
-			}
-			else
-			{
-				return make_pair(it, false);
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// insert_or_assign
 		///
@@ -184,42 +163,24 @@ namespace eastl
 		/// Note that the deletor for the old v will be called before it's replaced with the new value of v
 		void insert_or_assign(const key_type& k, const value_type& v)
 		{
-			auto iter = m_map.find(k);
-
-			if (m_map.find(k) != m_map.end())
-			{
-				assign(iter, v);
-			}
-			else
-			{
-				insert(k, v);
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// contains
 		/// 
 		/// Returns true if key k exists in the cache
 		bool contains(const key_type& k) const
 		{
-			return m_map.find(k) != m_map.end();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// at
 		///
 		/// Retrives the data for key k, not valid if k does not exist
 		eastl::optional<value_type> at(const key_type& k)
 		{
-			auto iter = m_map.find(k);
-
-			if (iter != m_map.end())
-			{
-				return iter->second.first;
-			}
-			else
-			{
-				return eastl::nullopt;
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// get
 		///
@@ -227,26 +188,13 @@ namespace eastl
 		/// creator.
 		value_type& get(const key_type& k)
 		{
-			auto iter = m_map.find(k);
-
-			// The entry exists in the cache
-			if (iter != m_map.end())
-			{
-				touch(k);
-				return iter->second.first;
-			}
-			else // The entry doesn't exist in the cache, so create one
-			{
-				// Add the entry to the map
-				insert(k, m_create_callback ? m_create_callback(k) : value_type());
-
-				// return the new data
-				return m_map[k].first;
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// Equivalent to get(k)
-		value_type& operator[](const key_type& k) { return get(k); }
+		value_type& operator[](const key_type& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// erase
 		///
@@ -254,33 +202,16 @@ namespace eastl
 		/// If k does not exist, returns false.  If k exists, returns true.
 		bool erase(const key_type& k)
 		{
-			auto iter = m_map.find(k);
-
-			if (iter != m_map.end())
-			{
-				m_list.erase(iter->second.second);
-
-				// Delete the actual entry
-				map_erase(iter);
-
-				return true;
-			}
-
-			return false;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// erase_oldest
 		///
 		/// Removes the oldest entry from the cache.
 		void erase_oldest()
 		{
-			auto key = m_list.back();
-			m_list.pop_back();
-
-			// Delete the actual entry
-			auto iter = m_map.find(key);
-			map_erase(iter);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// touch
 		///
@@ -288,28 +219,16 @@ namespace eastl
 		/// If k does not exist, returns false.  If the touch was successful, returns true.
 		bool touch(const key_type& k)
 		{
-			auto iter = m_map.find(k);
-
-			if (iter != m_map.end())
-			{
-				touch(iter);
-				return true;
-			}
-
-			return false;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// touch
 		///
 		/// Touches key at iterator iter, moving it to most recently used position
 		void touch(iterator& iter)
 		{
-			auto listRef = iter->second.second;
-
-			m_list.erase(listRef);
-			m_list.push_front(iter->first);
-			iter->second.second = m_list.begin();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// assign
 		///
@@ -318,54 +237,63 @@ namespace eastl
 		/// If key k exists, existing data has its deletor called and key k's data is replaced with new v data
 		bool assign(const key_type& k, const value_type& v)
 		{
-			auto iter = m_map.find(k);
-
-			if (iter != m_map.end())
-			{
-				assign(iter, v);
-				return true;
-			}
-
-			return false;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// assign
 		///
 		/// Updates data at spot iter with data v.
 		void assign(iterator& iter, const value_type& v)
 		{
-			if (m_delete_callback)
-				m_delete_callback(iter->second.first);
-			touch(iter);
-			iter->second.first = v;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// standard container functions
-		iterator begin()               EA_NOEXCEPT { return m_map.begin(); }
-		iterator end()                 EA_NOEXCEPT { return m_map.end(); }
-		iterator rbegin()              EA_NOEXCEPT { return m_map.rbegin(); }
-		iterator rend()                EA_NOEXCEPT { return m_map.rend(); }
-		const_iterator begin() const   EA_NOEXCEPT { return m_map.begin(); }
-		const_iterator cbegin() const  EA_NOEXCEPT { return m_map.cbegin(); }
-		const_iterator crbegin() const EA_NOEXCEPT { return m_map.crbegin(); }
-		const_iterator end() const     EA_NOEXCEPT { return m_map.end(); }
-		const_iterator cend() const    EA_NOEXCEPT { return m_map.cend(); }
-		const_iterator crend() const   EA_NOEXCEPT { return m_map.crend(); }
+		iterator begin()               EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		iterator end()                 EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		iterator rbegin()              EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		iterator rend()                EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		const_iterator begin() const   EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		const_iterator cbegin() const  EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		const_iterator crbegin() const EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		const_iterator end() const     EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		const_iterator cend() const    EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		const_iterator crend() const   EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		bool empty() const             EA_NOEXCEPT { return m_map.empty(); }
-		size_type size() const         EA_NOEXCEPT { return m_map.size(); }
-		size_type capacity() const     EA_NOEXCEPT { return m_capacity; }
+		bool empty() const             EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		size_type size() const         EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		size_type capacity() const     EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void clear() EA_NOEXCEPT
 		{
-			// Since we have a delete callback, we want to reuse the trim function by cheating the max
-			// size to clear all the entries to avoid duplicating code.
-			auto old_max = m_capacity;
-
-			m_capacity = 0;
-			trim();
-			m_capacity = old_max;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// resize
 		///
@@ -374,52 +302,47 @@ namespace eastl
 		/// deletors called before completing.
 		void resize(size_type newSize)	
 		{
-			m_capacity = newSize;
-			trim();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		
-		void setCreateCallback(create_callback_type callback) { m_create_callback = callback; }
-		void setDeleteCallback(delete_callback_type callback) { m_delete_callback = callback; }
+		void setCreateCallback(create_callback_type callback) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		void setDeleteCallback(delete_callback_type callback) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// EASTL extensions
-		const allocator_type& get_allocator() const EA_NOEXCEPT					{ return m_map.get_allocator(); }
-		allocator_type&       get_allocator() EA_NOEXCEPT						{ return m_map.get_allocator(); }
-		void                  set_allocator(const allocator_type& allocator)	{ m_map.set_allocator(allocator); m_list.set_allocator(allocator); }
+		const allocator_type& get_allocator() const EA_NOEXCEPT					{
+    __builtin_trap() /* STUB: not implemented */;
+}
+		allocator_type&       get_allocator() EA_NOEXCEPT						{
+    __builtin_trap() /* STUB: not implemented */;
+}
+		void                  set_allocator(const allocator_type& allocator)	{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// Does not reset the callbacks
-		void reset_lose_memory() EA_NOEXCEPT									{ m_map.reset_lose_memory(); m_list.reset_lose_memory(); }
+		void reset_lose_memory() EA_NOEXCEPT									{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	private:
 		inline void map_erase(map_iterator pos)
 		{
-			if (m_delete_callback)
-				m_delete_callback(pos->second.first);
-			m_map.erase(pos);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		
 		bool trim()
 		{
-			if (size() <= m_capacity)
-			{
-				return false; // No trim necessary
-			}
-
-			// We need to trim
-			do
-			{
-				erase_oldest();
-			} while (m_list.size() > m_capacity);
-
-			return true;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void make_space()
 		{
-			if (size() == m_capacity)
-			{
-				erase_oldest();
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	private:
 		list_type				m_list;

@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -159,8 +161,8 @@ namespace chrono
 		{
 			inline static ToDuration DoCast(const FromDuration& fd)
 			{
-				return ToDuration(static_cast<typename ToDuration::rep>(fd.count()));
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 
 		template <typename FromDuration, typename ToDuration, typename CommonPeriod, typename CommonRep>
@@ -168,9 +170,8 @@ namespace chrono
 		{
 			inline static ToDuration DoCast(const FromDuration& d)
 			{
-				return ToDuration(static_cast<typename ToDuration::rep>(static_cast<CommonRep>(d.count()) *
-				                                                        static_cast<CommonRep>(CommonPeriod::num)));
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 
 		template <typename FromDuration, typename ToDuration, typename CommonPeriod, typename CommonRep>
@@ -178,9 +179,8 @@ namespace chrono
 		{
 			inline static ToDuration DoCast(const FromDuration& d)
 			{
-				return ToDuration(static_cast<typename ToDuration::rep>(static_cast<CommonRep>(d.count()) /
-				                                                        static_cast<CommonRep>(CommonPeriod::den)));
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 
 		template <typename FromDuration, typename ToDuration, typename CommonPeriod, typename CommonRep>
@@ -188,10 +188,8 @@ namespace chrono
 		{
 			inline static ToDuration DoCast(const FromDuration& d)
 			{
-				return ToDuration(static_cast<typename ToDuration::rep>(static_cast<CommonRep>(d.count()) *
-				                                                        static_cast<CommonRep>(CommonPeriod::num) /
-				                                                        static_cast<CommonRep>(CommonPeriod::den)));
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 	}; // namespace Internal
 
@@ -203,9 +201,8 @@ namespace chrono
 	inline typename eastl::enable_if<Internal::IsDuration<ToDuration>::value, ToDuration>::type 
 	duration_cast(const duration<Rep, Period>& d)
 	{
-		typedef typename duration<Rep, Period>::this_type FromDuration;
-		return Internal::DurationCastImpl<FromDuration, ToDuration>::DoCast(d);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	///////////////////////////////////////////////////////////////////////////////
@@ -246,7 +243,9 @@ namespace chrono
 		    typename eastl::enable_if<eastl::is_convertible<Rep2, Rep>::value &&
 		                              (treat_as_floating_point<Rep>::value ||
 		                               !treat_as_floating_point<Rep2>::value)>::type** = 0)
-		    : mRep(static_cast<Rep>(rep2)) {}
+		    : mRep(static_cast<Rep>(rep2)) {
+    
+}
 
 
 		template <class Rep2, class Period2>
@@ -255,7 +254,9 @@ namespace chrono
 		                                                    (eastl::ratio_divide<Period2, Period>::type::den == 1 &&
 		                                                     !treat_as_floating_point<Rep2>::value),
 		                                                void>::type** = 0)
-		    : mRep(duration_cast<duration>(d2).count()) {}
+		    : mRep(duration_cast<duration>(d2).count()) {
+    
+}
 
 		///////////////////////////////////////////////////////////////////////////////
 		// returns the count of ticks 
@@ -278,16 +279,36 @@ namespace chrono
 		///////////////////////////////////////////////////////////////////////////////
 		// arithmetic operations
 		///////////////////////////////////////////////////////////////////////////////
-		inline duration operator++(int)                  { return duration(mRep++); }
-		inline duration operator--(int)                  { return duration(mRep--); }
-		inline duration& operator++()                    { ++mRep; return *this; }
-		inline duration& operator--()                    { --mRep; return *this; }
-		inline duration& operator+=(const duration& d)   { mRep += d.count(); return *this; }
-		inline duration& operator-=(const duration& d)   { mRep -= d.count(); return *this; }
-		inline duration& operator*=(const Rep& rhs)      { mRep *= rhs; return *this; }
-		inline duration& operator/=(const Rep& rhs)      { mRep /= rhs; return *this; }
-		inline duration& operator%=(const Rep& rhs)      { mRep %= rhs; return *this; }
-		inline duration& operator%=(const duration& d)   { mRep %= d.count(); return *this; }
+		inline duration operator++(int)                  {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		inline duration operator--(int)                  {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		inline duration& operator++()                    {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		inline duration& operator--()                    {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		inline duration& operator+=(const duration& d)   {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		inline duration& operator-=(const duration& d)   {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		inline duration& operator*=(const Rep& rhs)      {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		inline duration& operator/=(const Rep& rhs)      {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		inline duration& operator%=(const Rep& rhs)      {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		inline duration& operator%=(const duration& d)   {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -298,65 +319,57 @@ namespace chrono
 	typename eastl::common_type<duration<Rep1, Period1>, duration<Rep2, Period2>>::type EASTL_FORCE_INLINE
 	operator+(const duration<Rep1, Period1>& lhs, const duration<Rep2, Period2>& rhs)
 	{
-		typedef typename eastl::common_type<duration<Rep1, Period1>, duration<Rep2, Period2>>::type common_duration_t;
-		return common_duration_t(common_duration_t(lhs).count() + common_duration_t(rhs).count());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Rep1, typename Period1, typename Rep2, typename Period2>
 	typename eastl::common_type<duration<Rep1, Period1>, duration<Rep2, Period2>>::type EASTL_FORCE_INLINE
 	operator-(const duration<Rep1, Period1>& lhs, const duration<Rep2, Period2>& rhs)
 	{
-		typedef typename eastl::common_type<duration<Rep1, Period1>, duration<Rep2, Period2>>::type common_duration_t;
-		return common_duration_t(common_duration_t(lhs).count() - common_duration_t(rhs).count());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Rep1, typename Period1, typename Rep2>
 	duration<typename eastl::common_type<Rep1, Rep2>::type, Period1> EASTL_FORCE_INLINE
 	operator*(const duration<Rep1, Period1>& lhs, const Rep2& rhs)
 	{
-		typedef duration<typename eastl::common_type<Rep1, Rep2>::type, Period1> common_duration_t;
-		return common_duration_t(common_duration_t(lhs).count() * rhs);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Rep1, typename Rep2, typename Period2>
 	duration<typename eastl::common_type<Rep1, Rep2>::type, Period2> EASTL_FORCE_INLINE
 	operator*(const Rep1& lhs, const duration<Rep2, Period2>& rhs)
 	{
-		typedef duration<typename eastl::common_type<Rep1, Rep2>::type, Period2> common_duration_t;
-		return common_duration_t(lhs * common_duration_t(rhs).count());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Rep1, typename Period1, typename Rep2>
 	duration<typename eastl::common_type<Rep1, Rep2>::type, Period1> EASTL_FORCE_INLINE
 	operator/(const duration<Rep1, Period1>& lhs, const Rep2& rhs)
 	{
-		typedef duration<typename eastl::common_type<Rep1, Rep2>::type, Period1> common_duration_t;
-		return common_duration_t(common_duration_t(lhs).count() / rhs);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Rep1, typename Period1, typename Rep2, typename Period2>
 	typename eastl::common_type<duration<Rep1, Period1>, duration<Rep2, Period2>>::type EASTL_FORCE_INLINE
 	operator/(const duration<Rep1, Period1>& lhs, const duration<Rep2, Period2>& rhs)
 	{
-		typedef typename eastl::common_type<duration<Rep1, Period1>, duration<Rep2, Period2>>::type common_duration_t;
-		return common_duration_t(common_duration_t(lhs).count() / common_duration_t(rhs).count());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Rep1, typename Period1, typename Rep2>
 	duration<typename eastl::common_type<Rep1, Rep2>::type, Period1> EASTL_FORCE_INLINE
 	operator%(const duration<Rep1, Period1>& lhs, const Rep2& rhs)
 	{
-		typedef duration<typename eastl::common_type<Rep1, Rep2>::type, Period1> common_duration_t;
-		return common_duration_t(common_duration_t(lhs).count() % rhs);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Rep1, typename Period1, typename Rep2, typename Period2>
 	typename eastl::common_type<duration<Rep1, Period1>, duration<Rep2, Period2>>::type EASTL_FORCE_INLINE
 	operator%(const duration<Rep1, Period1>& lhs, const duration<Rep2, Period2>& rhs)
 	{
-		typedef typename eastl::common_type<duration<Rep1, Period1>, duration<Rep2, Period2>>::type common_duration_t;
-		return common_duration_t(common_duration_t(lhs).count() % common_duration_t(rhs).count());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	///////////////////////////////////////////////////////////////////////////////
@@ -366,45 +379,43 @@ namespace chrono
 	EASTL_FORCE_INLINE bool operator==(const duration<Rep1, Period1>& lhs,
 	                                                const duration<Rep2, Period2>& rhs)
 	{
-		typedef typename eastl::common_type<duration<Rep1, Period1>, duration<Rep2, Period2>>::type common_duration_t;
-		return common_duration_t(lhs).count() == common_duration_t(rhs).count();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Rep1, typename Period1, typename Rep2, typename Period2>
 	EASTL_FORCE_INLINE bool operator<(const duration<Rep1, Period1>& lhs,
 	                                               const duration<Rep2, Period2>& rhs)
 	{
-		typedef typename eastl::common_type<duration<Rep1, Period1>, duration<Rep2, Period2>>::type common_duration_t;
-		return common_duration_t(lhs).count() < common_duration_t(rhs).count();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Rep1, typename Period1, typename Rep2, typename Period2>
 	EASTL_FORCE_INLINE bool operator!=(const duration<Rep1, Period1>& lhs,
 	                                                const duration<Rep2, Period2>& rhs)
 	{
-		return !(lhs == rhs);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Rep1, typename Period1, typename Rep2, typename Period2>
 	EASTL_FORCE_INLINE bool operator<=(const duration<Rep1, Period1>& lhs,
 	                                                const duration<Rep2, Period2>& rhs)
 	{
-		return !(rhs < lhs);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Rep1, typename Period1, typename Rep2, typename Period2>
 	EASTL_FORCE_INLINE bool operator>(const duration<Rep1, Period1>& lhs,
 	                                               const duration<Rep2, Period2>& rhs)
 	{
-		return rhs < lhs;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Rep1, typename Period1, typename Rep2, typename Period2>
 	EASTL_FORCE_INLINE bool operator>=(const duration<Rep1, Period1>& lhs,
 	                                                const duration<Rep2, Period2>& rhs)
 	{
-		return !(lhs < rhs);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	///////////////////////////////////////////////////////////////////////////////
@@ -432,19 +443,29 @@ namespace chrono
 		typedef typename Duration::rep rep;
 		typedef typename Duration::period period;
 
-		inline EA_CONSTEXPR time_point() : mDuration(Duration::zero()) {}
-		EA_CONSTEXPR explicit time_point(const Duration& other) : mDuration(other) {}
+		inline EA_CONSTEXPR time_point() : mDuration(Duration::zero()) {
+    
+}
+		EA_CONSTEXPR explicit time_point(const Duration& other) : mDuration(other) {
+    
+}
 
 		template <typename Duration2>
 		inline EA_CONSTEXPR time_point(
 		    const time_point<Clock, Duration2>& t,
 		    typename eastl::enable_if<eastl::is_convertible<Duration2, Duration>::value>::type** = 0)
-		    : mDuration(t.time_since_epoch()) {}
+		    : mDuration(t.time_since_epoch()) {
+    
+}
 
 		EA_CONSTEXPR Duration time_since_epoch() const { return mDuration; }
 
-		time_point& operator+=(const Duration& d) { mDuration += d; return *this; } 
-		time_point& operator-=(const Duration& d) { mDuration -= d; return *this; }
+		time_point& operator+=(const Duration& d) {
+    __builtin_trap() /* STUB: not implemented */;
+} 
+		time_point& operator-=(const Duration& d) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		static EA_CONSTEXPR time_point min() { return time_point(Duration::min()); }
 		static EA_CONSTEXPR time_point max() { return time_point(Duration::max()); }
@@ -569,74 +590,8 @@ namespace chrono
 		///////////////////////////////////////////////////////////////////////////////
 		inline uint64_t GetTicks()
 		{
-		#if defined EA_PLATFORM_MICROSOFT
-			auto queryFrequency = []
-			{
-				LARGE_INTEGER frequency;
-				QueryPerformanceFrequency(&frequency);
-				return double(1000000000.0L / (long double)frequency.QuadPart);  // nanoseconds per tick
-			};
-
-			auto queryCounter = []
-			{
-				LARGE_INTEGER counter;
-				QueryPerformanceCounter(&counter);
-				return counter.QuadPart;
-			};
-
-			EA_DISABLE_VC_WARNING(4640)  // warning C4640: construction of local static object is not thread-safe (VS2013)
-			static auto frequency = queryFrequency(); // cache cpu frequency on first call
-			EA_RESTORE_VC_WARNING()
-			return uint64_t(frequency * (double)queryCounter());
-		#elif defined EA_PLATFORM_SONY
-			auto queryFrequency = []
-			{
-				// nanoseconds/seconds / ticks/seconds
-				return double(1000000000.0L / (long double)sceKernelGetProcessTimeCounterFrequency());  // nanoseconds per tick
-			};
-
-			auto queryCounter = []
-			{
-				return sceKernelGetProcessTimeCounter();
-			};
-
-			EA_DISABLE_VC_WARNING(4640)  // warning C4640: construction of local static object is not thread-safe (VS2013)
-			static auto frequency = queryFrequency(); // cache cpu frequency on first call
-			EA_RESTORE_VC_WARNING()
-			return uint64_t(frequency * (double)queryCounter());
-		#elif defined(EA_PLATFORM_APPLE)
-			auto queryTimeInfo = []
-			{
-				mach_timebase_info_data_t info;
-				mach_timebase_info(&info);
-				return info;
-			};
-			
-			static auto timeInfo = queryTimeInfo();
-			uint64_t t = mach_absolute_time();
-			t *= timeInfo.numer;
-			t /= timeInfo.denom;
-			return t;
-		#elif defined(EA_PLATFORM_POSIX) // Posix means Linux, Unix, and Macintosh OSX, among others (including Linux-based mobile platforms).
-			#if (defined(CLOCK_REALTIME) || defined(CLOCK_MONOTONIC))
-				timespec ts;
-				int result = clock_gettime(CLOCK_MONOTONIC, &ts);
-
-				if (result == -1 && errno == EINVAL)
-					result = clock_gettime(CLOCK_REALTIME, &ts);
-
-				const uint64_t nNanoseconds = (uint64_t)ts.tv_nsec + ((uint64_t)ts.tv_sec * UINT64_C(1000000000));
-				return nNanoseconds;
-			#else
-				struct timeval tv;
-				gettimeofday(&tv, NULL);
-				const uint64_t nMicroseconds = (uint64_t)tv.tv_usec + ((uint64_t)tv.tv_sec * 1000000);
-				return nMicroseconds;
-			#endif
-        #else
-			#error "chrono not implemented for platform"
-		#endif
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	} // namespace Internal
 
 
@@ -656,9 +611,9 @@ namespace chrono
 
 		// returns a time point representing the current point in time.
 		static time_point now() EA_NOEXCEPT 
-		{ 
-			return time_point(duration(Internal::GetTicks())); 
-		}
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -678,9 +633,9 @@ namespace chrono
 
 		// returns a time point representing the current point in time.
 		static time_point now() EA_NOEXCEPT 
-		{ 
-			return time_point(duration(Internal::GetTicks())); 
-		}
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 

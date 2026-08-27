@@ -1,3 +1,4 @@
+#include <stdexcept>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -150,7 +151,9 @@ namespace eastl
 		using storage_type = eastl::aligned_storage_t<sizeof(value_type), eastl::alignment_of_v<value_type>>;
 
 		constexpr late_constructed() noexcept  // In the case of the late_constructed instance being at global scope, we rely on the
-		  : mStorage(), mpValue(nullptr) {}    // compiler executing this constructor or placing the instance in auto-zeroed-at-startup memory.
+		  : mStorage(), mpValue(nullptr) {
+    
+}    // compiler executing this constructor or placing the instance in auto-zeroed-at-startup memory.
 
 		~late_constructed()
 		{
@@ -161,67 +164,48 @@ namespace eastl
 		template <typename... Args>
 		void construct(Args&&... args)
 		{
-			if(!mpValue)
-				mpValue = new (&mStorage) value_type(eastl::forward<Args>(args)...);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		bool is_constructed() const noexcept
-			{ return mpValue != nullptr; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void destruct()
 		{
-			if(mpValue)
-			{
-				(*mpValue).~value_type();
-				mpValue = nullptr;
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		value_type& operator*() noexcept
 		{
-			if(!mpValue)
-				construct();
-
-			EA_ANALYSIS_ASSUME(mpValue);
-			return *mpValue;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		const value_type& operator*() const noexcept
 		{
-			if(!mpValue)
-				construct();
-
-			EA_ANALYSIS_ASSUME(mpValue);
-			return *mpValue;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		value_type* operator->() noexcept
 		{
-			if(!mpValue)
-				construct();
-			return mpValue;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		const value_type* operator->() const noexcept
 		{
-			if(!mpValue)
-				construct();
-			return mpValue;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		value_type* get() noexcept
 		{
-			if(!mpValue)
-				construct();
-			return mpValue;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		const value_type* get() const noexcept
 		{
-			if(!mpValue)
-				construct();
-			return mpValue;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	protected:
 		storage_type mStorage; // Declared first because it may have aligment requirements, and it would be more space-efficient if it was first.
@@ -237,22 +221,34 @@ namespace eastl
 		typedef late_constructed<T, true, autoDestruct> base_type;
 
 		typename base_type::value_type& operator*() noexcept
-			{ EASTL_ASSERT(base_type::mpValue); return *base_type::mpValue; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		const typename base_type::value_type& operator*() const noexcept
-			{ EASTL_ASSERT(base_type::mpValue); return *base_type::mpValue; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		typename base_type::value_type* operator->() noexcept
-			{ EASTL_ASSERT(base_type::mpValue); return base_type::mpValue; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		const typename base_type::value_type* operator->() const noexcept
-			{ EASTL_ASSERT(base_type::mpValue); return base_type::mpValue; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		typename base_type::value_type* get() noexcept
-			{ return base_type::mpValue; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		const typename base_type::value_type* get() const noexcept
-			{ return base_type::mpValue; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -266,27 +262,8 @@ namespace eastl
 			template <typename InputIterator, typename ForwardIterator>
 			static ForwardIterator impl(InputIterator first, InputIterator last, ForwardIterator dest)
 			{
-				typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-				ForwardIterator currentDest(dest);
-
-#if EASTL_EXCEPTIONS_ENABLED
-				try
-				{
-#endif
-					for (; first != last; ++first, ++currentDest)
-						::new(static_cast<void*>(eastl::addressof(*currentDest))) value_type(*first);
-#if EASTL_EXCEPTIONS_ENABLED
-				}
-				catch (...)
-				{
-					for (; dest < currentDest; ++dest)
-						(*dest).~value_type();
-					throw;
-				}
-#endif
-
-				return currentDest;
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 
 		template<>
@@ -295,13 +272,8 @@ namespace eastl
 			template <typename InputIterator, typename ForwardIterator>
 			static ForwardIterator impl(InputIterator first, InputIterator last, ForwardIterator dest)
 			{
-				typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-
-				for (; first != last; ++first, ++dest)
-					memmove(eastl::addressof(*dest), eastl::addressof(*first), sizeof(value_type));
-
-				return dest;
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 
 		template<>
@@ -310,15 +282,8 @@ namespace eastl
 			template <typename InputIterator, typename ForwardIterator>
 			static ForwardIterator impl(InputIterator first, InputIterator last, ForwardIterator dest)
 			{
-				typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-
-				if (EASTL_UNLIKELY(first == last))
-					return dest;
-
-				auto count = (last - first);
-				memmove(eastl::addressof(*dest), eastl::addressof(*first), sizeof(value_type) * count);
-				return dest + count;
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 	}
 
@@ -339,21 +304,8 @@ namespace eastl
 	template <typename InputIterator, typename ForwardIterator>
 	inline ForwardIterator uninitialized_copy(InputIterator first, InputIterator last, ForwardIterator result)
 	{
-		typedef typename eastl::iterator_traits<InputIterator>::iterator_category  IIC;
-		typedef typename eastl::iterator_traits<ForwardIterator>::iterator_category OIC;
-		typedef typename eastl::iterator_traits<InputIterator>::value_type         value_type_input;
-		typedef typename eastl::iterator_traits<ForwardIterator>::value_type        value_type_output;
-
-		// isTriviallyCopyable identifies if (non-overlapping) objects may be safely copied by means of memcpy/memmove.
-		const bool isTriviallyCopyable = eastl::is_same<value_type_input, value_type_output>::value && eastl::is_trivially_copyable<value_type_output>::value;
-		// ie. is eastl::addressof(*first) valid? ie. invalid for iterators that return value_type&&.
-		const bool isInputIteratorReferenceAddressable = eastl::is_convertible<typename eastl::add_lvalue_reference<value_type_input>::type, typename eastl::iterator_traits<InputIterator>::reference>::value;
-		// can memcpy/memmove a contiguous block, not just the individual elements?
-		const bool areIteratorsContiguous = (eastl::is_pointer<InputIterator>::value || internal::is_contiguous_iterator<IIC>::value) &&
-											(eastl::is_pointer<ForwardIterator>::value || internal::is_contiguous_iterator<OIC>::value);
-
-		return Internal::uninitialized_copy_impl<isTriviallyCopyable, isInputIteratorReferenceAddressable, areIteratorsContiguous>::impl(first, last, result);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// uninitialized_copy_n
@@ -373,27 +325,8 @@ namespace eastl
 		{
 			static ForwardIterator impl(InputIterator first, Count n, ForwardIterator dest)
 			{
-				typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-				ForwardIterator currentDest(dest);
-
-				#if EASTL_EXCEPTIONS_ENABLED
-					try
-					{
-				#endif
-						for(; n > 0; --n, ++first, ++currentDest)
-							::new((void*)(eastl::addressof(*currentDest))) value_type(*first);
-				#if EASTL_EXCEPTIONS_ENABLED
-					}
-					catch(...)
-					{
-						for(; dest < currentDest; ++dest)
-							(*dest).~value_type();
-						throw;
-					}
-				#endif
-
-				return currentDest;
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 
 		template <typename InputIterator, typename Count, typename ForwardIterator>
@@ -401,17 +334,16 @@ namespace eastl
 		{
 			static inline ForwardIterator impl(InputIterator first, Count n, ForwardIterator dest)
 			{
-				return eastl::uninitialized_copy(first, first + n, dest);
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 	}
 
 	template<typename InputIterator, typename Count, typename ForwardIterator>
 	inline ForwardIterator uninitialized_copy_n(InputIterator first, Count n, ForwardIterator dest)
 	{
-		typedef typename eastl::iterator_traits<InputIterator>::iterator_category IC;
-		return Internal::uninitialized_copy_n_impl<InputIterator, Count, ForwardIterator, IC>::impl(first, n, dest);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -423,8 +355,8 @@ namespace eastl
 	template <typename First, typename Last, typename Result>
 	EASTL_REMOVE_AT_2024_SEPT inline Result uninitialized_copy_ptr(First first, Last last, Result result)
 	{
-		return eastl::uninitialized_copy(first, last, result);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -436,8 +368,8 @@ namespace eastl
 	template <typename First, typename Last, typename Result>
 	EASTL_REMOVE_AT_2024_SEPT inline Result uninitialized_move_ptr(First first, Last last, Result dest)
 	{
-		return uninitialized_move(first, last, dest);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -455,8 +387,8 @@ namespace eastl
 	template <typename InputIterator, typename ForwardIterator>
 	inline ForwardIterator uninitialized_move(InputIterator first, InputIterator last, ForwardIterator dest)
 	{
-		return eastl::uninitialized_copy(eastl::make_move_iterator(first), eastl::make_move_iterator(last), dest);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// uninitialized_move_if_noexcept
@@ -467,12 +399,8 @@ namespace eastl
 	template <typename InputIterator, typename ForwardIterator>
 	inline ForwardIterator uninitialized_move_if_noexcept(InputIterator first, InputIterator last, ForwardIterator dest)
 	{
-#if EASTL_EXCEPTIONS_ENABLED
-		return eastl::uninitialized_copy(eastl::make_move_if_noexcept_iterator(first), eastl::make_move_if_noexcept_iterator(last), dest);
-#else
-		return eastl::uninitialized_move(first, last, dest);
-#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// uninitialized_move_ptr_if_noexcept
@@ -480,8 +408,8 @@ namespace eastl
 	template <typename First, typename Last, typename Result>
 	EASTL_REMOVE_AT_2024_SEPT inline Result uninitialized_move_ptr_if_noexcept(First first, Last last, Result dest)
 	{
-		return eastl::uninitialized_move_if_noexcept(first, last, dest);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// uninitialized_move_n
@@ -497,8 +425,8 @@ namespace eastl
 	template<typename InputIterator, typename Count, typename ForwardIterator>
 	inline ForwardIterator uninitialized_move_n(InputIterator first, Count n, ForwardIterator dest)
 	{
-		return eastl::uninitialized_copy_n(eastl::make_move_iterator(first), n, dest);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// uninitialized_default_construct
 	///
@@ -513,25 +441,8 @@ namespace eastl
 	template <typename ForwardIterator>
 	inline void uninitialized_default_construct(ForwardIterator first, ForwardIterator last)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-		ForwardIterator currentDest(first);
-
-	#if EASTL_EXCEPTIONS_ENABLED
-		try
-		{
-	#endif
-			for (; currentDest != last; ++currentDest)
-				::new (eastl::addressof(*currentDest)) value_type;
-	#if EASTL_EXCEPTIONS_ENABLED
-		}
-		catch (...)
-		{
-			for (; first < currentDest; ++first)
-				(*first).~value_type();
-			throw;
-		}
-	#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// uninitialized_default_construct_n
 	///
@@ -542,26 +453,8 @@ namespace eastl
 	template <typename ForwardIterator, typename Count>
 	inline ForwardIterator uninitialized_default_construct_n(ForwardIterator first, Count n)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-		ForwardIterator currentDest(first);
-
-	#if EASTL_EXCEPTIONS_ENABLED
-		try
-		{
-	#endif
-			for (; n > 0; --n, ++currentDest)
-				::new (eastl::addressof(*currentDest)) value_type;
-			return currentDest;
-	#if EASTL_EXCEPTIONS_ENABLED
-		}
-		catch (...)
-		{
-			for (; first < currentDest; ++first)
-				(*first).~value_type();
-			throw;
-		}
-	#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// uninitialized_fill
 	///
@@ -578,39 +471,21 @@ namespace eastl
 		template <typename ForwardIterator, typename T>
 		inline void uninitialized_fill_impl(ForwardIterator first, ForwardIterator last, const T& value, true_type)
 		{
-			eastl::fill(first, last, value);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename ForwardIterator, typename T>
 		void uninitialized_fill_impl(ForwardIterator first, ForwardIterator last, const T& value, false_type)
 		{
-			typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-			ForwardIterator currentDest(first);
-
-			#if EASTL_EXCEPTIONS_ENABLED
-				try
-				{
-			#endif
-					for(; currentDest != last; ++currentDest)
-						::new((void*)eastl::addressof(*currentDest)) value_type(value);
-			#if EASTL_EXCEPTIONS_ENABLED
-				}
-				catch(...)
-				{
-					for(; first < currentDest; ++first)
-						(*first).~value_type();
-					throw;
-				}
-			#endif
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	}
 
 	template <typename ForwardIterator, typename T>
 	inline void uninitialized_fill(ForwardIterator first, ForwardIterator last, const T& value)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-		Internal::uninitialized_fill_impl(first, last, value, eastl::is_trivially_copy_assignable<value_type>());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// uninitialized_value_construct
 	///
@@ -625,25 +500,8 @@ namespace eastl
 	template <class ForwardIterator>
 	void uninitialized_value_construct(ForwardIterator first, ForwardIterator last)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-		ForwardIterator currentDest(first);
-
-    #if EASTL_EXCEPTIONS_ENABLED
-		try
-		{
-	#endif
-			for (; currentDest != last; ++currentDest)
-				::new (eastl::addressof(*currentDest)) value_type();
-	#if EASTL_EXCEPTIONS_ENABLED
-		}
-		catch (...)
-		{
-			for (; first < currentDest; ++first)
-				(*first).~value_type();
-			throw;
-		}
-	#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// uninitialized_value_construct_n
 	///
@@ -658,26 +516,8 @@ namespace eastl
 	template <class ForwardIterator, class Count>
 	ForwardIterator uninitialized_value_construct_n(ForwardIterator first, Count n)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-		ForwardIterator currentDest(first);
-
-	#if EASTL_EXCEPTIONS_ENABLED
-		try
-		{
-	#endif
-			for (; n > 0; --n, ++currentDest)
-				::new (eastl::addressof(*currentDest)) value_type();
-			return currentDest;
-	#if EASTL_EXCEPTIONS_ENABLED
-		}
-		catch (...)
-		{
-			for (; first < currentDest; ++first)
-				(*first).~value_type();
-			throw;
-		}
-	#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// uninitialized_fill_ptr
 	///
@@ -688,8 +528,8 @@ namespace eastl
 	template <typename T>
 	EASTL_REMOVE_AT_2024_SEPT inline void uninitialized_fill_ptr(T* first, T* last, const T& value)
 	{
-		uninitialized_fill(first, last, value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// uninitialized_fill_n
 	///
@@ -706,40 +546,21 @@ namespace eastl
 		template <typename ForwardIterator, typename Count, typename T>
 		inline void uninitialized_fill_n_impl(ForwardIterator first, Count n, const T& value, true_type /* is_trivially_copy_assignable */)
 		{
-			// todo: implementation uses operator = but should instead be using the copy constructor, as documented.
-			eastl::fill_n(first, n, value);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename ForwardIterator, typename Count, typename T>
 		void uninitialized_fill_n_impl(ForwardIterator first, Count n, const T& value, false_type /* is_trivially_copy_assignable */)
 		{
-			typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-			ForwardIterator currentDest(first);
-
-			#if EASTL_EXCEPTIONS_ENABLED
-				try
-				{
-			#endif
-					for(; n > 0; --n, ++currentDest)
-						::new((void*)eastl::addressof(*currentDest)) value_type(value);
-			#if EASTL_EXCEPTIONS_ENABLED
-				}
-				catch(...)
-				{
-					for(; first < currentDest; ++first)
-						(*first).~value_type();
-					throw;
-				}
-			#endif
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	}
 
 	template <typename ForwardIterator, typename Count, typename T>
 	inline void uninitialized_fill_n(ForwardIterator first, Count n, const T& value)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-		Internal::uninitialized_fill_n_impl(first, n, value, eastl::is_trivially_copy_assignable<value_type>());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -752,8 +573,8 @@ namespace eastl
 	template <typename T, typename Count>
 	EASTL_REMOVE_AT_2024_SEPT inline void uninitialized_fill_n_ptr(T* first, Count n, const T& value)
 	{
-		uninitialized_fill_n(first, n, value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -767,24 +588,8 @@ namespace eastl
 	inline void uninitialized_copy_fill(InputIterator first1, InputIterator last1,
 										ForwardIterator first2, ForwardIterator last2, const T& value)
 	{
-		const ForwardIterator mid(eastl::uninitialized_copy(first1, last1, first2));
-
-		#if EASTL_EXCEPTIONS_ENABLED
-			typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-			try
-			{
-		#endif
-				eastl::uninitialized_fill(mid, last2, value);
-		#if EASTL_EXCEPTIONS_ENABLED
-			}
-			catch(...)
-			{
-				for(; first2 < mid; ++first2)
-					(*first2).~value_type();
-				throw;
-			}
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// uninitialized_move_fill
@@ -796,24 +601,8 @@ namespace eastl
 	inline void uninitialized_move_fill(InputIterator first1, InputIterator last1,
 										ForwardIterator first2, ForwardIterator last2, const T& value)
 	{
-		const ForwardIterator mid(eastl::uninitialized_move(first1, last1, first2));
-
-		#if EASTL_EXCEPTIONS_ENABLED
-			typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-			try
-			{
-		#endif
-				eastl::uninitialized_fill(mid, last2, value);
-		#if EASTL_EXCEPTIONS_ENABLED
-			}
-			catch(...)
-			{
-				for(; first2 < mid; ++first2)
-					(*first2).~value_type();
-				throw;
-			}
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -827,24 +616,8 @@ namespace eastl
 	inline ForwardIterator
 	uninitialized_fill_copy(ForwardIterator result, ForwardIterator mid, const T& value, InputIterator first, InputIterator last)
 	{
-		eastl::uninitialized_fill(result, mid, value);
-
-		#if EASTL_EXCEPTIONS_ENABLED
-			typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-			try
-			{
-		#endif
-				return eastl::uninitialized_copy(first, last, mid);
-		#if EASTL_EXCEPTIONS_ENABLED
-			}
-			catch(...)
-			{
-				for(; result < mid; ++result)
-					(*result).~value_type();
-				throw;
-			}
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// uninitialized_fill_move
@@ -855,24 +628,8 @@ namespace eastl
 	inline ForwardIterator
 	uninitialized_fill_move(ForwardIterator result, ForwardIterator mid, const T& value, InputIterator first, InputIterator last)
 	{
-		eastl::uninitialized_fill(result, mid, value);
-
-		#if EASTL_EXCEPTIONS_ENABLED
-			typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-			try
-			{
-		#endif
-				return eastl::uninitialized_move(first, last, mid);
-		#if EASTL_EXCEPTIONS_ENABLED
-			}
-			catch(...)
-			{
-				for(; result < mid; ++result)
-					(*result).~value_type();
-				throw;
-			}
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -887,24 +644,8 @@ namespace eastl
 							InputIterator2 first2, InputIterator2 last2,
 							ForwardIterator result)
 	{
-		const ForwardIterator mid(eastl::uninitialized_copy(first1, last1, result));
-
-		#if EASTL_EXCEPTIONS_ENABLED
-			typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-			try
-			{
-		#endif
-				return eastl::uninitialized_copy(first2, last2, mid);
-		#if EASTL_EXCEPTIONS_ENABLED
-			}
-			catch(...)
-			{
-				for(; result < mid; ++result)
-					(*result).~value_type();
-				throw;
-			}
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -920,12 +661,8 @@ namespace eastl
 	template <typename T>
 	inline void destruct(T* p)
 	{
-		// https://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k(C4100)&rd=true
-		// "C4100 can also be issued when code calls a destructor on a otherwise unreferenced parameter
-		//  of primitive type. This is a limitation of the Visual C++ compiler."
-		EA_UNUSED(p);
-		p->~T();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -934,17 +671,14 @@ namespace eastl
 	template <typename ForwardIterator>
 	inline void destruct_impl(ForwardIterator /*first*/, ForwardIterator /*last*/, true_type) // true means the type has a trivial destructor.
 	{
-		// Empty. The type has a trivial destructor.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename ForwardIterator>
 	inline void destruct_impl(ForwardIterator first, ForwardIterator last, false_type) // false means the type has a significant destructor.
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-
-		for(; first != last; ++first)
-			(*first).~value_type();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// destruct
 	///
@@ -956,9 +690,8 @@ namespace eastl
 	template <typename ForwardIterator>
 	inline void destruct(ForwardIterator first, ForwardIterator last)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-		destruct_impl(first, last, eastl::is_trivially_destructible<value_type>());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// destroy_at
@@ -977,9 +710,8 @@ namespace eastl
 	template <typename T>
 	inline void destroy_at(T* p)
 	{
-		EA_UNUSED(p);
-		p->~T();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// destroy
@@ -991,9 +723,8 @@ namespace eastl
 	template <typename ForwardIterator>
 	inline void destroy(ForwardIterator first, ForwardIterator last)
 	{
-		for (; first != last; ++first)
-			eastl::destroy_at(eastl::addressof(*first));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// destroy_n
@@ -1005,11 +736,8 @@ namespace eastl
 	template <typename ForwardIterator, typename Size>
 	ForwardIterator destroy_n(ForwardIterator first, Size n)
 	{
-		for (; n > 0; ++first, --n)
-			eastl::destroy_at(eastl::addressof(*first));
-
-		return first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// align
@@ -1030,22 +758,8 @@ namespace eastl
 
 	inline void* align(size_t alignment, size_t size, void*& ptr, size_t& space)
 	{
-		if(space >= size)
-		{
-			char*  ptrAligned = (char*)(((size_t)ptr + (alignment - 1)) & -alignment);
-			size_t offset     = (size_t)(ptrAligned - (char*)ptr);
-
-			if((space - size) >= offset) // Have to implement this in terms of subtraction instead of addition in order to handle possible overflow.
-			{
-				ptr    = ptrAligned;
-				space -= offset;
-
-				return ptrAligned;
-			}
-		}
-
-		return NULL;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// align_advance
@@ -1065,24 +779,8 @@ namespace eastl
 
 	inline void* align_advance(size_t alignment, size_t size, void* ptr, size_t space, void** ptrAdvanced = NULL, size_t* spaceReduced = NULL)
 	{
-		if(space >= size)
-		{
-			char*  ptrAligned = (char*)(((size_t)ptr + (alignment - 1)) & -alignment);
-			size_t offset     = (size_t)(ptrAligned - (char*)ptr);
-
-			if((space - size) >= offset) // Have to implement this in terms of subtraction instead of addition in order to handle possible overflow.
-			{
-				if(ptrAdvanced)
-					*ptrAdvanced = (ptrAligned + size);
-				if(spaceReduced)
-					*spaceReduced = (space - (offset + size));
-
-				return ptrAligned;
-			}
-		}
-
-		return NULL;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	///////////////////////////////////////////////////////////////////////
 	// pointer_traits
@@ -1194,7 +892,9 @@ namespace eastl
 
 	public:
 		static pointer pointer_to(typename eastl::conditional<eastl::is_void<element_type>::value, void, element_type>::type& r) // 20.6.3.2: if element_type is (possibly cv-qualified) void, the type of r is unspecified; otherwise, it is T&.
-			{ return pointer::pointer_to(r); } // The C++11 Standard requires that Pointer provides a static pointer_to function.
+			{
+    __builtin_trap() /* STUB: not implemented */;
+} // The C++11 Standard requires that Pointer provides a static pointer_to function.
 	};
 
 
@@ -1215,7 +915,9 @@ namespace eastl
 
 	public:
 		static pointer pointer_to(typename eastl::conditional<eastl::is_void<element_type>::value, void, element_type>::type& r) EA_NOEXCEPT
-			{ return eastl::addressof(r); } // 20.6.3.2: if element_type is (possibly cv-qualified) void, the type of r is unspecified; otherwise, it is T&.
+			{
+    __builtin_trap() /* STUB: not implemented */;
+} // 20.6.3.2: if element_type is (possibly cv-qualified) void, the type of r is unspecified; otherwise, it is T&.
 	};
 
 	///////////////////////////////////////////////////////////////////////

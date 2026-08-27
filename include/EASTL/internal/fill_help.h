@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -30,11 +32,8 @@ namespace eastl
 		template <typename ForwardIterator, typename T>
 		static void do_fill(ForwardIterator first, ForwardIterator last, const T& value)
 		{
-			// The C++ standard doesn't specify whether we need to create a temporary
-			// or not, but all std STL implementations are written like what we have here.
-			for(; first != last; ++first)
-				*first = value;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <>
@@ -43,16 +42,8 @@ namespace eastl
 		template <typename ForwardIterator, typename T>
 		static void do_fill(ForwardIterator first, ForwardIterator last, const T& value)
 		{
-			typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-			// We create a temp and fill from that because value might alias to the 
-			// destination range and so the compiler would be forced into generating 
-			// less efficient code.
-			for(const T temp = value; first != last; ++first)
-			{
-				EA_UNUSED(temp);
-				*first = static_cast<value_type>(temp);
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	/// fill
@@ -74,16 +65,8 @@ namespace eastl
 	template <typename ForwardIterator, typename T>
 	inline void fill(ForwardIterator first, ForwardIterator last, const T& value)
 	{
-		eastl::fill_imp< is_scalar<T>::value >::do_fill(first, last, value);
-
-		// Possibly better implementation, as it will deal with small PODs as well as scalars:
-		// bEasyCopy is true if the type has a trivial constructor (e.g. is a POD) and if 
-		// it is small. Thus any built-in type or any small user-defined struct will qualify.
-		//const bool bEasyCopy = eastl::type_and<eastl::has_trivial_constructor<T>::value, 
-		//                                       eastl::integral_constant<bool, (sizeof(T) <= 16)>::value;
-		//eastl::fill_imp<bEasyCopy>::do_fill(first, last, value);
-
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	#if (defined(EA_COMPILER_GNUC) || defined(__clang__)) && (defined(EA_PROCESSOR_X86) || defined(EA_PROCESSOR_X86_64))
 		#if defined(EA_PROCESSOR_X86_64)
@@ -213,33 +196,33 @@ namespace eastl
 
 	inline void fill(char* first, char* last, const char& c) // It's debateable whether we should use 'char& c' or 'char c' here.
 	{
-		memset(first, (unsigned char)c, (size_t)(last - first));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline void fill(char* first, char* last, const int c) // This is used for cases like 'fill(first, last, 0)'.
 	{
-		memset(first, (unsigned char)c, (size_t)(last - first));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline void fill(unsigned char* first, unsigned char* last, const unsigned char& c)
 	{
-		memset(first, (unsigned char)c, (size_t)(last - first));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline void fill(unsigned char* first, unsigned char* last, const int c)
 	{
-		memset(first, (unsigned char)c, (size_t)(last - first));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline void fill(signed char* first, signed char* last, const signed char& c)
 	{
-		memset(first, (unsigned char)c, (size_t)(last - first));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline void fill(signed char* first, signed char* last, const int c)
 	{
-		memset(first, (unsigned char)c, (size_t)(last - first));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	#if defined(_MSC_VER) || defined(__BORLANDC__) || defined(__ICL) // ICL = Intel compiler
 		inline void fill(bool* first, bool* last, const bool& b)
@@ -262,10 +245,8 @@ namespace eastl
 		template <typename OutputIterator, typename Size, typename T>
 		static OutputIterator do_fill(OutputIterator first, Size n, const T& value)
 		{
-			for(; n-- > 0; ++first)
-				*first = value;
-			return first;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <>
@@ -274,15 +255,8 @@ namespace eastl
 		template <typename OutputIterator, typename Size, typename T>
 		static OutputIterator do_fill(OutputIterator first, Size n, const T& value)
 		{
-			typedef typename eastl::iterator_traits<OutputIterator>::value_type value_type;
-
-			// We create a temp and fill from that because value might alias to 
-			// the destination range and so the compiler would be forced into 
-			// generating less efficient code.
-			for(const T temp = value; n-- > 0; ++first)
-				*first = static_cast<value_type>(temp);
-			return first;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	/// fill_n
@@ -298,26 +272,26 @@ namespace eastl
 	template <typename OutputIterator, typename Size, typename T>
 	OutputIterator fill_n(OutputIterator first, Size n, const T& value)
 	{
-		return eastl::fill_n_imp<is_scalar<T>::value>::do_fill(first, n, value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Size>
 	inline char* fill_n(char* first, Size n, const char& c)
 	{
-		return (char*)memset(first, (char)c, (size_t)n) + n;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Size>
 	inline unsigned char* fill_n(unsigned char* first, Size n, const unsigned char& c)
 	{
-		return (unsigned char*)memset(first, (unsigned char)c, (size_t)n) + n;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Size>
 	inline signed char* fill_n(signed char* first, Size n, const signed char& c)
 	{
-		return (signed char*)memset(first, (signed char)c, n) + (size_t)n;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	#if defined(_MSC_VER) || defined(__BORLANDC__) || defined(__ICL) // ICL = Intel compiler
 		template <typename Size>

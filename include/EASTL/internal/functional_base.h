@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -185,7 +187,9 @@ namespace eastl
 	struct less
 	{
 		EA_CPP14_CONSTEXPR bool operator()(const T& a, const T& b) const
-			{ return a < b; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	// http://en.cppreference.com/w/cpp/utility/functional/less_void
@@ -196,7 +200,9 @@ namespace eastl
 		template<typename A, typename B>
 		EA_CPP14_CONSTEXPR auto operator()(A&& a, B&& b) const
 			-> decltype(eastl::forward<A>(a) < eastl::forward<B>(b))
-			{ return eastl::forward<A>(a) < eastl::forward<B>(b); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 

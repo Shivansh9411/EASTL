@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -141,11 +143,8 @@ namespace eastl
 			, mpCapacity((Link*)pMemory)
 			, mnNodeSize(0) // This is normally set in the init function.
 		{
-			#if EASTL_FIXED_SIZE_TRACKING_ENABLED
-				mnCurrentSize = 0;
-				mnPeakSize    = 0;
-			#endif
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// fixed_pool_base
@@ -162,9 +161,8 @@ namespace eastl
 		///
 		fixed_pool_base& operator=(const fixed_pool_base&)
 		{
-			// By design we do nothing. We don't attempt to deep-copy member data. 
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// init
@@ -185,12 +183,8 @@ namespace eastl
 		///
 		size_t peak_size() const
 		{
-			#if EASTL_FIXED_SIZE_TRACKING_ENABLED
-				return mnPeakSize;
-			#else
-				return 0;
-			#endif
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// can_allocate
@@ -199,8 +193,8 @@ namespace eastl
 		///
 		bool can_allocate() const
 		{
-			return (mpHead != NULL) || (mpNext != mpCapacity);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	public:
 		/// Link
@@ -251,7 +245,8 @@ namespace eastl
 		fixed_pool(void* pMemory = NULL)
 			: fixed_pool_base(pMemory)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// fixed_pool
@@ -261,8 +256,8 @@ namespace eastl
 		fixed_pool(void* pMemory, size_t memorySize, size_t nodeSize, 
 					size_t alignment, size_t alignmentOffset = 0)
 		{
-			init(pMemory, memorySize, nodeSize, alignment, alignmentOffset);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// fixed_pool
@@ -279,9 +274,8 @@ namespace eastl
 		///
 		fixed_pool& operator=(const fixed_pool&)
 		{
-			// By design we do nothing. We don't attempt to deep-copy member data. 
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// allocate
@@ -291,45 +285,13 @@ namespace eastl
 		///
 		void* allocate()
 		{
-			Link* pLink = mpHead;
-
-			if(pLink) // If we have space...
-			{
-				#if EASTL_FIXED_SIZE_TRACKING_ENABLED
-					if(++mnCurrentSize > mnPeakSize)
-						mnPeakSize = mnCurrentSize;
-				#endif
-
-				mpHead = pLink->mpNext;
-				return pLink;
-			}
-			else
-			{
-				// If there's no free node in the free list, just
-				// allocate another from the reserved memory area
-
-				if(mpNext != mpCapacity)
-				{
-					pLink = mpNext;
-					
-					mpNext = reinterpret_cast<Link*>(reinterpret_cast<char*>(mpNext) + mnNodeSize);
-
-					#if EASTL_FIXED_SIZE_TRACKING_ENABLED
-						if(++mnCurrentSize > mnPeakSize)
-							mnPeakSize = mnCurrentSize;
-					#endif
-
-					return pLink;
-				}
-
-				return NULL;
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void* allocate(size_t /*alignment*/, size_t /*offset*/)
 		{
-			return allocate();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		
 		/// deallocate
 		///
@@ -339,13 +301,8 @@ namespace eastl
 		///
 		void deallocate(void* p)
 		{
-			#if EASTL_FIXED_SIZE_TRACKING_ENABLED
-				--mnCurrentSize;
-			#endif
-
-			((Link*)p)->mpNext = mpHead;
-			mpHead = ((Link*)p);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		using fixed_pool_base::can_allocate;
@@ -353,14 +310,14 @@ namespace eastl
 
 		const char* get_name() const
 		{
-			return EASTL_FIXED_POOL_DEFAULT_NAME;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void set_name(const char*)
 		{
-			// Nothing to do. We don't allocate memory.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // fixed_pool
 
@@ -385,26 +342,24 @@ namespace eastl
 			: fixed_pool_base(pMemory),
 			  mOverflowAllocator(EASTL_FIXED_POOL_DEFAULT_NAME)
 		{
-			// Leave mpPoolBegin, mpPoolEnd uninitialized.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		fixed_pool_with_overflow(void* pMemory, const overflow_allocator_type& allocator)
 			: fixed_pool_base(pMemory),
 			  mOverflowAllocator(allocator)
 		{
-			// Leave mpPoolBegin, mpPoolEnd uninitialized.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		fixed_pool_with_overflow(void* pMemory, size_t memorySize, size_t nodeSize, 
 								 size_t alignment, size_t alignmentOffset = 0)
 			: mOverflowAllocator(EASTL_FIXED_POOL_DEFAULT_NAME)
 		{
-			fixed_pool_base::init(pMemory, memorySize, nodeSize, alignment, alignmentOffset);
-
-			mpPoolBegin = pMemory;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		fixed_pool_with_overflow(void* pMemory, size_t memorySize, size_t nodeSize, 
@@ -412,10 +367,8 @@ namespace eastl
 								 const overflow_allocator_type& allocator)
 			: mOverflowAllocator(allocator)
 		{
-			fixed_pool_base::init(pMemory, memorySize, nodeSize, alignment, alignmentOffset);
-
-			mpPoolBegin = pMemory;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		// Disabled because the default is sufficient. While it normally makes no sense to deep copy
@@ -429,110 +382,32 @@ namespace eastl
 
 		fixed_pool_with_overflow& operator=(const fixed_pool_with_overflow& x)
 		{
-			#if EASTL_ALLOCATOR_COPY_ENABLED
-				mOverflowAllocator = x.mOverflowAllocator;
-			#else
-				(void)x;
-			#endif
-
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void init(void* pMemory, size_t memorySize, size_t nodeSize,
 					size_t alignment, size_t alignmentOffset = 0)
 		{
-			fixed_pool_base::init(pMemory, memorySize, nodeSize, alignment, alignmentOffset);
-
-			mpPoolBegin = pMemory;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void* allocate()
 		{
-			void* p     = NULL;
-			Link* pLink = mpHead;
-
-			if(pLink)
-			{
-				// Unlink from chain
-				p      = pLink;
-				mpHead = pLink->mpNext;
-			}
-			else
-			{
-				// If there's no free node in the free list, just
-				// allocate another from the reserved memory area
-
-				if(mpNext != mpCapacity)
-				{
-					p      = pLink = mpNext;
-					mpNext = reinterpret_cast<Link*>(reinterpret_cast<char*>(mpNext) + mnNodeSize);
-				}
-				else
-					p = mOverflowAllocator.allocate(mnNodeSize);
-			}
-
-			#if EASTL_FIXED_SIZE_TRACKING_ENABLED
-				if(p && (++mnCurrentSize > mnPeakSize))
-					mnPeakSize = mnCurrentSize;
-			#endif
-
-			return p;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void* allocate(size_t alignment, size_t alignmentOffset)
 		{
-			void* p = NULL;
-			Link* pLink = mpHead;
-
-			if (pLink)
-			{
-				// Unlink from chain
-				p = pLink;
-				mpHead = pLink->mpNext;
-			}
-			else
-			{
-				// If there's no free node in the free list, just
-				// allocate another from the reserved memory area
-
-				if (mpNext != mpCapacity)
-				{
-					p = pLink = mpNext;
-					mpNext = reinterpret_cast<Link*>(reinterpret_cast<char*>(mpNext)+mnNodeSize);
-				}
-				else
-				{
-					p = allocate_memory(mOverflowAllocator, mnNodeSize, alignment, alignmentOffset);
-					EASTL_ASSERT_MSG(p != nullptr, "the behaviour of eastl::allocators that return nullptr is not defined.");
-				}
-
-			}
-
-			#if EASTL_FIXED_SIZE_TRACKING_ENABLED
-				if (p && (++mnCurrentSize > mnPeakSize))
-					mnPeakSize = mnCurrentSize;
-			#endif
-
-			return p;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void deallocate(void* p)
 		{
-			#if EASTL_FIXED_SIZE_TRACKING_ENABLED
-				--mnCurrentSize;
-			#endif
-
-			if((p >= mpPoolBegin) && (p < mpCapacity))
-			{
-				((Link*)p)->mpNext = mpHead;
-				mpHead = ((Link*)p);
-			}
-			else
-				mOverflowAllocator.deallocate(p, (size_t)mnNodeSize);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		using fixed_pool_base::can_allocate;
@@ -540,32 +415,32 @@ namespace eastl
 
 		const char* get_name() const
 		{
-			return mOverflowAllocator.get_name();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void set_name(const char* pName)
 		{
-			mOverflowAllocator.set_name(pName);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		const overflow_allocator_type& get_overflow_allocator() const
 		{
-			return mOverflowAllocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		overflow_allocator_type& get_overflow_allocator()
 		{
-			return mOverflowAllocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		
 
 		void set_overflow_allocator(const overflow_allocator_type& overflowAllocator)
 		{
-			mOverflowAllocator = overflowAllocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	public:
 		OverflowAllocator mOverflowAllocator; 
 		void*             mpPoolBegin;         // Ideally we wouldn't need this member variable. he problem is that the information about the pool buffer and object size is stored in the owning container and we can't have access to it without increasing the amount of code we need and by templating more code. It may turn out that simply storing data here is smaller in the end.
@@ -633,13 +508,15 @@ namespace eastl
 		fixed_node_allocator(void* pNodeBuffer)
 			: mPool(pNodeBuffer, kNodesSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		fixed_node_allocator(void* pNodeBuffer, const overflow_allocator_type& allocator)
 			: mPool(pNodeBuffer, kNodesSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset, allocator)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// fixed_node_allocator
@@ -659,36 +536,32 @@ namespace eastl
 		fixed_node_allocator(const this_type& x)
 			: mPool(x.mPool.mpNext, kNodesSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset, x.mPool.mOverflowAllocator)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		this_type& operator=(const this_type& x)
 		{
-			mPool = x.mPool;
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void* allocate(size_t n, int /*flags*/ = 0)
 		{
-			(void)n;
-			EASTL_ASSERT(n == kNodeSize);
-			return mPool.allocate();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void* allocate(size_t n, size_t alignment, size_t offset, int /*flags*/ = 0)
 		{
-			(void)n;
-			EASTL_ASSERT(n == kNodeSize);
-			return mPool.allocate(alignment, offset);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void deallocate(void* p, size_t)
 		{
-			mPool.deallocate(p);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// can_allocate
@@ -697,8 +570,8 @@ namespace eastl
 		///
 		bool can_allocate() const
 		{
-			return mPool.can_allocate();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// reset
@@ -708,44 +581,44 @@ namespace eastl
 		///
 		void reset(void* pNodeBuffer)
 		{
-			mPool.init(pNodeBuffer, kBufferSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		const char* get_name() const
 		{
-			return mPool.get_name();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void set_name(const char* pName)
 		{
-			mPool.set_name(pName);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		const overflow_allocator_type& get_overflow_allocator() const EA_NOEXCEPT
 		{
-			return mPool.mOverflowAllocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		overflow_allocator_type& get_overflow_allocator() EA_NOEXCEPT
 		{
-			return mPool.mOverflowAllocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void set_overflow_allocator(const overflow_allocator_type& allocator)
 		{
-			mPool.mOverflowAllocator = allocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void copy_overflow_allocator(const this_type& x)  // This function exists so we can write generic code that works for allocators that do and don't have overflow allocators.
 		{
-			mPool.mOverflowAllocator = x.mPool.mOverflowAllocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // fixed_node_allocator
 
@@ -778,13 +651,15 @@ namespace eastl
 		fixed_node_allocator(void* pNodeBuffer)
 			: mPool(pNodeBuffer, kNodesSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		fixed_node_allocator(void* pNodeBuffer, const overflow_allocator_type& /*allocator*/) // allocator is unused because bEnableOverflow is false in this specialization.
 			: mPool(pNodeBuffer, kNodesSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// fixed_node_allocator
@@ -804,89 +679,80 @@ namespace eastl
 		fixed_node_allocator(const this_type& x)            // No need to copy the overflow allocator, because bEnableOverflow is false in this specialization.
 			: mPool(x.mPool.mpNext, kNodesSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		this_type& operator=(const this_type& x)
 		{
-			mPool = x.mPool;
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void* allocate(size_t n, int /*flags*/ = 0)
 		{
-			(void)n;
-			EASTL_ASSERT(n == kNodeSize);
-			return mPool.allocate();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void* allocate(size_t n, size_t alignment, size_t offset, int /*flags*/ = 0)
 		{
-			(void)n;
-			EASTL_ASSERT(n == kNodeSize);
-			return mPool.allocate(alignment, offset);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void deallocate(void* p, size_t)
 		{
-			mPool.deallocate(p);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		bool can_allocate() const
 		{
-			return mPool.can_allocate();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void reset(void* pNodeBuffer)
 		{
-			mPool.init(pNodeBuffer, kBufferSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		const char* get_name() const
 		{
-			return mPool.get_name();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void set_name(const char* pName)
 		{
-			mPool.set_name(pName);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		const overflow_allocator_type& get_overflow_allocator() const EA_NOEXCEPT
 		{
-			EASTL_ASSERT(false);
-			overflow_allocator_type* pNULL = NULL;
-			return *pNULL; // This is not pretty, but it should never execute. This is here only to allow this to compile.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		overflow_allocator_type& get_overflow_allocator() EA_NOEXCEPT
 		{
-			EASTL_ASSERT(false);
-			overflow_allocator_type* pNULL = NULL;
-			return *pNULL; // This is not pretty, but it should never execute. This is here only to allow this to compile.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void set_overflow_allocator(const overflow_allocator_type& /*allocator*/)
 		{
-			// We don't have an overflow allocator.
-			EASTL_ASSERT(false);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void copy_overflow_allocator(const this_type&)  // This function exists so we can write generic code that works for allocators that do and don't have overflow allocators.
 		{
-			// We don't have an overflow allocator.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // fixed_node_allocator
 
@@ -901,16 +767,16 @@ namespace eastl
 	inline bool operator==(const fixed_node_allocator<nodeSize, nodeCount, nodeAlignment, nodeAlignmentOffset, bEnableOverflow, OverflowAllocator>& a, 
 						   const fixed_node_allocator<nodeSize, nodeCount, nodeAlignment, nodeAlignmentOffset, bEnableOverflow, OverflowAllocator>& b)
 	{
-		return (&a == &b); // They are only equal if they are the same object.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t nodeSize, size_t nodeCount, size_t nodeAlignment, size_t nodeAlignmentOffset, bool bEnableOverflow, typename OverflowAllocator>
 	inline bool operator!=(const fixed_node_allocator<nodeSize, nodeCount, nodeAlignment, nodeAlignmentOffset, bEnableOverflow, OverflowAllocator>& a, 
 						   const fixed_node_allocator<nodeSize, nodeCount, nodeAlignment, nodeAlignmentOffset, bEnableOverflow, OverflowAllocator>& b)
 	{
-		return (&a != &b); // They are only equal if they are the same object.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -970,30 +836,32 @@ namespace eastl
 			: mPool(pNodeBuffer, kBufferSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset),
 			  mpBucketBuffer(NULL)
 		{
-			// EASTL_ASSERT(false); // As it stands now, this is not supposed to be called.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		fixed_hashtable_allocator(void* pNodeBuffer, const overflow_allocator_type& allocator)
 			: mPool(pNodeBuffer, kBufferSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset, allocator),
 			  mpBucketBuffer(NULL)
 		{
-			// EASTL_ASSERT(false); // As it stands now, this is not supposed to be called.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		fixed_hashtable_allocator(void* pNodeBuffer, void* pBucketBuffer)
 			: mPool(pNodeBuffer, kBufferSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset),
 			  mpBucketBuffer(pBucketBuffer)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		fixed_hashtable_allocator(void* pNodeBuffer, void* pBucketBuffer, const overflow_allocator_type& allocator)
 			: mPool(pNodeBuffer, kBufferSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset, allocator),
 			  mpBucketBuffer(pBucketBuffer)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// fixed_hashtable_allocator
@@ -1005,108 +873,80 @@ namespace eastl
 			: mPool(x.mPool.mpHead, kBufferSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset, x.mPool.mOverflowAllocator),
 			  mpBucketBuffer(x.mpBucketBuffer)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		fixed_hashtable_allocator& operator=(const fixed_hashtable_allocator& x)
 		{
-			mPool = x.mPool;
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void* allocate(size_t n, int flags = 0)
 		{
-			// We expect that the caller uses kAllocFlagBuckets when it wants us to allocate buckets instead of nodes.
-			EASTL_CT_ASSERT(kAllocFlagBuckets == 0x00400000); // Currently we expect this to be so, because the hashtable has a copy of this enum.
-
-			if((flags & kAllocFlagBuckets) == 0) // If we are allocating nodes and (probably) not buckets...
-			{
-				EASTL_ASSERT(n == kNodeSize); EA_UNUSED(n); 
-				return mPool.allocate();
-			}
-
-			// If bucket size no longer fits within local buffer...
-			if ((flags & kAllocFlagBuckets) == kAllocFlagBuckets && (n > kBucketsSize))
-				return get_overflow_allocator().allocate(n);
-
-			EASTL_ASSERT(n <= kBucketsSize);
-			return mpBucketBuffer;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void* allocate(size_t n, size_t alignment, size_t offset, int flags = 0)
 		{
-			// We expect that the caller uses kAllocFlagBuckets when it wants us to allocate buckets instead of nodes.
-			if ((flags & kAllocFlagBuckets) == 0) // If we are allocating nodes and (probably) not buckets...
-			{
-				EASTL_ASSERT(n == kNodeSize); EA_UNUSED(n);
-				return mPool.allocate(alignment, offset);
-			}
-
-			// If bucket size no longer fits within local buffer...
-			if ((flags & kAllocFlagBuckets) == kAllocFlagBuckets && (n > kBucketsSize))
-				return get_overflow_allocator().allocate(n, alignment, offset);
-
-			EASTL_ASSERT(n <= kBucketsSize);
-			return mpBucketBuffer;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void deallocate(void* p, size_t)
 		{
-			if(p != mpBucketBuffer) // If we are freeing a node and not buckets...
-				mPool.deallocate(p);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		bool can_allocate() const
 		{
-			return mPool.can_allocate();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void reset(void* pNodeBuffer)
 		{
-			// No need to modify mpBucketBuffer, as that is constant.
-			mPool.init(pNodeBuffer, kBufferSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		const char* get_name() const
 		{
-			return mPool.get_name();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void set_name(const char* pName)
 		{
-			mPool.set_name(pName);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		const overflow_allocator_type& get_overflow_allocator() const
 		{
-			return mPool.mOverflowAllocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		overflow_allocator_type& get_overflow_allocator()
 		{
-			return mPool.mOverflowAllocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void set_overflow_allocator(const overflow_allocator_type& allocator)
 		{
-			mPool.mOverflowAllocator = allocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void copy_overflow_allocator(const this_type& x)  // This function exists so we can write generic code that works for allocators that do and don't have overflow allocators.
 		{
-			mPool.mOverflowAllocator = x.mPool.mOverflowAllocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // fixed_hashtable_allocator
 
@@ -1150,29 +990,31 @@ namespace eastl
 			: mPool(pNodeBuffer, kBufferSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset),
 			  mpBucketBuffer(NULL)
 		{
-			// EASTL_ASSERT(false); // As it stands now, this is not supposed to be called.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		fixed_hashtable_allocator(void* pNodeBuffer, const overflow_allocator_type& /*allocator*/) // allocator is unused because bEnableOverflow is false in this specialization.
 			: mPool(pNodeBuffer, kBufferSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset),
 			  mpBucketBuffer(NULL)
 		{
-			// EASTL_ASSERT(false); // As it stands now, this is not supposed to be called.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		fixed_hashtable_allocator(void* pNodeBuffer, void* pBucketBuffer)
 			: mPool(pNodeBuffer, kBufferSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset),
 			  mpBucketBuffer(pBucketBuffer)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		fixed_hashtable_allocator(void* pNodeBuffer, void* pBucketBuffer, const overflow_allocator_type& /*allocator*/) // allocator is unused because bEnableOverflow is false in this specialization.
 			: mPool(pNodeBuffer, kBufferSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset),
 			  mpBucketBuffer(pBucketBuffer)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// fixed_hashtable_allocator
@@ -1184,104 +1026,78 @@ namespace eastl
 			: mPool(x.mPool.mpHead, kBufferSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset),
 			  mpBucketBuffer(x.mpBucketBuffer)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		fixed_hashtable_allocator& operator=(const fixed_hashtable_allocator& x)
 		{
-			mPool = x.mPool;
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void* allocate(size_t n, int flags = 0)
 		{
-			// We expect that the caller uses kAllocFlagBuckets when it wants us to allocate buckets instead of nodes.
-			EASTL_CT_ASSERT(kAllocFlagBuckets == 0x00400000); // Currently we expect this to be so, because the hashtable has a copy of this enum.
-			if((flags & kAllocFlagBuckets) == 0) // If we are allocating nodes and (probably) not buckets...
-			{
-				EASTL_ASSERT(n == kNodeSize);  (void)n; // Make unused var warning go away.
-				return mPool.allocate();
-			}
-
-			// Don't allow hashtable buckets to overflow in this case.
-			EASTL_ASSERT(n <= kBucketsSize);
-			return mpBucketBuffer;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void* allocate(size_t n, size_t alignment, size_t offset, int flags = 0)
 		{
-			// We expect that the caller uses kAllocFlagBuckets when it wants us to allocate buckets instead of nodes.
-			if((flags & kAllocFlagBuckets) == 0) // If we are allocating nodes and (probably) not buckets...
-			{
-				EASTL_ASSERT(n == kNodeSize); (void)n; // Make unused var warning go away.
-				return mPool.allocate(alignment, offset);
-			}
-
-			// Don't allow hashtable buckets to overflow in this case.
-			EASTL_ASSERT(n <= kBucketsSize);
-			return mpBucketBuffer;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void deallocate(void* p, size_t)
 		{
-			if(p != mpBucketBuffer) // If we are freeing a node and not buckets...
-				mPool.deallocate(p);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		bool can_allocate() const
 		{
-			return mPool.can_allocate();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void reset(void* pNodeBuffer)
 		{
-			// No need to modify mpBucketBuffer, as that is constant.
-			mPool.init(pNodeBuffer, kBufferSize, kNodeSize, kNodeAlignment, kNodeAlignmentOffset);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		const char* get_name() const
 		{
-			return mPool.get_name();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void set_name(const char* pName)
 		{
-			mPool.set_name(pName);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		const overflow_allocator_type& get_overflow_allocator() const EA_NOEXCEPT
 		{
-			EASTL_ASSERT(false);
-			overflow_allocator_type* pNULL = NULL;
-			return *pNULL; // This is not pretty, but it should never execute. This is here only to allow this to compile.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		overflow_allocator_type& get_overflow_allocator() EA_NOEXCEPT
 		{
-			EASTL_ASSERT(false);
-			overflow_allocator_type* pNULL = NULL;
-			return *pNULL; // This is not pretty, but it should never execute. This is here only to allow this to compile.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void set_overflow_allocator(const overflow_allocator_type& /*allocator*/)
 		{
-			// We don't have an overflow allocator.
-			EASTL_ASSERT(false);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void copy_overflow_allocator(const this_type&)  // This function exists so we can write generic code that works for allocators that do and don't have overflow allocators.
 		{
-			// We don't have an overflow allocator.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // fixed_hashtable_allocator
 
@@ -1294,16 +1110,16 @@ namespace eastl
 	inline bool operator==(const fixed_hashtable_allocator<bucketCount, nodeSize, nodeCount, nodeAlignment, nodeAlignmentOffset, bEnableOverflow, OverflowAllocator>& a, 
 						   const fixed_hashtable_allocator<bucketCount, nodeSize, nodeCount, nodeAlignment, nodeAlignmentOffset, bEnableOverflow, OverflowAllocator>& b)
 	{
-		return (&a == &b); // They are only equal if they are the same object.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t bucketCount, size_t nodeSize, size_t nodeCount, size_t nodeAlignment, size_t nodeAlignmentOffset, bool bEnableOverflow, typename OverflowAllocator>
 	inline bool operator!=(const fixed_hashtable_allocator<bucketCount, nodeSize, nodeCount, nodeAlignment, nodeAlignmentOffset, bEnableOverflow, OverflowAllocator>& a, 
 						   const fixed_hashtable_allocator<bucketCount, nodeSize, nodeCount, nodeAlignment, nodeAlignmentOffset, bEnableOverflow, OverflowAllocator>& b)
 	{
-		return (&a != &b); // They are only equal if they are the same object.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1355,76 +1171,70 @@ namespace eastl
 		fixed_vector_allocator(void* pNodeBuffer = nullptr)
 			: mpPoolBegin(pNodeBuffer)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		fixed_vector_allocator(void* pNodeBuffer, const overflow_allocator_type& allocator)
 			: mOverflowAllocator(allocator), mpPoolBegin(pNodeBuffer)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		fixed_vector_allocator(const fixed_vector_allocator& x)
 			: mOverflowAllocator(x.mOverflowAllocator), mpPoolBegin(x.mpPoolBegin)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		fixed_vector_allocator& operator=(const fixed_vector_allocator& x)
 		{
-			// We leave our mpPoolBegin variable alone.
-
-			#if EASTL_ALLOCATOR_COPY_ENABLED
-				mOverflowAllocator = x.mOverflowAllocator;
-			#else
-				(void)x;
-			#endif
-
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void* allocate(size_t n, int flags = 0)
 		{
-			return mOverflowAllocator.allocate(n, flags);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void* allocate(size_t n, size_t alignment, size_t offset, int flags = 0)
 		{
-			return mOverflowAllocator.allocate(n, alignment, offset, flags);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void deallocate(void* p, size_t n)
 		{
-			if(p != mpPoolBegin)
-				mOverflowAllocator.deallocate(p, n); // Can't do this to our own allocation.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		const char* get_name() const
 		{
-			return mOverflowAllocator.get_name();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void set_name(const char* pName)
 		{
-			mOverflowAllocator.set_name(pName);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		const overflow_allocator_type& get_overflow_allocator() const EA_NOEXCEPT
 		{
-			return mOverflowAllocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		overflow_allocator_type& get_overflow_allocator() EA_NOEXCEPT
 		{
-			return mOverflowAllocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void set_overflow_allocator(const overflow_allocator_type& allocator)
 		{
-			mOverflowAllocator = allocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void copy_overflow_allocator(const this_type& x)  // This function exists so we can write generic code that works for allocators that do and don't have overflow allocators.
 		{
-			mOverflowAllocator = x.mOverflowAllocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // fixed_vector_allocator
 
@@ -1453,15 +1263,18 @@ namespace eastl
 
 		fixed_vector_allocator()
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		fixed_vector_allocator(void* /*pNodeBuffer*/)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		fixed_vector_allocator(void* /*pNodeBuffer*/, const overflow_allocator_type& /*allocator*/)  // allocator is unused because bEnableOverflow is false in this specialization.
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// fixed_vector_allocator
 		///
@@ -1478,55 +1291,48 @@ namespace eastl
 
 		void* allocate(size_t /*n*/, int /*flags*/ = 0)
 		{
-			EASTL_ASSERT(false); // A fixed_vector should not reallocate, else the user has exhausted its space.
-			EASTL_CRASH();		 // We choose to crash here since the owning vector can't handle an allocator returning null. Better to crash earlier.
-			return NULL;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void* allocate(size_t /*n*/, size_t /*alignment*/, size_t /*offset*/, int /*flags*/ = 0)
 		{
-			EASTL_ASSERT(false); // A fixed_vector should not reallocate, else the user has exhausted its space.
-			EASTL_CRASH();		 // We choose to crash here since the owning vector can't handle an allocator returning null. Better to crash earlier.
-			return NULL;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void deallocate(void* /*p*/, size_t /*n*/)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		const char* get_name() const
 		{
-			return EASTL_FIXED_POOL_DEFAULT_NAME;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void set_name(const char* /*pName*/)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		const overflow_allocator_type& get_overflow_allocator() const EA_NOEXCEPT
 		{
-			EASTL_ASSERT(false);
-			overflow_allocator_type* pNULL = NULL;
-			return *pNULL; // This is not pretty, but it should never execute. This is here only to allow this to compile.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		overflow_allocator_type& get_overflow_allocator() EA_NOEXCEPT
 		{
-			EASTL_ASSERT(false);
-			overflow_allocator_type* pNULL = NULL;
-			return *pNULL; // This is not pretty, but it should never execute. This is here only to allow this to compile.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void set_overflow_allocator(const overflow_allocator_type& /*allocator*/)
 		{
-			// We don't have an overflow allocator.
-			EASTL_ASSERT(false);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void copy_overflow_allocator(const this_type&)  // This function exists so we can write generic code that works for allocators that do and don't have overflow allocators.
 		{
-			// We don't have an overflow allocator.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // fixed_vector_allocator
 
@@ -1539,16 +1345,16 @@ namespace eastl
 	inline bool operator==(const fixed_vector_allocator<nodeSize, nodeCount, nodeAlignment, nodeAlignmentOffset, bEnableOverflow, OverflowAllocator>& a, 
 						   const fixed_vector_allocator<nodeSize, nodeCount, nodeAlignment, nodeAlignmentOffset, bEnableOverflow, OverflowAllocator>& b)
 	{
-		return (&a == &b); // They are only equal if they are the same object.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t nodeSize, size_t nodeCount, size_t nodeAlignment, size_t nodeAlignmentOffset, bool bEnableOverflow, typename OverflowAllocator>
 	inline bool operator!=(const fixed_vector_allocator<nodeSize, nodeCount, nodeAlignment, nodeAlignmentOffset, bEnableOverflow, OverflowAllocator>& a, 
 						   const fixed_vector_allocator<nodeSize, nodeCount, nodeAlignment, nodeAlignmentOffset, bEnableOverflow, OverflowAllocator>& b)
 	{
-		return (&a != &b); // They are only equal if they are the same object.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1585,10 +1391,8 @@ namespace eastl
 	public:
 		static void swap(Container& a, Container& b)
 		{
-			Container temp(EASTL_MOVE(a)); // Can't use global swap because that could
-			a = EASTL_MOVE(b);             // itself call this swap function in return.
-			b = EASTL_MOVE(temp);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -1598,27 +1402,16 @@ namespace eastl
 	public:
 		static void swap(Container& a, Container& b)
 		{
-			EASTLAllocatorType allocator(*EASTLAllocatorDefault(), EASTL_TEMP_DEFAULT_NAME);
-			Container* const pTemp = static_cast<Container*>(allocator.allocate(sizeof(a)));
-
-			if(pTemp)
-			{
-				detail::allocator_construct(allocator, pTemp, EASTL_MOVE(a));
-				a = EASTL_MOVE(b);
-				b = EASTL_MOVE(*pTemp);
-
-				pTemp->~Container();
-				allocator.deallocate(pTemp, sizeof(a));
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
 	template<typename Container>
 	void fixed_swap(Container& a, Container& b)
 	{
-		return fixed_swap_impl<Container, sizeof(Container) >= EASTL_MAX_STACK_USAGE>::swap(a, b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 

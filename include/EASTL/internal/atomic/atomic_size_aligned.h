@@ -85,8 +85,7 @@ EA_DISABLE_CLANG_WARNING(-Watomic-alignment);
 
 		EA_CONSTEXPR atomic_size_aligned(T desired) EA_NOEXCEPT
 			: mAtomic{ desired }
-		{
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		EA_CONSTEXPR atomic_size_aligned() EA_NOEXCEPT_IF(eastl::is_nothrow_default_constructible_v<T>)
 			: mAtomic{} /* Value-Initialize which will Zero-Initialize Trivial Constructible types */
@@ -99,58 +98,40 @@ EA_DISABLE_CLANG_WARNING(-Watomic-alignment);
 
 		template <typename Order>
 		void store(T /*desired*/, Order /*order*/) EA_NOEXCEPT
-		{
-			EASTL_ATOMIC_STATIC_ASSERT_INVALID_MEMORY_ORDER(T);
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template <typename Order>
 		void store(T /*desired*/, Order /*order*/) volatile EA_NOEXCEPT
-		{
-			EASTL_ATOMIC_STATIC_ASSERT_VOLATILE_MEM_FN(T);
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		void store(T /*desired*/) volatile EA_NOEXCEPT
-		{
-			EASTL_ATOMIC_STATIC_ASSERT_VOLATILE_MEM_FN(T);
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 	public: /* load */
 
 		template <typename Order>
 		T load(Order /*order*/) const EA_NOEXCEPT
-		{
-			EASTL_ATOMIC_STATIC_ASSERT_INVALID_MEMORY_ORDER(T);
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template <typename Order>
 		T load(Order /*order*/) const volatile EA_NOEXCEPT
-		{
-			EASTL_ATOMIC_STATIC_ASSERT_VOLATILE_MEM_FN(T);
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		T load() const volatile EA_NOEXCEPT
-		{
-			EASTL_ATOMIC_STATIC_ASSERT_VOLATILE_MEM_FN(T);
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 	public: /* exchange */
 
 		template <typename Order>
 		T exchange(T /*desired*/, Order /*order*/) EA_NOEXCEPT
-		{
-			EASTL_ATOMIC_STATIC_ASSERT_INVALID_MEMORY_ORDER(T);
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template <typename Order>
 		T exchange(T /*desired*/, Order /*order*/) volatile EA_NOEXCEPT
-		{
-			EASTL_ATOMIC_STATIC_ASSERT_VOLATILE_MEM_FN(T);
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		T exchange(T /*desired*/) volatile EA_NOEXCEPT
-		{
-			EASTL_ATOMIC_STATIC_ASSERT_VOLATILE_MEM_FN(T);
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 	public: /* compare_exchange_weak */
 
@@ -163,9 +144,7 @@ EA_DISABLE_CLANG_WARNING(-Watomic-alignment);
 	public: /* assignment operator */
 
 		T operator=(T /*desired*/) volatile EA_NOEXCEPT
-		{
-			EASTL_ATOMIC_STATIC_ASSERT_VOLATILE_MEM_FN(T);
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		atomic_size_aligned& operator=(const atomic_size_aligned&)          EA_NOEXCEPT = delete;
 		atomic_size_aligned& operator=(const atomic_size_aligned&) volatile EA_NOEXCEPT = delete;
@@ -173,9 +152,7 @@ EA_DISABLE_CLANG_WARNING(-Watomic-alignment);
 	protected: /* Accessors */
 
 		T* GetAtomicAddress() const EA_NOEXCEPT
-		{
-			return eastl::addressof(mAtomic);
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 	private:
 

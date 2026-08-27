@@ -107,8 +107,7 @@ EA_DISABLE_CLANG_WARNING(-Watomic-alignment);
 
 		EA_CONSTEXPR atomic_pointer_base(T* desired) EA_NOEXCEPT
 			: Base{ desired }
-		{
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		EA_CONSTEXPR atomic_pointer_base() EA_NOEXCEPT = default;
 
@@ -245,8 +244,7 @@ EA_DISABLE_CLANG_WARNING(-Watomic-alignment);
 																		\
 		EA_CONSTEXPR atomic_pointer_width(T* desired) EA_NOEXCEPT		\
 			: Base{ desired }											\
-		{																\
-		}																\
+		{ __builtin_trap() /* STUB: not implemented */; }																\
 																		\
 		EA_CONSTEXPR atomic_pointer_width() EA_NOEXCEPT = default;		\
 																		\

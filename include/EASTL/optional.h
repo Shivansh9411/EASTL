@@ -1,3 +1,4 @@
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -56,7 +57,9 @@ namespace eastl
 
 	struct nullopt_t
 	{
-		EA_CONSTEXPR nullopt_t(nullopt_tag_t) {}
+		EA_CONSTEXPR nullopt_t(nullopt_tag_t) {
+    
+}
 	};
 
 	EA_CONSTEXPR nullopt_t nullopt{nullopt_tag_t{}};
@@ -114,7 +117,9 @@ namespace eastl
 					destruct_value();
 			}
 
-			inline EA_CPP20_CONSTEXPR void destruct_value() { (*reinterpret_cast<value_type*>(eastl::addressof(val))).~value_type(); }
+			inline EA_CPP20_CONSTEXPR void destruct_value() {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			eastl::aligned_storage_t<sizeof(value_type), eastl::alignment_of_v<value_type>> val;
 			bool engaged = false;
@@ -134,7 +139,9 @@ namespace eastl
 			// Removed to make optional<T> trivially destructible when T is trivially destructible.
 			~optional_storage() EA_NOEXCEPT = default;
 
-			inline EA_CPP20_CONSTEXPR void destruct_value() {} // no implementation necessary since T is trivially destructible.
+			inline EA_CPP20_CONSTEXPR void destruct_value() {
+    __builtin_trap() /* STUB: not implemented */;
+} // no implementation necessary since T is trivially destructible.
 
 			eastl::aligned_storage_t<sizeof(value_type), eastl::alignment_of_v<value_type>> val;
 			bool engaged = false;
@@ -162,13 +169,8 @@ namespace eastl
 			optional_base(const optional_base& other)
 #endif
 			{
-				engaged = other.engaged;
-
-				if (engaged)
-				{
-					construct_value(*other.get_value_address());
-				}
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
 			void ConstructFrom(optional_base&& other)
@@ -177,13 +179,8 @@ namespace eastl
 			optional_base(optional_base&& other)
 #endif
 			{
-				engaged = other.engaged;
-
-				if (engaged)
-				{
-					construct_value(eastl::move(*other.get_value_address()));
-				}
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
 			void AssignFrom(const optional_base& other)
@@ -191,27 +188,8 @@ namespace eastl
 			optional_base& operator=(const optional_base& other)
 #endif
 			{
-				if (engaged && !other.engaged)
-				{
-					destruct_value();
-					engaged = false;
-				}
-				else if (engaged && other.engaged)
-				{
-					*get_value_address() = *other.get_value_address();
-				}
-				else if (!engaged && other.engaged)
-				{
-					construct_value(*other.get_value_address());
-					engaged = true;
-				}
-				// else if (!engaged && !other.engaged)
-				//	no op
-
-#if !EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
-				return *this;
-#endif
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
 			void AssignFrom(optional_base&& other)
@@ -221,34 +199,14 @@ namespace eastl
 			optional_base& operator=(optional_base&& other)
 #endif
 			{
-				if (engaged && !other.engaged)
-				{
-					destruct_value();
-					engaged = false;
-				}
-				else if (engaged && other.engaged)
-				{
-					*get_value_address() = eastl::move(*other.get_value_address());
-					// note, standard specifies: other.has_value() is unchanged.
-				}
-				else if (!engaged && other.engaged)
-				{
-					construct_value(eastl::move(*other.get_value_address()));
-					engaged = true;
-				}
-				// else if (!engaged && !other.engaged)
-				//	no op
-
-#if !EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
-				return *this;
-#endif
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			template <class... Args>
 			inline void construct_value(Args&&... args)
 			{
-				::new (eastl::addressof(val)) value_type(eastl::forward<Args>(args)...);
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			inline EA_CONSTEXPR T* get_value_address() EA_NOEXCEPT
 			{
@@ -298,8 +256,12 @@ namespace eastl
 		static_assert(!eastl::is_same<remove_cv_t<value_type>, in_place_t>::value, "eastl::optional of a in_place_t type is ill-formed");
 		static_assert(!eastl::is_same<remove_cv_t<value_type>, nullopt_t>::value, "eastl::optional of a nullopt_t type is ill-formed");
 
-		inline EA_CONSTEXPR optional() EA_NOEXCEPT {}
-		inline EA_CONSTEXPR optional(nullopt_t) EA_NOEXCEPT {}
+		inline EA_CONSTEXPR optional() EA_NOEXCEPT {
+    
+}
+		inline EA_CONSTEXPR optional(nullopt_t) EA_NOEXCEPT {
+    
+}
 
 #if !EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
 		inline EA_CONSTEXPR optional(const value_type& value)
@@ -325,12 +287,8 @@ namespace eastl
 			!is_convertible_v<const U&, T>, bool> = true>
 		EA_CPP20_CONSTEXPR explicit optional(const optional<U>& other)
 		{
-			if (other)
-			{
-				construct_value(*other);
-				engaged = true;
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// converting copy constructor, non-explicit version
 		template<typename U,
@@ -338,12 +296,8 @@ namespace eastl
 			is_convertible_v<const U&, T>, bool> = true>
 		EA_CPP20_CONSTEXPR optional(const optional<U>& other)
 		{
-			if (other)
-			{
-				construct_value(*other);
-				engaged = true;
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// converting move constructor, explicit version
 		template<typename U,
@@ -351,13 +305,8 @@ namespace eastl
 			!is_convertible_v<U, T>, bool> = true>
 		EA_CPP20_CONSTEXPR explicit optional(optional<U>&& other)
 		{
-			if (other)
-			{
-				construct_value(eastl::move(*other));
-				engaged = true;
-				// note, standard specifies: other.has_value() is unchanged.
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// converting move constructor, non-explicit version
 		template<typename U,
@@ -365,13 +314,8 @@ namespace eastl
 			is_convertible_v<U, T>, bool> = true>
 		EA_CPP20_CONSTEXPR explicit optional(optional<U>&& other)
 		{
-			if (other)
-			{
-				construct_value(eastl::move(*other));
-				engaged = true;
-				// note, standard specifies: other.has_value() is unchanged.
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
 		template <typename... Args,
@@ -381,16 +325,8 @@ namespace eastl
 #endif
 		inline EA_CONSTEXPR explicit optional(in_place_t, Args&&... args)
 		{
-#if EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
-			construct_value(eastl::forward<Args>(args)...);
-#else
-			// value_type{ ... } is direct-list-initialization, which permits aggregate initialization.
-			// that's not allowed by the standard; it's meant to be direct-non-list-initialization (which is what construct_value() implements).
-			// this block (and omitting the is_constructible_v requirement) is to deprecate incorrect usage.
-			::new (eastl::addressof(val)) value_type{ eastl::forward<Args>(args)... };
-#endif
-			engaged = true;
-		}
+    
+}
 
 #if EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
 		template <typename U, typename... Args,
@@ -400,16 +336,8 @@ namespace eastl
 #endif
 		inline EA_CONSTEXPR explicit optional(in_place_t, std::initializer_list<U> ilist, Args&&... args)
 		{
-#if EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
-			construct_value(ilist, eastl::forward<Args>(args)...);
-#else
-			// value_type{ ... } is direct-list-initialization, which permits aggregate initialization.
-			// that's not allowed by the standard; it's meant to be direct-non-list-initialization (which is what construct_value() implements).
-			// this block (and omitting the is_constructible_v requirement) is to deprecate incorrect usage.
-			::new (eastl::addressof(val)) value_type{ ilist, eastl::forward<Args>(args)... };
-#endif
-			engaged = true;
-		}
+    
+}
 
 		// constructs an optional that contains a value, explicit version
 		template <typename U = T,
@@ -455,25 +383,8 @@ namespace eastl
 			!is_assignable_v<T&, optional<U>&> && !is_assignable_v<T&, optional<U>&&> && !is_assignable_v<T&, const optional<U>&> && !is_assignable_v<T&, const optional<U>&&>, bool> = true>
 		EA_CPP20_CONSTEXPR optional& operator=(const optional<U>& other)
 		{
-			if (engaged && other.engaged)
-			{
-				*get_value_address() = *other;
-			}
-			else if (engaged && !other.engaged)
-			{
-				destruct_value();
-				engaged = false;
-			}
-			else if (!engaged && other.engaged)
-			{
-				construct_value(*other);
-				engaged = true;
-			}
-			// else if (!engaged && !other.engaged)
-			//	no op
-
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// converting move assignment
 		template<typename U,
@@ -481,26 +392,8 @@ namespace eastl
 			!is_assignable_v<T&, optional<U>&> && !is_assignable_v<T&, optional<U>&&> && !is_assignable_v<T&, const optional<U>&> && !is_assignable_v<T&, const optional<U>&&>, bool> = true>
 		EA_CPP20_CONSTEXPR optional& operator=(optional<U>&& other)
 		{
-			if (engaged && other.engaged)
-			{
-				*get_value_address() = eastl::move(*other);
-				// note, standard specifies: other.has_value() is unchanged.
-			}
-			else if (engaged && !other.engaged)
-			{
-				destruct_value();
-				engaged = false;
-			}
-			else if (!engaged && other.engaged)
-			{
-				construct_value(eastl::move(*other));
-				engaged = true;
-			}
-			//else if (!engaged && !other.engaged)
-			//	no op
-
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <class U = T, typename eastl::enable_if_t<
 			!eastl::is_same_v<eastl::remove_cvref_t<U>, optional<T>>&&
@@ -825,7 +718,9 @@ namespace eastl
 	///
     template <class T>
     void swap(optional<T>& lhs, optional<T>& rhs) EA_NOEXCEPT_IF(EA_NOEXCEPT(lhs.swap(rhs)))
-		{ lhs.swap(rhs); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -998,11 +893,8 @@ namespace eastl
 	{
 		size_t operator()(const eastl::optional<T>& opt) const EA_NOEXCEPT
 	    {
-		    if (opt)
-			    return eastl::hash<T>()(*opt);
-		    else
-			    return 0;  // no value to generate a hash from
-	    }
+    __builtin_trap() /* STUB: not implemented */;
+}
     };
 
 

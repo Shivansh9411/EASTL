@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 // (c) 2024 Electronic Arts Inc.
 
 #pragma once
@@ -102,8 +104,8 @@ namespace eastl
 		    eastl::enable_if_t<!has_allocator_construct<T, Args...>::template inner<Allocator>::value, void>
 		    allocator_construct(Allocator&, T* p, Args&&... args)
 		{
-			eastl::construct_at(p, eastl::forward<Args>(args)...);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	} // namespace detail
 

@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -40,8 +42,8 @@ namespace eastl
 		explicit intrusive_hash_map(const Hash& h = Hash(), const Equal& eq = Equal())
 			: base_type(h, eq)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// To consider: Is this feasible, given how initializer_list works by creating a temporary array? Even if it is feasible, is it a good idea?
 		//intrusive_hash_map(std::initializer_list<value_type> ilist);
@@ -75,8 +77,8 @@ namespace eastl
 		explicit intrusive_hash_multimap(const Hash& h = Hash(), const Equal& eq = Equal())
 			: base_type(h, eq)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// To consider: Is this feasible, given how initializer_list works by creating a temporary array? Even if it is feasible, is it a good idea?
 		//intrusive_hash_multimap(std::initializer_list<value_type> ilist);

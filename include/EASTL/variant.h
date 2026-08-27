@@ -1,3 +1,4 @@
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -128,7 +129,9 @@ namespace eastl
 	// 20.7.11, hash support
 	template <class T> struct hash;
 	template <> struct hash<monostate>
-		{ size_t operator()(monostate) const { return static_cast<size_t>(-0x42); } };
+		{ size_t operator()(monostate) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 
 
 	///////////////////////////////////////////////////////////////////////////
@@ -197,19 +200,8 @@ namespace eastl
 	{
 		size_t operator()(const Variant& obj) const
 		{
-			if (obj.valueless_by_exception())
-				return 0;
-
-			auto genericVisitor = [](const auto& thisAlternative)
-			{
-				using alternative_t = remove_const_t<remove_reference_t<decltype(thisAlternative)>>;
-				return hash<alternative_t>{}(thisAlternative);
-			};
-
-			const size_t alternativeHash = visit(genericVisitor, obj);
-
-			return (alternativeHash * 16777619) ^ obj.index();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template<class, class, class = void>
@@ -354,8 +346,8 @@ namespace eastl
 		template<size_t I, typename... Types>
 		static void call(variant<Types...>& obj, const T& rhs)
 		{
-			obj.template emplace<I>(rhs);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template<typename T>
@@ -364,8 +356,8 @@ namespace eastl
 		template<size_t I, typename... Types>
 		static void call(variant<Types...>& obj, const T& rhs)
 		{
-			obj = variant<Types...>(rhs);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template<typename T_j, typename T, bool = eastl::is_nothrow_constructible_v<T_j, T> || !eastl::is_nothrow_move_constructible_v<T_j>>
@@ -374,8 +366,8 @@ namespace eastl
 		template<size_t I, typename... Types>
 		static void call(variant<Types...>& obj, T&& rhs)
 		{
-			obj.template emplace<I>(eastl::forward<T>(rhs));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template<typename T_j, typename T>
@@ -384,8 +376,8 @@ namespace eastl
 		template<size_t I, typename... Types>
 		static void call(variant<Types...>& obj, T&& rhs)
 		{
-			obj.template emplace<I>(T_j(eastl::forward<T>(rhs)));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <typename Visitor, typename Variant>
@@ -428,14 +420,8 @@ namespace eastl
 		//	!this->valueless_by_exception()
 		void destroy()
 		{
-			auto genericVisitor = [](auto& thisAlternative)
-			{
-				using alternative_t = remove_reference_t<decltype(thisAlternative)>;
-				thisAlternative.~alternative_t();
-			};
-
-			visit(genericVisitor, reinterpret_cast<variant<Types...>&>(*this));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		EA_CONSTEXPR size_t index() const EA_NOEXCEPT
 		{
@@ -467,8 +453,8 @@ namespace eastl
 
 		void destroy()
 		{
-			// trivially destructible, no op.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		EA_CONSTEXPR size_t index() const EA_NOEXCEPT
 		{
@@ -496,45 +482,27 @@ namespace eastl
 		template <size_t I, typename... Args>
 		void construct_as(Args&&... args)
 		{
-			using alternative_type = variant_alternative_t<I, variant<Types...>>;
-
-			// NOTE(rparolin): If this assert fires there is an EASTL problem picking the size of the local buffer which
-			// variant_storage used to store types. The size selected should be large enough to hold the largest type in
-			// the user provided variant type-list.
-			static_assert(sizeof(aligned_storage_impl_t) >= sizeof(alternative_type), "alternative_type is larger than local buffer size");
-
-			new (&this->mBuffer) alternative_type(eastl::forward<Args>(args)...);
-			this->mIndex = I;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <size_t I, typename U, typename... Args>
 		void construct_as(std::initializer_list<U> il, Args&&... args)
 		{
-			using alternative_type = variant_alternative_t<I, variant<Types...>>;
-
-			// NOTE(rparolin): If this assert fires there is an EASTL problem picking the size of the local buffer which
-			// variant_storage used to store types. The size selected should be large enough to hold the largest type in
-			// the user provided variant type-list.
-			static_assert(sizeof(aligned_storage_impl_t) >= sizeof(alternative_type), "alternative_type is larger than local buffer size");
-
-			new (&this->mBuffer) alternative_type(il, eastl::forward<Args>(args)...);
-			this->mIndex = I;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		EA_RESTORE_VC_WARNING()
 
 		template<typename T>
 		T get_as()
 		{
-			static_assert(eastl::is_pointer_v<T>, "T must be a pointer type");
-			return reinterpret_cast<T>(&this->mBuffer);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename T>
 		const T get_as() const
 		{
-			static_assert(eastl::is_pointer_v<T>, "T must be a pointer type");
-			return reinterpret_cast<const T>(reinterpret_cast<uintptr_t>(&this->mBuffer));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if !EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
 		variant_base() = default;
@@ -547,17 +515,8 @@ namespace eastl
 		variant_base(const variant_base& rhs)
 #endif
 		{
-			this->mIndex = rhs.mIndex;
-
-			auto genericVisitor = [&rhs](auto& thisAlternative)
-			{
-				using alternative_t = remove_reference_t<decltype(thisAlternative)>;
-				new (&thisAlternative) alternative_t(*rhs.template get_as<const alternative_t*>());
-			};
-
-			if(!rhs.valueless_by_exception())
-				visit(genericVisitor, reinterpret_cast<variant<Types...>&>(*this));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// move constructor
 #if EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
@@ -566,17 +525,8 @@ namespace eastl
 		variant_base(variant_base&& rhs)
 #endif
 		{
-			this->mIndex = rhs.mIndex;
-
-			auto genericVisitor = [&rhs](auto& thisAlternative)
-			{
-				using alternative_t = remove_reference_t<decltype(thisAlternative)>;
-				new (&thisAlternative) alternative_t(eastl::move(*rhs.template get_as<alternative_t*>()));
-			};
-
-			if (!rhs.valueless_by_exception())
-				visit(genericVisitor, reinterpret_cast<variant<Types...>&>(*this));
-		}
+    
+}
 
 		// copy assignment
 #if EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
@@ -587,43 +537,8 @@ namespace eastl
 		variant_base& operator=(const variant_base& rhs)
 #endif
 		{
-			if (this->valueless_by_exception() && rhs.valueless_by_exception())
-			{
-				// no op
-			}
-			else if (!this->valueless_by_exception() && rhs.valueless_by_exception())
-			{
-				this->destroy();
-				this->mIndex = variant_npos;
-			}
-#if EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
-			else if (!this->valueless_by_exception() && this->mIndex == rhs.mIndex)
-			{
-				auto genericVisitor = [&rhs](auto& thisAlternative)
-				{
-					using alternative_t = remove_reference_t<decltype(thisAlternative)>;
-					thisAlternative = *rhs.template get_as<alternative_t*>();
-				};
-
-				visit(genericVisitor, reinterpret_cast<variant<Types...>&>(*this));
-			}
-#endif
-			else
-			{
-				auto genericVisitor = [this](auto idxConstant, const auto& rhsAlternative)
-				{
-					constexpr size_t I = idxConstant();
-					using alternative_t = remove_cvref_t<decltype(rhsAlternative)>;
-					emplace_or_move_assign<alternative_t>::template call<I>(reinterpret_cast<variant<Types...>&>(*this), rhsAlternative);
-				};
-
-				visit_with_index(genericVisitor, reinterpret_cast<const variant<Types...>&>(rhs));
-			}
-
-#if !EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
-			return *this;
-#endif
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// move assignment
 #if EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
@@ -634,42 +549,8 @@ namespace eastl
 		variant_base& operator=(variant_base&& rhs)
 #endif
 		{
-			if (this->valueless_by_exception() && rhs.valueless_by_exception())
-			{
-				// no op
-			}
-			else if (!this->valueless_by_exception() && rhs.valueless_by_exception())
-			{
-				this->destroy();
-				this->mIndex = variant_npos;
-			}
-#if EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
-			else if (!this->valueless_by_exception() && this->mIndex == rhs.mIndex)
-			{
-				auto genericVisitor = [&rhs](auto& thisAlternative)
-				{
-					using alternative_t = remove_reference_t<decltype(thisAlternative)>;
-					thisAlternative = eastl::move(*rhs.template get_as<alternative_t*>());
-				};
-
-				visit(genericVisitor, reinterpret_cast<variant<Types...>&>(*this));
-			}
-#endif
-			else
-			{
-				auto genericVisitor = [this](auto idxConstant, auto& rhsAlternative)
-				{
-					constexpr size_t I = idxConstant();
-					reinterpret_cast<variant<Types...>&>(*this).template emplace<I>(eastl::move(rhsAlternative));
-				};
-
-				visit_with_index(genericVisitor, reinterpret_cast<variant<Types...>&>(rhs));
-			}
-
-#if !EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
-			return *this;
-#endif
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	EA_RESTORE_VC_WARNING() // 4946
@@ -698,12 +579,8 @@ namespace eastl
 		template<typename IntConstant, typename RhsAlternative>
 		void operator()(IntConstant rhsIdxConstant, RhsAlternative& rhsAlternative)
 		{
-			constexpr size_t RhsAlternativeIndex = rhsIdxConstant();
-
-			LhsAlternative temp(eastl::move(lhsAlternative));
-			lhs.template emplace<RhsAlternativeIndex>(eastl::move(rhsAlternative));
-			rhs.template emplace<LhsAlternativeIndex>(eastl::move(temp));
-		};
+    __builtin_trap() /* STUB: not implemented */;
+};
 	};
 	} // namespace internal
 
@@ -742,8 +619,8 @@ namespace eastl
 		template <typename TT0 = T_0, enable_if_t<is_default_constructible_v<TT0>, bool> = true>
 		EA_CONSTEXPR variant() EA_NOEXCEPT(eastl::is_nothrow_default_constructible_v<TT0>)
 		{
-			this->template construct_as<0>();
-		}
+    
+}
 
 		// implemented by EnableVariantOptionalSpecialMemberFunctions<...>
 		variant(const variant&) = default;
@@ -761,8 +638,8 @@ namespace eastl
 				eastl::is_constructible_v<T_j, T>, bool> = true>
 			EA_CONSTEXPR variant(T&& t) EA_NOEXCEPT(is_nothrow_constructible_v<T_j, T>)
 		{
-			this->template construct_as<I>(eastl::forward<T>(t));
-		}
+    
+}
 
 		///////////////////////////////////////////////////////////////////////////
 		// 20.7.2.1, in_place_t constructors
@@ -773,7 +650,9 @@ namespace eastl
 			enable_if_t<conjunction_v<meta::duplicate_type_check<T, Types...>, is_constructible<T, Args...>>, bool> = true>
 			EA_CPP14_CONSTEXPR explicit variant(in_place_type_t<T>, Args&&... args)
 			: variant(in_place_index<meta::get_type_index_v<T, Types...>>, eastl::forward<Args>(args)...)
-		{}
+		{
+    
+}
 
 		template <
 			class T,
@@ -782,7 +661,9 @@ namespace eastl
 			enable_if_t<conjunction_v<meta::duplicate_type_check<T, Types...>, is_constructible<T, Args...>>, bool> = true>
 			EA_CPP14_CONSTEXPR explicit variant(in_place_type_t<T>, std::initializer_list<U> il, Args&&... args)
 			: variant(in_place_index<meta::get_type_index_v<T, Types...>>, il, eastl::forward<Args>(args)...)
-		{}
+		{
+    
+}
 
 		template <size_t I,
 			class... Args,
@@ -824,8 +705,8 @@ namespace eastl
 		    enable_if_t<conjunction_v<is_constructible<T, Args...>, meta::duplicate_type_check<T, Types...>>, bool> = true>
 		EA_CPP20_CONSTEXPR decltype(auto) emplace(Args&&... args)
 		{
-			return emplace<I>(eastl::forward<Args>(args)...);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// Equivalent to emplace<I>(il, std::forward<Args>(args)...), where I is the zero-based index of T in Types....
 		// This overload only participates in overload resolution if std::is_constructible_v<T,
@@ -838,8 +719,8 @@ namespace eastl
 		                                               meta::duplicate_type_check<T, Types...>>, bool> = true>
 		EA_CPP20_CONSTEXPR decltype(auto) emplace(std::initializer_list<U> il, Args&&... args)
 		{
-			return emplace<I>(il, eastl::forward<T>(args)...);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// First, destroys the currently contained value (if any). Then direct-initializes the contained value as if
 		// constructing a value of type T_I with the arguments std::forward<Args>(args).... If an exception is thrown,
@@ -854,18 +735,8 @@ namespace eastl
 		          enable_if_t<is_constructible_v<T, Args...>, bool> = true>
 		EA_CPP20_CONSTEXPR variant_alternative_t<I, variant>& emplace(Args&&... args)
 		{
-			if (!valueless_by_exception())
-			{
-				this->destroy();
-
-				#if EASTL_EXCEPTIONS_ENABLED
-					this->mIndex = static_cast<size_t>(variant_npos);
-				#endif
-			}
-
-			this->template construct_as<I>(eastl::forward<Args>(args)...);
-			return *reinterpret_cast<T*>(&this->mBuffer);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		EA_RESTORE_VC_WARNING()
 
 		// First, destroys the currently contained value (if any). Then direct-initializes the contained value as if
@@ -882,18 +753,8 @@ namespace eastl
 		          enable_if_t<is_constructible_v<T, std::initializer_list<U>&, Args...>, bool> = true>
 		EA_CPP20_CONSTEXPR variant_alternative_t<I, variant>& emplace(std::initializer_list<U> il, Args&&... args)
 		{
-			if (!valueless_by_exception())
-			{
-				this->destroy();
-
-				#if EASTL_EXCEPTIONS_ENABLED
-					this->mIndex = static_cast<size_t>(variant_npos);
-				#endif
-			}
-
-			this->template construct_as<I>(il, eastl::forward<Args>(args)...);
-			return *reinterpret_cast<T*>(&this->mBuffer);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		EA_RESTORE_VC_WARNING()
 
 
@@ -945,65 +806,8 @@ namespace eastl
 		void swap(variant& other)
 			EA_NOEXCEPT(conjunction_v<is_nothrow_move_constructible<Types>..., is_nothrow_swappable<Types>...>)
 		{
-			if (this->valueless_by_exception() && other.valueless_by_exception())
-			{
-				// no op
-			}
-#if EA_IS_ENABLED(EA_DEPRECATIONS_FOR_2025_APRIL)
-			else if (this->mIndex == other.mIndex)
-			{
-				auto genericVisitor = [&other](auto& thisAlternative)
-				{
-					using alternative_t = remove_reference_t<decltype(thisAlternative)>;
-
-					using eastl::swap;
-					swap(thisAlternative, *other.template get_as<alternative_t*>());
-				};
-
-				visit(genericVisitor, *this);
-			}
-#endif
-			else if (this->valueless_by_exception() && !other.valueless_by_exception())
-			{
-				auto genericVisitor = [this](auto idxConstant, auto&& otherAlternative)
-				{
-					constexpr size_t I = idxConstant();
-					this->template construct_as<I>(eastl::move(otherAlternative));
-				};
-
-				internal::visit_with_index(genericVisitor, eastl::move(other));
-				other.destroy(); // moved variant still contains an object.
-				other.mIndex = variant_npos;
-			}
-			else if (!this->valueless_by_exception() && other.valueless_by_exception())
-			{
-				auto genericVisitor = [&other](auto idxConstant, auto&& thisAlternative)
-				{
-					constexpr size_t I = idxConstant();
-					other.template construct_as<I>(eastl::move(thisAlternative));
-				};
-
-				internal::visit_with_index(genericVisitor, eastl::move(*this));
-				this->destroy(); // moved variant still contains an object.
-				this->mIndex = variant_npos;
-			}
-			else // if (!this->valueless_by_exception() && !other.valueless_by_exception() && this->mIndex != other.mIndex)
-			{
-				// the standard specifies swap() only requires that alternative types are swappable and move constructible.
-				// therefore we can't use the assignment operator.
-
-				auto thisVisitor = [this, &other](auto thisIdxConstant, auto& thisAlternative)
-				{
-					constexpr size_t ThisAlternativeIndex = thisIdxConstant();
-					using this_alternative_t = remove_reference_t<decltype(thisAlternative)>;
-
-					internal::swap_visitor<this_alternative_t, ThisAlternativeIndex, Types...> swapVisitor{ *this, other, thisAlternative };
-					internal::visit_with_index(swapVisitor, other);
-				};
-
-				internal::visit_with_index(thisVisitor, *this);
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	private:
 		// NOTE(rparolin): get_if accessors require internal access to the variant storage class
@@ -1024,8 +828,8 @@ namespace eastl
 	void swap(variant<Types...>& lhs, variant<Types...>& rhs)
 		EA_NOEXCEPT(EA_NOEXCEPT(lhs.swap(rhs)))
 	{
-		lhs.swap(rhs);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// visit is a bit convoluted, in order to fulfill a few requirements:
@@ -1365,9 +1169,8 @@ namespace eastl
 		template <typename Visitor, typename Variant, size_t I>
 		static EA_CONSTEXPR void invoke_visitor_r(Visitor&& visitor, Variant&& variant)
 		{
-			eastl::invoke(eastl::forward<Visitor>(visitor),
-						  eastl::get<I>(eastl::forward<Variant>(variant)));
-		}
+    
+}
 	};
 	template<> struct visitor_r<const void> : public visitor_r<void> {};
 	template<> struct visitor_r<volatile void> : public visitor_r<void> {};
@@ -1412,29 +1215,15 @@ namespace eastl
 	template <typename... Variants>
 	static EA_CPP14_CONSTEXPR void visit_throw_bad_variant_access(Variants&&... variants)
 	{
-	#if EASTL_EXCEPTIONS_ENABLED
-		using bool_array_type = bool[];
-		bool badAccess = false;
-
-		(void)bool_array_type{ (badAccess |= eastl::forward<Variants>(variants).valueless_by_exception(), false)... };
-
-		if (badAccess)
-		{
-			throw bad_variant_access();
-		}
-	#endif
-	}
+    
+}
 	EA_RESTORE_VC_WARNING()
 
 	template <typename... Variants>
 	static EA_CONSTEXPR void visit_static_assert_check(Variants&&...)
 	{
-		static_assert(sizeof...(Variants) > 0, "`visit` at least one variant instance must be passed as an argument to the visit function");
-
-		using variant_type = decay_t<meta::get_type_at_t<0, Variants...>>;
-		static_assert(conjunction_v<is_same<variant_type, decay_t<Variants>>...>,
-					  "`visit` all variants passed to eastl::visit() must have the same type");
-	}
+    
+}
 
 	namespace internal
 	{

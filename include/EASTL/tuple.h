@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -170,7 +172,9 @@ namespace Internal
 	// Provides a vessel to expand variadic packs.
 	//
 	template <typename... Ts>
-	void swallow(Ts&&...) {}
+	void swallow(Ts&&...) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// TupleLeaf
@@ -181,24 +185,29 @@ namespace Internal
 	template <size_t I, typename ValueType, bool IsEmpty>
 	inline void swap(TupleLeaf<I, ValueType, IsEmpty>& a, TupleLeaf<I, ValueType, IsEmpty>& b)
 	{
-		eastl::swap(a.getInternal(), b.getInternal());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <size_t I, typename ValueType, bool IsEmpty>
 	class TupleLeaf
 	{
 	public:
-		TupleLeaf() : mValue() {}
+		TupleLeaf() : mValue() {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// We shouldn't need this explicit constructor as it should be handled by the template below but OSX clang
 		// is_constructible type trait incorrectly gives false for is_constructible<T&&, T&&>::value
-		explicit TupleLeaf(ValueType&& v) : mValue(eastl::forward<ValueType>(v)) {}
+		explicit TupleLeaf(ValueType&& v) : mValue(eastl::forward<ValueType>(v)) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename T, typename = typename enable_if<is_constructible<ValueType, T&&>::value>::type>
 		explicit TupleLeaf(T&& t)
 			: mValue(eastl::forward<T>(t))
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		
 		TupleLeaf(const TupleLeaf&) = default;
 		TupleLeaf(TupleLeaf&&) noexcept = default;
@@ -211,30 +220,30 @@ namespace Internal
 		// TupleImpl. So we explicitly implement the assignment so it isn't deleted in tuple<T&>.
 		TupleLeaf& operator=(const TupleLeaf& t)
 		{
-			mValue = t.getInternal();
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		TupleLeaf& operator=(TupleLeaf&& t) noexcept
 		{
-			mValue = eastl::move(t.getInternal());
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename T>
 		TupleLeaf& operator=(T&& t)
 		{
-			mValue = eastl::forward<T>(t);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		int swap(TupleLeaf& t)
 		{
-			eastl::Internal::swap(*this, t);
-			return 0;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		ValueType& getInternal() { return mValue; }
-		const ValueType& getInternal() const { return mValue; }
+		ValueType& getInternal() {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		const ValueType& getInternal() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	private:
 		ValueType mValue;  
@@ -249,13 +258,16 @@ namespace Internal
 
 		// We shouldn't need this explicit constructor as it should be handled by the template below but OSX clang
 		// is_constructible type trait incorrectly gives false for is_constructible<T&&, T&&>::value
-		explicit TupleLeaf(ValueType&& v) : ValueType(eastl::forward<ValueType>(v)) {}
+		explicit TupleLeaf(ValueType&& v) : ValueType(eastl::forward<ValueType>(v)) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename T, typename = typename enable_if<is_constructible<ValueType, T&&>::value>::type>
 		explicit TupleLeaf(T&& t)
 			: ValueType(eastl::forward<T>(t))
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		TupleLeaf(const TupleLeaf&) = default;
 		TupleLeaf(TupleLeaf&&) noexcept = default;
@@ -265,18 +277,20 @@ namespace Internal
 		template <typename T>
 		TupleLeaf& operator=(T&& t)
 		{
-			ValueType::operator=(eastl::forward<T>(t));
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		int swap(TupleLeaf& t)
 		{
-			eastl::Internal::swap(*this, t);
-			return 0;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		ValueType& getInternal() { return static_cast<ValueType&>(*this); }
-		const ValueType& getInternal() const { return static_cast<const ValueType&>(*this); }
+		ValueType& getInternal() {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		const ValueType& getInternal() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -354,44 +368,38 @@ namespace Internal
 	template <size_t I, typename Indices, typename... Ts>
 	inline tuple_element_t<I, TupleImpl<Indices, Ts...>>& getImpl(TupleImpl<Indices, Ts...>& t)
 	{
-		typedef tuple_element_t<I, TupleImpl<Indices, Ts...>> Type;
-		return static_cast<TupleLeaf<I, Type>&>(t).getInternal();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <size_t I, typename Indices, typename... Ts>
 	inline const_tuple_element_t<I, TupleImpl<Indices, Ts...>>& getImpl(const TupleImpl<Indices, Ts...>& t)
 	{
-		typedef tuple_element_t<I, TupleImpl<Indices, Ts...>> Type;
-		return static_cast<const TupleLeaf<I, Type>&>(t).getInternal();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <size_t I, typename Indices, typename... Ts>
 	inline tuple_element_t<I, TupleImpl<Indices, Ts...>>&& getImpl(TupleImpl<Indices, Ts...>&& t)
 	{
-		typedef tuple_element_t<I, TupleImpl<Indices, Ts...>> Type;
-		return static_cast<Type&&>(static_cast<TupleLeaf<I, Type>&>(t).getInternal());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Indices, typename... Ts>
 	inline T& getImpl(TupleImpl<Indices, Ts...>& t)
 	{
-		typedef tuple_index<T, TupleImpl<Indices, Ts...>> Index;
-		return static_cast<TupleLeaf<Index::index, T>&>(t).getInternal();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Indices, typename... Ts>
 	inline const T& getImpl(const TupleImpl<Indices, Ts...>& t)
 	{
-		typedef tuple_index<T, TupleImpl<Indices, Ts...>> Index;
-		return static_cast<const TupleLeaf<Index::index, T>&>(t).getInternal();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Indices, typename... Ts>
 	inline T&& getImpl(TupleImpl<Indices, Ts...>&& t)
 	{
-		typedef tuple_index<T, TupleImpl<Indices, Ts...>> Index;
-		return static_cast<T&&>(static_cast<TupleLeaf<Index::index, T>&>(t).getInternal());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// TupleLike
@@ -537,9 +545,8 @@ namespace Internal
 		template <typename Tuple1, typename Tuple2>
 		bool operator()(const Tuple1& t1, const Tuple2& t2)
 		{
-			static_assert(tuple_size<Tuple1>::value == tuple_size<Tuple2>::value, "comparing tuples of different sizes.");
-			return TupleEqual<I - 1>()(t1, t2) && get<I - 1>(t1) == get<I - 1>(t2);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <>
@@ -548,8 +555,8 @@ namespace Internal
 		template <typename Tuple1, typename Tuple2>
 		bool operator()(const Tuple1&, const Tuple2&)
 		{
-			return true;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	// TupleLess
@@ -562,9 +569,8 @@ namespace Internal
 		template <typename Tuple1, typename Tuple2>
 		bool operator()(const Tuple1& t1, const Tuple2& t2)
 		{
-			static_assert(tuple_size<Tuple1>::value == tuple_size<Tuple2>::value, "comparing tuples of different sizes.");
-			return TupleLess<I - 1>()(t1, t2) || (!TupleLess<I - 1>()(t2, t1) && get<I - 1>(t1) < get<I - 1>(t2));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <>
@@ -573,8 +579,8 @@ namespace Internal
 		template <typename Tuple1, typename Tuple2>
 		bool operator()(const Tuple1&, const Tuple2&)
 		{
-			return false;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -622,14 +628,16 @@ public:
 	EA_CONSTEXPR tuple(const T& t, const Ts&... ts)
 		: mImpl(make_index_sequence<sizeof...(Ts) + 1>{}, Internal::MakeTupleTypes_t<tuple>{}, t, ts...)
 	{
-	}
+    
+}
 
 	template <typename T2 = T, 
 		Internal::TupleExplicitlyConvertible_t<tuple, const T2&, const Ts&...> = 0>
 	explicit EA_CONSTEXPR tuple(const T& t, const Ts&... ts)
 		: mImpl(make_index_sequence<sizeof...(Ts) + 1>{}, Internal::MakeTupleTypes_t<tuple>{}, t, ts...)
 	{
-	}
+    
+}
 
 	template <typename U, typename... Us,
 		Internal::TupleImplicitlyConvertible_t<tuple, U, Us...> = 0>
@@ -637,7 +645,8 @@ public:
 			: mImpl(make_index_sequence<sizeof...(Us) + 1>{}, Internal::MakeTupleTypes_t<tuple>{}, eastl::forward<U>(u),
 					eastl::forward<Us>(us)...)
 	{
-	}
+    
+}
 
 	template <typename U, typename... Us,
 		Internal::TupleExplicitlyConvertible_t<tuple, U, Us...> = 0>
@@ -645,24 +654,27 @@ public:
 			: mImpl(make_index_sequence<sizeof...(Us) + 1>{}, Internal::MakeTupleTypes_t<tuple>{}, eastl::forward<U>(u),
 					eastl::forward<Us>(us)...)
 	{
-	}
+    
+}
 
 	template <typename OtherTuple,
 			  typename enable_if<Internal::TupleConvertible<OtherTuple, tuple>::value, bool>::type = false>
 	tuple(OtherTuple&& t)
 		: mImpl(eastl::forward<OtherTuple>(t))
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename OtherTuple,
 			  typename enable_if<Internal::TupleAssignable<tuple, OtherTuple>::value, bool>::type = false>
 	tuple& operator=(OtherTuple&& t)
 	{
-		mImpl.operator=(eastl::forward<OtherTuple>(t));
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-	void swap(tuple& t) { mImpl.swap(t.mImpl); }
+	void swap(tuple& t) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 private:
 	typedef Internal::TupleImpl<make_index_sequence<sizeof...(Ts) + 1>, T, Ts...> Impl;
@@ -692,49 +704,51 @@ template <>
 class tuple<>
 {
 public:
-	void swap(tuple&) {}
+	void swap(tuple&) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 };
 
 template <size_t I, typename... Ts>
 inline tuple_element_t<I, tuple<Ts...>>& get(tuple<Ts...>& t)
 {
-	return Internal::getImpl<I>(t.mImpl);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template <size_t I, typename... Ts>
 inline const_tuple_element_t<I, tuple<Ts...>>& get(const tuple<Ts...>& t)
 {
-	return Internal::getImpl<I>(t.mImpl);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template <size_t I, typename... Ts>
 inline tuple_element_t<I, tuple<Ts...>>&& get(tuple<Ts...>&& t)
 {
-	return Internal::getImpl<I>(eastl::move(t.mImpl));
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template <typename T, typename... Ts>
 inline T& get(tuple<Ts...>& t)
 {
-	return Internal::getImpl<T>(t.mImpl);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template <typename T, typename... Ts>
 inline const T& get(const tuple<Ts...>& t)
 {
-	return Internal::getImpl<T>(t.mImpl);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template <typename T, typename... Ts>
 inline T&& get(tuple<Ts...>&& t)
 {
-	return Internal::getImpl<T>(eastl::move(t.mImpl));
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template <typename... Ts>
 inline void swap(tuple<Ts...>& a, tuple<Ts...>& b)
 {
-	a.swap(b);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
@@ -744,7 +758,7 @@ inline void swap(tuple<Ts...>& a, tuple<Ts...>& b)
 template <typename... T1s, typename... T2s>
 inline bool operator==(const tuple<T1s...>& t1, const tuple<T2s...>& t2)
 {
-	return Internal::TupleEqual<sizeof...(T1s)>()(t1, t2);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 #if defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
@@ -757,13 +771,21 @@ inline constexpr std::common_comparison_category_t<synth_three_way_result<T1s, T
 template <typename... T1s, typename... T2s>
 inline bool operator<(const tuple<T1s...>& t1, const tuple<T2s...>& t2)
 {
-	return Internal::TupleLess<sizeof...(T1s)>()(t1, t2);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
-template <typename... T1s, typename... T2s> inline bool operator!=(const tuple<T1s...>& t1, const tuple<T2s...>& t2) { return !(t1 == t2); }
-template <typename... T1s, typename... T2s> inline bool operator> (const tuple<T1s...>& t1, const tuple<T2s...>& t2) { return t2 < t1; }
-template <typename... T1s, typename... T2s> inline bool operator<=(const tuple<T1s...>& t1, const tuple<T2s...>& t2) { return !(t2 < t1); }
-template <typename... T1s, typename... T2s> inline bool operator>=(const tuple<T1s...>& t1, const tuple<T2s...>& t2) { return !(t1 < t2); }
+template <typename... T1s, typename... T2s> inline bool operator!=(const tuple<T1s...>& t1, const tuple<T2s...>& t2) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+template <typename... T1s, typename... T2s> inline bool operator> (const tuple<T1s...>& t1, const tuple<T2s...>& t2) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+template <typename... T1s, typename... T2s> inline bool operator<=(const tuple<T1s...>& t1, const tuple<T2s...>& t2) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+template <typename... T1s, typename... T2s> inline bool operator>=(const tuple<T1s...>& t1, const tuple<T2s...>& t2) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 #endif
 
 namespace Internal
@@ -804,8 +826,8 @@ namespace Internal
 		template <typename Tuple1, typename Tuple2>
 		static inline ResultType DoCat2(Tuple1&& t1, Tuple2&& t2)
 		{
-			return TCI::DoCat2(eastl::forward<Tuple1>(t1), eastl::forward<Tuple2>(t2));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	// TupleCat
@@ -822,10 +844,8 @@ namespace Internal
 		template <typename TupleArg1, typename TupleArg2, typename... TupleArgsRest>
 		static inline ResultType DoCat(TupleArg1&& t1, TupleArg2&& t2, TupleArgsRest&&... ts)
 		{
-			return TupleCat<FirstResultType, TuplesRest...>::DoCat(
-				TC2::DoCat2(eastl::forward<TupleArg1>(t1), eastl::forward<TupleArg2>(t2)),
-				eastl::forward<TupleArgsRest>(ts)...);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <typename Tuple1, typename Tuple2>
@@ -837,8 +857,8 @@ namespace Internal
 		template <typename TupleArg1, typename TupleArg2>
 		static inline ResultType DoCat(TupleArg1&& t1, TupleArg2&& t2)
 		{
-			return TC2::DoCat2(eastl::forward<TupleArg1>(t1), eastl::forward<TupleArg2>(t2));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <typename... Ts>
@@ -849,8 +869,8 @@ namespace Internal
 		template <typename TupleArg>
 		static inline tuple<Ts...> DoCat(TupleArg&& t)
 		{
-			return eastl::forward<TupleArg>(t);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <>
@@ -860,8 +880,8 @@ namespace Internal
 		
 		static inline tuple<> DoCat()
 		{
-			return {};
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 }
 	
@@ -871,7 +891,7 @@ namespace Internal
 template <typename... Tuples>
 inline typename Internal::TupleCat<eastl::remove_cvref_t<Tuples>...>::ResultType tuple_cat(Tuples&&... ts)
 {
-	return Internal::TupleCat<eastl::remove_cvref_t<Tuples>...>::DoCat(eastl::forward<Tuples>(ts)...);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 

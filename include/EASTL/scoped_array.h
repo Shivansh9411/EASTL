@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -66,7 +68,9 @@ namespace eastl
 		/// Example usage:
 		///    scoped_array<int> ptr(new int[6]);
 		explicit scoped_array(T* pArray = NULL)
-			: mpArray(pArray) {}
+			: mpArray(pArray) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// ~scoped_array
 		/// Destroys the owned pointer. The destructors for each of the objects
@@ -87,13 +91,8 @@ namespace eastl
 		///    ptr.reset(NULL);        // deletes int[7]
 		void reset(T* pArray = NULL)
 		{
-			if(pArray != mpArray)
-			{
-				Deleter del;
-				del(mpArray);
-				mpArray = pArray;
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// detach
 		/// This simply forgets the owned pointer. It doesn't 
@@ -105,20 +104,15 @@ namespace eastl
 		///    delete[] pIntArray;
 		T* detach()
 		{
-			T* const pTemp = mpArray;
-			mpArray = NULL;
-			return pTemp;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// swap
 		/// Exchanges the owned pointer beween two scoped_array objects. 
 		void swap(this_type& scopedArray)
 		{
-			// std::swap(mpArray, scopedArray.mpArray); // Not used so that we can reduce a dependency.
-			T* const pArray     = scopedArray.mpArray;
-			scopedArray.mpArray = mpArray;
-			mpArray             = pArray;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// operator[]
 		/// Returns a reference to the specified item in the owned pointer
@@ -128,9 +122,8 @@ namespace eastl
 		///    int x = ptr[2];
 		typename add_lvalue_reference<T>::type operator[](ptrdiff_t i) const
 		{
-			// assert(mpArray && (i >= 0));
-			return mpArray[i];
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// get
 		/// Returns the owned array pointer. 
@@ -141,8 +134,8 @@ namespace eastl
 		///    ppX[2]->DoSomething();
 		T* get() const
 		{
-			return mpArray;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// Implicit operator bool
 		/// Allows for using a scoped_ptr as a boolean. 
@@ -170,8 +163,8 @@ namespace eastl
 		///        assert(false);
 		bool operator!() const
 		{
-			return (mpArray == NULL);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // class scoped_array
 
@@ -198,8 +191,8 @@ namespace eastl
 	template <typename T, typename D>
 	inline T* get_pointer(const scoped_array<T, D>& scopedArray)
 	{
-		return scopedArray.get();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// swap
@@ -209,8 +202,8 @@ namespace eastl
 	template <typename T, typename D>
 	inline void swap(scoped_array<T, D>& scopedArray1, scoped_array<T, D>& scopedArray2)
 	{
-		scopedArray1.swap(scopedArray2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// operator<
@@ -219,8 +212,8 @@ namespace eastl
 	template <typename T, typename D>
 	inline bool operator<(const scoped_array<T, D>& scopedArray1, const scoped_array<T, D>& scopedArray2)
 	{
-		return (scopedArray1.get() < scopedArray2.get()); // Alternatively use: std::less<T*>(scopedArray1.get(), scopedArray2.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

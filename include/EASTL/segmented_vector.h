@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -274,71 +276,49 @@ namespace eastl
 	inline const segment<T, Count, Allocator>*
 	segment<T, Count, Allocator>::next_segment() const
 	{
-		if (mPrev & kIsLastSegment)
-			return nullptr;
-		else
-			return mNext;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename T, size_t Count, typename Allocator>
 	inline segment<T, Count, Allocator>*
 	segment<T, Count, Allocator>::next_segment()
 	{
-		if (mPrev & kIsLastSegment)
-			return nullptr;
-		else
-			return mNext;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename T, size_t Count, typename Allocator>
 	inline typename segment<T, Count, Allocator>::const_iterator
 	segment<T, Count, Allocator>::begin() const
 	{
-		return reinterpret_cast<const T*>(&mData);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename T, size_t Count, typename Allocator>
 	inline typename segment<T, Count, Allocator>::iterator
 	segment<T, Count, Allocator>::begin()
 	{
-		return reinterpret_cast<T*>(&mData);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename T, size_t Count, typename Allocator>
 	inline typename segment<T, Count, Allocator>::const_iterator
 	segment<T, Count, Allocator>::end() const
 	{
-		if (mPrev & kIsLastSegment)
-			return begin() + mSize;
-		else
-			return begin() + Count;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename T, size_t Count, typename Allocator>
 	inline typename segment<T, Count, Allocator>::iterator
 	segment<T, Count, Allocator>::end()
 	{
-		if (mPrev & kIsLastSegment)
-			return begin() + mSize;
-		else
-			return begin() + Count;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline void segment<T, Count, Allocator>::DestroyData()
 	{
-		// TODO: Our current call sites know the value of
-		// (mPrev & kIsLastSegment), consider having 2 implementations
-		// of this which don't branch or something like that.
-		T* ptr = begin();
-		const size_type count = (mPrev & kIsLastSegment) ? mSize : Count;
-		for (size_type i = 0; i < count; ++i)
-		{
-			eastl::destroy_at(ptr);
-			ptr++;
-		}
-		mSize = 0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/////////////////////////////////////
@@ -349,43 +329,29 @@ namespace eastl
     T*
 	segmented_vector_iterator<T, Count, Allocator>::operator->() const
 	{
-		return mCurrent;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename T, size_t Count, typename Allocator>
     T&
 	segmented_vector_iterator<T, Count, Allocator>::operator*() const
 	{
-		return *mCurrent;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename T, size_t Count, typename Allocator>
     segmented_vector_iterator<T, Count, Allocator>&
 	segmented_vector_iterator<T, Count, Allocator>::operator++()
 	{
-		++mCurrent;
-        if(EASTL_UNLIKELY(mCurrent == mEnd))
-        {
-			if (!(mSegment->mPrev & segment_type::kIsLastSegment))
-			{
-				mSegment = mSegment->mNext;
-				mCurrent = mSegment->begin();
-				mEnd = mSegment->end();
-			}
-			else
-				mCurrent = nullptr;
-        }
-        return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename T, size_t Count, typename Allocator>
     segmented_vector_iterator<T, Count, Allocator>
 	segmented_vector_iterator<T, Count, Allocator>::operator++(int)
 	{
-		this_type i(*this);
-		operator++();
-		return i;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/////////////////////////////////////
@@ -396,14 +362,15 @@ namespace eastl
 	inline segmented_vector<T, Count, Allocator>::segmented_vector(const Allocator& allocator)
 	:	mAllocator(allocator)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline segmented_vector<T, Count, Allocator>::segmented_vector(const segmented_vector& other)
 	    : mAllocator(other.mAllocator)
 	{
-		InsertRange<false>(other.begin(), other.end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline segmented_vector<T, Count, Allocator>::segmented_vector(segmented_vector&& other)
@@ -416,58 +383,22 @@ namespace eastl
 	inline segmented_vector<T, Count, Allocator>::segmented_vector(std::initializer_list<value_type> ilist, const Allocator& allocator)
 		: mAllocator(allocator)
 	{
-		InsertRange<false>(ilist.begin(), ilist.end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline segmented_vector<T, Count, Allocator>& segmented_vector<T, Count, Allocator>::operator=(
 	    const segmented_vector& other)
 	{
-		if (EA_UNLIKELY(this == &other))
-		{
-			return *this;
-		}
-		// EASTL behaves as if propagate_on_container_copy_assignment
-		// is globally false, so we don't propagate the allocator
-		// here.
-		if (size() > other.size())
-		{
-			EraseFromBack(size() - other.size());
-		}
-
-		// At this point size() <= other.size()
-		// copy-assign elements which are already initialized.
-		auto fromIt = other.begin();
-		// TODO: consider doing segment copies, which do memcpy on
-		// trivially copyable types.
-		for (auto toIt = begin(); toIt != end(); ++toIt, ++fromIt)
-		{
-			*toIt = *fromIt;
-		}
-
-		// Now we insert (copy construct) all the missing elements
-		// in-place
-		InsertRange<false>(fromIt, other.end());
-
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline segmented_vector<T, Count, Allocator>& segmented_vector<T, Count, Allocator>::operator=(
 	    segmented_vector&& other)
 	{
-		if (EA_UNLIKELY(this == &other))
-		{
-			return *this;
-		}
-
-		// EASTL behaves as if propagate_on_container_move_assignment
-		// and propagate_on_container_swap are both globally true, so
-		// we just swap and clear the one we're returning.
-		swap(other);
-		other.Clear<true>();
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline segmented_vector<T, Count, Allocator>::~segmented_vector()
@@ -479,531 +410,281 @@ namespace eastl
 	inline const typename segmented_vector<T, Count, Allocator>::allocator_type&
 	segmented_vector<T, Count, Allocator>::get_allocator() const noexcept
 	{
-		return mAllocator;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline typename segmented_vector<T, Count, Allocator>::allocator_type&
 	segmented_vector<T, Count, Allocator>::get_allocator() noexcept
 	{
-		return mAllocator;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline const typename segmented_vector<T, Count, Allocator>::segment_type*
 	segmented_vector<T, Count, Allocator>::first_segment() const noexcept
 	{
-		return mFirstSegment;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline typename segmented_vector<T, Count, Allocator>::segment_type*
 	segmented_vector<T, Count, Allocator>::first_segment() noexcept
 	{
-		return mFirstSegment;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline typename segmented_vector<T, Count, Allocator>::const_iterator
 	segmented_vector<T, Count, Allocator>::begin() const noexcept
 	{
-		iterator i;
-		i.mSegment = mFirstSegment;
-		if (mFirstSegment)
-		{
-			i.mCurrent = mFirstSegment->begin();
-			i.mEnd = mFirstSegment->end();
-		}
-		else
-		{
-			i.mCurrent = nullptr;
-		}
-		return (const_iterator&)i;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline typename segmented_vector<T, Count, Allocator>::iterator
 	segmented_vector<T, Count, Allocator>::begin() noexcept
 	{
-		iterator i;
-		i.mSegment = mFirstSegment;
-		if (mFirstSegment)
-		{
-			i.mCurrent = mFirstSegment->begin();
-			i.mEnd = mFirstSegment->end();
-		}
-		else
-			i.mCurrent = nullptr;
-		return i;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline typename segmented_vector<T, Count, Allocator>::const_iterator
 	segmented_vector<T, Count, Allocator>::end() const noexcept
 	{
-		iterator i;
-		i.mCurrent = nullptr;
-		return (const_iterator&)i;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline typename segmented_vector<T, Count, Allocator>::iterator
 	segmented_vector<T, Count, Allocator>::end() noexcept
 	{
-		iterator i;
-		i.mCurrent = nullptr;
-		return i;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline typename segmented_vector<T, Count, Allocator>::size_type
 	segmented_vector<T, Count, Allocator>::size() const noexcept
 	{
-		if (segment_type* segment = mLastSegment)
-			return (mInUseSegmentCount-1)*Count + segment->mSize;
-		return 0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline typename segmented_vector<T, Count, Allocator>::size_type
 	segmented_vector<T, Count, Allocator>::capacity() const noexcept
 	{
-		return (mInUseSegmentCount + mFreeListSegmentCount) * Count;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline typename segmented_vector<T, Count, Allocator>::size_type
 	segmented_vector<T, Count, Allocator>::segment_count() const noexcept
 	{
-		return mInUseSegmentCount;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline T&
 	segmented_vector<T, Count, Allocator>::front() noexcept
 	{
-#if EASTL_ASSERT_ENABLED && EASTL_EMPTY_REFERENCE_ASSERT_ENABLED
-		if (EASTL_UNLIKELY(mFirstSegment == nullptr)) // We don't allow the user to reference an empty container.
-			EASTL_FAIL_MSG("segmented_vector::front -- empty container");
-#endif
-
-		return mFirstSegment->begin()[0];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline T&
 	segmented_vector<T, Count, Allocator>::back() noexcept
 	{
-#if EASTL_ASSERT_ENABLED && EASTL_EMPTY_REFERENCE_ASSERT_ENABLED
-		if (EASTL_UNLIKELY(mLastSegment == nullptr)) // We don't allow the user to reference an empty container.
-			EASTL_FAIL_MSG("segmented_vector::back -- empty container");
-#endif
-
-		segment_type* lastSegment = mLastSegment;
-		return lastSegment->begin()[lastSegment->mSize-1];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline bool
 	segmented_vector<T, Count, Allocator>::empty() const noexcept
 	{
-		return mFirstSegment == nullptr;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline void
 	segmented_vector<T, Count, Allocator>::clear()
 	{
-		Clear<false>();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline void segmented_vector<T, Count, Allocator>::reserve(size_type n)
 	{
-		while (capacity() < n)
-		{
-			segment_type* segment = AllocateNewSegment();
-			AddToFreeList(segment);
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline void segmented_vector<T, Count, Allocator>::resize(size_type n, const value_type& v)
 	{
-		if (size() < n)
-		{
-			PushBack(n - size(), v);
-		}
-		else
-		{
-			EraseFromBack(size() - n);
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline void
 	segmented_vector<T, Count, Allocator>::resize(size_type n)
 	{
-		resize(n, value_type());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline void segmented_vector<T, Count, Allocator>::shrink_to_fit() noexcept
 	{
-		static_assert(eastl::is_trivially_destructible_v<segment_type>,
-		              "segment_type doesn't call it's destructor here!");
-		while (mFreeList)
-		{
-			segment_type* toFree = mFreeList;
-			mFreeList = reinterpret_cast<segment_type*>(toFree->mPrev);
-			EASTLFree(mAllocator, toFree, sizeof(segment_type));
-		}
-
-		mFreeListSegmentCount = 0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline T&
 	segmented_vector<T, Count, Allocator>::push_back()
 	{
-		return *(::new (DoPushBack()) T());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline T&
 	segmented_vector<T, Count, Allocator>::push_back(const T& value)
 	{
-		return *(::new (DoPushBack()) T(value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline T&
 	segmented_vector<T, Count, Allocator>::push_back(T&& value)
 	{
-		return *(::new (DoPushBack()) T(eastl::move(value)));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline void*
 	segmented_vector<T, Count, Allocator>::push_back_uninitialized()
 	{
-		return DoPushBack();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	template <class... Args>
 	T& segmented_vector<T, Count, Allocator>::emplace_back(Args&&... args)
 	{
-		return *(::new (DoPushBack()) T(eastl::forward<Args>(args)... ));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline void
 	segmented_vector<T, Count, Allocator>::pop_back()
 	{
-		segment_type* lastSegment = mLastSegment;
-        #if EASTL_ASSERT_ENABLED
-            if(EASTL_UNLIKELY(!lastSegment))
-                EASTL_FAIL_MSG("segmented_vector::pop_back -- segmented vector is empty");
-        #endif
-		--lastSegment->mSize;
-		T* const toDestroy = lastSegment->begin() + lastSegment->mSize;
-		eastl::destroy_at(toDestroy);
-
-		UpdateLastSegment();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline void
 	segmented_vector<T, Count, Allocator>::erase_unsorted(segment_type& segment, typename segment_type::iterator it)
 	{
-		EA_UNUSED(segment);
-
-		*it = back();
-		pop_back();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline typename segmented_vector<T, Count, Allocator>::iterator
 	segmented_vector<T, Count, Allocator>::erase_unsorted(const iterator& i)
 	{
-		iterator ret(i);
-		*i = back();
-		if (i.mSegment == mLastSegment && mLastSegment->mSize == 1)
-			ret.mCurrent = nullptr;
-		pop_back();
-		return ret;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	void
 	segmented_vector<T, Count, Allocator>::swap(this_type& other)
 	{
-		using eastl::swap;
-		//
-		// EASTL doesn't have allocator_traits it has the effective
-		// behavior of propagate_on_container_swap = true for all
-		// allocators.
-		swap(mAllocator, other.mAllocator);
-		swap(mFirstSegment, other.mFirstSegment);
-		swap(mLastSegment, other.mLastSegment);
-		swap(mFreeList, other.mFreeList);
-		swap(mInUseSegmentCount, other.mInUseSegmentCount);
-		swap(mFreeListSegmentCount, other.mFreeListSegmentCount);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline void*
 	segmented_vector<T, Count, Allocator>::DoPushBack()
 	{
-		// This does not initialize the entry, it just makes room for it.
-		if (segment_type* segment = mLastSegment)
-		{
-			size_type size = segment->mSize;
-			if (size < Count)
-			{
-				++segment->mSize;
-				return segment->begin() + size;
-			}
-			else
-			{
-				segment_type* lastSegment = mLastSegment;
-				segment_type* newSegment = mLastSegment = GetUnusedSegmentForLastSegment(mLastSegment);
-				lastSegment->mPrev &= ~segment_type::kIsLastSegment;
-				lastSegment->mNext = newSegment;
-				newSegment->mSize = 1;
-				return newSegment->begin();
-			}
-		}
-		else
-		{
-			segment = mFirstSegment = mLastSegment = GetUnusedSegmentForLastSegment(nullptr);
-			segment->mSize = 1;
-			return segment->begin();
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline void
 	segmented_vector<T, Count, Allocator>::AddToFreeList(segment_type* segment)
 	{
-		segment->mPrev = reinterpret_cast<uintptr_t>(mFreeList);
-		mFreeList = segment;
-		mFreeListSegmentCount++;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline typename segmented_vector<T, Count, Allocator>::segment_type*
 	segmented_vector<T, Count, Allocator>::GetUnusedSegmentForLastSegment(segment_type* prevSegment)
 	{
-		segment_type* const newSegment = [&]
-		{
-			if (mFreeList)
-			{
-				mFreeListSegmentCount--;
-				segment_type* const freeSegment = mFreeList;
-				mFreeList = reinterpret_cast<segment_type*>(freeSegment->mPrev);
-				return freeSegment;
-			}
-
-			return AllocateNewSegment();
-		}();
-
-		mInUseSegmentCount++;
-		newSegment->mPrev = uintptr_t(prevSegment) | segment_type::kIsLastSegment;
-		newSegment->mSize = 0;
-		return newSegment;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, size_t Count, typename Allocator>
 	inline typename segmented_vector<T, Count, Allocator>::segment_type*
 	segmented_vector<T, Count, Allocator>::AllocateNewSegment()
 	{
-		static_assert(eastl::is_trivially_constructible_v<segment_type>, "We're not initializing segment_type here");
-		return (segment_type*)allocate_memory(mAllocator, sizeof(segment_type), EASTL_ALIGN_OF(segment_type), 0);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	template <bool bFreeMemory>
 	inline void segmented_vector<T, Count, Allocator>::Clear()
 	{
-		if (bFreeMemory)
-		{
-			// Delete what was already in the free list before this
-			// call.
-			shrink_to_fit();
-		}
-
-		segment_type* segment = mFirstSegment;
-		if (segment == nullptr)
-		{
-			return;
-		}
-
-		const auto& wrapUp = [this](segment_type* s)
-		{
-			s->DestroyData();
-			if (!bFreeMemory)
-			{
-				AddToFreeList(s);
-			}
-			else
-			{
-				EASTLFree(mAllocator, s, sizeof(segment_type));
-			}
-		};
-
-		// Note: the last segment is special because its active member
-		// is mSize not mNext, so we need to deal with it separately.
-		while (segment != mLastSegment)
-		{
-			segment_type* nextSegment = segment->mNext;
-			wrapUp(segment);
-			segment = nextSegment;
-		}
-
-		wrapUp(segment);
-
-		mFirstSegment = nullptr;
-		mLastSegment = nullptr;
-		mInUseSegmentCount = 0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline void segmented_vector<T, Count, Allocator>::UpdateLastSegment()
 	{
-		// Assumes there is a last segment.
-		segment_type* lastSegment = mLastSegment;
-		if (lastSegment->mSize == 0)
-		{
-			--mInUseSegmentCount;
-			mLastSegment = (segment_type*)(lastSegment->mPrev & (~segment_type::kIsLastSegment));
-			AddToFreeList(lastSegment);
-			if (mLastSegment)
-			{
-				mLastSegment->mPrev |= segment_type::kIsLastSegment;
-				mLastSegment->mSize = Count;
-			}
-			else
-			{
-				mFirstSegment = nullptr;
-			}
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline void segmented_vector<T, Count, Allocator>::EraseFromBack(size_type toRemoveCount)
 	{
-		// This is only marginally better than doing consecutive pop_back() calls, is it worth it?
-
-		// No bounds checking for this, we assume we have at least `toRemoveCount` elements.
-
-		// Drop whole segments while we can.
-		while (toRemoveCount >= mLastSegment->mSize)
-		{
-			const size_type removed = mLastSegment->mSize;
-			mLastSegment->DestroyData();
-			UpdateLastSegment();
-			toRemoveCount -= removed;
-		}
-
-		// There's a chance we completely emptied the container here.
-		if (mLastSegment == nullptr)
-		{
-			return;
-		}
-
-		// at this point we know there's more entries in the last
-		// segment that there are elements left to remove.
-		for (size_type i = 1; i <= toRemoveCount; ++i)
-		{
-			const size_type toRemoveIndex = mLastSegment->mSize - i;
-			T* const toRemove = mLastSegment->begin() + toRemoveIndex;
-			eastl::destroy_at(toRemove);
-		}
-		mLastSegment->mSize -= toRemoveCount;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	inline void segmented_vector<T, Count, Allocator>::PushBack(size_type toAddCount, const value_type& v)
 	{
-		// This is only marginally better than doing consecutive push_back(v) calls, is it worth it?
-
-		if (!mLastSegment && (toAddCount > 0))
-		{
-			mFirstSegment = mLastSegment = GetUnusedSegmentForLastSegment(nullptr);
-		}
-
-		const auto& fillLastSegment = [&]()
-		{
-			const size_type spaceInSegment = Count - mLastSegment->mSize;
-			const size_type addedThisLoop = eastl::min(toAddCount, spaceInSegment);
-			for (size_type i = 0; i < addedThisLoop; ++i)
-			{
-				T* slot = mLastSegment->begin() + mLastSegment->mSize + i;
-				new (slot) T(v);
-			}
-			mLastSegment->mSize += addedThisLoop;
-			toAddCount -= addedThisLoop;
-		};
-
-		// fill the current last segment.
-		fillLastSegment();
-
-		// if there's still stuff to add, we need to add new segments as we go.
-		while (toAddCount > 0)
-		{
-			mLastSegment = GetUnusedSegmentForLastSegment(mLastSegment);
-			fillLastSegment();
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, size_t Count, typename Allocator>
 	template<bool bDoMove, typename ForwardIt>
 	inline void segmented_vector<T, Count, Allocator>::InsertRange(ForwardIt begin, ForwardIt end)
 	{
-		// TODO: this can be greatly improved, e.g. memcpy entire
-		// segments when the element types are trivially_copyable and
-		// things like that, for now just do the trivial thing.
-		for (auto it = begin; it != end; ++it)
-		{
-			if (bDoMove)
-			{
-				push_back(eastl::move(*it));
-			}
-			else
-			{
-				push_back(*it);
-			}
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename T, size_t Count, typename Allocator>
     inline bool operator==(const segmented_vector_iterator<const T, Count, Allocator>& a, const segmented_vector_iterator<const T, Count, Allocator>& b)
     {
-        return a.mCurrent == b.mCurrent;
-    }
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template<typename T, size_t Count, typename Allocator>
     inline bool operator!=(const segmented_vector_iterator<const T, Count, Allocator>& a, const segmented_vector_iterator<const T, Count, Allocator>& b)
     {
-        return a.mCurrent != b.mCurrent;
-    }
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename T, size_t Count, typename Allocator>
     inline bool operator==(const segmented_vector_iterator<T, Count, Allocator>& a, const segmented_vector_iterator<T, Count, Allocator>& b)
     {
-        return a.mCurrent == b.mCurrent;
-    }
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template<typename T, size_t Count, typename Allocator>
     inline bool operator!=(const segmented_vector_iterator<T, Count, Allocator>& a, const segmented_vector_iterator<T, Count, Allocator>& b)
     {
-        return a.mCurrent != b.mCurrent;
-    }
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	///////////////////////////////////////////////////////////////////////
 	// global operators
@@ -1012,8 +693,8 @@ namespace eastl
 	template<typename T, size_t Count, typename Allocator>
 	inline bool operator==(const segmented_vector<T, Count, Allocator>& a, const segmented_vector<T, Count, Allocator>& b)
 	{
-		return (a.size() == b.size()) && eastl::equal(a.begin(), a.end(), b.begin());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
 	template<typename T, size_t Count, typename Allocator>
@@ -1026,38 +707,38 @@ namespace eastl
 	template<typename T, size_t Count, typename Allocator>
 	inline bool operator!=(const segmented_vector<T, Count, Allocator>& a, const segmented_vector<T, Count, Allocator>& b)
 	{
-		return !(a == b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename T, size_t Count, typename Allocator>
 	inline bool operator<(const segmented_vector<T, Count, Allocator>& a, const segmented_vector<T, Count, Allocator>& b)
 	{
-		return eastl::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename T, size_t Count, typename Allocator>
 	inline bool operator>(const segmented_vector<T, Count, Allocator>& a, const segmented_vector<T, Count, Allocator>& b)
 	{
-		return b < a;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename T, size_t Count, typename Allocator>
 	inline bool operator<=(const segmented_vector<T, Count, Allocator>& a, const segmented_vector<T, Count, Allocator>& b)
 	{
-		return !(b < a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename T, size_t Count, typename Allocator>
 	inline bool operator>=(const segmented_vector<T, Count, Allocator>& a, const segmented_vector<T, Count, Allocator>& b)
 	{
-		return !(a < b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename T, size_t Count, typename Allocator>
 	inline void swap(segmented_vector<T, Count, Allocator>& a, segmented_vector<T, Count, Allocator>& b)
 	{
-		a.swap(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 }
 
 #endif

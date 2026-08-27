@@ -83,44 +83,35 @@ namespace eastl
 		template <class Err,
 		          typename = enable_if_t<!is_same_v<remove_cvref_t<Err>, unexpected<E>> &&
 		                                 !is_same_v<remove_cvref_t<Err>, in_place_t> && is_constructible_v<E, Err>>>
-		constexpr explicit unexpected(Err&& e) : mError(eastl::forward<Err>(e)){};
+		constexpr explicit unexpected(Err&& e) : mError(eastl::forward<Err>(e)){ };
 
 		template <class... Args, enable_if_t<is_constructible_v<E, Args...>, int> = 0>
-		constexpr explicit unexpected(in_place_t, Args&&... args) : mError(eastl::forward<Args>(args)...){};
+		constexpr explicit unexpected(in_place_t, Args&&... args) : mError(eastl::forward<Args>(args)...){ };
 
 		template <class U,
 		          class... Args,
 		          enable_if_t<is_constructible_v<E, std::initializer_list<U>&, Args...>, int> = 0>
 		constexpr explicit unexpected(in_place_t, std::initializer_list<U> il, Args&&... args)
-		    : mError(il, eastl::forward<Args>(args)...){};
+		    : mError(il, eastl::forward<Args>(args)...){ };
 
 		constexpr unexpected& operator=(const unexpected&) = default;
 		constexpr unexpected& operator=(unexpected&&) = default;
 
-		constexpr const E& error() const& noexcept { return mError; };
-		constexpr E& error() & noexcept { return mError; };
-		constexpr const E&& error() const&& noexcept { return eastl::move(mError); };
-		constexpr E&& error() && noexcept { return eastl::move(mError); };
+		constexpr const E& error() const& noexcept { return {}; };
+		constexpr E& error() & noexcept { return {}; };
+		constexpr const E&& error() const&& noexcept { return {}; };
+		constexpr E&& error() && noexcept { return {}; };
 
 		constexpr void swap(unexpected& other) noexcept(is_nothrow_swappable_v<E>)
-		{
-			static_assert(is_swappable_v<E>, "unexpected<E> swap requires E to be swappable");
-			using eastl::swap;
-			swap(mError, other.mError);
-		};
+		{ };
 
 		friend constexpr void swap(unexpected& x, unexpected& y) noexcept(noexcept(x.swap(y)))
-		{
-			static_assert(is_swappable_v<E>, "unexpected<E> swap requires E to be swappable");
-			x.swap(y);
-		}
+		{ }
 
 		// equality operator
 		template <class E2>
 		friend constexpr bool operator==(const unexpected& x, const unexpected<E2>& y)
-		{
-			return x.mError == y.mError;
-		}
+		{ return {}; }
 
 	private:
 		E mError;
@@ -143,7 +134,7 @@ namespace eastl
 	class bad_expected_access<void> : public std::exception
 	{
 	public:
-		const char* what() const noexcept override { return "Bad expected access."; };
+		const char* what() const noexcept override { __builtin_trap() /* STUB: not implemented */; };
 
 	protected:
 		bad_expected_access() noexcept = default;
@@ -158,15 +149,15 @@ namespace eastl
 	class bad_expected_access : public bad_expected_access<void>
 	{
 	public:
-		explicit bad_expected_access(E e) : mError(eastl::move(e)){};
+		explicit bad_expected_access(E e) : mError(eastl::move(e)){ __builtin_trap() /* STUB: not implemented */; };
 
 		// just use the base class' what(), no need to override this.
 		// const char* what() const noexcept override;
 
-		E& error() & noexcept { return mError; };
-		const E& error() const& noexcept { return mError; };
-		E&& error() && noexcept { return eastl::move(mError); };
-		const E&& error() const&& noexcept { return eastl::move(mError); };
+		E& error() & noexcept { __builtin_trap() /* STUB: not implemented */; };
+		const E& error() const& noexcept { __builtin_trap() /* STUB: not implemented */; };
+		E&& error() && noexcept { __builtin_trap() /* STUB: not implemented */; };
+		const E&& error() const&& noexcept { __builtin_trap() /* STUB: not implemented */; };
 
 	private:
 		E mError;
@@ -191,7 +182,7 @@ namespace eastl
 		{
 			// Note: we deliberately don't initialize anything here, member initailization for
 			// the default conxtructoris done in the `expected` class.
-			constexpr ExpectedDestructLayer(){};
+			constexpr ExpectedDestructLayer(){ };
 
 			union
 			{
@@ -206,20 +197,11 @@ namespace eastl
 		struct ExpectedDestructLayer<T, E, false>
 		{
 			~ExpectedDestructLayer()
-			{
-				if (mHasValue)
-				{
-					eastl::destroy_at(&mValue);
-				}
-				else
-				{
-					eastl::destroy_at(&mError);
-				}
-			}
+			{ __builtin_trap() /* STUB: not implemented */; }
 
 			// Note: we deliberately don't initialize anything here, member initailization for
 			// the default conxtructoris done in the `expected` class.
-			constexpr ExpectedDestructLayer(){};
+			constexpr ExpectedDestructLayer(){ };
 
 			union
 			{
@@ -239,110 +221,21 @@ namespace eastl
 			using ExpectedDestructLayer<T, E>::ExpectedDestructLayer;
 
 			void ConstructFrom(const ExpectedConstructLayer& other)
-			{
-				this->mHasValue = other.mHasValue;
-				if (this->mHasValue)
-				{
-					eastl::construct_at(eastl::addressof(this->mValue), other.mValue);
-				}
-				else
-				{
-					eastl::construct_at(eastl::addressof(this->mError), other.mError);
-				}
-			}
+			{ __builtin_trap() /* STUB: not implemented */; }
 
 			void ConstructFrom(ExpectedConstructLayer&& other)
-			{
-				this->mHasValue = other.mHasValue;
-				if (this->mHasValue)
-				{
-					eastl::construct_at(eastl::addressof(this->mValue), eastl::move(other.mValue));
-				}
-				else
-				{
-					eastl::construct_at(eastl::addressof(this->mError), eastl::move(other.mError));
-				}
-			}
+			{ __builtin_trap() /* STUB: not implemented */; }
 
 			void AssignFrom(const ExpectedConstructLayer& other)
-			{
-				if (this->mHasValue && other.mHasValue)
-				{
-					this->mValue = other.mValue;
-				}
-				else if (this->mHasValue)
-				{
-					ReInit(this->mError, this->mValue, other.mError);
-					this->mHasValue = false;
-				}
-				else if (other.mHasValue)
-				{
-					ReInit(this->mValue, this->mError, other.mValue);
-					this->mHasValue = true;
-				}
-				else
-				{
-					this->mError = other.mError;
-				}
-			}
+			{ __builtin_trap() /* STUB: not implemented */; }
 
 			void AssignFrom(ExpectedConstructLayer&& other)
-			{
-				if (this->mHasValue && other.mHasValue)
-				{
-					this->mValue = eastl::move(other.mValue);
-				}
-				else if (this->mHasValue)
-				{
-					ReInit(this->mError, this->mValue, eastl::move(other.mError));
-					this->mHasValue = false;
-				}
-				else if (other.mHasValue)
-				{
-					ReInit(this->mValue, this->mError, eastl::move(other.mValue));
-					this->mHasValue = true;
-				}
-				else
-				{
-					this->mError = eastl::move(other.mError);
-				}
-			}
+			{ __builtin_trap() /* STUB: not implemented */; }
 
 
 			template <class NewVal, class OldVal, class... Args>
 			void ReInit(NewVal& newval, OldVal& oldval, Args&&... args)
-			{
-#if EASTL_EXCEPTIONS_ENABLED
-				if constexpr (is_nothrow_constructible_v<NewVal, Args...>)
-				{
-					eastl::destroy_at(&oldval);
-					eastl::construct_at(eastl::addressof(newval), eastl::forward<Args>(args)...);
-				}
-				else if constexpr (is_nothrow_move_constructible_v<NewVal>)
-				{
-					NewVal tmp(eastl::forward<Args>(args)...);
-					eastl::destroy_at(&oldval);
-					eastl::construct_at(eastl::addressof(newval), eastl::move(tmp));
-				}
-				else
-				{
-					OldVal tmp(eastl::move(oldval));
-					eastl::destroy_at(&oldval);
-					try
-					{
-						eastl::construct_at(eastl::addressof(newval), eastl::forward<Args>(args)...);
-					}
-					catch (...)
-					{
-						eastl::construct_at(eastl::addressof(oldval), eastl::move(tmp));
-						throw;
-					}
-				}
-#else
-				eastl::destroy_at(&oldval);
-				eastl::construct_at(&newval, eastl::forward<Args>(args)...);
-#endif
-			}
+			{ __builtin_trap() /* STUB: not implemented */; }
 		};
 
 	} // namespace internal
@@ -368,28 +261,19 @@ namespace eastl
 
 		template <bool Requires = is_default_constructible_v<T>, enable_if_t<Requires, int> = 0>
 		constexpr expected()
-		{
-			this->mHasValue = true;
-			eastl::construct_at(eastl::addressof(this->mValue));
-		};
+		{ };
 
 		// non-explicit version for when is_convertible_v<U, T> is true.
 		template <class U,
 		          enable_if_t<is_convertible_v<U, T> && internal::generic_constructor_constraint_v<T, E, U>, int> = 0>
 		constexpr expected(U&& v)
-		{
-			this->mHasValue = true;
-			eastl::construct_at(eastl::addressof(this->mValue), eastl::forward<U>(v));
-		}
+		{ }
 
 		// explicit version for when is_convertible_v<U, T> is false
 		template <class U,
 		          enable_if_t<!is_convertible_v<U, T> && internal::generic_constructor_constraint_v<T, E, U>, int> = 0>
 		constexpr explicit expected(U&& v)
-		{
-			this->mHasValue = true;
-			eastl::construct_at(eastl::addressof(this->mValue), eastl::forward<U>(v));
-		}
+		{ }
 
 		template <class T1,
 		          class E1,
@@ -397,17 +281,7 @@ namespace eastl
 		                          (!is_convertible_v<const T1&, T> || !is_convertible_v<const E1&, E>),
 		                      int> = 0>
 		constexpr explicit expected(const expected<T1, E1>& other)
-		{
-			this->mHasValue = other.has_value();
-			if (this->mHasValue)
-			{
-				eastl::construct_at(eastl::addressof(this->mValue), other.value());
-			}
-			else
-			{
-				eastl::construct_at(eastl::addressof(this->mError), other.error());
-			}
-		}
+		{ }
 
 		// Same as above except this is implicit when is_convertible_v<const T1&, T> && is_convertible_v<const E1&, E>.
 		template <class T1,
@@ -416,17 +290,7 @@ namespace eastl
 		                          (is_convertible_v<const T1&, T> && is_convertible_v<const E1&, E>),
 		                      int> = 0>
 		constexpr expected(const expected<T1, E1>& other)
-		{
-			this->mHasValue = other.has_value();
-			if (this->mHasValue)
-			{
-				eastl::construct_at(eastl::addressof(this->mValue), other.value());
-			}
-			else
-			{
-				eastl::construct_at(eastl::addressof(this->mError), other.error());
-			}
-		}
+		{ }
 
 		template <class T1,
 		          class E1,
@@ -434,17 +298,7 @@ namespace eastl
 		                          (!is_convertible_v<T1, T> || !is_convertible_v<E1, E>),
 		                      int> = 0>
 		constexpr explicit expected(expected<T1, E1>&& other)
-		{
-			this->mHasValue = other.has_value();
-			if (this->mHasValue)
-			{
-				eastl::construct_at(eastl::addressof(this->mValue), eastl::move(other).value());
-			}
-			else
-			{
-				eastl::construct_at(eastl::addressof(this->mError), eastl::move(other).error());
-			}
-		}
+		{ }
 
 		// Same as above except this is implicit when (is_convertible_v<T1, T> && is_convertible_v<E1, E>)
 		template <class T1,
@@ -453,78 +307,44 @@ namespace eastl
 		                          (is_convertible_v<T1, T> && is_convertible_v<E1, E>),
 		                      int> = 0>
 		constexpr expected(expected<T1, E1>&& other)
-		{
-			this->mHasValue = other.has_value();
-			if (this->mHasValue)
-			{
-				eastl::construct_at(eastl::addressof(this->mValue), eastl::move(other).value());
-			}
-			else
-			{
-				eastl::construct_at(eastl::addressof(this->mError), eastl::move(other).error());
-			}
-		}
+		{ }
 
 
 		template <class G, enable_if_t<is_constructible_v<E, const G&> && !is_convertible_v<const G&, E>, int> = 0>
 		constexpr explicit expected(const unexpected<G>& unex)
-		{
-			this->mHasValue = false;
-			eastl::construct_at(eastl::addressof(this->mError), unex.error());
-		}
+		{ }
 
 		template <class G, enable_if_t<is_constructible_v<E, const G&> && is_convertible_v<const G&, E>, int> = 0>
 		constexpr expected(const unexpected<G>& unex)
-		{
-			this->mHasValue = false;
-			eastl::construct_at(eastl::addressof(this->mError), unex.error());
-		}
+		{ }
 
 		template <class G, enable_if_t<is_constructible_v<E, G> && !is_convertible_v<G, E>, int> = 0>
 		constexpr explicit expected(unexpected<G>&& unex)
-		{
-			this->mHasValue = false;
-			eastl::construct_at(eastl::addressof(this->mError), eastl::move(unex.error()));
-		}
+		{ }
 
 		template <class G, enable_if_t<is_constructible_v<E, G> && is_convertible_v<G, E>, int> = 0>
 		constexpr expected(unexpected<G>&& unex)
-		{
-			this->mHasValue = false;
-			eastl::construct_at(eastl::addressof(this->mError), eastl::move(unex.error()));
-		}
+		{ }
 
 		template <class... Args, enable_if_t<is_constructible_v<T, Args...>, int> = 0>
 		constexpr explicit expected(in_place_t, Args&&... args)
-		{
-			this->mHasValue = true;
-			eastl::construct_at(eastl::addressof(this->mValue), eastl::forward<Args>(args)...);
-		}
+		{ }
 
 		template <class U,
 		          class... Args,
 		          enable_if_t<is_constructible_v<T, std::initializer_list<U>&, Args...>, int> = 0>
 		constexpr explicit expected(in_place_t, std::initializer_list<U> il, Args&&... args)
-		{
-			this->mHasValue = true;
-			eastl::construct_at(eastl::addressof(this->mValue), il, eastl::forward<Args>(args)...);
-		}
+		{ }
 
 		template <class... Args, enable_if_t<is_constructible_v<E, Args...>, int> = 0>
 		constexpr explicit expected(unexpect_t, Args&&... args)
-		{
-			this->mHasValue = false;
-			eastl::construct_at(eastl::addressof(this->mError), eastl::forward<Args>(args)...);
-		}
+		{ }
 
 		template <class U,
 		          class... Args,
 		          enable_if_t<is_constructible_v<E, std::initializer_list<U>&, Args...>, int> = 0>
 		constexpr explicit expected(unexpect_t, std::initializer_list<U> il, Args&&... args)
-		{
-			this->mHasValue = false;
-			eastl::construct_at(eastl::addressof(this->mError), il, eastl::forward<Args>(args)...);
-		}
+		{ }
 
 		// copy/move assignments are done by means of ExpectedConstructLayer::AssignFrom, and the
 		// special function layers the assignments are deleted when they should be.
@@ -544,18 +364,7 @@ namespace eastl
 		                           is_nothrow_move_constructible_v<E>),
 		                      int> = 0>
 		constexpr expected& operator=(U&& x)
-		{
-			if (this->mHasValue)
-			{
-				this->mValue = eastl::forward<U>(x);
-			}
-			else
-			{
-				this->ReInit(this->mValue, this->mError, eastl::forward<U>(x));
-				this->mHasValue = true;
-			}
-			return *this;
-		}
+		{ return {}; }
 
 		template <class G,
 		          enable_if_t<is_constructible_v<E, const G&> && is_assignable_v<E&, const G&> &&
@@ -563,18 +372,7 @@ namespace eastl
 		                           is_nothrow_move_constructible_v<E>),
 		                      int> = 0>
 		constexpr expected& operator=(const unexpected<G>& unex)
-		{
-			if (this->mHasValue)
-			{
-				this->ReInit(this->mError, this->mValue, unex.error());
-				this->mHasValue = false;
-			}
-			else
-			{
-				this->mError = unex.error();
-			}
-			return *this;
-		}
+		{ return {}; }
 
 		template <class G,
 		          enable_if_t<is_constructible_v<E, G> && is_assignable_v<E&, G> &&
@@ -582,52 +380,19 @@ namespace eastl
 		                           is_nothrow_move_constructible_v<E>),
 		                      int> = 0>
 		constexpr expected& operator=(unexpected<G>&& unex)
-		{
-			if (this->mHasValue)
-			{
-				this->ReInit(this->mError, this->mValue, eastl::move(unex).error());
-				this->mHasValue = false;
-			}
-			else
-			{
-				this->mError = eastl::move(unex).error();
-			}
-			return *this;
-		}
+		{ return {}; }
 
 		// Note: this only works if the constructor is noexcept, kind of strict but that's what the standard dictates...
 		template <class... Args, enable_if_t<is_nothrow_constructible_v<T, Args...>, int> = 0>
 		constexpr T& emplace(Args&&... args) noexcept
-		{
-			if (this->mHasValue)
-			{
-				eastl::destroy_at(&this->mValue);
-			}
-			else
-			{
-				eastl::destroy_at(&this->mError);
-				this->mHasValue = true;
-			}
-			return *eastl::construct_at(eastl::addressof(this->mValue), eastl::forward<Args>(args)...);
-		}
+		{ return {}; }
 
 		// Note: this only works if the constructor is noexcept, kind of strict but that's what the standard dictates...
 		template <class U,
 		          class... Args,
 		          enable_if_t<is_nothrow_constructible_v<T, std::initializer_list<U>&, Args...>, int> = 0>
 		constexpr T& emplace(std::initializer_list<U> il, Args&&... args) noexcept
-		{
-			if (this->mHasValue)
-			{
-				eastl::destroy_at(&this->mValue);
-			}
-			else
-			{
-				eastl::destroy_at(&this->mError);
-				this->mHasValue = true;
-			}
-			return *eastl::construct_at(eastl::addressof(this->mValue), il, eastl::forward<Args>(args)...);
-		}
+		{ return {}; }
 
 		// swap
 		template <bool Requires = is_swappable_v<T> && is_swappable_v<E> && is_move_constructible_v<T> &&
@@ -637,240 +402,65 @@ namespace eastl
 		          bool NoExcept = is_nothrow_move_constructible_v<T> && is_nothrow_swappable_v<T> &&
 		                          is_nothrow_move_constructible_v<E> && is_nothrow_swappable_v<E>>
 		EA_CPP20_CONSTEXPR void swap(expected& other) noexcept(NoExcept)
-		{
-			using eastl::swap;
-			if (other.mHasValue)
-			{
-				if (this->mHasValue)
-				{
-					swap(this->mValue, other.mValue);
-				}
-				else
-				{
-					other.swap(*this);
-				}
-			}
-			else // other.mHasValue is false
-			{
-				if (!this->mHasValue)
-				{
-					swap(this->mError, other.mError);
-				}
-				else // `other` has an error and `this` has a value, we need to swap them around.
-				{
-#if EASTL_EXCEPTIONS_ENABLED
-					if constexpr (NoExcept)
-					{
-#endif
-						// Note that is_nothrow_swappable_v implies the destructors cannot throw.
-						// The definition of NoExcept implies the constructions here cannot throw.
-						// So notheng here throws.
-						E tmp(eastl::move(other.mError));
-						eastl::destroy_at(&other.mError);
-						eastl::construct_at(eastl::addressof(other.mValue), eastl::move(this->mValue));
-						eastl::destroy_at(&this->mValue);
-						eastl::construct_at(eastl::addressof(this->mError), eastl::move(tmp));
-#if EASTL_EXCEPTIONS_ENABLED
-					}
-					else if constexpr (is_nothrow_move_constructible_v<E>)
-					{
-						E tmp(eastl::move(other.mError));
-						eastl::destroy_at(&other.mError);
-						try
-						{
-							// this may throw
-							eastl::construct_at(eastl::addressof(other.mValue), eastl::move(this->mValue));
+		{ __builtin_trap() /* STUB: not implemented */; }
 
-							eastl::destroy_at(&this->mValue);
-							eastl::construct_at(eastl::addressof(this->mError), eastl::move(tmp));
-						}
-						catch (...)
-						{
-							// We need to reconstruct other.mError.
-							eastl::construct_at(eastl::addressof(other.mError), eastl::move(tmp));
-							throw;
-						}
-					}
-					else // T is nothrow_move_constructible (see sfinae condition for swap)
-					{
-						T tmp(eastl::move(this->mValue));
-
-						eastl::destroy_at(&this->mValue);
-						try
-						{
-							// this may throw
-							eastl::construct_at(eastl::addressof(this->mError), eastl::move(other.mError));
-
-							eastl::destroy_at(&other.mError);
-							eastl::construct_at(eastl::addressof(other.mValue), eastl::move(tmp));
-						}
-						catch (...)
-						{
-							// We need to reconstruct this->mValue
-							eastl::construct_at(eastl::addressof(this->mValue), eastl::move(tmp));
-							throw;
-						}
-					}
-#endif
-					this->mHasValue = false;
-					other.mHasValue = true;
-				}
-			}
-		}
-
-		friend constexpr void swap(expected& x, expected& y) noexcept(noexcept(x.swap(y))) { x.swap(y); }
+		friend constexpr void swap(expected& x, expected& y) noexcept(noexcept(x.swap(y))) { }
 
 		// These all assume has_value() is true. Otherwise, calling them is UB (as per the
 		// standard).  When asserts are enabled, we've decided to assert the precondition
 		// similar to what would be done in a hardened library implementation.
 		constexpr const T* operator->() const noexcept
-		{
-			EASTL_ASSERT_MSG(has_value(),
-			                 "Pre-condition failed! Accessing an expected value while containing an error.");
-			return eastl::addressof(this->mValue);
-		}
+		{ return {}; }
 		constexpr T* operator->() noexcept
-		{
-			EASTL_ASSERT_MSG(has_value(),
-			                 "Pre-condition failed! Accessing an expected value while containing an error.");
-			return eastl::addressof(this->mValue);
-		}
+		{ return {}; }
 		constexpr const T& operator*() const& noexcept
-		{
-			EASTL_ASSERT_MSG(has_value(),
-			                 "Pre-condition failed! Accessing an expected value while containing an error.");
-			return this->mValue;
-		}
+		{ return {}; }
 		constexpr T& operator*() & noexcept
-		{
-			EASTL_ASSERT_MSG(has_value(),
-			                 "Pre-condition failed! Accessing an expected value while containing an error.");
-			return this->mValue;
-		}
+		{ return {}; }
 		constexpr const T&& operator*() const&& noexcept
-		{
-			EASTL_ASSERT_MSG(has_value(),
-			                 "Pre-condition failed! Accessing an expected value while containing an error.");
-			return eastl::move(this->mValue);
-		}
+		{ return {}; }
 		constexpr T&& operator*() && noexcept
-		{
-			EASTL_ASSERT_MSG(has_value(),
-			                 "Pre-condition failed! Accessing an expected value while containing an error.");
-			return eastl::move(this->mValue);
-		}
+		{ return {}; }
 
-		constexpr explicit operator bool() const noexcept { return this->mHasValue; }
-		constexpr bool has_value() const noexcept { return this->mHasValue; };
+		constexpr explicit operator bool() const noexcept { return {}; }
+		constexpr bool has_value() const noexcept { return {}; };
 
 		constexpr const T& value() const&
-		{
-			if (!has_value())
-			{
-#if EASTL_EXCEPTIONS_ENABLED
-				throw(eastl::bad_expected_access(this->mError));
-#else
-				EASTL_FAIL_MSG("Calling `value()` when expected contains no value.");
-#endif
-			}
-			return this->mValue;
-		}
+		{ return {}; }
 		constexpr T& value() &
-		{
-			if (!has_value())
-			{
-#if EASTL_EXCEPTIONS_ENABLED
-				throw(eastl::bad_expected_access(this->mError));
-#else
-				EASTL_FAIL_MSG("Calling `value()` when expected contains no value.");
-#endif
-			}
-			return this->mValue;
-		}
+		{ return {}; }
 		constexpr const T&& value() const&&
-		{
-			if (!has_value())
-			{
-#if EASTL_EXCEPTIONS_ENABLED
-				throw(eastl::bad_expected_access(eastl::move(this->mError)));
-#else
-				EASTL_FAIL_MSG("Calling `value()` when expected contains no value.");
-#endif
-			}
-			return eastl::move(this->mValue);
-		}
+		{ return {}; }
 		constexpr T&& value() &&
-		{
-			if (!has_value())
-			{
-#if EASTL_EXCEPTIONS_ENABLED
-				throw(eastl::bad_expected_access(eastl::move(this->mError)));
-#else
-				EASTL_FAIL_MSG("Calling `value()` when expected contains no value.");
-#endif
-			}
-			return eastl::move(this->mValue);
-		}
+		{ return {}; }
 
 		// These all assume has_value() is false. Otherwise, calling them is UB (as per the
 		// standard).  When asserts are enabled, we've decided to assert the precondition
 		// similar to what would be done in a hardened library implementation.
 		constexpr const E& error() const&
-		{
-			EASTL_ASSERT_MSG(!has_value(), "Pre-condition failed! Calling error() while containing a value.");
-			return this->mError;
-		};
+		{ return {}; };
 		constexpr E& error() &
-		{
-			EASTL_ASSERT_MSG(!has_value(), "Pre-condition failed! Calling error() while containing a value.");
-			return this->mError;
-		};
+		{ return {}; };
 		constexpr const E&& error() const&&
-		{
-			EASTL_ASSERT_MSG(!has_value(), "Pre-condition failed! Calling error() while containing a value.");
-			return eastl::move(this->mError);
-		};
+		{ return {}; };
 		constexpr E&& error() &&
-		{
-			EASTL_ASSERT_MSG(!has_value(), "Pre-condition failed! Calling error() while containing a value.");
-			return eastl::move(this->mError);
-		};
+		{ return {}; };
 
 		template <class U>
 		constexpr T value_or(U&& alt) const&
-		{
-			static_assert(is_copy_constructible_v<T> && is_convertible_v<U, T>);
-			return has_value() ? this->mValue : static_cast<T>(eastl::forward<U>(alt));
-		}
+		{ return {}; }
 
 		template <class U>
 		constexpr T value_or(U&& alt) &&
-		{
-			static_assert(is_move_constructible_v<T> && is_convertible_v<U, T>);
-			return has_value() ? eastl::move(this->mValue) : static_cast<T>(eastl::forward<U>(alt));
-		}
+		{ return {}; }
 
 		template <class U>
 		constexpr E error_or(U&& alt) const&
-		{
-			static_assert(is_copy_constructible_v<E> && is_convertible_v<U, E>);
-			if (has_value())
-			{
-				return eastl::forward<U>(alt);
-			}
-			return this->mError;
-		}
+		{ return {}; }
 
 		template <class U>
 		constexpr E error_or(U&& alt) &&
-		{
-			static_assert(is_move_constructible_v<E> && is_convertible_v<U, E>);
-			if (has_value())
-			{
-				return eastl::forward<U>(alt);
-			}
-			return eastl::move(this->mError);
-		}
+		{ return {}; }
 
 		// Note: the constraint in the standard is is_constructible_v<E, decltype(error())>
 		// here and is_constructible_v<E, decltype(std::move(error()))> in the && qualified
@@ -880,265 +470,83 @@ namespace eastl
 		// type at this point.
 		template <class F, bool Requires = is_constructible_v<E, E&>, enable_if_t<Requires, int> = 0>
 		constexpr auto and_then(F&& f) &
-		{
-			using U = remove_cvref_t<invoke_result_t<F, decltype(value())>>;
-			static_assert(is_same_v<typename U::error_type, E> && internal::is_specialization<U, expected>::value);
-			if (has_value())
-			{
-				return eastl::invoke(eastl::forward<F>(f), value());
-			}
-			return U(unexpect, error());
-		}
+		{ return {}; }
 
 		// See note about constraint above.
 		template <class F, bool Requires = is_constructible_v<E, const E&>, enable_if_t<Requires, int> = 0>
 		constexpr auto and_then(F&& f) const&
-		{
-			using U = remove_cvref_t<invoke_result_t<F, decltype(value())>>;
-			static_assert(is_same_v<typename U::error_type, E> && internal::is_specialization<U, expected>::value);
-			if (has_value())
-			{
-				return eastl::invoke(eastl::forward<F>(f), value());
-			}
-			return U(unexpect, error());
-		}
+		{ return {}; }
 
 		// See note about constraint above.
 		template <class F, bool Requires = is_constructible_v<E, E&&>, enable_if_t<Requires, int> = 0>
 		constexpr auto and_then(F&& f) &&
-		{
-			using U = remove_cvref_t<invoke_result_t<F, decltype(eastl::move(value()))>>;
-			static_assert(is_same_v<typename U::error_type, E> && internal::is_specialization<U, expected>::value);
-			if (has_value())
-			{
-				return eastl::invoke(eastl::forward<F>(f), eastl::move(value()));
-			}
-			return U(unexpect, eastl::move(error()));
-		}
+		{ return {}; }
 
 		// See note about constraint above.
 		template <class F, bool Requires = is_constructible_v<E, const E&&>, enable_if_t<Requires, int> = 0>
 		constexpr auto and_then(F&& f) const&&
-		{
-			using U = remove_cvref_t<invoke_result_t<F, decltype(eastl::move(value()))>>;
-			static_assert(is_same_v<typename U::error_type, E> && internal::is_specialization<U, expected>::value);
-			if (has_value())
-			{
-				return eastl::invoke(eastl::forward<F>(f), eastl::move(value()));
-			}
-			return U(unexpect, eastl::move(error()));
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_copy_constructible_v<T>, enable_if_t<Requires, int> = 0>
 		constexpr auto or_else(F&& f) &
-		{
-			using G = remove_cvref_t<invoke_result_t<F, decltype(error())>>;
-			static_assert(is_same_v<typename G::value_type, T> && internal::is_specialization<G, expected>::value);
-			if (has_value())
-			{
-				return G(in_place, value());
-			}
-			return eastl::invoke(eastl::forward<F>(f), error());
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_copy_constructible_v<T>, enable_if_t<Requires, int> = 0>
 		constexpr auto or_else(F&& f) const&
-		{
-			using G = remove_cvref_t<invoke_result_t<F, decltype(error())>>;
-			static_assert(is_same_v<typename G::value_type, T> && internal::is_specialization<G, expected>::value);
-			if (has_value())
-			{
-				return G(in_place, value());
-			}
-			return eastl::invoke(eastl::forward<F>(f), error());
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_move_constructible_v<T>, enable_if_t<Requires, int> = 0>
 		constexpr auto or_else(F&& f) &&
-		{
-			using G = remove_cvref_t<invoke_result_t<F, decltype(eastl::move(error()))>>;
-			static_assert(is_same_v<typename G::value_type, T> && internal::is_specialization<G, expected>::value);
-			if (has_value())
-			{
-				return G(in_place, eastl::move(value()));
-			}
-			return eastl::invoke(eastl::forward<F>(f), eastl::move(error()));
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_move_constructible_v<T>, enable_if_t<Requires, int> = 0>
 		constexpr auto or_else(F&& f) const&&
-		{
-			using G = remove_cvref_t<invoke_result_t<F, decltype(eastl::move(error()))>>;
-			static_assert(is_same_v<typename G::value_type, T> && internal::is_specialization<G, expected>::value);
-			if (has_value())
-			{
-				return G(in_place, eastl::move(value()));
-			}
-			return eastl::invoke(eastl::forward<F>(f), eastl::move(error()));
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_copy_constructible_v<E>, enable_if_t<Requires, int> = 0>
 		constexpr auto transform(F&& f) &
-		{
-			using U = remove_cv_t<invoke_result_t<F, decltype(value())>>;
-			if (!has_value())
-			{
-				return expected<U, E>(unexpect, error());
-			}
-
-			if constexpr (is_void_v<U>)
-			{
-				eastl::invoke(eastl::forward<F>(f), value());
-				return expected<U, E>();
-			}
-			else
-			{
-				return expected<U, E>(eastl::invoke(eastl::forward<F>(f), value()));
-			}
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_copy_constructible_v<E>, enable_if_t<Requires, int> = 0>
 		constexpr auto transform(F&& f) const&
-		{
-			using U = remove_cv_t<invoke_result_t<F, decltype(value())>>;
-			if (!has_value())
-			{
-				return expected<U, E>(unexpect, error());
-			}
-
-			if constexpr (is_void_v<U>)
-			{
-				eastl::invoke(eastl::forward<F>(f), value());
-				return expected<U, E>();
-			}
-			else
-			{
-				return expected<U, E>(eastl::invoke(eastl::forward<F>(f), value()));
-			}
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_move_constructible_v<E>, enable_if_t<Requires, int> = 0>
 		constexpr auto transform(F&& f) &&
-		{
-			using U = remove_cv_t<invoke_result_t<F, decltype(eastl::move(value()))>>;
-			if (!has_value())
-			{
-				return expected<U, E>(unexpect, eastl::move(error()));
-			}
-
-			if constexpr (is_void_v<U>)
-			{
-				eastl::invoke(eastl::forward<F>(f), eastl::move(value()));
-				return expected<U, E>();
-			}
-			else
-			{
-				return expected<U, E>(eastl::invoke(eastl::forward<F>(f), eastl::move(value())));
-			}
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_move_constructible_v<E>, enable_if_t<Requires, int> = 0>
 		constexpr auto transform(F&& f) const&&
-		{
-			using U = remove_cv_t<invoke_result_t<F, decltype(eastl::move(value()))>>;
-			if (!has_value())
-			{
-				return expected<U, E>(unexpect, eastl::move(error()));
-			}
-
-			if constexpr (is_void_v<U>)
-			{
-				eastl::invoke(eastl::forward<F>(f), eastl::move(value()));
-				return expected<U, E>();
-			}
-			else
-			{
-				return expected<U, E>(eastl::invoke(eastl::forward<F>(f), eastl::move(value())));
-			}
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_copy_constructible_v<T>, enable_if_t<Requires, int> = 0>
 		constexpr auto transform_error(F&& f) &
-		{
-			using G = remove_cv_t<invoke_result_t<F, decltype(error())>>;
-			if (has_value())
-			{
-				return expected<T, G>(in_place, value());
-			}
-			else
-			{
-				return expected<T, G>(unexpect, eastl::invoke(eastl::forward<F>(f), error()));
-			}
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_copy_constructible_v<T>, enable_if_t<Requires, int> = 0>
 		constexpr auto transform_error(F&& f) const&
-		{
-			using G = remove_cv_t<invoke_result_t<F, decltype(error())>>;
-			if (has_value())
-			{
-				return expected<T, G>(in_place, value());
-			}
-			else
-			{
-				return expected<T, G>(unexpect, eastl::invoke(eastl::forward<F>(f), error()));
-			}
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_move_constructible_v<T>, enable_if_t<Requires, int> = 0>
 		constexpr auto transform_error(F&& f) &&
-		{
-			using G = remove_cv_t<invoke_result_t<F, decltype(eastl::move(error()))>>;
-			if (has_value())
-			{
-				return expected<T, G>(in_place, eastl::move(value()));
-			}
-			else
-			{
-				return expected<T, G>(unexpect, eastl::invoke(eastl::forward<F>(f), eastl::move(error())));
-			}
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_move_constructible_v<T>, enable_if_t<Requires, int> = 0>
 		constexpr auto transform_error(F&& f) const&&
-		{
-			using G = remove_cv_t<invoke_result_t<F, decltype(eastl::move(error()))>>;
-			if (has_value())
-			{
-				return expected<T, G>(in_place, eastl::move(value()));
-			}
-			else
-			{
-				return expected<T, G>(unexpect, eastl::invoke(eastl::forward<F>(f), eastl::move(error())));
-			}
-		}
+		{ return {}; }
 
 		// equality operators
 		template <class T2, class E2>
 		friend constexpr bool operator==(const expected& x, const expected<T2, E2>& y)
-		{
-			if (x.has_value() != y.has_value())
-			{
-				return false;
-			}
-			if (x.has_value())
-			{
-				return *x == *y;
-			}
-			return x.error() == y.error();
-		}
+		{ return {}; }
 
 		template <class T2>
 		friend constexpr bool operator==(const expected& x, const T2& y)
-		{
-			return x.has_value() && static_cast<bool>(*x == y);
-		}
+		{ return {}; }
 
 		template <class E2>
 		friend constexpr bool operator==(const expected& x, const unexpected<E2>& y)
-		{
-			return !x.has_value() && static_cast<bool>(x.error() == y.error());
-		}
+		{ return {}; }
 
 	private:
 		static_assert(is_same_v<remove_cv_t<T>, void> ||
@@ -1159,9 +567,7 @@ namespace eastl
 		// constructible and so we can use all the other machinery we have for value/error pairs.
 		struct ExpectedEmptyUnionMember
 		{
-			constexpr ExpectedEmptyUnionMember() noexcept {
-			    // Provide default constructor to avoid zero-initialization when objects are value-initialized.
-			};
+			constexpr ExpectedEmptyUnionMember() noexcept { };
 		};
 	} // namespace internal
 
@@ -1184,8 +590,8 @@ namespace eastl
 		template <class U>
 		using rebind = expected<U, error_type>;
 
-		constexpr expected() noexcept { this->mHasValue = true; }
-		constexpr expected(in_place_t) noexcept { this->mHasValue = true; }
+		constexpr expected() noexcept { }
+		constexpr expected(in_place_t) noexcept { }
 
 		// Copy/move constructors and the destructor are handled by the layers.
 
@@ -1200,13 +606,7 @@ namespace eastl
 		// TODO: More SFINAE for the explicit vs not explicit version...
 		// explicit(!is_convertible_v<const G&, E>)
 		constexpr expected(const expected<U, G>& other)
-		{
-			this->mHasValue = other.has_value();
-			if (!this->mHasValue)
-			{
-				eastl::construct_at(eastl::addressof(this->mError), other.error());
-			}
-		}
+		{ }
 
 		template <class U,
 		          class G,
@@ -1219,62 +619,38 @@ namespace eastl
 		// TODO: More SFINAE for the explicit vs not explicit version...
 		// explicit(!is_convertible_v<T1, T> || !is_convertible_v<E1, E>)
 		constexpr expected(expected<U, G>&& other)
-		{
-			this->mHasValue = other.has_value();
-			if (!this->mHasValue)
-			{
-				eastl::construct_at(eastl::addressof(this->mError), eastl::move(other).error());
-			}
-		}
+		{ }
 
 
 		// Conversion from unexpected lvalue explicit version.
 		template <class G, enable_if_t<is_constructible_v<E, const G&> && !is_convertible_v<const G&, E>, int> = 0>
 		constexpr explicit expected(const unexpected<G>& unex)
-		{
-			this->mHasValue = false;
-			eastl::construct_at(eastl::addressof(this->mError), unex.error());
-		}
+		{ }
 
 		// Conversion from unexpected lvalue non-explicit version.
 		template <class G, enable_if_t<is_constructible_v<E, const G&> && is_convertible_v<const G&, E>, int> = 0>
 		constexpr expected(const unexpected<G>& unex)
-		{
-			this->mHasValue = false;
-			eastl::construct_at(eastl::addressof(this->mError), unex.error());
-		}
+		{ }
 
 		// Conversion from unexpected rvalue explicit version.
 		template <class G, enable_if_t<is_constructible_v<E, G> && !is_convertible_v<G, E>, int> = 0>
 		constexpr explicit expected(unexpected<G>&& unex)
-		{
-			this->mHasValue = false;
-			eastl::construct_at(eastl::addressof(this->mError), eastl::move(unex.error()));
-		}
+		{ }
 
 		// Conversion from unexpected rvalue non-explicit version.
 		template <class G, enable_if_t<is_constructible_v<E, G> && is_convertible_v<G, E>, int> = 0>
 		constexpr expected(unexpected<G>&& unex)
-		{
-			this->mHasValue = false;
-			eastl::construct_at(eastl::addressof(this->mError), eastl::move(unex.error()));
-		}
+		{ }
 
 		template <class... Args, enable_if_t<is_constructible_v<E, Args...>, int> = 0>
 		constexpr explicit expected(unexpect_t, Args&&... args)
-		{
-			this->mHasValue = false;
-			eastl::construct_at(eastl::addressof(this->mError), eastl::forward<Args>(args)...);
-		}
+		{ }
 
 		template <class U,
 		          class... Args,
 		          enable_if_t<is_constructible_v<E, std::initializer_list<U>&, Args...>, int> = 0>
 		constexpr explicit expected(unexpect_t, std::initializer_list<U> il, Args&&... args)
-		{
-			this->mHasValue = false;
-			eastl::construct_at(eastl::addressof(this->mError), il, eastl::forward<Args>(args)...);
-		}
+		{ }
 
 		////////
 		//
@@ -1289,380 +665,121 @@ namespace eastl
 
 		template <class G, enable_if_t<is_constructible_v<E, const G&> && is_assignable_v<E&, const G&>, int> = 0>
 		constexpr expected& operator=(const unexpected<G>& unex)
-		{
-			if (this->mHasValue)
-			{
-				eastl::construct_at(eastl::addressof(this->mError), unex.error());
-				this->mHasValue = false;
-			}
-			else
-			{
-				this->mError = unex.error();
-			}
-			return *this;
-		}
+		{ return {}; }
 
 		template <class G, enable_if_t<is_constructible_v<E, const G&> && is_assignable_v<E&, G>, int> = 0>
 		constexpr expected& operator=(unexpected<G>&& unex)
-		{
-			if (this->mHasValue)
-			{
-				eastl::construct_at(eastl::addressof(this->mError), eastl::move(unex.error()));
-				this->mHasValue = false;
-			}
-			else
-			{
-				this->mError = unex.error();
-			}
-			return *this;
-		}
+		{ return {}; }
 
 		template <bool Requires = is_swappable_v<E> && is_move_constructible_v<E>,
 		          enable_if_t<Requires, int> = 0,
 		          bool NoExcept = is_nothrow_move_constructible_v<E> && is_nothrow_swappable_v<E>>
 		EA_CPP20_CONSTEXPR void swap(expected& other) noexcept(NoExcept)
-		{
-			using eastl::swap;
-			if (other.mHasValue)
-			{
-				if (this->mHasValue)
-				{
-					return;
-				}
-				else
-				{
-					other.swap(*this);
-				}
-			}
-			else // other.mHasValue is false
-			{
-				if (!this->mHasValue)
-				{
-					swap(this->mError, other.mError);
-				}
-				else
-				{
-					// other has an error and this has a value, we need to swap them around.
-					eastl::construct_at(eastl::addressof(this->mError), eastl::move(other.mError));
-					eastl::destroy_at(&other.mError);
+		{ __builtin_trap() /* STUB: not implemented */; }
 
-					this->mHasValue = false;
-					other.mHasValue = true;
-				}
-			}
-		}
+		friend constexpr void swap(expected& x, expected& y) noexcept(noexcept(x.swap(y))) { }
 
-		friend constexpr void swap(expected& x, expected& y) noexcept(noexcept(x.swap(y))) { x.swap(y); }
+		constexpr explicit operator bool() const noexcept { return {}; }
 
-		constexpr explicit operator bool() const noexcept { return this->mHasValue; }
+		constexpr bool has_value() const noexcept { return {}; };
 
-		constexpr bool has_value() const noexcept { return this->mHasValue; };
-
-		constexpr void operator*() const noexcept {}
+		constexpr void operator*() const noexcept { return {}; }
 
 		constexpr void value() const&
-		{
-			if (!has_value())
-			{
-#if EASTL_EXCEPTIONS_ENABLED
-				throw(eastl::bad_expected_access(eastl::move(this->mError)));
-#else
-				EASTL_FAIL_MSG("Calling `value()` when expected contains no value.");
-#endif
-			}
-		}
+		{ }
 
 		constexpr void value() &&
-		{
-			if (!has_value())
-			{
-#if EASTL_EXCEPTIONS_ENABLED
-				throw(eastl::bad_expected_access(eastl::move(this->mError)));
-#else
-				EASTL_FAIL_MSG("Calling `value()` when expected contains no value.");
-#endif
-			}
-		}
+		{ }
 
 		// These assume has_value() is false, otherwise this is UB, as per the standard.
-		constexpr const E& error() const& noexcept { return this->mError; };
-		constexpr E& error() & noexcept { return this->mError; };
-		constexpr const E&& error() const&& noexcept { return eastl::move(this->mError); };
-		constexpr E&& error() && noexcept { return eastl::move(this->mError); };
+		constexpr const E& error() const& noexcept { return {}; };
+		constexpr E& error() & noexcept { return {}; };
+		constexpr const E&& error() const&& noexcept { return {}; };
+		constexpr E&& error() && noexcept { return {}; };
 
 		template <class U = E>
 		constexpr E error_or(U&& alt) const&
-		{
-			static_assert(is_copy_constructible_v<E> && is_convertible_v<U, E>);
-			if (has_value())
-			{
-				return eastl::forward<U>(alt);
-			}
-			return this->mError;
-		}
+		{ return {}; }
 
 		template <class U = E>
 		constexpr E error_or(U&& alt) &&
-		{
-			static_assert(is_move_constructible_v<E> && is_convertible_v<U, E>);
-			if (has_value())
-			{
-				return eastl::forward<U>(alt);
-			}
-			return eastl::move(this->mError);
-		}
+		{ return {}; }
 
 		///////////////////////
 		// Monadic operations
 		///////////////////////
 		template <class F, bool Requires = is_copy_constructible_v<E>, enable_if_t<Requires, int> = 0>
 		constexpr auto and_then(F&& f) &
-		{
-			using U = remove_cvref_t<invoke_result_t<F>>;
-			static_assert(is_same_v<typename U::error_type, E> && internal::is_specialization<U, expected>::value);
-			if (has_value())
-			{
-				return eastl::invoke(eastl::forward<F>(f));
-			}
-			return U(unexpect, error());
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_copy_constructible_v<E>, enable_if_t<Requires, int> = 0>
 		constexpr auto and_then(F&& f) const&
-		{
-			using U = remove_cvref_t<invoke_result_t<F>>;
-			static_assert(is_same_v<typename U::error_type, E> && internal::is_specialization<U, expected>::value);
-			if (has_value())
-			{
-				return eastl::invoke(eastl::forward<F>(f));
-			}
-			return U(unexpect, error());
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_move_constructible_v<E>, enable_if_t<Requires, int> = 0>
 		constexpr auto and_then(F&& f) &&
-		{
-			using U = remove_cvref_t<invoke_result_t<F>>;
-			static_assert(is_same_v<typename U::error_type, E> && internal::is_specialization<U, expected>::value);
-			if (has_value())
-			{
-				return eastl::invoke(eastl::forward<F>(f));
-			}
-			return U(unexpect, eastl::move(error()));
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_move_constructible_v<E>, enable_if_t<Requires, int> = 0>
 		constexpr auto and_then(F&& f) const&&
-		{
-			using U = remove_cvref_t<invoke_result_t<F, decltype(eastl::move(value()))>>;
-			static_assert(is_same_v<typename U::error_type, E> && internal::is_specialization<U, expected>::value);
-			if (has_value())
-			{
-				return eastl::invoke(eastl::forward<F>(f));
-			}
-			return U(unexpect, eastl::move(error()));
-		}
+		{ return {}; }
 
 		template <class F>
 		constexpr auto or_else(F&& f) &
-		{
-			using G = remove_cvref_t<invoke_result_t<F, decltype(error())>>;
-			static_assert(is_same_v<typename G::value_type, void> && internal::is_specialization<G, expected>::value);
-			if (has_value())
-			{
-				return G();
-			}
-			return eastl::invoke(eastl::forward<F>(f), error());
-		}
+		{ return {}; }
 
 		template <class F>
 		constexpr auto or_else(F&& f) const&
-		{
-			using G = remove_cvref_t<invoke_result_t<F, decltype(error())>>;
-			static_assert(is_same_v<typename G::value_type, void> && internal::is_specialization<G, expected>::value);
-			if (has_value())
-			{
-				return G();
-			}
-			return eastl::invoke(eastl::forward<F>(f), error());
-		}
+		{ return {}; }
 
 		template <class F>
 		constexpr auto or_else(F&& f) &&
-		{
-			using G = remove_cvref_t<invoke_result_t<F, decltype(eastl::move(error()))>>;
-			static_assert(is_same_v<typename G::value_type, void> && internal::is_specialization<G, expected>::value);
-			if (has_value())
-			{
-				return G();
-			}
-			return eastl::invoke(eastl::forward<F>(f), eastl::move(error()));
-		}
+		{ return {}; }
 
 		template <class F>
 		constexpr auto or_else(F&& f) const&&
-		{
-			using G = remove_cvref_t<invoke_result_t<F, decltype(eastl::move(error()))>>;
-			static_assert(is_same_v<typename G::value_type, void> && internal::is_specialization<G, expected>::value);
-			if (has_value())
-			{
-				return G();
-			}
-			return eastl::invoke(eastl::forward<F>(f), eastl::move(error()));
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_copy_constructible_v<E>, enable_if_t<Requires, int> = 0>
 		constexpr auto transform(F&& f) &
-		{
-			using U = remove_cv_t<invoke_result_t<F>>;
-			if (!has_value())
-			{
-				return expected<U, E>(unexpect, error());
-			}
-
-			if constexpr (is_void_v<U>)
-			{
-				eastl::invoke(eastl::forward<F>(f));
-				return expected<U, E>();
-			}
-			else
-			{
-				return expected<U, E>(eastl::invoke(eastl::forward<F>(f)));
-			}
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_copy_constructible_v<E>, enable_if_t<Requires, int> = 0>
 		constexpr auto transform(F&& f) const&
-		{
-			using U = remove_cv_t<invoke_result_t<F>>;
-			if (!has_value())
-			{
-				return expected<U, E>(unexpect, error());
-			}
-
-			if constexpr (is_void_v<U>)
-			{
-				eastl::invoke(eastl::forward<F>(f));
-				return expected<U, E>();
-			}
-			else
-			{
-				return expected<U, E>(eastl::invoke(eastl::forward<F>(f)));
-			}
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_move_constructible_v<E>, enable_if_t<Requires, int> = 0>
 		constexpr auto transform(F&& f) &&
-		{
-			using U = remove_cv_t<invoke_result_t<F>>;
-			if (!has_value())
-			{
-				return expected<U, E>(unexpect, eastl::move(error()));
-			}
-
-			if constexpr (is_void_v<U>)
-			{
-				eastl::invoke(eastl::forward<F>(f));
-				return expected<U, E>();
-			}
-			else
-			{
-				return expected<U, E>(eastl::invoke(eastl::forward<F>(f), eastl::move(value())));
-			}
-		}
+		{ return {}; }
 
 		template <class F, bool Requires = is_move_constructible_v<E>, enable_if_t<Requires, int> = 0>
 		constexpr auto transform(F&& f) const&&
-		{
-			using U = remove_cv_t<invoke_result_t<F>>;
-			if (!has_value())
-			{
-				return expected<U, E>(unexpect, eastl::move(error()));
-			}
-
-			if constexpr (is_void_v<U>)
-			{
-				eastl::invoke(eastl::forward<F>(f));
-				return expected<U, E>();
-			}
-			else
-			{
-				return expected<U, E>(eastl::invoke(eastl::forward<F>(f), eastl::move(value())));
-			}
-		}
+		{ return {}; }
 
 		template <class F>
 		constexpr auto transform_error(F&& f) &
-		{
-			using G = remove_cv_t<invoke_result_t<F, decltype(error())>>;
-			if (has_value())
-			{
-				return expected<void, G>();
-			}
-			else
-			{
-				return expected<void, G>(unexpect, eastl::invoke(eastl::forward<F>(f), error()));
-			}
-		}
+		{ return {}; }
 
 		template <class F>
 		constexpr auto transform_error(F&& f) const&
-		{
-			using G = remove_cv_t<invoke_result_t<F, decltype(error())>>;
-			if (has_value())
-			{
-				return expected<void, G>();
-			}
-			else
-			{
-				return expected<void, G>(unexpect, eastl::invoke(eastl::forward<F>(f), error()));
-			}
-		}
+		{ return {}; }
 
 		template <class F>
 		constexpr auto transform_error(F&& f) &&
-		{
-			using G = remove_cv_t<invoke_result_t<F, decltype(eastl::move(error()))>>;
-			if (has_value())
-			{
-				return expected<void, G>();
-			}
-			else
-			{
-				return expected<void, G>(unexpect, eastl::invoke(eastl::forward<F>(f), eastl::move(error())));
-			}
-		}
+		{ return {}; }
 
 		template <class F>
 		constexpr auto transform_error(F&& f) const&&
-		{
-			using G = remove_cv_t<invoke_result_t<F, decltype(eastl::move(error()))>>;
-			if (has_value())
-			{
-				return expected<void, G>();
-			}
-			else
-			{
-				return expected<void, G>(unexpect, eastl::invoke(eastl::forward<F>(f), eastl::move(error())));
-			}
-		}
+		{ return {}; }
 
 		// equality operators
 		template <class T2, class E2, bool Requires = is_void_v<T2>, enable_if_t<Requires, int> = 0>
 		friend constexpr bool operator==(const expected& x, const expected<T2, E2>& y)
-		{
-			if (x.has_value() != y.has_value())
-			{
-				return false;
-			}
-			return x.has_value() || static_cast<bool>(x.error() == y.error());
-		}
+		{ return {}; }
 
 		template <class E2>
 		friend constexpr bool operator==(const expected& x, const unexpected<E2>& y)
-		{
-			return !x.has_value() && static_cast<bool>(x.error() == y.error());
-		}
+		{ return {}; }
 	};
 
 

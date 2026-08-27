@@ -35,15 +35,7 @@ namespace eastl
 		// Helper to detect if wchar_t is the native type for the current platform or if -fshort-wchar was used.
 		// When that flag is used all string builtins and C Standard Library functions are not usable.
 		constexpr bool UseNativeWideChar()
-		{
-#if defined(EA_COMPILER_MSVC)
-			return true; // Irrelevant flag for windows.
-#elif defined(EA_PLATFORM_SONY) && defined(EA_PLATFORM_POSIX) && defined(EA_PLATFORM_CONSOLE)
-			return true; // Sony consoles use short wchar_t disregarding the flag.
-#else
-			return sizeof(wchar_t) == 4;
-#endif
-		}
+		{ return {}; }
 #endif
 	}
 	
@@ -100,249 +92,131 @@ namespace eastl
 
 	#if EA_WCHAR_UNIQUE
 		inline bool DecodePart(const wchar_t*& pSrc, const wchar_t* pSrcEnd, wchar_t*& pDest, wchar_t* pDestEnd)
-		{
-			return DecodePart(reinterpret_cast<const char*&>(pSrc), reinterpret_cast<const char*>(pSrcEnd), reinterpret_cast<char*&>(pDest), reinterpret_cast<char*&>(pDestEnd));
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		inline bool DecodePart(const wchar_t*& pSrc, const wchar_t* pSrcEnd, char*& pDest, char* pDestEnd)
-		{
-		#if (EA_WCHAR_SIZE == 2)
-			return DecodePart(reinterpret_cast<const char16_t*&>(pSrc), reinterpret_cast<const char16_t*>(pSrcEnd), pDest, pDestEnd);
-		#elif (EA_WCHAR_SIZE == 4)
-			return DecodePart(reinterpret_cast<const char32_t*&>(pSrc), reinterpret_cast<const char32_t*>(pSrcEnd), pDest, pDestEnd);
-		#endif
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		inline bool DecodePart(const wchar_t*& pSrc, const wchar_t* pSrcEnd, char16_t*& pDest, char16_t* pDestEnd)
-		{
-		#if (EA_WCHAR_SIZE == 2)
-			return DecodePart(reinterpret_cast<const char16_t*&>(pSrc), reinterpret_cast<const char16_t*>(pSrcEnd), pDest, pDestEnd);
-		#elif (EA_WCHAR_SIZE == 4)
-			return DecodePart(reinterpret_cast<const char32_t*&>(pSrc), reinterpret_cast<const char32_t*>(pSrcEnd), pDest, pDestEnd);
-		#endif
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		inline bool DecodePart(const wchar_t*& pSrc, const wchar_t* pSrcEnd, char32_t*& pDest, char32_t* pDestEnd)
-		{
-		#if (EA_WCHAR_SIZE == 2)
-			return DecodePart(reinterpret_cast<const char16_t*&>(pSrc), reinterpret_cast<const char16_t*>(pSrcEnd), pDest, pDestEnd);
-		#elif (EA_WCHAR_SIZE == 4)
-			return DecodePart(reinterpret_cast<const char32_t*&>(pSrc), reinterpret_cast<const char32_t*>(pSrcEnd), pDest, pDestEnd);
-		#endif
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		inline bool DecodePart(const char*& pSrc, const char* pSrcEnd, wchar_t*& pDest, wchar_t* pDestEnd)
-		{
-		#if (EA_WCHAR_SIZE == 2)
-			return DecodePart(pSrc, pSrcEnd, reinterpret_cast<char16_t*&>(pDest), reinterpret_cast<char16_t*>(pDestEnd));
-		#elif (EA_WCHAR_SIZE == 4)
-			return DecodePart(pSrc, pSrcEnd, reinterpret_cast<char32_t*&>(pDest), reinterpret_cast<char32_t*>(pDestEnd));
-		#endif
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		inline bool DecodePart(const char16_t*& pSrc, const char16_t* pSrcEnd, wchar_t*& pDest, wchar_t* pDestEnd)
-		{
-		#if (EA_WCHAR_SIZE == 2)
-			return DecodePart(pSrc, pSrcEnd, reinterpret_cast<char16_t*&>(pDest), reinterpret_cast<char16_t*>(pDestEnd));
-		#elif (EA_WCHAR_SIZE == 4)
-			return DecodePart(pSrc, pSrcEnd, reinterpret_cast<char32_t*&>(pDest), reinterpret_cast<char32_t*>(pDestEnd));
-		#endif
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		inline bool DecodePart(const char32_t*& pSrc, const char32_t* pSrcEnd, wchar_t*& pDest, wchar_t* pDestEnd)
-		{
-		#if (EA_WCHAR_SIZE == 2)
-			return DecodePart(pSrc, pSrcEnd, reinterpret_cast<char16_t*&>(pDest), reinterpret_cast<char16_t*>(pDestEnd));
-		#elif (EA_WCHAR_SIZE == 4)
-			return DecodePart(pSrc, pSrcEnd, reinterpret_cast<char32_t*&>(pDest), reinterpret_cast<char32_t*>(pDestEnd));
-		#endif
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 	#endif
 
 	#if EA_CHAR8_UNIQUE
 	    inline bool DecodePart(const char8_t*& pSrc, const char8_t* pSrcEnd, char8_t*& pDest, char8_t* pDestEnd)
-	    {
-		    return DecodePart(reinterpret_cast<const char*&>(pSrc), reinterpret_cast<const char*>(pSrcEnd), reinterpret_cast<char*&>(pDest), reinterpret_cast<char*&>(pDestEnd));
-	    }
+	    { __builtin_trap() /* STUB: not implemented */; }
 
 	    inline bool DecodePart(const char8_t*& pSrc, const char8_t* pSrcEnd, char*& pDest, char* pDestEnd)
-	    {
-		    return DecodePart(reinterpret_cast<const char*&>(pSrc), reinterpret_cast<const char*>(pSrcEnd), pDest, pDestEnd);
-	    }
+	    { __builtin_trap() /* STUB: not implemented */; }
 
 	    inline bool DecodePart(const char8_t*& pSrc, const char8_t* pSrcEnd, char16_t*& pDest, char16_t* pDestEnd)
-	    {
-		    return DecodePart(reinterpret_cast<const char*&>(pSrc), reinterpret_cast<const char*>(pSrcEnd), pDest, pDestEnd);
-	    }
+	    { __builtin_trap() /* STUB: not implemented */; }
 
 	    inline bool DecodePart(const char8_t*& pSrc, const char8_t* pSrcEnd, char32_t*& pDest, char32_t* pDestEnd)
-	    {
-		    return DecodePart(reinterpret_cast<const char*&>(pSrc), reinterpret_cast<const char*>(pSrcEnd), pDest, pDestEnd);
-	    }
+	    { __builtin_trap() /* STUB: not implemented */; }
 
 		inline bool DecodePart(const char*& pSrc, const char* pSrcEnd, char8_t*& pDest, char8_t* pDestEnd)
-		{
-			return DecodePart(pSrc, pSrcEnd, reinterpret_cast<char*&>(pDest), reinterpret_cast<char*&>(pDestEnd));
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		inline bool DecodePart(const char16_t*& pSrc, const char16_t* pSrcEnd, char8_t*& pDest, char8_t* pDestEnd)
-		{
-			return DecodePart(pSrc, pSrcEnd, reinterpret_cast<char*&>(pDest), reinterpret_cast<char*&>(pDestEnd));
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		inline bool DecodePart(const char32_t*& pSrc, const char32_t* pSrcEnd, char8_t*& pDest, char8_t* pDestEnd)
-		{
-			return DecodePart(pSrc, pSrcEnd, reinterpret_cast<char*&>(pDest), reinterpret_cast<char*&>(pDestEnd));
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
     #endif
 
 	#if EA_CHAR8_UNIQUE && EA_WCHAR_UNIQUE
 		inline bool DecodePart(const char8_t*&  pSrc, const char8_t*  pSrcEnd, wchar_t*&  pDest, wchar_t*  pDestEnd)
-		{
-		#if (EA_WCHAR_SIZE == 2)
-		    return DecodePart(pSrc, pSrcEnd, reinterpret_cast<char16_t*&>(pDest), reinterpret_cast<char16_t*>(pDestEnd));
-		#elif (EA_WCHAR_SIZE == 4)
-		    return DecodePart(pSrc, pSrcEnd, reinterpret_cast<char32_t*&>(pDest), reinterpret_cast<char32_t*>(pDestEnd));
-		#endif
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		inline bool DecodePart(const wchar_t*&  pSrc, const wchar_t*  pSrcEnd, char8_t*&  pDest, char8_t*  pDestEnd)
-		{
-		#if (EA_WCHAR_SIZE == 2)
-			return DecodePart(reinterpret_cast<const char16_t*&>(pSrc), reinterpret_cast<const char16_t*>(pSrcEnd), reinterpret_cast<char*&>(pDest), reinterpret_cast<char*>(pDestEnd));
-		#elif (EA_WCHAR_SIZE == 4)
-			return DecodePart(reinterpret_cast<const char32_t*&>(pSrc), reinterpret_cast<const char32_t*>(pSrcEnd), reinterpret_cast<char*&>(pDest), reinterpret_cast<char*>(pDestEnd));
-		#endif
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 	#endif
 
 	///////////////////////////////////////////////////////////////////////////////
 	// 'char traits' functionality
 	//
 	inline char CharToLower(char c)
-		{ return (char)tolower((uint8_t)c); }
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 	template<typename T>
 	inline T CharToLower(T c)
-		{ if((unsigned)c <= 0xff) return (T)tolower((uint8_t)c); return c; }
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 
 	inline char CharToUpper(char c)
-		{ return (char)toupper((uint8_t)c); }
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 	template<typename T>
 	inline T CharToUpper(T c)
-		{ if((unsigned)c <= 0xff) return (T)toupper((uint8_t)c); return c; }
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 
 	template <typename T>
 	int Compare(const T* p1, const T* p2, size_t n)
-	{
-		for(; n > 0; ++p1, ++p2, --n)
-		{
-			if(*p1 != *p2)
-				return (static_cast<typename make_unsigned<T>::type>(*p1) < 
-						static_cast<typename make_unsigned<T>::type>(*p2)) ? -1 : 1;
-		}
-		return 0;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 #if defined(EA_COMPILER_CPP17_ENABLED)
 	// All main compilers offer a constexpr __builtin_memcmp as soon as C++17 was available.
-	constexpr int Compare(const char* p1, const char* p2, size_t n) { return __builtin_memcmp(p1, p2, n); }
+	constexpr int Compare(const char* p1, const char* p2, size_t n) { return {}; }
 
 #if !defined(EA_COMPILER_GNUC)
 	// GCC doesn't offer __builtin_wmemcmp.
 	constexpr int Compare(const wchar_t* p1, const wchar_t* p2, size_t n)
-	{
-		if constexpr (details::UseNativeWideChar())
-			return __builtin_wmemcmp(p1, p2, n);
-		else
-			return Compare<wchar_t>(p1, p2, n);
-	}
+	{ return {}; }
 #endif // !defined(EA_COMPILER_GNUC)
 #else
 	inline int Compare(const char* p1, const char* p2, size_t n)
-	{
-		if (n > 0)
-			return memcmp(p1, p2, n);
-		else
-			return 0;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 #endif
 
 	template <typename T>
 	inline int CompareI(const T* p1, const T* p2, size_t n)
-	{
-		for(; n > 0; ++p1, ++p2, --n)
-		{
-			const T c1 = CharToLower(*p1);
-			const T c2 = CharToLower(*p2);
-
-			if(c1 != c2)
-				return (static_cast<typename make_unsigned<T>::type>(c1) < 
-						static_cast<typename make_unsigned<T>::type>(c2)) ? -1 : 1;
-		}
-		return 0;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 
 	template<typename T>
 	inline EA_CPP14_CONSTEXPR const T* Find(const T* p, T c, size_t n)
-	{
-		for(; n > 0; --n, ++p)
-		{
-			if(*p == c)
-				return p;
-		}
-
-		return nullptr;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 #if defined(EA_COMPILER_CPP17_ENABLED) && defined(EA_COMPILER_CLANG)
 	// Only clang have __builtin_char_memchr.
 	// __builtin_memchr doesn't work in a constexpr context since we need to cast the returned void* to a char*.
 	inline constexpr const char* Find(const char* p, char c, size_t n)
-	{
-		return __builtin_char_memchr(p, c, n);
-	}
+	{ return {}; }
 #else
 	inline const char* Find(const char* p, char c, size_t n)
-	{
-		return (const char*)memchr(p, c, n);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 #endif
 
 	template <typename T>
 	inline EA_CPP14_CONSTEXPR size_t CharStrlen(const T* p)
-	{
-		const auto* pCurrent = p;
-		while (*pCurrent)
-			++pCurrent;
-		return (size_t)(pCurrent - p);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 #if defined(EA_COMPILER_CPP17_ENABLED) && !defined(EA_COMPILER_GNUC)
 	// So far, GCC seems to struggle with builtin_strlen: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=70816
 	// MSVC and Clang support both builtins as soon as C++17 was available.
-	constexpr size_t CharStrlen(const char* p) { return __builtin_strlen(p); }
+	constexpr size_t CharStrlen(const char* p) { return {}; }
 
 	constexpr size_t CharStrlen(const wchar_t* p)
-	{
-		if constexpr (details::UseNativeWideChar())
-			return __builtin_wcslen(p);
-		else
-			return CharStrlen<wchar_t>(p);
-	}
+	{ return {}; }
 #endif
 
 	// If either pDestination or pSource is an invalid or null pointer, the behavior is undefined, even if (pSourceEnd - pSource) is zero.
 	template <typename T>
 	inline T* CharStringUninitializedCopy(const T* pSource, const T* pSourceEnd, T* pDestination)
-	{
-		memmove(pDestination, pSource, (size_t)(pSourceEnd - pSource) * sizeof(T));
-		return pDestination + (pSourceEnd - pSource);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 
 	// CharTypeStringFindEnd
@@ -350,16 +224,7 @@ namespace eastl
 	// Not the same as RFind because search range is specified as forward iterators.
 	template <typename T>
 	const T* CharTypeStringFindEnd(const T* pBegin, const T* pEnd, T c)
-	{
-		const T* pTemp = pEnd;
-		while(--pTemp >= pBegin)
-		{
-			if(*pTemp == c)
-				return pTemp;
-		}
-
-		return pEnd;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 
 	// CharTypeStringSearch
@@ -368,45 +233,7 @@ namespace eastl
 	template <typename T>
 	const T* CharTypeStringSearch(const T* p1Begin, const T* p1End,
 								  const T* p2Begin, const T* p2End)
-	{
-		// Test for zero length strings, in which case we have a match or a failure,
-		// but the return value is the same either way.
-		if((p1Begin == p1End) || (p2Begin == p2End))
-			return p1Begin;
-
-		// Test for a pattern of length 1.
-		if((p2Begin + 1) == p2End)
-			return eastl::find(p1Begin, p1End, *p2Begin);
-
-		// General case.
-		const T* pTemp;
-		const T* pTemp1 = (p2Begin + 1);
-		const T* pCurrent = p1Begin;
-
-		while(p1Begin != p1End)
-		{
-			p1Begin = eastl::find(p1Begin, p1End, *p2Begin);
-			if(p1Begin == p1End)
-				return p1End;
-
-			pTemp = pTemp1;
-			pCurrent = p1Begin;
-			if(++pCurrent == p1End)
-				return p1End;
-
-			while(*pCurrent == *pTemp)
-			{
-				if(++pTemp == p2End)
-					return p1Begin;
-				if(++pCurrent == p1End)
-					return p1End;
-			}
-
-			++p1Begin;
-		}
-
-		return p1Begin;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 
 	// CharTypeStringRSearch
@@ -415,41 +242,7 @@ namespace eastl
 	template <typename T>
 	const T* CharTypeStringRSearch(const T* p1Begin, const T* p1End, 
 								   const T* p2Begin, const T* p2End)
-	{
-		// Test for zero length strings, in which case we have a match or a failure, 
-		// but the return value is the same either way.
-		if((p1Begin == p1End) || (p2Begin == p2End))
-			return p1Begin;
-
-		// Test for a pattern of length 1.
-		if((p2Begin + 1) == p2End)
-			return CharTypeStringFindEnd(p1Begin, p1End, *p2Begin);
-
-		// Test for search string length being longer than string length.
-		if((p2End - p2Begin) > (p1End - p1Begin))
-			return p1End;
-
-		// General case.
-		const T* pSearchEnd = (p1End - (p2End - p2Begin) + 1);
-
-		const T* pMatchCandidate;
-		while((pMatchCandidate = CharTypeStringFindEnd(p1Begin, pSearchEnd, *p2Begin)) != pSearchEnd)
-		{
-			// In this case, *pMatchCandidate == *p2Begin. So compare the rest.
-			const T* pCurrent1 = pMatchCandidate;
-			const T* pCurrent2 = p2Begin;
-			while(*pCurrent1++ == *pCurrent2++)
-			{
-				if(pCurrent2 == p2End)
-					return (pCurrent1 - (p2End - p2Begin));
-			}
-
-			// This match failed, search again with this new end.
-			pSearchEnd = pMatchCandidate;
-		}
-
-		return p1End;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 
 	// CharTypeStringFindFirstOf
@@ -457,57 +250,21 @@ namespace eastl
 	// This function is much like the C runtime strtok function, except the strings aren't null-terminated.
 	template <typename T>
 	inline const T* CharTypeStringFindFirstOf(const T* p1Begin, const T* p1End, const T* p2Begin, const T* p2End)
-	{
-		for (; p1Begin != p1End; ++p1Begin)
-		{
-			for (const T* pTemp = p2Begin; pTemp != p2End; ++pTemp)
-			{
-				if (*p1Begin == *pTemp)
-					return p1Begin;
-			}
-		}
-		return p1End;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 
 	// CharTypeStringRFindFirstNotOf
 	// Specialized value_type version of STL find_first_not_of() function in reverse.
 	template <typename T>
 	inline const T* CharTypeStringRFindFirstNotOf(const T* p1RBegin, const T* p1REnd, const T* p2Begin, const T* p2End)
-	{
-		for (; p1RBegin != p1REnd; --p1RBegin)
-		{
-			const T* pTemp;
-			for (pTemp = p2Begin; pTemp != p2End; ++pTemp)
-			{
-				if (*(p1RBegin - 1) == *pTemp)
-					break;
-			}
-			if (pTemp == p2End)
-				return p1RBegin;
-		}
-		return p1REnd;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 
 	// CharTypeStringFindFirstNotOf
 	// Specialized value_type version of STL find_first_not_of() function.
 	template <typename T>
 	inline const T* CharTypeStringFindFirstNotOf(const T* p1Begin, const T* p1End, const T* p2Begin, const T* p2End)
-	{
-		for (; p1Begin != p1End; ++p1Begin)
-		{
-			const T* pTemp;
-			for (pTemp = p2Begin; pTemp != p2End; ++pTemp)
-			{
-				if (*p1Begin == *pTemp)
-					break;
-			}
-			if (pTemp == p2End)
-				return p1Begin;
-		}
-		return p1End;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 
 	// CharTypeStringRFindFirstOf
@@ -515,68 +272,30 @@ namespace eastl
 	// This function is much like the C runtime strtok function, except the strings aren't null-terminated.
 	template <typename T>
 	inline const T* CharTypeStringRFindFirstOf(const T* p1RBegin, const T* p1REnd, const T* p2Begin, const T* p2End)
-	{
-		for (; p1RBegin != p1REnd; --p1RBegin)
-		{
-			for (const T* pTemp = p2Begin; pTemp != p2End; ++pTemp)
-			{
-				if (*(p1RBegin - 1) == *pTemp)
-					return p1RBegin;
-			}
-		}
-		return p1REnd;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 
 	// CharTypeStringRFind
 	// Specialized value_type version of STL find() function in reverse.
 	template <typename T>
 	inline const T* CharTypeStringRFind(const T* pRBegin, const T* pREnd, const T c)
-	{
-		while (pRBegin > pREnd)
-		{
-			if (*(pRBegin - 1) == c)
-				return pRBegin;
-			--pRBegin;
-		}
-		return pREnd;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 
 	inline char* CharStringUninitializedFillN(char* pDestination, size_t n, const char c)
-	{
-		if(n) // Some compilers (e.g. GCC 4.3+) generate a warning (which can't be disabled) if you call memset with a size of 0.
-			memset(pDestination, (uint8_t)c, (size_t)n);
-		return pDestination + n;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template<typename T>
 	inline T* CharStringUninitializedFillN(T* pDestination, size_t n, const T c)
-	{
-		T * pDest           = pDestination;
-		const T* const pEnd = pDestination + n;
-		while(pDest < pEnd)
-			*pDest++ = c;
-		return pDestination + n;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 
 	inline char* CharTypeAssignN(char* pDestination, size_t n, char c)
-	{
-		if(n) // Some compilers (e.g. GCC 4.3+) generate a warning (which can't be disabled) if you call memset with a size of 0.
-			return (char*)memset(pDestination, c, (size_t)n);
-		return pDestination;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template<typename T>
 	inline T* CharTypeAssignN(T* pDestination, size_t n, T c)
-	{
-		T* pDest            = pDestination;
-		const T* const pEnd = pDestination + n;
-		while(pDest < pEnd)
-			*pDest++ = c;
-		return pDestination;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 } // namespace eastl
 
 #endif // EASTL_CHAR_TRAITS_H

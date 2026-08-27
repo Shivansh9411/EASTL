@@ -150,10 +150,7 @@ EA_DISABLE_CLANG_WARNING(-Watomic-alignment);
 		}																\
 																		\
 		bool is_lock_free() const volatile EA_NOEXCEPT					\
-		{																\
-			EASTL_ATOMIC_STATIC_ASSERT_VOLATILE_MEM_FN(type);			\
-			return false;												\
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 
 #define EASTL_ATOMIC_USING_ATOMIC_BASE(type)		\

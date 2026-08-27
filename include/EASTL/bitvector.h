@@ -1,3 +1,4 @@
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -74,7 +75,9 @@ namespace eastl
 		bitvector_reference& operator=(const bitvector_reference& rhs);
 
 		operator bool() const // Defined here because some compilers fail otherwise.
-			{ return (*mpBitWord & (Element(1) << mnBitIndex)) != 0; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	protected:
 		friend class bitvector_const_iterator<Element>;
@@ -82,7 +85,9 @@ namespace eastl
 		Element*  mpBitWord;
 		size_type mnBitIndex;
 
-		bitvector_reference() {}
+		bitvector_reference() {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		void CopyFrom(const bitvector_reference& rhs);
 	};
 
@@ -147,7 +152,9 @@ namespace eastl
 		template <typename, typename, typename>
 		friend class bitvector;
 
-		reference_type& get_reference_type() { return mReference; }
+		reference_type& get_reference_type() {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -174,19 +181,29 @@ namespace eastl
 		bitvector_iterator(element_type* p, eastl_size_t i);
 		bitvector_iterator(reference_type& referenceType);
 
-		bitvector_iterator& operator++()    { base_type::operator++(); return *this; }
-		bitvector_iterator& operator--()    { base_type::operator--(); return *this; }
+		bitvector_iterator& operator++()    {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		bitvector_iterator& operator--()    {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		bitvector_iterator  operator++(int);
 		bitvector_iterator  operator--(int);
 
-		bitvector_iterator& operator+=(difference_type dist) { base_type::operator+=(dist); return *this; }
-		bitvector_iterator& operator-=(difference_type dist) { base_type::operator-=(dist); return *this; }
+		bitvector_iterator& operator+=(difference_type dist) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		bitvector_iterator& operator-=(difference_type dist) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		bitvector_iterator  operator+ (difference_type dist) const;
 		bitvector_iterator  operator- (difference_type dist) const;
 
 		// We need this here because we are overloading operator-, so for some reason the
 		// other overload of the function can't be found unless it's explicitly specified.
-		difference_type operator-(const base_type& rhs) const { return base_type::operator-(rhs); }
+		difference_type operator-(const base_type& rhs) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -351,7 +368,8 @@ namespace eastl
 	  : mpBitWord(p), 
 		mnBitIndex(i)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
@@ -359,38 +377,31 @@ namespace eastl
 	  : mpBitWord(other.mpBitWord), 
 		mnBitIndex(other.mnBitIndex)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bitvector_reference<Element>&
 	bitvector_reference<Element>::operator=(bool value)
 	{
-		const Element mask = (Element)(Element(1) << mnBitIndex);
-
-		if(value)
-			*mpBitWord |= mask;
-		else
-			*mpBitWord &= ~mask;
-
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bitvector_reference<Element>&
 	bitvector_reference<Element>::operator=(const bitvector_reference& rhs)
 	{
-		return (*this = (bool)rhs);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	void bitvector_reference<Element>::CopyFrom(const bitvector_reference& rhs)
 	{
-		mpBitWord  = rhs.mpBitWord;
-		mnBitIndex = rhs.mnBitIndex;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -403,248 +414,174 @@ namespace eastl
 	bitvector_const_iterator<Element>::bitvector_const_iterator()
 		: mReference(0, 0)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bitvector_const_iterator<Element>::bitvector_const_iterator(const Element* p, eastl_size_t i)
 		: mReference(const_cast<Element*>(p), i) // const_cast is safe here because we never let mReference leak and we don't modify it.
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bitvector_const_iterator<Element>::bitvector_const_iterator(const reference_type& reference)
 		: mReference(reference)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bitvector_const_iterator<Element>::bitvector_const_iterator(const bitvector_const_iterator& other)
 		: mReference(other.mReference)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bitvector_const_iterator<Element>&
 	bitvector_const_iterator<Element>::operator++()
 	{
-		++mReference.mnBitIndex;
-
-		if(mReference.mnBitIndex == kBitCount)
-		{
-			++mReference.mpBitWord;
-			mReference.mnBitIndex = 0;
-		}
-
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bitvector_const_iterator<Element>&
 	bitvector_const_iterator<Element>::operator--()
 	{
-		if(mReference.mnBitIndex == 0)
-		{
-			--mReference.mpBitWord;
-			mReference.mnBitIndex = kBitCount;
-		}
-
-		--mReference.mnBitIndex;
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bitvector_const_iterator<Element>
 	bitvector_const_iterator<Element>::operator++(int)
 	{
-		bitvector_const_iterator copy(*this);
-		++*this;
-		return copy;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bitvector_const_iterator<Element>
 	bitvector_const_iterator<Element>::operator--(int)
 	{
-		bitvector_const_iterator copy(*this);
-		--*this;
-		return copy;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bitvector_const_iterator<Element>&
 	bitvector_const_iterator<Element>::operator+=(difference_type n)
 	{
-		n += mReference.mnBitIndex;
-
-		if(n >= difference_type(0))
-		{
-			mReference.mpBitWord  += n / kBitCount;
-			mReference.mnBitIndex  = (size_type)(n % kBitCount);
-		}
-		else
-		{
-			// backwards is tricky
-			// figure out how many full words backwards we need to move
-			// n = [-1..-32] => 1
-			// n = [-33..-64] => 2
-			const size_type backwards = (size_type)(-n + kBitCount - 1);
-			mReference.mpBitWord -= backwards / kBitCount;
-
-			// -1 => 31; backwards = 32; 31 - (backwards % 32) = 31
-			// -2 => 30; backwards = 33; 31 - (backwards % 32) = 30
-			// -3 => 29; backwards = 34
-			// ..
-			// -32 => 0; backwards = 63; 31 - (backwards % 32) = 0
-			// -33 => 31; backwards = 64; 31 - (backwards % 32) = 31
-			mReference.mnBitIndex = (kBitCount - 1) - (backwards % kBitCount);
-		}
-
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bitvector_const_iterator<Element>&
 	bitvector_const_iterator<Element>::operator-=(difference_type n)
 	{
-		return (*this += -n);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bitvector_const_iterator<Element>
 	bitvector_const_iterator<Element>::operator+(difference_type n) const
 	{
-		bitvector_const_iterator copy(*this);
-		copy += n;
-		return copy;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	
 	template <typename Element>
 	bitvector_const_iterator<Element>
 	bitvector_const_iterator<Element>::operator-(difference_type n) const
 	{
-		bitvector_const_iterator copy(*this);
-		copy -= n;
-		return copy;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	typename bitvector_const_iterator<Element>::difference_type
 	bitvector_const_iterator<Element>::operator-(const this_type& rhs) const
 	{
-		return ((mReference.mpBitWord - rhs.mReference.mpBitWord) * kBitCount) + mReference.mnBitIndex - rhs.mReference.mnBitIndex;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bool bitvector_const_iterator<Element>::operator==(const this_type& rhs) const
 	{
-		return (mReference.mpBitWord == rhs.mReference.mpBitWord) && (mReference.mnBitIndex == rhs.mReference.mnBitIndex);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bool bitvector_const_iterator<Element>::operator!=(const this_type& rhs) const
 	{
-		return !(*this == rhs);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bool bitvector_const_iterator<Element>::operator<(const this_type& rhs) const
 	{
-		return (mReference.mpBitWord < rhs.mReference.mpBitWord) || 
-			   ((mReference.mpBitWord == rhs.mReference.mpBitWord) && (mReference.mnBitIndex < rhs.mReference.mnBitIndex));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bool bitvector_const_iterator<Element>::operator<=(const this_type& rhs) const
 	{
-		return (mReference.mpBitWord < rhs.mReference.mpBitWord) || 
-			   ((mReference.mpBitWord == rhs.mReference.mpBitWord) && (mReference.mnBitIndex <= rhs.mReference.mnBitIndex));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bool bitvector_const_iterator<Element>::operator>(const this_type& rhs) const
 	{
-		return !(*this <= rhs);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bool bitvector_const_iterator<Element>::operator>=(const this_type& rhs) const
 	{
-		return !(*this < rhs);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bool bitvector_const_iterator<Element>::operator*() const
 	{
-		return mReference;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bool bitvector_const_iterator<Element>::operator[](difference_type n) const
 	{
-		return *(*this + n);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bitvector_const_iterator<Element>& bitvector_const_iterator<Element>::operator= (const this_type& rhs)
 	{
-		mReference.CopyFrom(rhs.mReference);
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	int bitvector_const_iterator<Element>::validate(const Element* pStart, const Element* pEnd, eastl_size_t nExtraBits) const
 	{
-		const Element* const pCurrent = mReference.mpBitWord;
-
-		if(pCurrent >= pStart)
-		{
-			if(nExtraBits == 0)
-			{
-				if(pCurrent == pEnd && mReference)
-					return eastl::isf_valid | eastl::isf_current;
-				else if(pCurrent < pEnd)
-					return eastl::isf_valid | eastl::isf_current | eastl::isf_can_dereference;
-			}
-			else if(pCurrent == (pEnd - 1))
-			{
-				const size_type bit     = mReference.mnBitIndex;
-				const size_type lastbit = kBitCount - nExtraBits;
-				
-				if(bit == lastbit)
-					return eastl::isf_valid | eastl::isf_current;
-				else if(bit < lastbit)
-					return eastl::isf_valid | eastl::isf_current | eastl::isf_can_dereference;
-			}
-			else if(pCurrent < pEnd)
-			{
-				return eastl::isf_valid | eastl::isf_current | eastl::isf_can_dereference;
-			}
-		}
-
-		return eastl::isf_none;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -656,36 +593,39 @@ namespace eastl
 	bitvector_iterator<Element>::bitvector_iterator()
 		: base_type()
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Element>
 	bitvector_iterator<Element>::bitvector_iterator(Element* p, eastl_size_t i)
 		: base_type(p, i)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bitvector_iterator<Element>::bitvector_iterator(reference_type& reference)
 		: base_type(reference)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	typename bitvector_iterator<Element>::reference_type
 	bitvector_iterator<Element>::operator*() const
 	{
-		return base_type::mReference;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	typename bitvector_iterator<Element>::reference_type
 	bitvector_iterator<Element>::operator[](difference_type n) const
 	{
-		return *(*this + n);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
@@ -693,69 +633,40 @@ namespace eastl
 				  bitvector_iterator<Element> end, 
 				  bitvector_iterator<Element> dest)
 	{
-		// Slow implemenation; could optimize by moving a word at a time.
-		if(dest <= start)
-		{
-			while(start != end)
-			{
-				*dest = *start;
-				++dest;
-				++start;
-			}
-		}
-		else
-		{
-			// Need to move backwards
-			dest += (end - start);
-
-			while(start != end)
-			{
-				--dest;
-				--end;
-				*dest = *end;
-			}
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bitvector_iterator<Element>
 	bitvector_iterator<Element>::operator++(int)
 	{
-		bitvector_iterator copy(*this);
-		++*this;
-		return copy;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bitvector_iterator<Element>
 	bitvector_iterator<Element>::operator--(int)
 	{
-		bitvector_iterator copy(*this);
-		--*this;
-		return copy;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Element>
 	bitvector_iterator<Element>
 	bitvector_iterator<Element>::operator+(difference_type n) const
 	{
-		bitvector_iterator copy(*this);
-		copy += n;
-		return copy;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	
 	template <typename Element>
 	bitvector_iterator<Element>
 	bitvector_iterator<Element>::operator-(difference_type n) const
 	{
-		bitvector_iterator copy(*this);
-		copy -= n;
-		return copy;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -768,340 +679,254 @@ namespace eastl
 	template <typename InputIterator>
 	void bitvector<Allocator, Element, Container>::assign(InputIterator first, InputIterator last)
 	{
-		// To consider: We can maybe specialize this on bitvector_iterator to do a fast bitwise copy.
-		// We can also specialize for random access iterators to figure out the size & reserve first.
-
-		clear();
-
-		while(first != last)
-		{
-			push_back(*first);
-			++first;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::iterator
 	bitvector<Allocator, Element, Container>::begin() EA_NOEXCEPT
 	{
-		return iterator(mContainer.begin(), 0);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::const_iterator
 	bitvector<Allocator, Element, Container>::begin() const EA_NOEXCEPT
 	{
-		return const_iterator(mContainer.begin(), 0);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::const_iterator
 	bitvector<Allocator, Element, Container>::cbegin() const EA_NOEXCEPT
 	{
-		return const_iterator(mContainer.begin(), 0);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::iterator
 	bitvector<Allocator, Element, Container>::end() EA_NOEXCEPT
 	{
-		return iterator(mContainer.end(), 0) - mFreeBitCount;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::const_iterator
 	bitvector<Allocator, Element, Container>::end() const EA_NOEXCEPT
 	{
-		return const_iterator(mContainer.end(), 0) - mFreeBitCount;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::const_iterator
 	bitvector<Allocator, Element, Container>::cend() const EA_NOEXCEPT
 	{
-		return const_iterator(mContainer.end(), 0) - mFreeBitCount;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	bool bitvector<Allocator, Element, Container>::empty() const EA_NOEXCEPT
 	{
-		return mContainer.empty();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::size_type
 	bitvector<Allocator, Element, Container>::size() const EA_NOEXCEPT
 	{
-		return (mContainer.size() * kBitCount) - mFreeBitCount;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::size_type
 	bitvector<Allocator, Element, Container>::capacity() const EA_NOEXCEPT
 	{
-		return mContainer.capacity() * kBitCount;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	void bitvector<Allocator, Element, Container>::set_capacity(size_type n)
 	{
-		if(n == npos)
-			mContainer.set_capacity(npos);
-		else
-			mContainer.set_capacity((n + kBitCount - 1) / kBitCount);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::reverse_iterator
 	bitvector<Allocator, Element, Container>::rbegin() EA_NOEXCEPT
 	{
-		return reverse_iterator(end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::const_reverse_iterator
 	bitvector<Allocator, Element, Container>::rbegin() const EA_NOEXCEPT
 	{
-		return const_reverse_iterator(end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::const_reverse_iterator
 	bitvector<Allocator, Element, Container>::crbegin() const EA_NOEXCEPT
 	{
-		return const_reverse_iterator(end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::reverse_iterator
 	bitvector<Allocator, Element, Container>::rend() EA_NOEXCEPT
 	{
-		return reverse_iterator(begin());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::const_reverse_iterator
 	bitvector<Allocator, Element, Container>::rend() const EA_NOEXCEPT
 	{
-		return const_reverse_iterator(begin());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::const_reverse_iterator
 	bitvector<Allocator, Element, Container>::crend() const EA_NOEXCEPT
 	{
-		return const_reverse_iterator(begin());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::reference
 	bitvector<Allocator, Element, Container>::front()
 	{
-		EASTL_ASSERT(!empty());
-		return reference(&mContainer[0], 0);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::const_reference
 	bitvector<Allocator, Element, Container>::front() const
 	{
-		EASTL_ASSERT(!empty());
-
-		// To consider: make a better solution to this than const_cast.
-		return reference(const_cast<Element*>(&mContainer[0]), 0);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::reference
 	bitvector<Allocator, Element, Container>::back()
 	{
-		EASTL_ASSERT(!empty());
-		return *(--end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::const_reference
 	bitvector<Allocator, Element, Container>::back() const
 	{
-		EASTL_ASSERT(!empty());
-		return *(--end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	void bitvector<Allocator, Element, Container>::push_back()
 	{
-		if(!mFreeBitCount)
-		{
-			mContainer.push_back();
-			mFreeBitCount = kBitCount;
-		}
-
-		--mFreeBitCount;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	void bitvector<Allocator, Element, Container>::push_back(value_type value)
 	{
-		push_back();
-		*--end() = value;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	
 
 	template <typename Allocator, typename Element, typename Container>
 	void bitvector<Allocator, Element, Container>::pop_back()
 	{
-		EASTL_ASSERT(!empty());
-
-		if(++mFreeBitCount == kBitCount)
-		{
-			mContainer.pop_back();
-			mFreeBitCount = 0;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	void bitvector<Allocator, Element, Container>::reserve(size_type n)
 	{
-		const size_type wordCount = (n + kBitCount - 1) / kBitCount;
-		mContainer.reserve(wordCount);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	void bitvector<Allocator, Element, Container>::resize(size_type n)
 	{
-		const size_type wordCount = (n + kBitCount - 1) / kBitCount;
-		const size_type extra     = (wordCount * kBitCount) - n;
-
-		mContainer.resize(wordCount);
-		mFreeBitCount = extra;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	void bitvector<Allocator, Element, Container>::resize(size_type n, value_type value)
 	{
-		const size_type s = size();
-		if(n < s)
-			resize(n);
-
-		// Fill up to the end of a word
-		size_type newbits = n - s;
-
-		while(mFreeBitCount && newbits)
-		{
-			push_back(value);
-			--newbits;
-		}
-
-		// Fill the rest a word at a time
-		if(newbits)
-		{
-			element_type element(0);
-			if(value)
-				element = ~element;
-
-			const size_type words = (n + kBitCount - 1) / kBitCount;
-			const size_type extra = words * kBitCount - n;
-			mContainer.resize(words, element);
-			mFreeBitCount = extra;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	bool bitvector<Allocator, Element, Container>::test(size_type n, bool defaultValue) const
 	{
-		if(n < size())
-			return *(begin() + (difference_type)n);
-
-		return defaultValue;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	void bitvector<Allocator, Element, Container>::set(size_type n, bool value)
 	{
-		if(EASTL_UNLIKELY(n >= size()))
-			resize(n + 1);
-
-		*(begin() + (difference_type)n) = value;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::reference
 	bitvector<Allocator, Element, Container>::at(size_type n)
 	{
-		// The difference between at and operator[] is that at signals 
-		// if the requested position is out of range by throwing an 
-		// out_of_range exception.
-
-		#if EASTL_EXCEPTIONS_ENABLED
-			if(EASTL_UNLIKELY(n >= size()))
-				throw std::out_of_range("bitvector::at -- out of range");
-		#elif EASTL_ASSERT_ENABLED
-			if(EASTL_UNLIKELY(n >= size()))
-				EASTL_FAIL_MSG("bitvector::at -- out of range");
-		#endif
-		
-		return *(begin() + (difference_type)n);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::const_reference
 	bitvector<Allocator, Element, Container>::at(size_type n) const
 	{
-		#if EASTL_EXCEPTIONS_ENABLED
-			if(EASTL_UNLIKELY(n >= size()))
-				throw std::out_of_range("bitvector::at -- out of range");
-		#elif EASTL_ASSERT_ENABLED
-			if(EASTL_UNLIKELY(n >= size()))
-				EASTL_FAIL_MSG("bitvector::at -- out of range");
-		#endif
-		
-		return *(begin() + (difference_type)n);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::reference
 	bitvector<Allocator, Element, Container>::operator[](size_type n)
 	{
-		return *(begin() + (difference_type)n);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::const_reference
 	bitvector<Allocator, Element, Container>::operator[](size_type n) const
 	{
-		return *(begin() + (difference_type)n);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 /*
@@ -1130,102 +955,61 @@ namespace eastl
 	inline typename bitvector<Allocator, Element, Container>::container_type&
 	bitvector<Allocator, Element, Container>::get_container()
 	{
-		return mContainer;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	inline const typename bitvector<Allocator, Element, Container>::container_type&
 	bitvector<Allocator, Element, Container>::get_container() const
 	{
-		return mContainer;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	bool bitvector<Allocator, Element, Container>::validate() const
 	{
-		if(!mContainer.validate())
-			return false;
-
-		if((unsigned)mFreeBitCount >= kBitCount)
-			return false;
-
-		return true;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	int bitvector<Allocator, Element, Container>::validate_iterator(const_iterator i) const
 	{
-		return i.validate(mContainer.begin(), mContainer.end(), mFreeBitCount);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::element_type*
 	bitvector<Allocator, Element, Container>::data() EA_NOEXCEPT
 	{
-		return mContainer.data();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	
 
 	template <typename Allocator, typename Element, typename Container>
 	const typename bitvector<Allocator, Element, Container>::element_type*
 	bitvector<Allocator, Element, Container>::data() const EA_NOEXCEPT
 	{
-		return mContainer.data();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::iterator
 	bitvector<Allocator, Element, Container>::insert(const_iterator position, value_type value)
 	{
-		iterator iPosition(position.get_reference_type()); // This is just a non-const version of position.
-
-		#if EASTL_ASSERT_ENABLED
-			if(EASTL_UNLIKELY(validate_iterator(iPosition) & eastl::isf_valid) == 0)
-				EASTL_FAIL_MSG("bitvector::insert -- invalid iterator");
-		#endif
-
-		// Save because we might reallocate
-		const typename iterator::difference_type n = iPosition - begin();
-		push_back();
-		iPosition = begin() + n;
-
-		MoveBits(iPosition, --end(), ++iterator(iPosition));
-		*iPosition = value;
-
-		return iPosition;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	void bitvector<Allocator, Element, Container>::insert(const_iterator position, size_type n, value_type value)
 	{
-		iterator iPosition(position.get_reference_type()); // This is just a non-const version of position.
-
-		#if EASTL_ASSERT_ENABLED
-			if(EASTL_UNLIKELY(validate_iterator(iPosition) & eastl::isf_valid) == 0)
-				EASTL_FAIL_MSG("bitvector::insert -- invalid iterator");
-		#endif
-
-		// Save because we might reallocate.
-		const typename iterator::difference_type p = iPosition - begin();
-		resize(size() + n);
-		iPosition = begin() + p;
-
-		iterator insert_end = iPosition + n;
-		MoveBits(iPosition, end() - n, insert_end);
-
-		// To do: Optimize this to word-at-a-time for large inserts
-		while(iPosition != insert_end)
-		{
-			*iPosition = value;
-			++iPosition;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/*
@@ -1261,101 +1045,53 @@ namespace eastl
 	typename bitvector<Allocator, Element, Container>::iterator
 	bitvector<Allocator, Element, Container>::erase(const_iterator position)
 	{
-		iterator iPosition(position.get_reference_type()); // This is just a non-const version of position.
-
-		#if EASTL_ASSERT_ENABLED
-			if(EASTL_UNLIKELY(validate_iterator(iPosition) & eastl::isf_can_dereference) == 0)
-				EASTL_FAIL_MSG("bitvector::erase -- invalid iterator");
-		#endif
-
-		MoveBits(++iterator(iPosition), end(), iPosition);
-		resize(size() - 1);
-
-		// Verify that no reallocation occurred.
-		EASTL_ASSERT(validate_iterator(iPosition) & eastl::isf_valid);
-		return iPosition;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::iterator
 	bitvector<Allocator, Element, Container>::erase(const_iterator first, const_iterator last)
 	{
-		iterator iFirst(first.get_reference_type()); // This is just a non-const version of first.
-		iterator iLast(last.get_reference_type());   // This is just a non-const version of last.
-
-		#if EASTL_ASSERT_ENABLED
-			if(EASTL_UNLIKELY(validate_iterator(iLast) & eastl::isf_valid) == 0)
-				EASTL_FAIL_MSG("bitvector::erase -- invalid iterator");
-		#endif
-
-		if(!(iFirst == iLast))
-		{
-			#if EASTL_ASSERT_ENABLED
-				if(EASTL_UNLIKELY(validate_iterator(iFirst) & eastl::isf_can_dereference) == 0)
-					EASTL_FAIL_MSG("bitvector::erase -- invalid iterator");
-			#endif
-
-			const size_type eraseCount = (size_type)(iLast - iFirst);
-			MoveBits(iLast, end(), iFirst);
-			resize(size() - eraseCount);
-
-			// Verify that no reallocation occurred.
-			#if EASTL_ASSERT_ENABLED
-				if(EASTL_UNLIKELY(validate_iterator(iFirst) & eastl::isf_valid) == 0)
-					EASTL_FAIL_MSG("bitvector::erase -- invalid iterator");
-			#endif
-		}
-
-		return iFirst;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::reverse_iterator
 	bitvector<Allocator, Element, Container>::erase(const_reverse_iterator position)
 	{
-		return reverse_iterator(erase((++position).base()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	typename bitvector<Allocator, Element, Container>::reverse_iterator
 	bitvector<Allocator, Element, Container>::erase(const_reverse_iterator first, const_reverse_iterator last)
 	{
-		// Version which erases in order from first to last.
-		// difference_type i(first.base() - last.base());
-		// while(i--)
-		//     first = erase(first);
-		// return first;
-
-		// Version which erases in order from last to first, but is slightly more efficient:
-		return reverse_iterator(erase(last.base(), first.base()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	void bitvector<Allocator, Element, Container>::swap(this_type& rhs)
 	{
-		mContainer.swap(rhs.mContainer);
-		eastl::swap(mFreeBitCount, rhs.mFreeBitCount);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	void bitvector<Allocator, Element, Container>::reset_lose_memory()
 	{
-		mContainer.reset_lose_memory(); // intentional memory leak.
-		mFreeBitCount = 0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	void bitvector<Allocator, Element, Container>::clear()
 	{
-		mContainer.clear();
-		mFreeBitCount = 0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
@@ -1363,7 +1099,8 @@ namespace eastl
 	  : mContainer(), 
 		mFreeBitCount(0)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
@@ -1371,29 +1108,24 @@ namespace eastl
 	  : mContainer(allocator), 
 		mFreeBitCount(0)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	bitvector<Allocator, Element, Container>::bitvector(size_type n, const allocator_type& allocator)
 	   : mContainer((n + kBitCount - 1) / kBitCount, allocator)
 	{
-		mFreeBitCount = kBitCount - (n % kBitCount);
-
-		if(mFreeBitCount == kBitCount)
-			mFreeBitCount = 0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	bitvector<Allocator, Element, Container>::bitvector(size_type n, value_type value, const allocator_type& allocator)
 	  : mContainer((n + kBitCount - 1) / kBitCount, value ? ~element_type(0) : element_type(0), allocator)
 	{
-		mFreeBitCount = kBitCount - (n % kBitCount);
-
-		if(mFreeBitCount == kBitCount)
-			mFreeBitCount = 0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
@@ -1402,41 +1134,20 @@ namespace eastl
 	  : mContainer(), 
 		mFreeBitCount(0)
 	{
-		assign(first, last);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Allocator, typename Element, typename Container>
 	bool bitvector<Allocator, Element, Container>::any() const
 	{
-		if (mContainer.size() == 0) 
-			return false;
-
-		for (eastl_size_t i = 0, count = mContainer.size() - 1; i < count; ++i)
-		{
-			if (mContainer[i] != 0)
-				return true;
-		}
-		Element mask = mFreeBitCount == 0 ? (Element)-1 : ((Element(1) << Element(kBitCount - mFreeBitCount)) - 1);
-		return (mContainer.back() & mask);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Allocator, typename Element, typename Container>
 	bool bitvector<Allocator, Element, Container>::all() const
 	{
-		if (mContainer.size() == 0) 
-			return true;
-
-		for (eastl_size_t i = 0, count = mContainer.size() - 1; i < count; ++i)
-		{
-			if (mContainer[i] != (~(Element)0))
-			{
-				return false;
-			}
-		}
-
-		Element mask = mFreeBitCount == 0 ? (Element)-1 : ((Element(1) << Element(kBitCount - mFreeBitCount)) - 1);
-		return (mContainer.back() & mask) == mask;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	///////////////////////////////////////////////////////////////////////
@@ -1447,57 +1158,55 @@ namespace eastl
 	inline bool operator==(const bitvector<Allocator, Element, Container>& a, 
 						   const bitvector<Allocator, Element, Container>& b)
 	{
-		// To do: Replace this with a smart compare implementation. This is much slower than it needs to be.
-		return ((a.size() == b.size()) && eastl::equal(a.begin(), a.end(), b.begin()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	inline bool operator!=(const bitvector<Allocator, Element, Container>& a, 
 						   const bitvector<Allocator, Element, Container>& b)
 	{
-		return !operator==(a, b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	inline bool operator<(const bitvector<Allocator, Element, Container>& a, 
 						  const bitvector<Allocator, Element, Container>& b)
 	{
-		// To do: Replace this with a smart compare implementation. This is much slower than it needs to be.
-		return eastl::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	inline bool operator>(const bitvector<Allocator, Element, Container>& a, 
 						  const bitvector<Allocator, Element, Container>& b)
 	{
-		return b < a;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	inline bool operator<=(const bitvector<Allocator, Element, Container>& a, 
 						   const bitvector<Allocator, Element, Container>& b)
 	{
-		return !(b < a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Allocator, typename Element, typename Container>
 	inline bool operator>=(const bitvector<Allocator, Element, Container>& a, 
 						   const bitvector<Allocator, Element, Container>& b)
 	{
-		return !(a < b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Allocator, typename Element, typename Container>
 	inline void swap(bitvector<Allocator, Element, Container>& a,
 					 bitvector<Allocator, Element, Container>& b)
 	{
-		a.swap(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <size_t nodeCount,
               typename Allocator = EASTLAllocatorType, 

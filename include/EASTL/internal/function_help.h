@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -23,26 +25,26 @@ namespace eastl
 		template <typename T>
 		bool is_null(const T&)
 		{
-			return false;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename Result, typename... Arguments>
 		bool is_null(Result (*const& function_pointer)(Arguments...))
 		{
-			return function_pointer == nullptr;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename Result, typename Class, typename... Arguments>
 		bool is_null(Result (Class::*const& function_pointer)(Arguments...))
 		{
-			return function_pointer == nullptr;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename Result, typename Class, typename... Arguments>
 		bool is_null(Result (Class::*const& function_pointer)(Arguments...) const)
 		{
-			return function_pointer == nullptr;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	} // namespace internal
 } // namespace eastl

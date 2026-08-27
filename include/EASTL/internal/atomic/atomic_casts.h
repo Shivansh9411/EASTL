@@ -27,12 +27,7 @@ namespace internal
 
 template <typename T>
 EASTL_FORCE_INLINE volatile T* AtomicVolatileCast(T* ptr) EA_NOEXCEPT
-{
-	static_assert(!eastl::is_volatile<volatile T*>::value, "eastl::atomic<T> : pointer must not be volatile, the pointed to type must be volatile!");
-	static_assert(eastl::is_volatile<volatile T>::value, "eastl::atomic<T> : the pointed to type must be volatile!");
-
-	return reinterpret_cast<volatile T*>(ptr);
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 
 /**
@@ -56,23 +51,11 @@ EASTL_FORCE_INLINE volatile T* AtomicVolatileCast(T* ptr) EA_NOEXCEPT
  */
 template <typename Integral, typename T>
 EASTL_FORCE_INLINE volatile Integral* AtomicVolatileIntegralCast(T* ptr) EA_NOEXCEPT
-{
-	static_assert(!eastl::is_volatile<volatile Integral*>::value, "eastl::atomic<T> : pointer must not be volatile, the pointed to type must be volatile!");
-	static_assert(eastl::is_volatile<volatile Integral>::value, "eastl::atomic<T> : the pointed to type must be volatile!");
-	static_assert(eastl::is_integral<Integral>::value, "eastl::atomic<T> : Integral cast must cast to an Integral type!");
-	static_assert(sizeof(Integral) == sizeof(T), "eastl::atomic<T> : Integral and T must be same size for casting!");
-
-	return reinterpret_cast<volatile Integral*>(ptr);
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 template <typename Integral, typename T>
 EASTL_FORCE_INLINE Integral* AtomicIntegralCast(T* ptr) EA_NOEXCEPT
-{
-	static_assert(eastl::is_integral<Integral>::value, "eastl::atomic<T> : Integral cast must cast to an Integral type!");
-	static_assert(sizeof(Integral) == sizeof(T), "eastl::atomic<T> : Integral and T must be same size for casting!");
-
-	return reinterpret_cast<Integral*>(ptr);
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 
 /**
@@ -86,18 +69,11 @@ EASTL_FORCE_INLINE Integral* AtomicIntegralCast(T* ptr) EA_NOEXCEPT
  */
 template <typename ToType, typename FromType>
 EASTL_FORCE_INLINE volatile ToType* AtomicVolatileTypeCast(FromType* ptr) EA_NOEXCEPT
-{
-	static_assert(!eastl::is_volatile<volatile ToType*>::value, "eastl::atomic<T> : pointer must not be volatile, the pointed to type must be volatile!");
-	static_assert(eastl::is_volatile<volatile ToType>::value, "eastl::atomic<T> : the pointed to type must be volatile!");
-
-	return reinterpret_cast<volatile ToType*>(ptr);
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 template <typename ToType, typename FromType>
 EASTL_FORCE_INLINE ToType* AtomicTypeCast(FromType* ptr) EA_NOEXCEPT
-{
-	return reinterpret_cast<ToType*>(ptr);
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 
 /**
@@ -119,38 +95,19 @@ EASTL_FORCE_INLINE ToType* AtomicTypeCast(FromType* ptr) EA_NOEXCEPT
  */
 template <typename Pun, typename T, eastl::enable_if_t<!eastl::is_same_v<Pun, T>, int> = 0>
 EASTL_FORCE_INLINE Pun AtomicTypePunCast(const T& fromType) EA_NOEXCEPT
-{
-	static_assert(sizeof(Pun) == sizeof(T), "eastl::atomic<T> : Pun and T must be the same size for type punning!");
-
-	/**
-	 * aligned_storage ensures we can TypePun objects that aren't trivially default constructible
-	 * but still trivially copyable.
-	 */
-	typename eastl::aligned_storage<sizeof(Pun), alignof(Pun)>::type ret;
-	memcpy(eastl::addressof(ret), eastl::addressof(fromType), sizeof(Pun));
-	return reinterpret_cast<Pun&>(ret);
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 template <typename Pun, typename T, eastl::enable_if_t<eastl::is_same_v<Pun, T>, int> = 0>
 EASTL_FORCE_INLINE Pun AtomicTypePunCast(const T& fromType) EA_NOEXCEPT
-{
-	return fromType;
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 
 template <typename T>
 EASTL_FORCE_INLINE T AtomicNegateOperand(T val) EA_NOEXCEPT
-{
-	static_assert(eastl::is_integral<T>::value, "eastl::atomic<T> : Integral Negation must be an Integral type!");
-	static_assert(!eastl::is_volatile<T>::value, "eastl::atomic<T> : T must not be volatile!");
-
-	return static_cast<T>(0U - static_cast<eastl::make_unsigned_t<T>>(val));
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 EASTL_FORCE_INLINE ptrdiff_t AtomicNegateOperand(ptrdiff_t val) EA_NOEXCEPT
-{
-	return -val;
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 
 } // namespace internal

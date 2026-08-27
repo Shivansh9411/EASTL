@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -66,34 +68,20 @@ namespace eastl
 		// utility to switch between exceptions and asserts
 		inline void DoBadAnyCast()
 		{
-			#if EASTL_EXCEPTIONS_ENABLED
-				throw bad_any_cast();
-			#else
-				EASTL_ASSERT_MSG(false, "bad_any_cast\n");
-
-				// NOTE(rparolin): CRASH!
-				// You crashed here because you requested a type that was not contained in the object.
-				// We choose to intentionally crash here instead of returning invalid data to the calling 
-				// code which could cause hard to track down bugs. 
-				*((volatile int*)0) = 0xDEADC0DE;
-			#endif
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename T, typename... Args>
 		void* DefaultConstruct(Args&&... args)
 		{
-			auto* pMem = EASTLAllocatorDefault()->allocate(sizeof(T), alignof(T), 0);
-
-			return ::new(pMem) T(eastl::forward<Args>(args)...);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename T>
 		void DefaultDestroy(T* p)
 		{
-			p->~T();
-
-			EASTLAllocatorDefault()->deallocate(static_cast<void*>(p), sizeof(T));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	}
 
 
@@ -169,87 +157,35 @@ namespace eastl
 			template <typename V>
 			static void construct(storage& s, V&& v)
 			{
-				::new(&s.internal_storage) T(eastl::forward<V>(v));
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			template <typename... Args>
 			static void construct_inplace(storage& s, Args... args)
 			{
-				::new(&s.internal_storage) T(eastl::forward<Args>(args)...);
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			template <class NT, class U, class... Args>
 			static void construct_inplace(storage& s, std::initializer_list<U> il, Args&&... args)
 			{
-				::new(&s.internal_storage) NT(il, eastl::forward<Args>(args)...);
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			static inline void destroy(any& refAny)
 			{
-				T& t = *static_cast<T*>(static_cast<void*>(&refAny.m_storage.internal_storage));
-				EA_UNUSED(t);
-				t.~T();
-
-				refAny.m_handler = nullptr;
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			static void* get(const any* pThis)
 			{
-				EASTL_ASSERT(pThis);
-				return (void*)(&pThis->m_storage.internal_storage);
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			static void* handler_func(storage_operation op, const any* pThis, any* pOther)
 			{
-				switch (op)
-				{
-					case storage_operation::GET:
-					{
-						return get(pThis);
-					}
-					break;
-
-					case storage_operation::DESTROY:
-					{
-						EASTL_ASSERT(pThis);
-						destroy(const_cast<any&>(*pThis));
-					}
-					break;
-
-					case storage_operation::COPY:
-					{
-						EASTL_ASSERT(pThis);
-						EASTL_ASSERT(pOther);
-						construct(pOther->m_storage, *(T*)(&pThis->m_storage.internal_storage));
-					}
-					break;
-
-					case storage_operation::MOVE:
-					{
-						EASTL_ASSERT(pThis);
-						EASTL_ASSERT(pOther);
-						construct(pOther->m_storage, eastl::move(*(T*)(&pThis->m_storage.internal_storage)));
-						destroy(const_cast<any&>(*pThis));
-					}
-					break;
-
-					case storage_operation::TYPE_INFO:
-					{
-					#if EASTL_RTTI_ENABLED
-						return (void*)&typeid(T);
-					#endif
-					}
-					break;
-
-					default:
-					{
-						EASTL_ASSERT_MSG(false, "unknown storage operation\n");
-					}
-					break;
-				};
-
-				return nullptr;
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 
 
@@ -263,86 +199,35 @@ namespace eastl
 			template <typename V>
 			static inline void construct(storage& s, V&& v) 
 			{
-				s.external_storage = Internal::DefaultConstruct<T>(eastl::forward<V>(v));
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			template <typename... Args>
 			static inline void construct_inplace(storage& s, Args... args)
 			{
-				s.external_storage = Internal::DefaultConstruct<T>(eastl::forward<Args>(args)...);
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			template <class NT, class U, class... Args>
 			static inline void construct_inplace(storage& s, std::initializer_list<U> il, Args&&... args)
 			{
-				s.external_storage = Internal::DefaultConstruct<NT>(il, eastl::forward<Args>(args)...);
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			static inline void destroy(any& refAny)
 			{
-				Internal::DefaultDestroy(static_cast<T*>(refAny.m_storage.external_storage));
-
-				refAny.m_handler = nullptr;
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			static void* get(const any* pThis)
 			{
-				EASTL_ASSERT(pThis);
-				EASTL_ASSERT(pThis->m_storage.external_storage);
-				return static_cast<void*>(pThis->m_storage.external_storage);
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			static void* handler_func(storage_operation op, const any* pThis, any* pOther)
 			{
-				switch (op)
-				{
-					case storage_operation::GET:
-					{
-						return get(pThis);
-					}
-					break;
-
-					case storage_operation::DESTROY:
-					{
-						EASTL_ASSERT(pThis);
-						destroy(*const_cast<any*>(pThis));
-					}
-					break;
-
-					case storage_operation::COPY:
-					{
-						EASTL_ASSERT(pThis);
-						EASTL_ASSERT(pOther);
-						construct(pOther->m_storage, *static_cast<T*>(pThis->m_storage.external_storage));
-					}
-					break;
-
-					case storage_operation::MOVE:
-					{
-						EASTL_ASSERT(pThis);
-						EASTL_ASSERT(pOther);
-						construct(pOther->m_storage, eastl::move(*(T*)(pThis->m_storage.external_storage)));
-						destroy(const_cast<any&>(*pThis));
-					}
-					break;
-
-					case storage_operation::TYPE_INFO:
-					{
-					#if EASTL_RTTI_ENABLED
-						return (void*)&typeid(T);
-					#endif
-					}
-					break;
-
-					default:
-					{
-						EASTL_ASSERT_MSG(false, "unknown storage operation\n");
-					}
-					break;
-				};
-
-				return nullptr;
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 
 
@@ -380,19 +265,14 @@ namespace eastl
 				EA_CONSTEXPR 
 			#endif
 			any() EA_NOEXCEPT 
-			: m_storage(), m_handler(nullptr) {}
+			: m_storage(), m_handler(nullptr) {
+    
+}
 
 		any(const any& other) : m_handler(nullptr)
 		{
-			if (other.m_handler)
-			{
-				// NOTE(rparolin): You can not simply copy the underlying
-				// storage because it could hold a pointer to an object on the
-				// heap which breaks the copy semantics of the language. 
-				other.m_handler(storage_operation::COPY, &other, this);
-				m_handler = other.m_handler;
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		any(any&& other) EA_NOEXCEPT : m_handler(nullptr)
 		{ 
@@ -413,21 +293,14 @@ namespace eastl
 		any(ValueType&& value,
 		    typename eastl::enable_if<!eastl::is_same<typename eastl::decay<ValueType>::type, any>::value>::type* = 0)
 		{
-			typedef decay_t<ValueType> DecayedValueType;
-			static_assert(is_copy_constructible<DecayedValueType>::value, "ValueType must be copy-constructible");
-			storage_handler<DecayedValueType>::construct(m_storage, eastl::forward<ValueType>(value));
-			m_handler = &storage_handler<DecayedValueType>::handler_func;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <class T, class... Args>
 		explicit any(in_place_type_t<T>, Args&&... args) 
 		{
-			typedef storage_handler<decay_t<T>> StorageHandlerT;
-			static_assert(eastl::is_constructible<T, Args...>::value, "T must be constructible with Args...");
-
-			StorageHandlerT::construct_inplace(m_storage, eastl::forward<Args>(args)...);
-			m_handler = &StorageHandlerT::handler_func;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <class T, class U, class... Args>
 		explicit any(in_place_type_t<T>,
@@ -436,32 +309,25 @@ namespace eastl
 		             typename eastl::enable_if<eastl::is_constructible<T, std::initializer_list<U>&, Args...>::value,
 		                                       void>::type* = 0)
 		{
-			typedef storage_handler<decay_t<T>> StorageHandlerT;
-
-			StorageHandlerT::construct_inplace(m_storage, il, eastl::forward<Args>(args)...);
-			m_handler = &StorageHandlerT::handler_func;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// 20.7.3.2, assignments
 		template <class ValueType>
 		any& operator=(ValueType&& value)
 		{
-			static_assert(is_copy_constructible<decay_t<ValueType>>::value, "ValueType must be copy-constructible");
-			any(eastl::forward<ValueType>(value)).swap(*this);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		any& operator=(const any& other) 
-		{ 
-			any(other).swap(*this);
-			return *this; 
-		}
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		any& operator=(any&& other) EA_NOEXCEPT 
-		{ 
-			any(eastl::move(other)).swap(*this);
-			return *this; 
-		}
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
         // 20.7.3.3, modifiers
 		#if EASTL_VARIADIC_TEMPLATES_ENABLED
@@ -553,7 +419,9 @@ namespace eastl
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// 20.7.4, non-member functions
 	//
-	inline void swap(any& rhs, any& lhs) EA_NOEXCEPT { rhs.swap(lhs); }
+	inline void swap(any& rhs, any& lhs) EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	//////////////////////////////////////////////////////////////////////////////////////////
@@ -562,44 +430,20 @@ namespace eastl
 	template <class ValueType>
 	inline ValueType any_cast(const any& operand)
 	{
-		static_assert(eastl::is_reference<ValueType>::value || eastl::is_copy_constructible<ValueType>::value,
-		              "ValueType must be a reference or copy constructible");
-
-		auto* p = any_cast<typename add_const<typename remove_reference<ValueType>::type>::type>(&operand);
-
-		if(p == nullptr)
-			Internal::DoBadAnyCast();
-
-		return *p;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <class ValueType>
     inline ValueType any_cast(any& operand)
     {
-		static_assert(eastl::is_reference<ValueType>::value || eastl::is_copy_constructible<ValueType>::value,
-		              "ValueType must be a reference or copy constructible");
-
-		auto* p = any_cast<typename remove_reference<ValueType>::type>(&operand);
-
-		if(p == nullptr)
-			Internal::DoBadAnyCast();
-
-		return *p;
-    }
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <class ValueType>
 	inline ValueType any_cast(any&& operand)
 	{
-		static_assert(eastl::is_reference<ValueType>::value || eastl::is_copy_constructible<ValueType>::value,
-		              "ValueType must be a reference or copy constructible");
-
-		auto* p = any_cast<typename remove_reference<ValueType>::type>(&operand);
-
-		if (p == nullptr)
-			Internal::DoBadAnyCast();
-
-		return *p;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	// NOTE(rparolin): The runtime type check was commented out because in DLL builds the templated function pointer
 	// value will be different -- completely breaking the validation mechanism.  Due to the fact that eastl::any uses
@@ -608,39 +452,27 @@ namespace eastl
 	template <class ValueType>
 	inline const ValueType* any_cast(const any* pAny) EA_NOEXCEPT
 	{
-		return (pAny && pAny->m_handler EASTL_IF_NOT_DLL(== &any::storage_handler<decay_t<ValueType>>::handler_func)
-				#if EASTL_RTTI_ENABLED
-					&& pAny->type() == typeid(typename remove_reference<ValueType>::type)
-				#endif
-				) ?
-		           static_cast<const ValueType*>(pAny->m_handler(any::storage_operation::GET, pAny, nullptr)) :
-		           nullptr;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <class ValueType>
 	inline ValueType* any_cast(any* pAny) EA_NOEXCEPT
 	{
-		return (pAny && pAny->m_handler EASTL_IF_NOT_DLL(== &any::storage_handler<decay_t<ValueType>>::handler_func)
-				#if EASTL_RTTI_ENABLED
-					&& pAny->type() == typeid(typename remove_reference<ValueType>::type)
-				#endif
-				) ?
-		           static_cast<ValueType*>(pAny->m_handler(any::storage_operation::GET, pAny, nullptr)) :
-		           nullptr;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	//Unsafe operations - use with caution
 	template <class ValueType>
 	inline const ValueType* unsafe_any_cast(const any* pAny) EA_NOEXCEPT
 	{
-		return unsafe_any_cast<ValueType>(const_cast<any*>(pAny));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <class ValueType>
 	inline ValueType* unsafe_any_cast(any* pAny) EA_NOEXCEPT
 	{
-		return static_cast<ValueType*>(pAny->m_handler(any::storage_operation::GET, pAny, nullptr));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// make_any
@@ -649,8 +481,8 @@ namespace eastl
 		template <class T, class... Args>
 		inline any make_any(Args&&... args)
 		{
-			return any(eastl::in_place_type<T>, eastl::forward<Args>(args)...);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <class T, class U, class... Args>
 		inline any make_any(std::initializer_list<U> il, Args&&... args)

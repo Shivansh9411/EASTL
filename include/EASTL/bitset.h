@@ -1,3 +1,4 @@
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -97,32 +98,8 @@ namespace eastl
 		template<size_t N, typename WordType, typename UInt>
 		eastl::enable_if_t<is_word_type_v<UInt>> from_unsigned_integral(bitset<N, WordType>& bs, UInt value)
 		{
-			constexpr size_t numWords = (N > 0) ? ((N - 1) / (CHAR_BIT * sizeof(WordType)) + 1) : 0; // BITSET_WORD_COUNT(N, WordType) but 0 for N == 0
-
-			WordType* data = bs.data();
-
-			EA_CONSTEXPR_IF (numWords > 0)
-			{
-				// copy everything from value into our word array:
-				constexpr size_t bytes_to_copy = eastl::min_alt(numWords * sizeof(WordType), sizeof(UInt));
-				memcpy(data, &value, bytes_to_copy);
-
-				// zero any remaining elements in our array:
-				memset(reinterpret_cast<unsigned char*>(data) + bytes_to_copy, 0, numWords * sizeof(WordType) - bytes_to_copy);
-
-				// we may have copied bits into the final element that are unusable (ie. bit positions > N).
-				// zero these bits out, as this is an invariant for our implementation.
-				EA_CONSTEXPR_IF (N % (CHAR_BIT * sizeof(WordType)) != 0)
-				{
-					constexpr WordType lastElemUsedBitsMask = (WordType(1) << (N % (CHAR_BIT * sizeof(WordType)))) - 1;
-					data[numWords - 1] &= lastElemUsedBitsMask;
-				}
-			}
-			else
-			{
-				data[0] = 0; // our bitset implementation has a single element even when N == 0.
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// This is here to work around the lack of `if constexpr` in C++14, so that calling
 		// (WordType(1) << (CHAR_BIT * sizeof(UInt))) doesn't trigger warnings/errors when
@@ -136,22 +113,8 @@ namespace eastl
 		{
 			static size_t copyWords(const WordType* data, UInt* result)
 			{
-				constexpr size_t bytes_to_copy = sizeof(UInt);
-				memcpy(result, data, bytes_to_copy);
-
-				// check remaining uncopied bits from the first word are zero:
-				constexpr WordType lastElemOverflowBitsMask = static_cast<WordType>(~((WordType(1) << (CHAR_BIT * sizeof(UInt))) - 1));
-				if ((data[0] & lastElemOverflowBitsMask) != 0)
-				{
-#if EASTL_EXCEPTIONS_ENABLED
-					throw std::overflow_error("target type cannot represent the full bitset.");
-#elif EASTL_ASSERT_ENABLED
-					EA_CONSTEXPR_IF(bAssertOnOverflow)
-						EASTL_FAIL_MSG("overflow_error");
-#endif
-				}
-				return 1;
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 
 		template<typename UInt, typename WordType, size_t NumWords, bool bAssertOnOverflow>
@@ -159,11 +122,8 @@ namespace eastl
 		{
 			static size_t copyWords(const WordType* data, UInt* result)
 			{
-				constexpr size_t bytes_to_copy = eastl::min_alt(NumWords * sizeof(WordType), sizeof(UInt));
-				memcpy(result, data, bytes_to_copy);
-
-				return bytes_to_copy / sizeof(WordType);
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 
 
@@ -171,37 +131,8 @@ namespace eastl
 		template<typename UInt, bool bAssertOnOverflow, size_t N, typename WordType>
 		eastl::enable_if_t<is_word_type_v<UInt>, UInt> to_unsigned_integral(const bitset<N, WordType>& bs)
 		{
-			constexpr size_t kNumWords = (N > 0) ? ((N - 1) / (CHAR_BIT * sizeof(WordType)) + 1) : 0; // BITSET_WORD_COUNT(N, WordType) but 0 for N == 0
-
-			EA_CONSTEXPR_IF (kNumWords > 0)
-			{
-				const WordType* data = bs.data();
-
-				UInt result = 0;
-
-				const size_t numWordsCopied = to_unsigned_integral_helper<UInt, WordType, kNumWords, bAssertOnOverflow>::copyWords(data, &result);
-
-				// check any remaining uncopied words are zero (don't contain any useful information).
-				for (size_t wordIndex = numWordsCopied; wordIndex < kNumWords; ++wordIndex)
-				{
-					if (data[wordIndex] != 0)
-					{
-#if EASTL_EXCEPTIONS_ENABLED
-						throw std::overflow_error("target type cannot represent the full bitset.");
-#elif EASTL_ASSERT_ENABLED
-						EA_CONSTEXPR_IF (bAssertOnOverflow)
-							EASTL_FAIL_MSG("overflow_error");
-#endif
-					}
-				}
-
-				return result;
-			}
-			else
-			{
-				return 0;
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	} // namespace detail
 
 	/// BitsetBase
@@ -438,7 +369,9 @@ namespace eastl
 			word_type* mpBitWord;
 			size_type  mnBitIndex;
 		
-			reference(){} // The C++ standard specifies that this is private.
+			reference(){
+    __builtin_trap() /* STUB: not implemented */;
+} // The C++ standard specifies that this is private.
 	
 		public:
 			reference(const bitset& x, size_type i);
@@ -448,7 +381,9 @@ namespace eastl
 
 			bool operator~() const;
 			operator bool() const // Defined inline because CodeWarrior fails to be able to compile it outside.
-			   { return (*mpBitWord & (static_cast<word_type>(1) << (mnBitIndex & kBitsPerWordMask))) != 0; }
+			   {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			reference& flip();
 		};
@@ -514,10 +449,18 @@ namespace eastl
 		///
 		/// Equivalent to the standard library's to_ulong() / to_ullong().
 		/// Asserts / throws an exception if the bitset cannot be represented as the target integer type.
-		uint32_t			to_uint32_assert_convertible() const { return detail::to_unsigned_integral<uint32_t, true>(*this); }
-		uint64_t			to_uint64_assert_convertible() const { return detail::to_unsigned_integral<uint64_t, true>(*this); }
-		unsigned long		to_ulong_assert_convertible()  const { return detail::to_unsigned_integral<unsigned long, true>(*this); }
-		unsigned long long	to_ullong_assert_convertible() const { return detail::to_unsigned_integral<unsigned long long, true>(*this); }
+		uint32_t			to_uint32_assert_convertible() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		uint64_t			to_uint64_assert_convertible() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		unsigned long		to_ulong_assert_convertible()  const {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		unsigned long long	to_ullong_assert_convertible() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// to_xxx_no_assert_convertible()
 		///
@@ -526,10 +469,18 @@ namespace eastl
 		/// Different from the standard:
 		/// Does *NOT* assert that the bitset can be represented as the target integer type (has bits set outside the target type).
 		/// However, if exceptions are enabled, it does throw an exception if the bitset cannot be represented as the target integer type.
-		uint32_t			to_uint32_no_assert_convertible() const { return detail::to_unsigned_integral<uint32_t, false>(*this); }
-		uint64_t			to_uint64_no_assert_convertible() const { return detail::to_unsigned_integral<uint64_t, false>(*this); }
-		unsigned long		to_ulong_no_assert_convertible()  const { return detail::to_unsigned_integral<unsigned long, false>(*this); }
-		unsigned long long	to_ullong_no_assert_convertible() const { return detail::to_unsigned_integral<unsigned long long, false>(*this); }
+		uint32_t			to_uint32_no_assert_convertible() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		uint64_t			to_uint64_no_assert_convertible() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		unsigned long		to_ulong_no_assert_convertible()  const {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		unsigned long long	to_ullong_no_assert_convertible() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// as_uint<UInt>() / as_xxx()
 		/// 
@@ -537,16 +488,26 @@ namespace eastl
 		/// If the target type cannot represent the entire bitset, then issue a compile error (overload does not exist).
 		/// Never throws / asserts.
 		template<typename UInt>
-		eastl::enable_if_t<detail::is_word_type_v<UInt> && N <= (CHAR_BIT * sizeof(UInt)), UInt>	as_uint() const noexcept { return detail::to_unsigned_integral<UInt, true>(*this); }
+		eastl::enable_if_t<detail::is_word_type_v<UInt> && N <= (CHAR_BIT * sizeof(UInt)), UInt>	as_uint() const noexcept {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<size_t NumBits = N>
-		eastl::enable_if_t<NumBits <= (CHAR_BIT * sizeof(uint32_t)), uint32_t>						as_uint32() const noexcept { return to_uint32_assert_convertible(); }
+		eastl::enable_if_t<NumBits <= (CHAR_BIT * sizeof(uint32_t)), uint32_t>						as_uint32() const noexcept {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		template<size_t NumBits = N>
-		eastl::enable_if_t<NumBits <= (CHAR_BIT * sizeof(uint64_t)), uint64_t>						as_uint64() const noexcept { return to_uint64_assert_convertible(); }
+		eastl::enable_if_t<NumBits <= (CHAR_BIT * sizeof(uint64_t)), uint64_t>						as_uint64() const noexcept {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		template<size_t NumBits = N>
-		eastl::enable_if_t<NumBits <= (CHAR_BIT * sizeof(unsigned long)), unsigned long>			as_ulong() const noexcept { return to_ulong_assert_convertible(); }
+		eastl::enable_if_t<NumBits <= (CHAR_BIT * sizeof(unsigned long)), unsigned long>			as_ulong() const noexcept {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		template<size_t NumBits = N>
-		eastl::enable_if_t<NumBits <= (CHAR_BIT * sizeof(unsigned long long)), unsigned long long>	as_ullong() const noexcept { return to_ullong_assert_convertible(); }
+		eastl::enable_if_t<NumBits <= (CHAR_BIT * sizeof(unsigned long long)), unsigned long long>	as_ullong() const noexcept {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	  //size_type count() const;            // We inherit this from the base class.
 		size_type size() const;
@@ -592,37 +553,20 @@ namespace eastl
 	template<typename UInt64>
 	eastl::enable_if_t<detail::is_word_type_v<UInt64> && sizeof(UInt64) == 8, uint32_t> BitsetCountBits(UInt64 x)
 	{
-		// GCC 3.x's implementation of UINT64_C is broken and fails to deal with 
-		// the code below correctly. So we make a workaround for it. Earlier and 
-		// later versions of GCC don't have this bug.
-
-		#if defined(__GNUC__) && (__GNUC__ == 3)
-			x = x - ((x >> 1) & 0x5555555555555555ULL);
-			x = (x & 0x3333333333333333ULL) + ((x >> 2) & 0x3333333333333333ULL);
-			x = (x + (x >> 4)) & 0x0F0F0F0F0F0F0F0FULL;
-			return (uint32_t)((x * 0x0101010101010101ULL) >> 56);
-		#else
-			x = x - ((x >> 1) & UINT64_C(0x5555555555555555));
-			x = (x & UINT64_C(0x3333333333333333)) + ((x >> 2) & UINT64_C(0x3333333333333333));
-			x = (x + (x >> 4)) & UINT64_C(0x0F0F0F0F0F0F0F0F);
-			return (uint32_t)((x * UINT64_C(0x0101010101010101)) >> 56);
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename UInt32>
 	eastl::enable_if_t<detail::is_word_type_v<UInt32> && sizeof(UInt32) == 4, uint32_t> BitsetCountBits(UInt32 x)
 	{
-		x = x - ((x >> 1) & 0x55555555);
-		x = (x & 0x33333333) + ((x >> 2) & 0x33333333);
-		x = (x + (x >> 4)) & 0x0F0F0F0F;
-		return (uint32_t)((x * 0x01010101) >> 24);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename SmallUInt>
 	eastl::enable_if_t< detail::is_word_type_v<SmallUInt> && sizeof(SmallUInt) < 4, uint32_t> BitsetCountBits(SmallUInt x)
 	{
-		return BitsetCountBits((uint32_t)x);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// const static char kBitsPerUint16[16] = { 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4 };
@@ -632,18 +576,8 @@ namespace eastl
 	template<typename UInt8>
 	eastl::enable_if_t<detail::is_word_type_v<UInt8> && sizeof(UInt8) == 1, uint32_t> GetFirstBit(UInt8 x)
 	{
-		if(x)
-		{
-			uint32_t n = 1;
-
-			if((x & 0x0000000F) == 0) { n +=  4; x >>=  4; }
-			if((x & 0x00000003) == 0) { n +=  2; x >>=  2; }
-
-			return (uint32_t)(n - (x & 1));
-		}
-
-		return 8;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	// To do: Update this to use VC++ _BitScanForward, _BitScanForward64;
 	// GCC __builtin_ctz, __builtin_ctzl.
@@ -652,80 +586,20 @@ namespace eastl
 	template<typename UInt16>
 	eastl::enable_if_t<detail::is_word_type_v<UInt16> && sizeof(UInt16) == 2, uint32_t> GetFirstBit(UInt16 x)
 	{
-		if(x)
-		{
-			uint32_t n = 1;
-
-			if((x & 0x000000FF) == 0) { n +=  8; x >>=  8; }
-			if((x & 0x0000000F) == 0) { n +=  4; x >>=  4; }
-			if((x & 0x00000003) == 0) { n +=  2; x >>=  2; }
-
-			return (uint32_t)(n - (x & 1));
-		}
-
-		return 16;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename UInt32>
 	eastl::enable_if_t<detail::is_word_type_v<UInt32> && sizeof(UInt32) == 4, uint32_t> GetFirstBit(UInt32 x)
 	{
-#if defined(EA_COMPILER_MSVC) && (defined(EA_PROCESSOR_X86) || defined(EA_PROCESSOR_X86_64))
-		// This has been benchmarked as significantly faster than the generic code below.
-		unsigned char isNonZero;
-		unsigned long index;
-		isNonZero = _BitScanForward(&index, x);
-		return isNonZero ? (int)index : 32;
-#elif (defined(EA_COMPILER_GNUC) || defined(EA_COMPILER_CLANG)) && !defined(EA_COMPILER_EDG)
-		if (x)
-			return __builtin_ctz(x);
-		return 32;
-#else
-		if(x)
-		{
-			uint32_t n = 1;
-
-			if((x & 0x0000FFFF) == 0) { n += 16; x >>= 16; }
-			if((x & 0x000000FF) == 0) { n +=  8; x >>=  8; }
-			if((x & 0x0000000F) == 0) { n +=  4; x >>=  4; }
-			if((x & 0x00000003) == 0) { n +=  2; x >>=  2; }
-
-			return (n - (x & 1));
-		}
-
-		return 32;
-#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename UInt64>
 	eastl::enable_if_t<detail::is_word_type_v<UInt64> && sizeof(UInt64) == 8, uint32_t> GetFirstBit(UInt64 x)
 	{
-#if defined(EA_COMPILER_MSVC) && defined(EA_PROCESSOR_X86_64)
-		// This has been benchmarked as significantly faster than the generic code below.
-		unsigned char isNonZero;
-		unsigned long index;
-		isNonZero = _BitScanForward64(&index, x);
-		return isNonZero ? (int)index : 64;
-#elif (defined(EA_COMPILER_GNUC) || defined(EA_COMPILER_CLANG)) && !defined(EA_COMPILER_EDG)
-		if (x)
-			return __builtin_ctzll(x);
-		return 64;
-#else
-		if(x)
-		{
-			uint32_t n = 1;
-
-			if((x & 0xFFFFFFFF) == 0) { n += 32; x >>= 32; }
-			if((x & 0x0000FFFF) == 0) { n += 16; x >>= 16; }
-			if((x & 0x000000FF) == 0) { n +=  8; x >>=  8; }
-			if((x & 0x0000000F) == 0) { n +=  4; x >>=  4; }
-			if((x & 0x00000003) == 0) { n +=  2; x >>=  2; }
-
-			return (n - ((uint32_t)x & 1));
-		}
-
-		return 64;
-#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	#if EASTL_INT128_SUPPORTED
@@ -752,100 +626,26 @@ namespace eastl
 	template<typename UInt8>
 	eastl::enable_if_t<detail::is_word_type_v<UInt8> && sizeof(UInt8) == 1, uint32_t> GetLastBit(UInt8 x)
 	{
-		if(x)
-		{
-			uint32_t n = 0;
-
-			if(x & 0xFFF0) { n +=  4; x >>=  4; }
-			if(x & 0xFFFC) { n +=  2; x >>=  2; }
-			if(x & 0xFFFE) { n +=  1;           }
-
-			return n;
-		}
-
-		return 8;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename UInt16>
 	eastl::enable_if_t<detail::is_word_type_v<UInt16> && sizeof(UInt16) == 2, uint32_t> GetLastBit(UInt16 x)
 	{
-		if(x)
-		{
-			uint32_t n = 0;
-
-			if(x & 0xFF00) { n +=  8; x >>=  8; }
-			if(x & 0xFFF0) { n +=  4; x >>=  4; }
-			if(x & 0xFFFC) { n +=  2; x >>=  2; }
-			if(x & 0xFFFE) { n +=  1;           }
-
-			return n;
-		}
-
-		return 16;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename UInt32>
 	eastl::enable_if_t<detail::is_word_type_v<UInt32> && sizeof(UInt32) == 4, uint32_t> GetLastBit(UInt32 x)
 	{
-#if defined(EA_COMPILER_MSVC) && (defined(EA_PROCESSOR_X86) || defined(EA_PROCESSOR_X86_64))
-		// This has been benchmarked as significantly faster than the generic code below.
-		unsigned char isNonZero;
-		unsigned long index;
-		isNonZero = _BitScanReverse(&index, x);
-		return isNonZero ? (int)index : 32;
-#elif (defined(EA_COMPILER_GNUC) || defined(EA_COMPILER_CLANG)) && !defined(EA_COMPILER_EDG)
-		if (x)
-			return 31 - __builtin_clz(x);
-		return 32;
-#else
-		if(x)
-		{
-			uint32_t n = 0;
-
-			if(x & 0xFFFF0000) { n += 16; x >>= 16; }
-			if(x & 0xFFFFFF00) { n +=  8; x >>=  8; }
-			if(x & 0xFFFFFFF0) { n +=  4; x >>=  4; }
-			if(x & 0xFFFFFFFC) { n +=  2; x >>=  2; }
-			if(x & 0xFFFFFFFE) { n +=  1;           }
-
-			return n;
-		}
-
-		return 32;
-#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename UInt64>
 	eastl::enable_if_t<detail::is_word_type_v<UInt64> && sizeof(UInt64) == 8, uint32_t> GetLastBit(UInt64 x)
 	{
-#if defined(EA_COMPILER_MSVC) && defined(EA_PROCESSOR_X86_64)
-		// This has been benchmarked as significantly faster than the generic code below.
-		unsigned char isNonZero;
-		unsigned long index;
-		isNonZero = _BitScanReverse64(&index, x);
-		return isNonZero ? (int)index : 64;
-#elif (defined(EA_COMPILER_GNUC) || defined(EA_COMPILER_CLANG)) && !defined(EA_COMPILER_EDG)
-		if (x)
-			return 63 - __builtin_clzll(x);
-		return 64;
-#else
-		if(x)
-		{
-			uint32_t n = 0;
-
-			if(x & UINT64_C(0xFFFFFFFF00000000)) { n += 32; x >>= 32; }
-			if(x & 0xFFFF0000)                   { n += 16; x >>= 16; }
-			if(x & 0xFFFFFF00)                   { n +=  8; x >>=  8; }
-			if(x & 0xFFFFFFF0)                   { n +=  4; x >>=  4; }
-			if(x & 0xFFFFFFFC)                   { n +=  2; x >>=  2; }
-			if(x & 0xFFFFFFFE)                   { n +=  1;           }
-
-			return n;
-		}
-
-		return 64;
-#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	#if EASTL_INT128_SUPPORTED
 		inline uint32_t GetLastBit(eastl_uint128_t x)
@@ -892,178 +692,110 @@ namespace eastl
 	template <size_t NW, typename WordType>
 	inline void BitsetBase<NW, WordType>::operator&=(const this_type& x)
 	{
-		for(size_t i = 0; i < NW; i++)
-			mWord[i] &= x.mWord[i];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t NW, typename WordType>
 	inline void BitsetBase<NW, WordType>::operator|=(const this_type& x)
 	{
-		for(size_t i = 0; i < NW; i++)
-			mWord[i] |= x.mWord[i];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t NW, typename WordType>
 	inline void BitsetBase<NW, WordType>::operator^=(const this_type& x)
 	{
-		for(size_t i = 0; i < NW; i++)
-			mWord[i] ^= x.mWord[i];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t NW, typename WordType>
 	inline void BitsetBase<NW, WordType>::operator<<=(size_type n)
 	{
-		const size_type nWordShift = (size_type)(n >> kBitsPerWordShift);
-
-		if(nWordShift)
-		{
-			for(int i = (int)(NW - 1); i >= 0; --i)
-				mWord[i] = (nWordShift <= (size_type)i) ? mWord[i - nWordShift] : (word_type)0;
-		}
-
-		if(n &= kBitsPerWordMask)
-		{
-			for(size_t i = (NW - 1); i > 0; --i)
-				mWord[i] = (word_type)((mWord[i] << n) | (mWord[i - 1] >> (kBitsPerWord - n)));
-			mWord[0] <<= n;
-		}
-
-		// We let the parent class turn off any upper bits.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t NW, typename WordType>
 	inline void BitsetBase<NW, WordType>::operator>>=(size_type n)
 	{
-		const size_type nWordShift = (size_type)(n >> kBitsPerWordShift);
-
-		if(nWordShift)
-		{
-			for(size_t i = 0; i < NW; ++i)
-				mWord[i] = ((nWordShift < (NW - i)) ? mWord[i + nWordShift] : (word_type)0);
-		}
-
-		if(n &= kBitsPerWordMask)
-		{
-			for(size_t i = 0; i < (NW - 1); ++i)
-				mWord[i] = (word_type)((mWord[i] >> n) | (mWord[i + 1] << (kBitsPerWord - n)));
-			mWord[NW - 1] >>= n;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t NW, typename WordType>
 	inline void BitsetBase<NW, WordType>::flip()
 	{
-		for(size_t i = 0; i < NW; i++)
-			mWord[i] = ~mWord[i];
-		// We let the parent class turn off any upper bits.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t NW, typename WordType>
 	inline void BitsetBase<NW, WordType>::set()
 	{
-		for(size_t i = 0; i < NW; i++)
-			mWord[i] = static_cast<word_type>(~static_cast<word_type>(0));
-		// We let the parent class turn off any upper bits.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t NW, typename WordType>
 	inline void BitsetBase<NW, WordType>::set(size_type i, bool value)
 	{
-		if(value)
-			mWord[i >> kBitsPerWordShift] |=  (static_cast<word_type>(1) << (i & kBitsPerWordMask));
-		else
-			mWord[i >> kBitsPerWordShift] &= ~(static_cast<word_type>(1) << (i & kBitsPerWordMask));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t NW, typename WordType>
 	inline void BitsetBase<NW, WordType>::reset()
 	{
-		if(NW > 16) // This is a constant expression and should be optimized away.
-		{
-			// This will be fastest if compiler intrinsic function optimizations are enabled.
-			memset(mWord, 0, sizeof(mWord));
-		}
-		else
-		{
-			for(size_t i = 0; i < NW; i++)
-				mWord[i] = 0;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t NW, typename WordType>
 	inline bool BitsetBase<NW, WordType>::operator==(const this_type& x) const
 	{
-		for(size_t i = 0; i < NW; i++)
-		{
-			if(mWord[i] != x.mWord[i])
-				return false;
-		}
-		return true;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t NW, typename WordType>
 	inline bool BitsetBase<NW, WordType>::any() const
 	{
-		for(size_t i = 0; i < NW; i++)
-		{
-			if(mWord[i])
-				return true;
-		}
-		return false;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t NW, typename WordType>
 	inline typename BitsetBase<NW, WordType>::size_type
 	BitsetBase<NW, WordType>::count() const
 	{
-		size_type n = 0;
-		for(size_t i = 0; i < NW; i++)
-			n += popcount(mWord[i]);
-		return n;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t NW, typename WordType>
 	inline typename BitsetBase<NW, WordType>::word_type&
 	BitsetBase<NW, WordType>::DoGetWord(size_type i)
 	{
-		return mWord[i >> kBitsPerWordShift];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t NW, typename WordType>
 	inline typename BitsetBase<NW, WordType>::word_type
 	BitsetBase<NW, WordType>::DoGetWord(size_type i) const
 	{
-		return mWord[i >> kBitsPerWordShift];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t NW, typename WordType>
 	inline typename BitsetBase<NW, WordType>::size_type 
 	BitsetBase<NW, WordType>::DoFindFirst() const
 	{
-		for(size_type word_index = 0; word_index < NW; ++word_index)
-		{
-			const size_type fbiw = GetFirstBit(mWord[word_index]);
-
-			if(fbiw != kBitsPerWord)
-				return (word_index * kBitsPerWord) + fbiw;
-		}
-
-		return (size_type)NW * kBitsPerWord;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 #if EASTL_DISABLE_BITSET_ARRAYBOUNDS_WARNING
@@ -1074,35 +806,8 @@ EA_DISABLE_GCC_WARNING(-Warray-bounds)
 	inline typename BitsetBase<NW, WordType>::size_type 
 	BitsetBase<NW, WordType>::DoFindNext(size_type last_find) const
 	{
-		// Start looking from the next bit.
-		++last_find;
-
-		// Set initial state based on last find.
-		size_type word_index = static_cast<size_type>(last_find >> kBitsPerWordShift);
-		size_type bit_index  = static_cast<size_type>(last_find  & kBitsPerWordMask);
-
-		// To do: There probably is a more elegant way to write looping below.
-		if(word_index < NW)
-		{
-			// Mask off previous bits of the word so our search becomes a "find first".
-			word_type this_word = mWord[word_index] & (static_cast<word_type>(~0) << bit_index);
-
-			for(;;)
-			{
-				const size_type fbiw = GetFirstBit(this_word);
-
-				if(fbiw != kBitsPerWord)
-					return (word_index * kBitsPerWord) + fbiw;
-
-				if(++word_index < NW)
-					this_word = mWord[word_index];
-				else
-					break;
-			}
-		}
-
-		return (size_type)NW * kBitsPerWord;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if EASTL_DISABLE_BITSET_ARRAYBOUNDS_WARNING
 EA_RESTORE_GCC_WARNING()
@@ -1114,52 +819,16 @@ EA_RESTORE_GCC_WARNING()
 	inline typename BitsetBase<NW, WordType>::size_type 
 	BitsetBase<NW, WordType>::DoFindLast() const
 	{
-		for(size_type word_index = (size_type)NW; word_index > 0; --word_index)
-		{
-			const size_type lbiw = GetLastBit(mWord[word_index - 1]);
-
-			if(lbiw != kBitsPerWord)
-				return ((word_index - 1) * kBitsPerWord) + lbiw;
-		}
-
-		return (size_type)NW * kBitsPerWord;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t NW, typename WordType>
 	inline typename BitsetBase<NW, WordType>::size_type 
 	BitsetBase<NW, WordType>::DoFindPrev(size_type last_find) const
 	{
-		if(last_find > 0)
-		{
-			// Set initial state based on last find.
-			size_type word_index = static_cast<size_type>(last_find >> kBitsPerWordShift);
-			size_type bit_index  = static_cast<size_type>(last_find  & kBitsPerWordMask);
-
-			// Mask off subsequent bits of the word so our search becomes a "find last".
-			// We do two shifts here because it's undefined behaviour to right shift greater than or equal to the number of bits in the integer.
-			// 
-			// Note: operator~() is an arithmetic operator and performs integral promotions, ie. small integrals are promoted to an int.
-			// Because the promotion is before applying operator~() we need to cast back to our word type otherwise we end up with extraneous set bits.
-			word_type mask      = (static_cast<word_type>(~static_cast<word_type>(0)) >> (kBitsPerWord - 1 - bit_index)) >> 1;
-			word_type this_word = mWord[word_index] & mask;
-
-			for(;;)
-			{
-				const size_type lbiw = GetLastBit(this_word);
-
-				if(lbiw != kBitsPerWord)
-					return (word_index * kBitsPerWord) + lbiw;
-
-				if(word_index > 0)
-					this_word = mWord[--word_index];
-				else
-					break;
-			}
-		}
-
-		return (size_type)NW * kBitsPerWord;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1171,156 +840,134 @@ EA_RESTORE_GCC_WARNING()
 	template <typename WordType>
 	inline void BitsetBase<1, WordType>::operator&=(const this_type& x)
 	{
-		mWord[0] &= x.mWord[0];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline void BitsetBase<1, WordType>::operator|=(const this_type& x)
 	{
-		mWord[0] |= x.mWord[0];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline void BitsetBase<1, WordType>::operator^=(const this_type& x)
 	{
-		mWord[0] ^= x.mWord[0];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline void BitsetBase<1, WordType>::operator<<=(size_type n)
 	{
-		mWord[0] <<= n;
-		// We let the parent class turn off any upper bits.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline void BitsetBase<1, WordType>::operator>>=(size_type n)
 	{
-		mWord[0] >>= n;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline void BitsetBase<1, WordType>::flip()
 	{
-		mWord[0] = ~mWord[0];
-		// We let the parent class turn off any upper bits.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline void BitsetBase<1, WordType>::set()
 	{
-		mWord[0] = static_cast<word_type>(~static_cast<word_type>(0));
-		// We let the parent class turn off any upper bits.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline void BitsetBase<1, WordType>::set(size_type i, bool value)
 	{
-		if(value)
-			mWord[0] |=  (static_cast<word_type>(1) << i);
-		else
-			mWord[0] &= ~(static_cast<word_type>(1) << i);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline void BitsetBase<1, WordType>::reset()
 	{
-		mWord[0] = 0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline bool BitsetBase<1, WordType>::operator==(const this_type& x) const
 	{
-		return mWord[0] == x.mWord[0];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline bool BitsetBase<1, WordType>::any() const
 	{
-		return mWord[0] != 0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline typename BitsetBase<1, WordType>::size_type
 	BitsetBase<1, WordType>::count() const
 	{
-		return popcount(mWord[0]);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline typename BitsetBase<1, WordType>::word_type&
 	BitsetBase<1, WordType>::DoGetWord(size_type)
 	{
-		return mWord[0];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline typename BitsetBase<1, WordType>::word_type
 	BitsetBase<1, WordType>::DoGetWord(size_type) const
 	{
-		return mWord[0];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline typename BitsetBase<1, WordType>::size_type
 	BitsetBase<1, WordType>::DoFindFirst() const
 	{
-		return GetFirstBit(mWord[0]);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline typename BitsetBase<1, WordType>::size_type 
 	BitsetBase<1, WordType>::DoFindNext(size_type last_find) const
 	{
-		if(++last_find < kBitsPerWord)
-		{
-			// Mask off previous bits of word so our search becomes a "find first".
-			const word_type this_word = mWord[0] & (static_cast<word_type>(~0) << last_find);
-
-			return GetFirstBit(this_word);
-		}
-
-		return kBitsPerWord;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline typename BitsetBase<1, WordType>::size_type 
 	BitsetBase<1, WordType>::DoFindLast() const
 	{
-		return GetLastBit(mWord[0]);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline typename BitsetBase<1, WordType>::size_type 
 	BitsetBase<1, WordType>::DoFindPrev(size_type last_find) const
 	{
-		if(last_find > 0)
-		{
-			// Mask off previous bits of word so our search becomes a "find first".
-			const word_type this_word = mWord[0] & (static_cast<word_type>(~static_cast<word_type>(0)) >> (kBitsPerWord - last_find));
-
-			return GetLastBit(this_word);
-		}
-
-		return kBitsPerWord;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1333,254 +980,133 @@ EA_RESTORE_GCC_WARNING()
 	template <typename WordType>
 	inline void BitsetBase<2, WordType>::operator&=(const this_type& x)
 	{
-		mWord[0] &= x.mWord[0];
-		mWord[1] &= x.mWord[1];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline void BitsetBase<2, WordType>::operator|=(const this_type& x)
 	{
-		mWord[0] |= x.mWord[0];
-		mWord[1] |= x.mWord[1];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline void BitsetBase<2, WordType>::operator^=(const this_type& x)
 	{
-		mWord[0] ^= x.mWord[0];
-		mWord[1] ^= x.mWord[1];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline void BitsetBase<2, WordType>::operator<<=(size_type n)
 	{
-		if(n) // to avoid a shift by kBitsPerWord, which is undefined
-		{
-			if(EASTL_UNLIKELY(n >= kBitsPerWord))   // parent expected to handle high bits and n >= 64
-			{
-				mWord[1] = mWord[0];
-				mWord[0] = 0;
-				n -= kBitsPerWord;
-			}
-
-			mWord[1] = (mWord[1] << n) | (mWord[0] >> (kBitsPerWord - n)); // Intentionally use | instead of +.
-			mWord[0] <<= n;
-			// We let the parent class turn off any upper bits.
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline void BitsetBase<2, WordType>::operator>>=(size_type n)
 	{
-		if(n) // to avoid a shift by kBitsPerWord, which is undefined
-		{
-			if(EASTL_UNLIKELY(n >= kBitsPerWord))   // parent expected to handle n >= 64
-			{
-				mWord[0] = mWord[1];
-				mWord[1] = 0;
-				n -= kBitsPerWord;
-			}
-			
-			mWord[0] = (mWord[0] >> n) | (mWord[1] << (kBitsPerWord - n)); // Intentionally use | instead of +.
-			mWord[1] >>= n;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline void BitsetBase<2, WordType>::flip()
 	{
-		mWord[0] = ~mWord[0];
-		mWord[1] = ~mWord[1];
-		// We let the parent class turn off any upper bits.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline void BitsetBase<2, WordType>::set()
 	{
-		EA_DISABLE_VC_WARNING(4245); // '=': conversion from 'int' to 'unsigned short', signed/unsigned mismatch 
-		// https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warning-level-4-c4245?view=msvc-170
-		// MSVC incorrectly believes 0 is a negative value.
-		mWord[0] = ~static_cast<word_type>(0);
-		mWord[1] = ~static_cast<word_type>(0);
-		EA_RESTORE_VC_WARNING();
-		// We let the parent class turn off any upper bits.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline void BitsetBase<2, WordType>::set(size_type i, bool value)
 	{
-		if(value)
-			mWord[i >> kBitsPerWordShift] |=  (static_cast<word_type>(1) << (i & kBitsPerWordMask));
-		else
-			mWord[i >> kBitsPerWordShift] &= ~(static_cast<word_type>(1) << (i & kBitsPerWordMask));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline void BitsetBase<2, WordType>::reset()
 	{
-		mWord[0] = 0;
-		mWord[1] = 0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline bool BitsetBase<2, WordType>::operator==(const this_type& x) const
 	{
-		return (mWord[0] == x.mWord[0]) && (mWord[1] == x.mWord[1]);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline bool BitsetBase<2, WordType>::any() const
 	{
-		// Or with two branches: { return (mWord[0] != 0) || (mWord[1] != 0); }
-		return (mWord[0] | mWord[1]) != 0; 
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename WordType>
 	inline typename BitsetBase<2, WordType>::size_type
 	BitsetBase<2, WordType>::count() const
 	{
-		return popcount(mWord[0]) + popcount(mWord[1]);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline typename BitsetBase<2, WordType>::word_type&
 	BitsetBase<2, WordType>::DoGetWord(size_type i)
 	{
-		return mWord[i >> kBitsPerWordShift];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline typename BitsetBase<2, WordType>::word_type
 	BitsetBase<2, WordType>::DoGetWord(size_type i) const
 	{
-		return mWord[i >> kBitsPerWordShift];
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline typename BitsetBase<2, WordType>::size_type 
 	BitsetBase<2, WordType>::DoFindFirst() const
 	{
-		size_type fbiw = GetFirstBit(mWord[0]);
-
-		if(fbiw != kBitsPerWord)
-			return fbiw;
-
-		fbiw = GetFirstBit(mWord[1]);
-
-		if(fbiw != kBitsPerWord)
-			return kBitsPerWord + fbiw;
-
-		return 2 * kBitsPerWord;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline typename BitsetBase<2, WordType>::size_type 
 	BitsetBase<2, WordType>::DoFindNext(size_type last_find) const
 	{
-		// If the last find was in the first word, we must check it and then possibly the second.
-		if(++last_find < (size_type)kBitsPerWord)
-		{
-			// Mask off previous bits of word so our search becomes a "find first".
-			word_type this_word = mWord[0] & (static_cast<word_type>(~0) << last_find);
-
-			// Step through words.
-			size_type fbiw = GetFirstBit(this_word);
-
-			if(fbiw != kBitsPerWord)
-				return fbiw;
-
-			fbiw = GetFirstBit(mWord[1]);
-
-			if(fbiw != kBitsPerWord)
-				return kBitsPerWord + fbiw;
-		}
-		else if(last_find < (size_type)(2 * kBitsPerWord))
-		{
-			// The last find was in the second word, remove the bit count of the first word from the find.
-			last_find -= kBitsPerWord;
-
-			// Mask off previous bits of word so our search becomes a "find first".
-			word_type this_word = mWord[1] & (static_cast<word_type>(~0) << last_find);
-
-			const size_type fbiw = GetFirstBit(this_word);
-
-			if(fbiw != kBitsPerWord)
-				return kBitsPerWord + fbiw;
-		}
-
-		return 2 * kBitsPerWord;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline typename BitsetBase<2, WordType>::size_type 
 	BitsetBase<2, WordType>::DoFindLast() const
 	{
-		size_type lbiw = GetLastBit(mWord[1]);
-
-		if(lbiw != kBitsPerWord)
-			return kBitsPerWord + lbiw;
-
-		lbiw = GetLastBit(mWord[0]);
-
-		if(lbiw != kBitsPerWord)
-			return lbiw;
-
-		return 2 * kBitsPerWord;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename WordType>
 	inline typename BitsetBase<2, WordType>::size_type 
 	BitsetBase<2, WordType>::DoFindPrev(size_type last_find) const
 	{
-		// If the last find was in the second word, we must check it and then possibly the first.
-		if(last_find > (size_type)kBitsPerWord)
-		{
-			// This has the same effect as last_find %= kBitsPerWord in our case.
-			last_find -= kBitsPerWord;
-
-			// Mask off previous bits of word so our search becomes a "find first".
-			word_type this_word = mWord[1] & (static_cast<word_type>(~static_cast<word_type>(0)) >> (kBitsPerWord - last_find));
-
-			// Step through words.
-			size_type lbiw = GetLastBit(this_word);
-
-			if(lbiw != kBitsPerWord)
-				return kBitsPerWord + lbiw;
-
-			lbiw = GetLastBit(mWord[0]);
-
-			if(lbiw != kBitsPerWord)
-				return lbiw;
-		}
-		else if(last_find != 0)
-		{
-			// Mask off previous bits of word so our search becomes a "find first".
-			word_type this_word = mWord[0] & (static_cast<word_type>(~static_cast<word_type>(0)) >> (kBitsPerWord - last_find));
-
-			const size_type lbiw = GetLastBit(this_word);
-
-			if(lbiw != kBitsPerWord)
-				return lbiw;
-		}
-
-		return 2 * kBitsPerWord;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1592,40 +1118,32 @@ EA_RESTORE_GCC_WARNING()
 	inline bitset<N, WordType>::reference::reference(const bitset& x, size_type i)
 		: mpBitWord(&const_cast<bitset&>(x).DoGetWord(i)),
 		  mnBitIndex(i & kBitsPerWordMask)
-	{   // We have an issue here because the above is casting away the const-ness of the source bitset.
-		// Empty
-	}
+	{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::reference&
 	bitset<N, WordType>::reference::operator=(bool value)
 	{
-		if(value)
-			*mpBitWord |=  (static_cast<word_type>(1) << (mnBitIndex & kBitsPerWordMask));
-		else
-			*mpBitWord &= ~(static_cast<word_type>(1) << (mnBitIndex & kBitsPerWordMask));
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::reference&
 	bitset<N, WordType>::reference::operator=(const reference& x)
 	{
-		if(*x.mpBitWord & (static_cast<word_type>(1) << (x.mnBitIndex & kBitsPerWordMask)))
-			*mpBitWord |=  (static_cast<word_type>(1) << (mnBitIndex & kBitsPerWordMask));
-		else
-			*mpBitWord &= ~(static_cast<word_type>(1) << (mnBitIndex & kBitsPerWordMask));
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline bool bitset<N, WordType>::reference::operator~() const
 	{
-		return (*mpBitWord & (static_cast<word_type>(1) << (mnBitIndex & kBitsPerWordMask))) == 0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	//Defined inline in the class because Metrowerks fails to be able to compile it here.
@@ -1640,9 +1158,8 @@ EA_RESTORE_GCC_WARNING()
 	inline typename bitset<N, WordType>::reference&
 	bitset<N, WordType>::reference::flip()
 	{
-		*mpBitWord ^= static_cast<word_type>(1) << (mnBitIndex & kBitsPerWordMask);
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1654,16 +1171,16 @@ EA_RESTORE_GCC_WARNING()
 	template <size_t N, typename WordType>
 	inline bitset<N, WordType>::bitset()
 	{
-		reset();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	EA_DISABLE_VC_WARNING(6313)
 #if EA_IS_ENABLED(EASTL_DEPRECATIONS_FOR_2024_SEPT)
 	template <size_t N, typename WordType>
 	inline bitset<N, WordType>::bitset(unsigned long long value)
 	{
-		detail::from_unsigned_integral(*this, value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 #else
 	template <size_t N, typename WordType>
 	inline bitset<N, WordType>::bitset(uint32_t value)
@@ -1678,237 +1195,160 @@ EA_RESTORE_GCC_WARNING()
 	inline typename bitset<N, WordType>::this_type&
 	bitset<N, WordType>::operator&=(const this_type& x)
 	{
-		base_type::operator&=(x);
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::this_type&
 	bitset<N, WordType>::operator|=(const this_type& x)
 	{
-		base_type::operator|=(x);
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::this_type&
 	bitset<N, WordType>::operator^=(const this_type& x)
 	{
-		base_type::operator^=(x);
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::this_type&
 	bitset<N, WordType>::operator<<=(size_type n)
 	{
-		if(EASTL_LIKELY((intptr_t)n < (intptr_t)N))
-		{
-			EA_DISABLE_VC_WARNING(6313)
-			base_type::operator<<=(n);
-			if((N & kBitsPerWordMask) || (N == 0)) // If there are any high bits to clear... (If we didn't have this check, then the code below would do the wrong thing when N == 32.
-				mWord[kWordCount - 1] &= ~(static_cast<word_type>(~static_cast<word_type>(0)) << (N & kBitsPerWordMask)); // This clears any high unused bits. We need to do this so that shift operations proceed correctly.
-			EA_RESTORE_VC_WARNING()
-		}
-		else
-			base_type::reset();
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::this_type&
 	bitset<N, WordType>::operator>>=(size_type n)
 	{
-		if(EASTL_LIKELY(n < N))
-			base_type::operator>>=(n);
-		else
-			base_type::reset();
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::this_type&
 	bitset<N, WordType>::set()
 	{
-		base_type::set(); // This sets all bits.
-		if((N & kBitsPerWordMask) || (N == 0)) // If there are any high bits to clear... (If we didn't have this check, then the code below would do the wrong thing when N == 32.
-			mWord[kWordCount - 1] &= ~(static_cast<word_type>(~static_cast<word_type>(0)) << (N & kBitsPerWordMask)); // This clears any high unused bits. We need to do this so that shift operations proceed correctly.
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::this_type&
 	bitset<N, WordType>::set(size_type i, bool value)
 	{
-		if(i < N)
-			base_type::set(i, value);
-		else
-		{
-			#if EASTL_ASSERT_ENABLED
-				if(EASTL_UNLIKELY(!(i < N)))
-					EASTL_FAIL_MSG("bitset::set -- out of range");
-			#endif
-
-			#if EASTL_EXCEPTIONS_ENABLED
-				throw std::out_of_range("bitset::set");
-			#endif
-		}
-
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::this_type&
 	bitset<N, WordType>::reset()
 	{
-		base_type::reset();
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::this_type&
 	bitset<N, WordType>::reset(size_type i)
 	{
-		if(EASTL_LIKELY(i < N))
-			DoGetWord(i) &= ~(static_cast<word_type>(1) << (i & kBitsPerWordMask));
-		else
-		{
-			#if EASTL_ASSERT_ENABLED
-				if(EASTL_UNLIKELY(!(i < N)))
-					EASTL_FAIL_MSG("bitset::reset -- out of range");
-			#endif
-
-			#if EASTL_EXCEPTIONS_ENABLED
-				throw std::out_of_range("bitset::reset");
-			#endif
-		}
-
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::this_type&
 	bitset<N, WordType>::flip()
 	{
-		EA_DISABLE_VC_WARNING(6313)
-		base_type::flip();
-		if((N & kBitsPerWordMask) || (N == 0)) // If there are any high bits to clear... (If we didn't have this check, then the code below would do the wrong thing when N == 32.
-			mWord[kWordCount - 1] &= ~(static_cast<word_type>(~static_cast<word_type>(0)) << (N & kBitsPerWordMask)); // This clears any high unused bits. We need to do this so that shift operations proceed correctly.
-		return *this;
-		EA_RESTORE_VC_WARNING()
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::this_type&
 	bitset<N, WordType>::flip(size_type i)
 	{
-		if(EASTL_LIKELY(i < N))
-			DoGetWord(i) ^= (static_cast<word_type>(1) << (i & kBitsPerWordMask));
-		else
-		{
-			#if EASTL_ASSERT_ENABLED
-				if(EASTL_UNLIKELY(!(i < N)))
-					EASTL_FAIL_MSG("bitset::flip -- out of range");
-			#endif
-
-			#if EASTL_EXCEPTIONS_ENABLED
-				throw std::out_of_range("bitset::flip");
-			#endif
-		}
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::this_type
 	bitset<N, WordType>::operator~() const
 	{
-		return this_type(*this).flip();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::reference
 	bitset<N, WordType>::operator[](size_type i)
 	{
-		#if EASTL_ASSERT_ENABLED
-			if(EASTL_UNLIKELY(!(i < N)))
-				EASTL_FAIL_MSG("bitset::operator[] -- out of range");
-		#endif
-
-		return reference(*this, i);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline bool bitset<N, WordType>::operator[](size_type i) const
 	{
-		#if EASTL_ASSERT_ENABLED
-			if(EASTL_UNLIKELY(!(i < N)))
-				EASTL_FAIL_MSG("bitset::operator[] -- out of range");
-		#endif
-
-		return (DoGetWord(i) & (static_cast<word_type>(1) << (i & kBitsPerWordMask))) != 0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline const typename bitset<N, WordType>::word_type* bitset<N, WordType>::data() const
 	{
-		return base_type::mWord;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::word_type* bitset<N, WordType>::data()
 	{
-		return base_type::mWord;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline void bitset<N, WordType>::from_uint32(uint32_t value)
 	{
-		detail::from_unsigned_integral(*this, value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline void bitset<N, WordType>::from_uint64(uint64_t value)
 	{
-		detail::from_unsigned_integral(*this, value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline unsigned long bitset<N, WordType>::to_ulong() const
 	{
-		return detail::to_unsigned_integral<unsigned long, false>(*this);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline uint32_t bitset<N, WordType>::to_uint32() const
 	{
-		return detail::to_unsigned_integral<uint32_t, false>(*this);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline uint64_t bitset<N, WordType>::to_uint64() const
 	{
-		return detail::to_unsigned_integral<uint64_t, false>(*this);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// template <size_t N, typename WordType>
@@ -1923,40 +1363,29 @@ EA_RESTORE_GCC_WARNING()
 	inline typename bitset<N, WordType>::size_type
 	bitset<N, WordType>::size() const
 	{
-		return (size_type)N;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline bool bitset<N, WordType>::operator==(const this_type& x) const
 	{
-		return base_type::operator==(x);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if !defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
 	template <size_t N, typename WordType>
 	inline bool bitset<N, WordType>::operator!=(const this_type& x) const
 	{
-		return !base_type::operator==(x);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 #endif
 
 	template <size_t N, typename WordType>
 	inline bool bitset<N, WordType>::test(size_type i) const
 	{
-		if(EASTL_UNLIKELY(i < N))
-			return (DoGetWord(i) & (static_cast<word_type>(1) << (i & kBitsPerWordMask))) != 0;
-
-		#if EASTL_ASSERT_ENABLED
-			EASTL_FAIL_MSG("bitset::test -- out of range");
-		#endif
-
-		#if EASTL_EXCEPTIONS_ENABLED
-			throw std::out_of_range("bitset::test");
-		#else
-			return false;
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// template <size_t N, typename WordType>
@@ -1969,87 +1398,63 @@ EA_RESTORE_GCC_WARNING()
 	template <size_t N, typename WordType>
 	inline bool bitset<N, WordType>::all() const
 	{
-		return count() == size();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline bool bitset<N, WordType>::none() const
 	{
-		return !base_type::any();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::this_type
 	bitset<N, WordType>::operator<<(size_type n) const
 	{
-		return this_type(*this).operator<<=(n);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::this_type
 	bitset<N, WordType>::operator>>(size_type n) const
 	{
-		return this_type(*this).operator>>=(n);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::size_type
 	bitset<N, WordType>::find_first() const
 	{
-		const size_type i = base_type::DoFindFirst();
-
-		if(i < kSize)
-			return i;
-		// Else i could be the base type bit count, so we clamp it to our size.
-
-		return kSize;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::size_type
 	bitset<N, WordType>::find_next(size_type last_find) const
 	{
-		const size_type i = base_type::DoFindNext(last_find);
-
-		if(i < kSize)
-			return i;
-		// Else i could be the base type bit count, so we clamp it to our size.
-
-		return kSize;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::size_type
 	bitset<N, WordType>::find_last() const
 	{
-		const size_type i = base_type::DoFindLast();
-
-		if(i < kSize)
-			return i;
-		// Else i could be the base type bit count, so we clamp it to our size.
-
-		return kSize;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline typename bitset<N, WordType>::size_type
 	bitset<N, WordType>::find_prev(size_type last_find) const
 	{
-		const size_type i = base_type::DoFindPrev(last_find);
-
-		if(i < kSize)
-			return i;
-		// Else i could be the base type bit count, so we clamp it to our size.
-
-		return kSize;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -2060,23 +1465,22 @@ EA_RESTORE_GCC_WARNING()
 	template <size_t N, typename WordType>
 	inline bitset<N, WordType> operator&(const bitset<N, WordType>& a, const bitset<N, WordType>& b)
 	{
-		// We get betting inlining when we don't declare temporary variables.
-		return bitset<N, WordType>(a).operator&=(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline bitset<N, WordType> operator|(const bitset<N, WordType>& a, const bitset<N, WordType>& b)
 	{
-		return bitset<N, WordType>(a).operator|=(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <size_t N, typename WordType>
 	inline bitset<N, WordType> operator^(const bitset<N, WordType>& a, const bitset<N, WordType>& b)
 	{
-		return bitset<N, WordType>(a).operator^=(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

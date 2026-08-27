@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -77,16 +79,11 @@ namespace eastl
 			static EA_CONSTEXPR eastl_size_t mnSize = Extent;
 
 			EA_CONSTEXPR SpanStorage() EA_NOEXCEPT
-			{
-				static_assert(Extent == 0, "impossible to default construct a span with a fixed Extent different than 0");
-			}
+			{ __builtin_trap() /* STUB: not implemented */; }
 
 			EA_CONSTEXPR SpanStorage(T* ptr, eastl_size_t size)
 				: mpData(ptr)
-			{
-				EA_UNUSED(size);
-				EASTL_ASSERT_MSG(Extent == size, "impossible to create a span with a fixed Extent different than the size of the supplied buffer");
-			}
+			{ __builtin_trap() /* STUB: not implemented */; }
 		};
 
 		template <typename T>
@@ -219,27 +216,23 @@ namespace eastl
 
 	template <class T, size_t X, class U, size_t Y>
 	EA_CONSTEXPR bool operator==(span<T, X> l, span<U, Y> r)
-	{
-		return (l.size() == r.size()) && eastl::equal(l.begin(), l.end(), r.begin());
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <class T, size_t X, class U, size_t Y>
 	EA_CONSTEXPR bool operator<(span<T, X> l, span<U, Y> r)
-	{
-		return eastl::lexicographical_compare(l.begin(), l.end(), r.begin(), r.end());
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <class T, size_t X, class U, size_t Y>
-	EA_CONSTEXPR bool operator!=(span<T, X> l, span<U, Y> r) { return !(l == r); }
+	EA_CONSTEXPR bool operator!=(span<T, X> l, span<U, Y> r) { __builtin_trap() /* STUB: not implemented */; }
 
 	template <class T, size_t X, class U, size_t Y>
-	EA_CONSTEXPR bool operator<=(span<T, X> l, span<U, Y> r) { return !(r < l); }
+	EA_CONSTEXPR bool operator<=(span<T, X> l, span<U, Y> r) { __builtin_trap() /* STUB: not implemented */; }
 
 	template <class T, size_t X, class U, size_t Y>
-	EA_CONSTEXPR bool operator>(span<T, X> l, span<U, Y> r) { return r < l; }
+	EA_CONSTEXPR bool operator>(span<T, X> l, span<U, Y> r) { __builtin_trap() /* STUB: not implemented */; }
 
 	template <class T, size_t X, class U, size_t Y>
-	EA_CONSTEXPR bool operator>=(span<T, X> l, span<U, Y> r) { return !(l < r); }
+	EA_CONSTEXPR bool operator>=(span<T, X> l, span<U, Y> r) { __builtin_trap() /* STUB: not implemented */; }
 
 
 	///////////////////////////////////////////////////////////////////////////
@@ -250,57 +243,59 @@ namespace eastl
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR span<T, Extent>::span(pointer ptr, index_type size)
 	    : mStorage(ptr, size)
-	{
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR span<T, Extent>::span(pointer pBegin, pointer pEnd)
 	    : mStorage(pBegin, static_cast<index_type>(pEnd - pBegin))
 	{
-	}
+    
+}
 
 	template <typename T, size_t Extent>
 	template <size_t N, typename>
 	EA_CONSTEXPR span<T, Extent>::span(element_type(&arr)[N]) EA_NOEXCEPT 
 		: span(arr, static_cast<index_type>(N))
 	{
-	}
+    
+}
 
 	template <typename T, size_t Extent>
 	template <size_t N, typename>
 	EA_CONSTEXPR span<T, Extent>::span(eastl::array<value_type, N> &arr) EA_NOEXCEPT 
 		: span(arr.data(), arr.size())
 	{
-	}
+    
+}
 
 	template <typename T, size_t Extent>
 	template <size_t N, typename>
 	EA_CONSTEXPR span<T, Extent>::span(const eastl::array<value_type, N>& arr) EA_NOEXCEPT
 		: span(arr.data(), arr.size())
 	{
-	}
+    
+}
 
 
 	template <typename T, size_t Extent>
 	template <typename Container, typename>
 	EA_CONSTEXPR span<T, Extent>::span(Container& cont)
 		: span(static_cast<pointer>(eastl::data(cont)), static_cast<index_type>(eastl::size(cont)))
-	{
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	template <typename Container, typename>
 	EA_CONSTEXPR span<T, Extent>::span(const Container& cont)
 		: span(static_cast<pointer>(eastl::data(cont)), static_cast<index_type>(eastl::size(cont)))
-	{
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	template <typename U, size_t N, typename>
 	EA_CONSTEXPR span<T, Extent>::span(const span<U, N>& s) EA_NOEXCEPT
 		: span(s.data(), s.size())
 	{
-	}
+    
+}
 
 
 	///////////////////////////////////////////////////////////////////////////
@@ -309,168 +304,102 @@ namespace eastl
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR typename span<T, Extent>::pointer span<T, Extent>::data() const EA_NOEXCEPT
-	{
-		return mStorage.mpData;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR typename span<T, Extent>::index_type span<T, Extent>::size() const EA_NOEXCEPT
-	{
-		return mStorage.mnSize;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR typename span<T, Extent>::index_type span<T, Extent>::size_bytes() const EA_NOEXCEPT
-	{
-		return size() * sizeof(element_type);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR bool span<T, Extent>::empty() const EA_NOEXCEPT
-	{
-		return size() == 0;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR typename span<T, Extent>::reference span<T, Extent>::front() const
-	{
-		EASTL_ASSERT_MSG(!empty(), "undefined behavior accessing an empty span");
-
-		return mStorage.mpData[0];
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR typename span<T, Extent>::reference span<T, Extent>::back() const
-	{
-		EASTL_ASSERT_MSG(!empty(), "undefined behavior accessing an empty span");
-
-		return mStorage.mpData[mStorage.mnSize - 1];
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR typename span<T, Extent>::reference span<T, Extent>::operator[](index_type idx) const
-	{
-		EASTL_ASSERT_MSG(!empty(),          "undefined behavior accessing an empty span");
-		EASTL_ASSERT_MSG(bounds_check(idx), "undefined behavior accessing out of bounds");
-
-		return mStorage.mpData[idx];
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR typename span<T, Extent>::reference span<T, Extent>::operator()(index_type idx) const
-	{
-		EASTL_ASSERT_MSG(!empty(),          "undefined behavior accessing an empty span");
-		EASTL_ASSERT_MSG(bounds_check(idx), "undefined behavior accessing out of bounds");
-
-		return mStorage.mpData[idx];
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR typename span<T, Extent>::iterator span<T, Extent>::begin() const EA_NOEXCEPT
-	{
-		return mStorage.mpData;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR typename span<T, Extent>::iterator span<T, Extent>::end() const EA_NOEXCEPT
-	{
-		return mStorage.mpData + mStorage.mnSize;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR typename span<T, Extent>::const_iterator span<T, Extent>::cbegin() const EA_NOEXCEPT
-	{
-		return mStorage.mpData;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR typename span<T, Extent>::const_iterator span<T, Extent>::cend() const EA_NOEXCEPT
-	{
-		return mStorage.mpData + mStorage.mnSize;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR typename span<T, Extent>::reverse_iterator span<T, Extent>::rbegin() const EA_NOEXCEPT
-	{
-		return reverse_iterator(mStorage.mpData + mStorage.mnSize);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR typename span<T, Extent>::reverse_iterator span<T, Extent>::rend() const EA_NOEXCEPT
-	{
-		return reverse_iterator(mStorage.mpData);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR typename span<T, Extent>::const_reverse_iterator span<T, Extent>::crbegin() const EA_NOEXCEPT
-	{
-		return const_reverse_iterator(mStorage.mpData + mStorage.mnSize);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR typename span<T, Extent>::const_reverse_iterator span<T, Extent>::crend() const EA_NOEXCEPT
-	{
-		return const_reverse_iterator(mStorage.mpData);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	template <size_t Count>
 	EA_CPP14_CONSTEXPR span<typename span<T, Extent>::element_type, Count> span<T, Extent>::first() const
-	{
-		EASTL_ASSERT_MSG(Count <= size(), "undefined behavior accessing out of bounds");
-		return {data(), static_cast<index_type>(Count)};
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CPP14_CONSTEXPR span<typename span<T, Extent>::element_type, dynamic_extent> 
 	span<T, Extent>::first(size_t sz) const
-	{
-		EASTL_ASSERT_MSG(sz <= size(), "undefined behavior accessing out of bounds");
-		return {data(), static_cast<index_type>(sz)};
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	template <size_t Count>
 	EA_CPP14_CONSTEXPR span<typename span<T, Extent>::element_type, Count> span<T, Extent>::last() const
-	{
-		EASTL_ASSERT_MSG(Count <= size(), "undefined behavior accessing out of bounds");
-		return {data() + size() - Count, static_cast<index_type>(Count)};
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CPP14_CONSTEXPR span<typename span<T, Extent>::element_type, dynamic_extent> 
 	span<T, Extent>::last(size_t sz) const
-	{
-		EASTL_ASSERT_MSG(sz <= size(), "undefined behavior accessing out of bounds");
-		return {data() + size() - sz, static_cast<index_type>(sz)};
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	template <size_t Offset, size_t Count>
 	EA_CONSTEXPR span<typename span<T, Extent>::element_type, Internal::SubspanExtent<Extent, Offset, Count>::value>
 	span<T, Extent>::subspan() const
-	{
-		EASTL_ASSERT_MSG(Offset <= size(),                                       "undefined behaviour accessing out of bounds");
-		EASTL_ASSERT_MSG(Count == dynamic_extent || Count <= (size() - Offset), "undefined behaviour exceeding size of span");
-
-		return {data() + Offset, eastl_size_t(Count == dynamic_extent ? size() - Offset : Count)};
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR span<typename span<T, Extent>::element_type, dynamic_extent>
 	span<T, Extent>::subspan(size_t offset, size_t count) const
-	{
-		EASTL_ASSERT_MSG(offset <= size(),                                      "undefined behaviour accessing out of bounds");
-		EASTL_ASSERT_MSG(count == dynamic_extent || count <= (size() - offset), "undefined behaviour exceeding size of span");
-
-		return {data() + offset, eastl_size_t(count == dynamic_extent ? size() - offset : count)};
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename T, size_t Extent>
 	EA_CONSTEXPR bool span<T, Extent>::bounds_check(size_t offset) const
-	{
-		return offset < size();
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 }
 
 #endif // EASTL_SPAN_H  

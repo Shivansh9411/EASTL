@@ -1,3 +1,4 @@
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -220,23 +221,31 @@ namespace eastl
 	struct rb_base_compare_ebo
 	{
 	protected:
-		rb_base_compare_ebo() : mCompare() {}
-		rb_base_compare_ebo(const Compare& compare) : mCompare(compare) {}
+		rb_base_compare_ebo() : mCompare() {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		rb_base_compare_ebo(const Compare& compare) : mCompare(compare) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		Compare& get_compare() { return mCompare; }
-		const Compare& get_compare() const { return mCompare; }
+		Compare& get_compare() {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		const Compare& get_compare() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename T, typename U>
 		bool compare(const T& lhs, const U& rhs) 
 		{
-			return mCompare(lhs, rhs);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename T, typename U>
 		bool compare(const T& lhs, const U& rhs) const
 		{
-			return mCompare(lhs, rhs);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	private:
 		Compare mCompare;
@@ -246,23 +255,31 @@ namespace eastl
 	struct rb_base_compare_ebo<Compare, true> : private Compare
 	{
 	protected:
-		rb_base_compare_ebo() {}
-		rb_base_compare_ebo(const Compare& compare) : Compare(compare) {}
+		rb_base_compare_ebo() {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		rb_base_compare_ebo(const Compare& compare) : Compare(compare) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		Compare& get_compare() { return *this; }
-		const Compare& get_compare() const { return *this; }
+		Compare& get_compare() {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		const Compare& get_compare() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename T, typename U>
 		bool compare(const T& lhs, const U& rhs) 
 		{
-			return Compare::operator()(lhs, rhs);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename T, typename U>
 		bool compare(const T& lhs, const U& rhs) const
 		{
-			return Compare::operator()(lhs, rhs);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -298,8 +315,12 @@ namespace eastl
 		using rb_base_compare_ebo<Compare>::get_compare;
 
 	public:
-		rb_base() {}
-		rb_base(const Compare& compare) : rb_base_compare_ebo<Compare>(compare) {}
+		rb_base() {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		rb_base(const Compare& compare) : rb_base_compare_ebo<Compare>(compare) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -318,8 +339,12 @@ namespace eastl
 		using rb_base_compare_ebo<Compare>::get_compare;
 
 	public:
-		rb_base() {}
-		rb_base(const Compare& compare) : rb_base_compare_ebo<Compare>(compare) {}
+		rb_base() {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		rb_base(const Compare& compare) : rb_base_compare_ebo<Compare>(compare) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -335,8 +360,12 @@ namespace eastl
 		using rb_base_compare_ebo<Compare>::get_compare;
 
 	public:
-		rb_base() {}
-		rb_base(const Compare& compare) : rb_base_compare_ebo<Compare>(compare) {}
+		rb_base() {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		rb_base(const Compare& compare) : rb_base_compare_ebo<Compare>(compare) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -352,8 +381,12 @@ namespace eastl
 		using rb_base_compare_ebo<Compare>::get_compare;
 
 	public:
-		rb_base() {}
-		rb_base(const Compare& compare) : rb_base_compare_ebo<Compare>(compare) {}
+		rb_base() {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		rb_base(const Compare& compare) : rb_base_compare_ebo<Compare>(compare) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -489,8 +522,12 @@ namespace eastl
 		allocator_type&       get_allocator() EA_NOEXCEPT;
 		void                  set_allocator(const allocator_type& allocator);
 
-		const key_compare& key_comp() const { return get_compare(); }
-		key_compare&       key_comp()       { return get_compare(); }
+		const key_compare& key_comp() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		key_compare&       key_comp()       {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		this_type& operator=(const this_type& x);
 		this_type& operator=(std::initializer_list<value_type> ilist);
@@ -559,17 +596,31 @@ namespace eastl
 		// insert_return_type insert(node_type&& nh);
 		// iterator insert(const_iterator hint, node_type&& nh);
 
-		template <class M> pair<iterator, bool> insert_or_assign(const key_type& k, M&& obj) { return DoInsertOrAssign(k, eastl::forward<M>(obj)); }
-		template <class M> pair<iterator, bool> insert_or_assign(key_type&& k, M&& obj) { return DoInsertOrAssign(eastl::move(k), eastl::forward<M>(obj)); }
+		template <class M> pair<iterator, bool> insert_or_assign(const key_type& k, M&& obj) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		template <class M> pair<iterator, bool> insert_or_assign(key_type&& k, M&& obj) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		template<typename KX, typename M, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		pair<iterator, bool>					insert_or_assign(KX&& k, M&& obj) { return DoInsertOrAssign(eastl::forward<KX>(k), eastl::forward<M>(obj)); }
-		template <class M> iterator             insert_or_assign(const_iterator hint, const key_type& k, M&& obj) { return DoInsertOrAssign(hint, k, eastl::forward<M>(obj)); }
-		template <class M> iterator             insert_or_assign(const_iterator hint, key_type&& k, M&& obj) { return DoInsertOrAssign(hint, eastl::move(k), eastl::forward<M>(obj)); }
+		pair<iterator, bool>					insert_or_assign(KX&& k, M&& obj) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		template <class M> iterator             insert_or_assign(const_iterator hint, const key_type& k, M&& obj) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		template <class M> iterator             insert_or_assign(const_iterator hint, key_type&& k, M&& obj) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		template<typename KX, typename M, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		iterator								insert_or_assign(const_iterator hint, KX&& k, M&& obj) { return DoInsertOrAssign(hint, eastl::forward<KX>(k), eastl::forward<M>(obj)); }
+		iterator								insert_or_assign(const_iterator hint, KX&& k, M&& obj) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename Iter = iterator, typename eastl::enable_if<!eastl::is_same_v<Iter, const_iterator>, int>::type = 0>
-		iterator         erase(iterator position) { return erase(const_iterator(position)); }
+		iterator         erase(iterator position) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		iterator         erase(const_iterator position);
 		iterator         erase(const_iterator first, const_iterator last);
 		reverse_iterator erase(const_reverse_iterator position);
@@ -586,13 +637,21 @@ namespace eastl
 		void clear();
 		void reset_lose_memory(); // This is a unilateral reset to an initially empty state. No destructors are called, no deallocation occurs.
 
-		iterator       find(const key_type& key) { return DoFind(key); }
-		const_iterator find(const key_type& key) const { return DoFind(key); }
+		iterator       find(const key_type& key) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		const_iterator find(const key_type& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		iterator       find(const KX& key) { return DoFind(key); }
+		iterator       find(const KX& key) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		const_iterator find(const KX& key) const { return DoFind(key); }
+		const_iterator find(const KX& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// Implements a find whereby the user supplies a comparison of a different type
 		/// than the tree's value_type. A useful case of this is one whereby you have
@@ -608,26 +667,46 @@ namespace eastl
 		template <typename U, typename Compare2> iterator       find_as(const U& u, Compare2 compare2);
 		template <typename U, typename Compare2> const_iterator find_as(const U& u, Compare2 compare2) const;
 
-		bool contains(const key_type& key) const { return DoFind(key) != end(); }
+		bool contains(const key_type& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		bool contains(const KX& key) const { return DoFind(key) != end(); }
+		bool contains(const KX& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		iterator       lower_bound(const key_type& key) { return DoLowerBound(key); }
-		const_iterator lower_bound(const key_type& key) const { return DoLowerBound(key); }
-
-		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		iterator       lower_bound(const KX& key) { return DoLowerBound(key); }
-		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		const_iterator lower_bound(const KX& key) const { return DoLowerBound(key); }
-
-		iterator       upper_bound(const key_type& key) { return DoUpperBound(key); }
-		const_iterator upper_bound(const key_type& key) const { return DoUpperBound(key); }
+		iterator       lower_bound(const key_type& key) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		const_iterator lower_bound(const key_type& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		iterator       upper_bound(const KX& key) { return DoUpperBound(key); }
+		iterator       lower_bound(const KX& key) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		const_iterator upper_bound(const KX& key) const { return DoUpperBound(key); }
+		const_iterator lower_bound(const KX& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
+
+		iterator       upper_bound(const key_type& key) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		const_iterator upper_bound(const key_type& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
+
+		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
+		iterator       upper_bound(const KX& key) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
+		const_iterator upper_bound(const KX& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		bool validate() const;
 		int  validate_iterator(const_iterator i) const;
@@ -719,17 +798,13 @@ namespace eastl
 
 	EASTL_API inline rbtree_node_base* RBTreeGetMinChild(const rbtree_node_base* pNodeBase)
 	{
-		while(pNodeBase->mpNodeLeft) 
-			pNodeBase = pNodeBase->mpNodeLeft;
-		return const_cast<rbtree_node_base*>(pNodeBase);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	EASTL_API inline rbtree_node_base* RBTreeGetMaxChild(const rbtree_node_base* pNodeBase)
 	{
-		while(pNodeBase->mpNodeRight) 
-			pNodeBase = pNodeBase->mpNodeRight;
-		return const_cast<rbtree_node_base*>(pNodeBase);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	// The rest of the functions are non-trivial and are found in 
 	// the corresponding .cpp file to this file.
@@ -742,78 +817,77 @@ namespace eastl
 
 	template <typename T, typename Pointer, typename Reference>
 	rbtree_iterator<T, Pointer, Reference>::rbtree_iterator()
-		: mpNode(NULL) { }
+		: mpNode(NULL) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	rbtree_iterator<T, Pointer, Reference>::rbtree_iterator(const base_node_type* pNode)
-		: mpNode(const_cast<base_node_type*>(pNode)) { }
+		: mpNode(const_cast<base_node_type*>(pNode)) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	rbtree_iterator<T, Pointer, Reference>::rbtree_iterator(const iterator& x)
-		: mpNode(x.mpNode) { }
+		: mpNode(x.mpNode) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Pointer, typename Reference>
 	typename rbtree_iterator<T, Pointer, Reference>::this_type&
 	rbtree_iterator<T, Pointer, Reference>::operator=(const iterator& x)
 	{
-		mpNode = x.mpNode;
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Pointer, typename Reference>
 	typename rbtree_iterator<T, Pointer, Reference>::reference
 	rbtree_iterator<T, Pointer, Reference>::operator*() const
 	{
-		return static_cast<node_type*>(mpNode)->mValue;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	typename rbtree_iterator<T, Pointer, Reference>::pointer
 	rbtree_iterator<T, Pointer, Reference>::operator->() const
 	{
-		return &static_cast<node_type*>(mpNode)->mValue;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	typename rbtree_iterator<T, Pointer, Reference>::this_type&
 	rbtree_iterator<T, Pointer, Reference>::operator++()
 	{
-		mpNode = RBTreeIncrement(mpNode);
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	typename rbtree_iterator<T, Pointer, Reference>::this_type
 	rbtree_iterator<T, Pointer, Reference>::operator++(int)
 	{
-		this_type temp(*this);
-		mpNode = RBTreeIncrement(mpNode);
-		return temp;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	typename rbtree_iterator<T, Pointer, Reference>::this_type&
 	rbtree_iterator<T, Pointer, Reference>::operator--()
 	{
-		mpNode = RBTreeDecrement(mpNode);
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	typename rbtree_iterator<T, Pointer, Reference>::this_type
 	rbtree_iterator<T, Pointer, Reference>::operator--(int)
 	{
-		this_type temp(*this);
-		mpNode = RBTreeDecrement(mpNode);
-		return temp;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// The C++ defect report #179 requires that we support comparisons between const and non-const iterators.
@@ -823,16 +897,16 @@ namespace eastl
 	inline bool operator==(const rbtree_iterator<T, PointerA, ReferenceA>& a, 
 						   const rbtree_iterator<T, PointerB, ReferenceB>& b)
 	{
-		return a.mpNode == b.mpNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename PointerA, typename ReferenceA, typename PointerB, typename ReferenceB>
 	inline bool operator!=(const rbtree_iterator<T, PointerA, ReferenceA>& a, 
 						   const rbtree_iterator<T, PointerB, ReferenceB>& b)
 	{
-		return a.mpNode != b.mpNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// We provide a version of operator!= for the case where the iterators are of the 
@@ -841,8 +915,8 @@ namespace eastl
 	inline bool operator!=(const rbtree_iterator<T, Pointer, Reference>& a, 
 						   const rbtree_iterator<T, Pointer, Reference>& b)
 	{
-		return a.mpNode != b.mpNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -857,8 +931,8 @@ namespace eastl
 		  mnSize(0),
 		  mAllocator(EASTL_RBTREE_DEFAULT_NAME)
 	{
-		reset_lose_memory();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
@@ -867,8 +941,8 @@ namespace eastl
 		  mnSize(0),
 		  mAllocator(allocator)
 	{
-		reset_lose_memory();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
@@ -878,8 +952,8 @@ namespace eastl
 		  mnSize(0),
 		  mAllocator(allocator)
 	{
-		reset_lose_memory();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
@@ -889,16 +963,8 @@ namespace eastl
 		  mnSize(0),
 		  mAllocator(x.mAllocator)
 	{
-		reset_lose_memory();
-
-		if(x.mAnchor.mpNodeParent) // mAnchor.mpNodeParent is the rb_tree root node.
-		{
-			mAnchor.mpNodeParent = DoCopySubtree((const node_type*)x.mAnchor.mpNodeParent, &mAnchor);
-			mAnchor.mpNodeRight  = RBTreeGetMaxChild(mAnchor.mpNodeParent);
-			mAnchor.mpNodeLeft   = RBTreeGetMinChild(mAnchor.mpNodeParent);
-			mnSize               = x.mnSize;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
@@ -919,9 +985,8 @@ namespace eastl
 		  mnSize(0),
 		  mAllocator(allocator)
 	{
-		reset_lose_memory();
-		swap(x); // swap will directly or indirectly handle the possibility that mAllocator != x.mAllocator.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
@@ -932,23 +997,8 @@ namespace eastl
 		  mnSize(0),
 		  mAllocator(allocator)
 	{
-		reset_lose_memory();
-
-		#if EASTL_EXCEPTIONS_ENABLED
-			try
-			{
-		#endif
-				for(; first != last; ++first)
-					insert(*first);
-		#if EASTL_EXCEPTIONS_ENABLED
-			}
-			catch(...)
-			{
-				clear();
-				throw;
-			}
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
@@ -964,229 +1014,163 @@ namespace eastl
 	inline const typename rbtree<K, V, C, A, E, bM, bU>::allocator_type&
 	rbtree<K, V, C, A, E, bM, bU>::get_allocator() const EA_NOEXCEPT
 	{
-		return mAllocator;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::allocator_type&
 	rbtree<K, V, C, A, E, bM, bU>::get_allocator() EA_NOEXCEPT
 	{
-		return mAllocator;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline void rbtree<K, V, C, A, E, bM, bU>::set_allocator(const allocator_type& allocator)
 	{
-		if(mnSize > 0 && mAllocator != allocator)
-			EASTL_THROW_MSG_OR_ASSERT(std::logic_error, "rbtree::set_allocator -- cannot change allocator after allocations have been made.");
-		mAllocator = allocator;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::size_type
 	rbtree<K, V, C, A, E, bM, bU>::size() const EA_NOEXCEPT
-		{ return mnSize; }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline bool rbtree<K, V, C, A, E, bM, bU>::empty() const EA_NOEXCEPT
-		{ return (mnSize == 0); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::begin() EA_NOEXCEPT
-		{ return iterator(mAnchor.mpNodeLeft); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::const_iterator
 	rbtree<K, V, C, A, E, bM, bU>::begin() const EA_NOEXCEPT
-		{ return const_iterator(mAnchor.mpNodeLeft); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::const_iterator
 	rbtree<K, V, C, A, E, bM, bU>::cbegin() const EA_NOEXCEPT
-		{ return const_iterator(mAnchor.mpNodeLeft); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::end() EA_NOEXCEPT
-		{ return iterator(&mAnchor); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::const_iterator
 	rbtree<K, V, C, A, E, bM, bU>::end() const EA_NOEXCEPT
-		{ return const_iterator(&mAnchor); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::const_iterator
 	rbtree<K, V, C, A, E, bM, bU>::cend() const EA_NOEXCEPT
-		{ return const_iterator(&mAnchor); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::reverse_iterator
 	rbtree<K, V, C, A, E, bM, bU>::rbegin() EA_NOEXCEPT
-		{ return reverse_iterator(end()); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::const_reverse_iterator
 	rbtree<K, V, C, A, E, bM, bU>::rbegin() const EA_NOEXCEPT
-		{ return const_reverse_iterator(end()); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::const_reverse_iterator
 	rbtree<K, V, C, A, E, bM, bU>::crbegin() const EA_NOEXCEPT
-		{ return const_reverse_iterator(end()); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::reverse_iterator
 	rbtree<K, V, C, A, E, bM, bU>::rend() EA_NOEXCEPT
-		{ return reverse_iterator(begin()); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::const_reverse_iterator
 	rbtree<K, V, C, A, E, bM, bU>::rend() const EA_NOEXCEPT
-		{ return const_reverse_iterator(begin()); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::const_reverse_iterator
 	rbtree<K, V, C, A, E, bM, bU>::crend() const EA_NOEXCEPT
-		{ return const_reverse_iterator(begin()); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::this_type&
 	rbtree<K, V, C, A, E, bM, bU>::operator=(const this_type& x)
 	{
-		if(this != &x)
-		{
-			clear();
-
-			#if EASTL_ALLOCATOR_COPY_ENABLED
-				mAllocator = x.mAllocator;
-			#endif
-
-			get_compare() = x.get_compare();
-
-			if(x.mAnchor.mpNodeParent) // mAnchor.mpNodeParent is the rb_tree root node.
-			{
-				mAnchor.mpNodeParent = DoCopySubtree((const node_type*)x.mAnchor.mpNodeParent, &mAnchor);
-				mAnchor.mpNodeRight  = RBTreeGetMaxChild(mAnchor.mpNodeParent);
-				mAnchor.mpNodeLeft   = RBTreeGetMinChild(mAnchor.mpNodeParent);
-				mnSize               = x.mnSize;
-			}
-		}
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::this_type&
 	rbtree<K, V, C, A, E, bM, bU>::operator=(this_type&& x)
 	{
-		if(this != &x)
-		{
-			clear();        // To consider: Are we really required to clear here? x is going away soon and will clear itself in its dtor.
-			swap(x);        // member swap handles the case that x has a different allocator than our allocator by doing a copy.
-		}
-		return *this; 
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::this_type&
 	rbtree<K, V, C, A, E, bM, bU>::operator=(std::initializer_list<value_type> ilist)
 	{
-		// The simplest means of doing this is to clear and insert. There probably isn't a generic
-		// solution that's any more efficient without having prior knowledge of the ilist contents.
-		clear();
-
-		for(typename std::initializer_list<value_type>::iterator it = ilist.begin(), itEnd = ilist.end(); it != itEnd; ++it)
-			DoInsertValue(has_unique_keys_type(), eastl::move(*it));
-
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	void rbtree<K, V, C, A, E, bM, bU>::swap(this_type& x)
 	{
-	#if EASTL_RBTREE_LEGACY_SWAP_BEHAVIOUR_REQUIRES_COPY_CTOR
-		if(mAllocator == x.mAllocator) // If allocators are equivalent...
-	#endif
-		{
-			// Most of our members can be exchaged by a basic swap:
-			// We leave mAllocator as-is.
-			eastl::swap(mnSize,        x.mnSize);
-			eastl::swap(get_compare(), x.get_compare());
-		#if !EASTL_RBTREE_LEGACY_SWAP_BEHAVIOUR_REQUIRES_COPY_CTOR
-			eastl::swap(mAllocator,          x.mAllocator);
-		#endif
-
-
-			// However, because our anchor node is a part of our class instance and not 
-			// dynamically allocated, we can't do a swap of it but must do a more elaborate
-			// procedure. This is the downside to having the mAnchor be like this, but 
-			// otherwise we consider it a good idea to avoid allocating memory for a 
-			// nominal container instance.
-
-			// We optimize for the expected most common case: both pointers being non-null.
-			if(mAnchor.mpNodeParent && x.mAnchor.mpNodeParent) // If both pointers are non-null...
-			{
-				eastl::swap(mAnchor.mpNodeRight,  x.mAnchor.mpNodeRight);
-				eastl::swap(mAnchor.mpNodeLeft,   x.mAnchor.mpNodeLeft);
-				eastl::swap(mAnchor.mpNodeParent, x.mAnchor.mpNodeParent);
-
-				// We need to fix up the anchors to point to themselves (we can't just swap them).
-				mAnchor.mpNodeParent->mpNodeParent   = &mAnchor;
-				x.mAnchor.mpNodeParent->mpNodeParent = &x.mAnchor;
-			}
-			else if(mAnchor.mpNodeParent)
-			{
-				x.mAnchor.mpNodeRight  = mAnchor.mpNodeRight;
-				x.mAnchor.mpNodeLeft   = mAnchor.mpNodeLeft;
-				x.mAnchor.mpNodeParent = mAnchor.mpNodeParent;
-				x.mAnchor.mpNodeParent->mpNodeParent = &x.mAnchor;
-
-				// We need to fix up our anchor to point it itself (we can't have it swap with x).
-				mAnchor.mpNodeRight  = &mAnchor;
-				mAnchor.mpNodeLeft   = &mAnchor;
-				mAnchor.mpNodeParent = NULL;
-			}
-			else if(x.mAnchor.mpNodeParent)
-			{
-				mAnchor.mpNodeRight  = x.mAnchor.mpNodeRight;
-				mAnchor.mpNodeLeft   = x.mAnchor.mpNodeLeft;
-				mAnchor.mpNodeParent = x.mAnchor.mpNodeParent;
-				mAnchor.mpNodeParent->mpNodeParent = &mAnchor;
-
-				// We need to fix up x's anchor to point it itself (we can't have it swap with us).
-				x.mAnchor.mpNodeRight  = &x.mAnchor;
-				x.mAnchor.mpNodeLeft   = &x.mAnchor;
-				x.mAnchor.mpNodeParent = NULL;
-			} // Else both are NULL and there is nothing to do.
-		}
-	#if EASTL_RBTREE_LEGACY_SWAP_BEHAVIOUR_REQUIRES_COPY_CTOR
-		else
-		{
-			const this_type temp(*this); // Can't call eastl::swap because that would
-			*this = x;                   // itself call this member swap function.
-			x     = temp;
-		}
-	#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
@@ -1194,204 +1178,96 @@ namespace eastl
 	inline typename rbtree<K, V, C, A, E, bM, bU>::insert_return_type // map/set::insert return a pair, multimap/multiset::iterator return an iterator.
 	rbtree<K, V, C, A, E, bM, bU>::emplace(Args&&... args)
 	{
-		return DoInsertValue(has_unique_keys_type(), eastl::forward<Args>(args)...);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	template <class... Args> 
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::emplace_hint(const_iterator position, Args&&... args)
 	{
-		return DoInsertValueHint(has_unique_keys_type(), position, eastl::forward<Args>(args)...);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::iterator 
 	rbtree<K, V, C, A, E, bM, bU>::insert(const_iterator position, value_type&& value)
 	{
-		return DoInsertValueHint(has_unique_keys_type(), position, eastl::move(value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::insert_return_type // map/set::insert return a pair, multimap/multiset::iterator return an iterator.
 	rbtree<K, V, C, A, E, bM, bU>::insert(const value_type& value)
 	{
-		return DoInsertValue(has_unique_keys_type(), value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::insert_return_type // map/set::insert return a pair, multimap/multiset::iterator return an iterator.
 	rbtree<K, V, C, A, E, bM, bU>::insert(value_type&& value)
 	{
-		return DoInsertValue(has_unique_keys_type(), eastl::move(value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::insert(const_iterator position, const value_type& value)
 	{
-		return DoInsertValueHint(has_unique_keys_type(), position, value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	template <typename KX, typename M>
 	eastl::pair<typename rbtree<K, V, C, A, E, bM, bU>::iterator, bool>
 	rbtree<K, V, C, A, E, bM, bU>::DoInsertOrAssign(KX&& k, M&& obj)
 	{
-		auto iter = find(k);
-
-		if(iter == end())
-		{
-			return insert(value_type(eastl::forward<KX>(k), eastl::forward<M>(obj)));
-		}
-		else
-		{
-			iter->second = eastl::forward<M>(obj);
-			return {iter, false};
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	template <typename KX, typename M>
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoInsertOrAssign(const_iterator hint, KX&& k, M&& obj)
 	{
-		auto iter = find(k);
-
-		if(iter == end())
-		{
-			return insert(hint, value_type(eastl::forward<KX>(k), eastl::forward<M>(obj)));
-		}
-		else
-		{
-			iter->second = eastl::forward<M>(obj);
-			return iter;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	template <typename KX>
 	rbtree_node_base*
 	rbtree<K, V, C, A, E, bM, bU>::DoGetKeyInsertionPositionUniqueKeys(bool& canInsert, const KX& key)
 	{
-		// This code is essentially a slightly modified copy of the the rbtree::insert 
-		// function whereby this version takes a key and not a full value_type.
-		extract_key extractKey;
-
-		rbtree_node_base* pCurrent    = mAnchor.mpNodeParent; // Start with the root node.
-		rbtree_node_base* pLowerBound = &mAnchor;             // Set it to the container end for now.
-		rbtree_node_base* pParent;                            // This will be where we insert the new node.
-
-		bool bValueLessThanNode = true; // If the tree is empty, this will result in an insertion at the front.
-
-		// Find insertion position of the value. This will either be a position which 
-		// already contains the value, a position which is greater than the value or
-		// end(), which we treat like a position which is greater than the value.
-		while(EASTL_LIKELY(pCurrent)) // Do a walk down the tree.
-		{
-			bValueLessThanNode = compare(key, extractKey(static_cast<node_type*>(pCurrent)->mValue));
-			pLowerBound        = pCurrent;
-
-			if(bValueLessThanNode)
-			{
-				EASTL_VALIDATE_COMPARE(!compare(extractKey(static_cast<node_type*>(pCurrent)->mValue), key)); // Validate that the compare function is sane.
-				pCurrent = pCurrent->mpNodeLeft;
-			}
-			else
-				pCurrent = pCurrent->mpNodeRight;
-		}
-
-		pParent = pLowerBound; // pLowerBound is actually upper bound right now (i.e. it is > value instead of <=), but we will make it the lower bound below.
-
-		if(bValueLessThanNode) // If we ended up on the left side of the last parent node...
-		{
-			if(EASTL_LIKELY(pLowerBound != mAnchor.mpNodeLeft)) // If the tree was empty or if we otherwise need to insert at the very front of the tree...
-			{
-				// At this point, pLowerBound points to a node which is > than value.
-				// Move it back by one, so that it points to a node which is <= value.
-				pLowerBound = RBTreeDecrement(pLowerBound);
-			}
-			else
-			{
-				canInsert = true;
-				return pLowerBound;
-			}
-		}
-
-		// Since here we require values to be unique, we will do nothing if the value already exists.
-		node_type* const pLowerBoundFullNode = static_cast<node_type*>(pLowerBound);
-		if(compare(extractKey(pLowerBoundFullNode->mValue), key)) // If the node is < the value (i.e. if value is >= the node)...
-		{
-			EASTL_VALIDATE_COMPARE(!compare(key, extractKey(pLowerBoundFullNode->mValue))); // Validate that the compare function is sane.
-			canInsert = true;
-			return pParent;
-		}
-
-		// The item already exists (as found by the compare directly above), so return false.
-		canInsert = false;
-		return pLowerBound;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	rbtree_node_base*
 	rbtree<K, V, C, A, E, bM, bU>::DoGetKeyInsertionPositionNonuniqueKeys(const key_type& key)
 	{
-		// This is the pathway for insertion of non-unique keys (multimap and multiset, but not map and set).
-		rbtree_node_base* pCurrent  = mAnchor.mpNodeParent; // Start with the root node.
-		rbtree_node_base* pRangeEnd = &mAnchor;             // Set it to the container end for now.
-		extract_key extractKey;
-
-		while(pCurrent)
-		{
-			pRangeEnd = pCurrent;
-
-			if(compare(key, extractKey(static_cast<node_type*>(pCurrent)->mValue)))
-			{
-				EASTL_VALIDATE_COMPARE(!compare(extractKey(static_cast<node_type*>(pCurrent)->mValue), key)); // Validate that the compare function is sane.
-				pCurrent = pCurrent->mpNodeLeft;
-			}
-			else
-				pCurrent = pCurrent->mpNodeRight;
-		}
-
-		return pRangeEnd;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	eastl::pair<typename rbtree<K, V, C, A, E, bM, bU>::iterator, bool> 
 	rbtree<K, V, C, A, E, bM, bU>::DoInsertValue(true_type, value_type&& value)
 	{
-		extract_key extractKey;
-		key_type    key(extractKey(value));
-		bool        canInsert;
-		rbtree_node_base*  pPosition = DoGetKeyInsertionPositionUniqueKeys(canInsert, key);
-
-		if(canInsert)
-		{
-			const iterator itResult(DoInsertValueImpl(pPosition, false, key, eastl::move(value)));
-			return pair<iterator, bool>(itResult, true);
-		}
-
-		return pair<iterator, bool>(iterator(pPosition), false);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator 
 	rbtree<K, V, C, A, E, bM, bU>::DoInsertValue(false_type, value_type&& value)
 	{
-		extract_key extractKey;
-		key_type    key(extractKey(value));
-		rbtree_node_base*  pPosition = DoGetKeyInsertionPositionNonuniqueKeys(key);
-
-		return DoInsertValueImpl(pPosition, false, key, eastl::move(value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
@@ -1399,25 +1275,8 @@ namespace eastl
 	eastl::pair<typename rbtree<K, V, C, A, E, bM, bU>::iterator, bool>
 	rbtree<K, V, C, A, E, bM, bU>::DoInsertValue(true_type, Args&&... args) // true_type means keys are unique.
 	{
-		// This is the pathway for insertion of unique keys (map and set, but not multimap and multiset).
-		// Note that we return a pair and not an iterator. This is because the C++ standard for map
-		// and set is to return a pair and not just an iterator.
-
-		node_type* pNodeNew = DoCreateNode(eastl::forward<Args>(args)...); // Note that pNodeNew->mpLeft, mpRight, mpParent, will be uninitialized.
-		const key_type& key = extract_key{}(pNodeNew->mValue);
-
-		bool        canInsert;
-		rbtree_node_base*  pPosition = DoGetKeyInsertionPositionUniqueKeys(canInsert, key);
-
-		if(canInsert)
-		{
-			iterator itResult(DoInsertValueImpl(pPosition, false, key, pNodeNew));
-			return pair<iterator, bool>(itResult, true);
-		}
-
-		DoFreeNode(pNodeNew);
-		return pair<iterator, bool>(iterator(pPosition), false);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
@@ -1425,17 +1284,8 @@ namespace eastl
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoInsertValue(false_type, Args&&... args) // false_type means keys are not unique.
 	{
-		// We have a problem here if sizeof(value_type) is too big for the stack. We may want to consider having a specialization for large value_types.
-		// To do: Change this so that we call DoCreateNode(eastl::forward<Args>(args)...) here and use the value from the resulting pNode to get the 
-		// key, and make DoInsertValueImpl take that node as an argument. That way there is no value created on the stack.
-
-		node_type* const pNodeNew = DoCreateNode(eastl::forward<Args>(args)...); // Note that pNodeNew->mpLeft, mpRight, mpParent, will be uninitialized.
-		const key_type& key = extract_key{}(pNodeNew->mValue);
-
-		rbtree_node_base* pPosition = DoGetKeyInsertionPositionNonuniqueKeys(key);
-
-		return DoInsertValueImpl(pPosition, false, key, pNodeNew);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
@@ -1443,62 +1293,32 @@ namespace eastl
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoInsertValueImpl(rbtree_node_base* pNodeParent, bool bForceToLeft, const key_type& key, Args&&... args)
 	{
-		node_type* const pNodeNew = DoCreateNode(eastl::forward<Args>(args)...); // Note that pNodeNew->mpLeft, mpRight, mpParent, will be uninitialized.
-		return DoInsertValueImpl(pNodeParent, bForceToLeft, key, pNodeNew);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoInsertValueImpl(rbtree_node_base* pNodeParent, bool bForceToLeft, const key_type& key, node_type* pNodeNew)
 	{
-		EASTL_ASSERT_MSG(pNodeNew != nullptr, "node to insert to the rbtree must not be null");
-
-		RBTreeSide  side;
-		extract_key extractKey;
-
-		// The reason we may want to have bForceToLeft == true is that pNodeParent->mValue and value may be equal.
-		// In that case it doesn't matter what side we insert on, except that the C++ LWG #233 improvement report
-		// suggests that we should use the insert hint position to force an ordering. So that's what we do.
-		if(bForceToLeft || (pNodeParent == &mAnchor) || compare(key, extractKey(static_cast<node_type*>(pNodeParent)->mValue)))
-			side = kRBTreeSideLeft;
-		else
-			side = kRBTreeSideRight;
-
-		RBTreeInsert(pNodeNew, pNodeParent, &mAnchor, side);
-		mnSize++;
-
-		return iterator(pNodeNew);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	eastl::pair<typename rbtree<K, V, C, A, E, bM, bU>::iterator, bool>
 	rbtree<K, V, C, A, E, bM, bU>::DoInsertKey(true_type, const key_type& key) // true_type means keys are unique.
 	{
-		// This is the pathway for insertion of unique keys (map and set, but not multimap and multiset).
-		// Note that we return a pair and not an iterator. This is because the C++ standard for map
-		// and set is to return a pair and not just an iterator.
-		bool       canInsert;
-		rbtree_node_base* pPosition = DoGetKeyInsertionPositionUniqueKeys(canInsert, key);
-
-		if(canInsert)
-		{
-			const iterator itResult(DoInsertKeyImpl(pPosition, false, key));
-			return pair<iterator, bool>(itResult, true);
-		}
-
-		return pair<iterator, bool>(iterator(pPosition), false);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoInsertKey(false_type, const key_type& key) // false_type means keys are not unique.
 	{
-		rbtree_node_base* pPosition = DoGetKeyInsertionPositionNonuniqueKeys(key);
-		return DoInsertKeyImpl(pPosition, false, key);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1507,130 +1327,24 @@ namespace eastl
 	rbtree_node_base*
 	rbtree<K, V, C, A, E, bM, bU>::DoGetKeyInsertionPositionUniqueKeysHint(const_iterator position, bool& bForceToLeft, const KX& key)
 	{
-		extract_key extractKey;
-
-		if((position.mpNode != mAnchor.mpNodeRight) && (position.mpNode != &mAnchor)) // If the user specified a specific insertion position...
-		{
-			iterator itNext(position.mpNode);
-			++itNext;
-
-			// To consider: Change this so that 'position' specifies the position after 
-			// where the insertion goes and not the position before where the insertion goes.
-			// Doing so would make this more in line with user expectations and with LWG #233.
-			const bool bPositionLessThanValue = compare(extractKey(*position), key);
-
-			if(bPositionLessThanValue) // If (value > *position)...
-			{
-				EASTL_VALIDATE_COMPARE(!compare(key, extractKey(*position))); // Validate that the compare function is sane.
-
-				const bool bValueLessThanNext = compare(key, extractKey(*itNext));
-
-				if(bValueLessThanNext) // If value < *itNext...
-				{
-					EASTL_VALIDATE_COMPARE(!compare(extractKey(*itNext), key)); // Validate that the compare function is sane.
-
-					if(position.mpNode->mpNodeRight)
-					{
-						bForceToLeft = true; // Specifically insert in front of (to the left of) itNext (and thus after 'position').
-						return itNext.mpNode;
-					}
-
-					bForceToLeft = false;
-					return position.mpNode;
-				}
-			}
-
-			bForceToLeft = false;
-			return nullptr;  // The above specified hint was not useful, then we do a regular insertion.
-		}
-
-		if(mnSize && compare(extractKey(static_cast<node_type*>(mAnchor.mpNodeRight)->mValue), key))
-		{
-			EASTL_VALIDATE_COMPARE(!compare(key, extractKey(static_cast<node_type*>(mAnchor.mpNodeRight)->mValue))); // Validate that the compare function is sane.
-			bForceToLeft = false;
-			return mAnchor.mpNodeRight;
-		}
-
-		bForceToLeft = false;
-		return NULL; // The caller can do a default insert.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	rbtree_node_base*
 	rbtree<K, V, C, A, E, bM, bU>::DoGetKeyInsertionPositionNonuniqueKeysHint(const_iterator position, bool& bForceToLeft, const key_type& key)
 	{
-		extract_key extractKey;
-
-		if((position.mpNode != mAnchor.mpNodeRight) && (position.mpNode != &mAnchor)) // If the user specified a specific insertion position...
-		{
-			iterator itNext(position.mpNode);
-			++itNext;
-
-			// To consider: Change this so that 'position' specifies the position after 
-			// where the insertion goes and not the position before where the insertion goes.
-			// Doing so would make this more in line with user expectations and with LWG #233.
-			if(!compare(key, extractKey(*position)) && // If value >= *position &&
-			   !compare(extractKey(*itNext), key))     // if value <= *itNext...
-			{
-				if(position.mpNode->mpNodeRight) // If there are any nodes to the right... [this expression will always be true as long as we aren't at the end()]
-				{
-					bForceToLeft = true; // Specifically insert in front of (to the left of) itNext (and thus after 'position').
-					return itNext.mpNode;
-				}
-
-				bForceToLeft = false;
-				return position.mpNode;
-			}
-
-			bForceToLeft = false;
-			return nullptr; // The above specified hint was not useful, then we do a regular insertion.
-		}
-
-		// This pathway shouldn't be commonly executed, as the user shouldn't be calling 
-		// this hinted version of insert if the user isn't providing a useful hint.
-		if(mnSize && !compare(key, extractKey(static_cast<node_type*>(mAnchor.mpNodeRight)->mValue))) // If we are non-empty and the value is >= the last node...
-		{
-			bForceToLeft =false;
-			return mAnchor.mpNodeRight;
-		}
-
-		bForceToLeft = false;
-		return nullptr;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	template <class... Args>
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoInsertValueHint(true_type, const_iterator position, Args&&... args) // true_type means keys are unique.
 	{
-		// This is the pathway for insertion of unique keys (map and set, but not multimap and multiset).
-		//
-		// We follow the same approach as SGI STL/STLPort and use the position as
-		// a forced insertion position for the value when possible.
-
-		node_type* pNodeNew = DoCreateNode(eastl::forward<Args>(args)...); // Note that pNodeNew->mpLeft, mpRight, mpParent, will be uninitialized.
-		const key_type& key(extract_key{}(pNodeNew->mValue));
-
-		bool       bForceToLeft;
-		rbtree_node_base* pPosition = DoGetKeyInsertionPositionUniqueKeysHint(position, bForceToLeft, key);
-
-		if (!pPosition)
-		{
-			bool        canInsert;
-			pPosition = DoGetKeyInsertionPositionUniqueKeys(canInsert, key);
-
-			if (!canInsert)
-			{
-				DoFreeNode(pNodeNew);
-				return iterator(pPosition);
-			}
-
-			bForceToLeft = false;
-		}
-
-		return DoInsertValueImpl(pPosition, bForceToLeft, key, pNodeNew);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
@@ -1638,308 +1352,140 @@ namespace eastl
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoInsertValueHint(false_type, const_iterator position, Args&&... args) // false_type means keys are not unique.
 	{
-		// This is the pathway for insertion of non-unique keys (multimap and multiset, but not map and set).
-		//
-		// We follow the same approach as SGI STL/STLPort and use the position as
-		// a forced insertion position for the value when possible.
-
-		node_type* pNodeNew = DoCreateNode(eastl::forward<Args>(args)...); // Note that pNodeNew->mpLeft, mpRight, mpParent, will be uninitialized.
-		const key_type& key(extract_key{}(pNodeNew->mValue));
-
-		bool        bForceToLeft;
-		rbtree_node_base*  pPosition = DoGetKeyInsertionPositionNonuniqueKeysHint(position, bForceToLeft, key);
-
-		if (!pPosition)
-		{
-			pPosition = DoGetKeyInsertionPositionNonuniqueKeys(key);
-			bForceToLeft = false;
-		}
-
-		return DoInsertValueImpl(pPosition, bForceToLeft, key, pNodeNew);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoInsertValueHint(true_type, const_iterator position, value_type&& value) // true_type means keys are unique.
 	{
-		// This is the pathway for insertion of unique keys (map and set, but not multimap and multiset).
-		//
-		// We follow the same approach as SGI STL/STLPort and use the position as
-		// a forced insertion position for the value when possible.
-
-		extract_key extractKey;
-		key_type    key(extractKey(value));
-		bool        bForceToLeft;
-		rbtree_node_base*  pPosition = DoGetKeyInsertionPositionUniqueKeysHint(position, bForceToLeft, key);
-
-		if(pPosition)
-			return DoInsertValueImpl(pPosition, bForceToLeft, key, eastl::move(value));
-		else
-			return DoInsertValue(has_unique_keys_type(), eastl::move(value)).first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoInsertValueHint(false_type, const_iterator position, value_type&& value) // false_type means keys are not unique.
 	{
-		// This is the pathway for insertion of non-unique keys (multimap and multiset, but not map and set).
-		//
-		// We follow the same approach as SGI STL/STLPort and use the position as
-		// a forced insertion position for the value when possible.
-		extract_key extractKey;
-		key_type    key(extractKey(value));
-		bool        bForceToLeft;
-		rbtree_node_base*  pPosition = DoGetKeyInsertionPositionNonuniqueKeysHint(position, bForceToLeft, key);
-
-		if(pPosition)
-			return DoInsertValueImpl(pPosition, bForceToLeft, key, eastl::move(value));
-		else
-			return DoInsertValue(has_unique_keys_type(), eastl::move(value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoInsertKey(true_type, const_iterator position, const key_type& key) // true_type means keys are unique.
 	{
-		bool       bForceToLeft;
-		rbtree_node_base* pPosition = DoGetKeyInsertionPositionUniqueKeysHint(position, bForceToLeft, key);
-
-		if(pPosition)
-			return DoInsertKeyImpl(pPosition, bForceToLeft, key);
-		else
-			return DoInsertKey(has_unique_keys_type(), key).first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoInsertKey(false_type, const_iterator position, const key_type& key) // false_type means keys are not unique.
 	{
-		// This is the pathway for insertion of non-unique keys (multimap and multiset, but not map and set).
-		//
-		// We follow the same approach as SGI STL/STLPort and use the position as
-		// a forced insertion position for the value when possible.
-		bool       bForceToLeft;
-		rbtree_node_base* pPosition = DoGetKeyInsertionPositionNonuniqueKeysHint(position, bForceToLeft, key);
-
-		if(pPosition)
-			return DoInsertKeyImpl(pPosition, bForceToLeft, key);
-		else
-			return DoInsertKey(has_unique_keys_type(), key); // We are empty or we are inserting at the end.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoInsertKeyImpl(rbtree_node_base* pNodeParent, bool bForceToLeft, const key_type& key)
 	{
-		RBTreeSide  side;
-		extract_key extractKey;
-
-		// The reason we may want to have bForceToLeft == true is that pNodeParent->mValue and value may be equal.
-		// In that case it doesn't matter what side we insert on, except that the C++ LWG #233 improvement report
-		// suggests that we should use the insert hint position to force an ordering. So that's what we do.
-		if(bForceToLeft || (pNodeParent == &mAnchor) || compare(key, extractKey(static_cast<node_type*>(pNodeParent)->mValue)))
-			side = kRBTreeSideLeft;
-		else
-			side = kRBTreeSideRight;
-
-		node_type* const pNodeNew = DoCreateNodeFromKey(key); // Note that pNodeNew->mpLeft, mpRight, mpParent, will be uninitialized.
-		RBTreeInsert(pNodeNew, pNodeParent, &mAnchor, side);
-		mnSize++;
-
-		return iterator(pNodeNew);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	void rbtree<K, V, C, A, E, bM, bU>::insert(std::initializer_list<value_type> ilist)
 	{
-		for(typename std::initializer_list<value_type>::iterator it = ilist.begin(), itEnd = ilist.end(); it != itEnd; ++it)
-			DoInsertValue(has_unique_keys_type(), eastl::move(*it));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	template <typename InputIterator>
 	void rbtree<K, V, C, A, E, bM, bU>::insert(InputIterator first, InputIterator last)
 	{
-		for( ; first != last; ++first)
-			DoInsertValue(has_unique_keys_type(), *first); // Or maybe we should call 'insert(end(), *first)' instead. If the first-last range was sorted then this might make some sense.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline void rbtree<K, V, C, A, E, bM, bU>::clear()
 	{
-		// Erase the entire tree. DoNukeSubtree is not a 
-		// conventional erase function, as it does no rebalancing.
-		DoNukeSubtree((node_type*)mAnchor.mpNodeParent);
-		reset_lose_memory();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline void rbtree<K, V, C, A, E, bM, bU>::reset_lose_memory()
 	{
-		// The reset_lose_memory function is a special extension function which unilaterally 
-		// resets the container to an empty state without freeing the memory of 
-		// the contained objects. This is useful for very quickly tearing down a 
-		// container built into scratch memory.
-		mAnchor.mpNodeRight  = &mAnchor;
-		mAnchor.mpNodeLeft   = &mAnchor;
-		mAnchor.mpNodeParent = NULL;
-		mAnchor.mColor       = kRBTreeColorRed;
-		mnSize               = 0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::erase(const_iterator position)
 	{
-		const iterator iErase(position.mpNode);
-		--mnSize; // Interleave this between the two references to itNext. We expect no exceptions to occur during the code below.
-		++position;
-		RBTreeErase(iErase.mpNode, &mAnchor);
-		DoFreeNode(static_cast<node_type*>(iErase.mpNode));
-		return iterator(position.mpNode);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::erase(const_iterator first, const_iterator last)
 	{
-		// We expect that if the user means to clear the container, they will call clear.
-		if(EASTL_LIKELY((first.mpNode != mAnchor.mpNodeLeft) || (last.mpNode != &mAnchor))) // If (first != begin or last != end) ...
-		{
-			// Basic implementation:
-			while(first != last)
-				first = erase(first);
-			return iterator(first.mpNode);
-
-			// Inlined implementation:
-			//size_type n = 0;
-			//while(first != last)
-			//{
-			//    const iterator itErase(first);
-			//    ++n;
-			//    ++first;
-			//    RBTreeErase(itErase.mpNode, &mAnchor);
-			//    DoFreeNode(itErase.mpNode);
-			//}
-			//mnSize -= n;
-			//return first;
-		}
-
-		clear();
-		return iterator(&mAnchor); // Same as: return end();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::reverse_iterator
 	rbtree<K, V, C, A, E, bM, bU>::erase(const_reverse_iterator position)
 	{
-		return reverse_iterator(erase((++position).base()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	typename rbtree<K, V, C, A, E, bM, bU>::reverse_iterator
 	rbtree<K, V, C, A, E, bM, bU>::erase(const_reverse_iterator first, const_reverse_iterator last)
 	{
-		// Version which erases in order from first to last.
-		// difference_type i(first.base() - last.base());
-		// while(i--)
-		//     first = erase(first);
-		// return first;
-
-		// Version which erases in order from last to first, but is slightly more efficient:
-		return reverse_iterator(erase((++last).base(), (++first).base()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline void rbtree<K, V, C, A, E, bM, bU>::erase(const key_type* first, const key_type* last)
 	{
-		// We have no choice but to run a loop like this, as the first/last range could
-		// have values that are discontiguously located in the tree. And some may not 
-		// even be in the tree.
-		while(first != last)
-			erase(*first++);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	template <typename KX>
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoFind(const KX& key)
 	{
-		extract_key extractKey;
-
-		rbtree_node_base* pCurrent = mAnchor.mpNodeParent; // Start with the root node.
-		rbtree_node_base* pRangeEnd = &mAnchor;             // Set it to the container end for now.
-
-		while (EASTL_LIKELY(pCurrent)) // Do a walk down the tree.
-		{
-			if (EASTL_LIKELY(!compare(extractKey(static_cast<node_type*>(pCurrent)->mValue), key))) // If pCurrent is >= key...
-			{
-				pRangeEnd = pCurrent;
-				pCurrent = pCurrent->mpNodeLeft;
-			}
-			else
-			{
-				EASTL_VALIDATE_COMPARE(!compare(key, extractKey(static_cast<node_type*>(pCurrent)->mValue))); // Validate that the compare function is sane.
-				pCurrent = pCurrent->mpNodeRight;
-			}
-		}
-
-		if (EASTL_LIKELY((pRangeEnd != &mAnchor) && !compare(key, extractKey(static_cast<node_type*>(pRangeEnd)->mValue))))
-			return iterator(pRangeEnd);
-		return iterator(&mAnchor);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	template <typename KX>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::const_iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoFind(const KX& key) const
 	{
-		typedef rbtree<K, V, C, A, E, bM, bU> rbtree_type;
-		return const_iterator(const_cast<rbtree_type*>(this)->find(key));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	template <typename U, typename Compare2>
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::find_as(const U& u, Compare2 compare2)
 	{
-		extract_key extractKey;
-
-		rbtree_node_base* pCurrent  = mAnchor.mpNodeParent; // Start with the root node.
-		rbtree_node_base* pRangeEnd = &mAnchor;             // Set it to the container end for now.
-
-		while(EASTL_LIKELY(pCurrent)) // Do a walk down the tree.
-		{
-			if(EASTL_LIKELY(!compare2(extractKey(static_cast<node_type*>(pCurrent)->mValue), u))) // If pCurrent is >= u...
-			{
-				pRangeEnd = pCurrent;
-				pCurrent  = pCurrent->mpNodeLeft;
-			}
-			else
-			{
-				EASTL_VALIDATE_COMPARE(!compare2(u, extractKey(static_cast<node_type*>(pCurrent)->mValue))); // Validate that the compare function is sane.
-				pCurrent  = pCurrent->mpNodeRight;
-			}
-		}
-
-		if(EASTL_LIKELY((pRangeEnd != &mAnchor) && !compare2(u, extractKey(static_cast<node_type*>(pRangeEnd)->mValue))))
-			return iterator(pRangeEnd);
-		return iterator(&mAnchor);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
@@ -1947,9 +1493,8 @@ namespace eastl
 	inline typename rbtree<K, V, C, A, E, bM, bU>::const_iterator
 	rbtree<K, V, C, A, E, bM, bU>::find_as(const U& u, Compare2 compare2) const
 	{
-		typedef rbtree<K, V, C, A, E, bM, bU> rbtree_type;
-		return const_iterator(const_cast<rbtree_type*>(this)->find_as(u, compare2));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
@@ -1957,27 +1502,8 @@ namespace eastl
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoLowerBound(const KX& key)
 	{
-		extract_key extractKey;
-
-		rbtree_node_base* pCurrent  = mAnchor.mpNodeParent; // Start with the root node.
-		rbtree_node_base* pRangeEnd = &mAnchor;             // Set it to the container end for now.
-
-		while(EASTL_LIKELY(pCurrent)) // Do a walk down the tree.
-		{
-			if(EASTL_LIKELY(!compare(extractKey(static_cast<node_type*>(pCurrent)->mValue), key))) // If pCurrent is >= key...
-			{
-				pRangeEnd = pCurrent;
-				pCurrent  = pCurrent->mpNodeLeft;
-			}
-			else
-			{
-				EASTL_VALIDATE_COMPARE(!compare(key, extractKey(static_cast<node_type*>(pCurrent)->mValue))); // Validate that the compare function is sane.
-				pCurrent  = pCurrent->mpNodeRight;
-			}
-		}
-
-		return iterator(pRangeEnd);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
@@ -1985,9 +1511,8 @@ namespace eastl
 	inline typename rbtree<K, V, C, A, E, bM, bU>::const_iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoLowerBound(const KX& key) const
 	{
-		typedef rbtree<K, V, C, A, E, bM, bU> rbtree_type;
-		return const_iterator(const_cast<rbtree_type*>(this)->lower_bound(key));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
@@ -1995,25 +1520,8 @@ namespace eastl
 	typename rbtree<K, V, C, A, E, bM, bU>::iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoUpperBound(const KX& key)
 	{
-		extract_key extractKey;
-
-		rbtree_node_base* pCurrent  = mAnchor.mpNodeParent; // Start with the root node.
-		rbtree_node_base* pRangeEnd = &mAnchor;             // set it to the container end for now.
-
-		while(EASTL_LIKELY(pCurrent)) // Do a walk down the tree.
-		{
-			if(EASTL_LIKELY(compare(key, extractKey(static_cast<node_type*>(pCurrent)->mValue)))) // If key is < pCurrent...
-			{
-				EASTL_VALIDATE_COMPARE(!compare(extractKey(static_cast<node_type*>(pCurrent)->mValue), key)); // Validate that the compare function is sane.
-				pRangeEnd = pCurrent;
-				pCurrent  = pCurrent->mpNodeLeft;
-			}
-			else
-				pCurrent  = pCurrent->mpNodeRight;
-		}
-
-		return iterator(pRangeEnd);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
@@ -2021,237 +1529,62 @@ namespace eastl
 	inline typename rbtree<K, V, C, A, E, bM, bU>::const_iterator
 	rbtree<K, V, C, A, E, bM, bU>::DoUpperBound(const KX& key) const
 	{
-		typedef rbtree<K, V, C, A, E, bM, bU> rbtree_type;
-		return const_iterator(const_cast<rbtree_type*>(this)->upper_bound(key));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// To do: Move this validate function entirely to a template-less implementation.
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	bool rbtree<K, V, C, A, E, bM, bU>::validate() const
 	{
-		// Red-black trees have the following canonical properties which we validate here:
-		//   1 Every node is either red or black.
-		//   2 Every leaf (NULL) is black by defintion. Any number of black nodes may appear in a sequence. 
-		//   3 If a node is red, then both its children are black. Thus, on any path from 
-		//     the root to a leaf, red nodes must not be adjacent.
-		//   4 Every simple path from a node to a descendant leaf contains the same number of black nodes.
-		//   5 The mnSize member of the tree must equal the number of nodes in the tree.
-		//   6 The tree is sorted as per a conventional binary tree.
-		//   7 The comparison function is sane; it obeys strict weak ordering. If compare(a,b) is true, then compare(b,a) must be false. Both cannot be true.
-
-		extract_key extractKey;
-
-		if(mnSize)
-		{
-			// Verify basic integrity.
-			//if(!mAnchor.mpNodeParent || (mAnchor.mpNodeLeft == mAnchor.mpNodeRight))
-			//    return false;             // Fix this for case of empty tree.
-
-			if(mAnchor.mpNodeLeft != RBTreeGetMinChild(mAnchor.mpNodeParent))
-				return false;
-
-			if(mAnchor.mpNodeRight != RBTreeGetMaxChild(mAnchor.mpNodeParent))
-				return false;
-
-			const size_t nBlackCount   = RBTreeGetBlackCount(mAnchor.mpNodeParent, mAnchor.mpNodeLeft);
-			size_type    nIteratedSize = 0;
-
-			for(const_iterator it = begin(); it != end(); ++it, ++nIteratedSize)
-			{
-				const node_type* const pNode      = (const node_type*)it.mpNode;
-				const node_type* const pNodeRight = (const node_type*)pNode->mpNodeRight;
-				const node_type* const pNodeLeft  = (const node_type*)pNode->mpNodeLeft;
-
-				// Verify #7 above.
-				if(pNodeRight && compare(extractKey(pNodeRight->mValue), extractKey(pNode->mValue)) && compare(extractKey(pNode->mValue), extractKey(pNodeRight->mValue))) // Validate that the compare function is sane.
-					return false;
-
-				// Verify #7 above.
-				if(pNodeLeft && compare(extractKey(pNodeLeft->mValue), extractKey(pNode->mValue)) && compare(extractKey(pNode->mValue), extractKey(pNodeLeft->mValue))) // Validate that the compare function is sane.
-					return false;
-
-				// Verify item #1 above.
-				if((pNode->mColor != kRBTreeColorRed) && (pNode->mColor != kRBTreeColorBlack))
-					return false;
-
-				// Verify item #3 above.
-				if(pNode->mColor == kRBTreeColorRed)
-				{
-					if((pNodeRight && (pNodeRight->mColor == kRBTreeColorRed)) ||
-					   (pNodeLeft  && (pNodeLeft->mColor  == kRBTreeColorRed)))
-						return false;
-				}
-
-				// Verify item #6 above.
-				if(pNodeRight && compare(extractKey(pNodeRight->mValue), extractKey(pNode->mValue)))
-					return false;
-
-				if(pNodeLeft && compare(extractKey(pNode->mValue), extractKey(pNodeLeft->mValue)))
-					return false;
-
-				if(!pNodeRight && !pNodeLeft) // If we are at a bottom node of the tree...
-				{
-					// Verify item #4 above.
-					if(RBTreeGetBlackCount(mAnchor.mpNodeParent, pNode) != nBlackCount)
-						return false;
-				}
-			}
-
-			// Verify item #5 above.
-			if(nIteratedSize != mnSize)
-				return false;
-
-			return true;
-		}
-		else
-		{
-			if((mAnchor.mpNodeLeft != &mAnchor) || (mAnchor.mpNodeRight != &mAnchor))
-				return false;
-		}
-
-		return true;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline int rbtree<K, V, C, A, E, bM, bU>::validate_iterator(const_iterator i) const
 	{
-		// To do: Come up with a more efficient mechanism of doing this.
-
-		for(const_iterator temp = begin(), tempEnd = end(); temp != tempEnd; ++temp)
-		{
-			if(temp == i)
-				return (isf_valid | isf_current | isf_can_dereference);
-		}
-
-		if(i == end())
-			return (isf_valid | isf_current); 
-
-		return isf_none;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline typename rbtree<K, V, C, A, E, bM, bU>::node_type*
 	rbtree<K, V, C, A, E, bM, bU>::DoAllocateNode()
 	{
-		auto* pNode = (node_type*)allocate_memory(mAllocator, sizeof(node_type), EASTL_ALIGN_OF(node_type), 0);
-		EASTL_ASSERT_MSG(pNode != nullptr, "the behaviour of eastl::allocators that return nullptr is not defined.");
-
-		return pNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	inline void rbtree<K, V, C, A, E, bM, bU>::DoFreeNode(node_type* pNode)
 	{
-		pNode->~node_type();
-		EASTLFree(mAllocator, pNode, sizeof(node_type));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	typename rbtree<K, V, C, A, E, bM, bU>::node_type*
 	rbtree<K, V, C, A, E, bM, bU>::DoCreateNodeFromKey(const key_type& key)
 	{
-		// Note that this function intentionally leaves the node pointers uninitialized.
-		// The caller would otherwise just turn right around and modify them, so there's
-		// no point in us initializing them to anything (except in a debug build).
-		node_type* const pNode = DoAllocateNode();
-
-		#if EASTL_EXCEPTIONS_ENABLED
-			try
-			{
-		#endif
-				::new (eastl::addressof(pNode->mValue)) value_type(pair_first_construct, key);
-
-		#if EASTL_EXCEPTIONS_ENABLED
-			}
-			catch(...)
-			{
-				DoFreeNode(pNode);
-				throw;
-			}
-		#endif
-
-		#if EASTL_DEBUG
-			pNode->mpNodeRight  = NULL;
-			pNode->mpNodeLeft   = NULL;
-			pNode->mpNodeParent = NULL;
-			pNode->mColor       = kRBTreeColorBlack;
-		#endif
-
-		return pNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	typename rbtree<K, V, C, A, E, bM, bU>::node_type*
 	rbtree<K, V, C, A, E, bM, bU>::DoCreateNode(const value_type& value)
 	{
-		// Note that this function intentionally leaves the node pointers uninitialized.
-		// The caller would otherwise just turn right around and modify them, so there's
-		// no point in us initializing them to anything (except in a debug build).
-		node_type* const pNode = DoAllocateNode();
-
-		#if EASTL_EXCEPTIONS_ENABLED
-			try
-			{
-		#endif
-				detail::allocator_construct(mAllocator, eastl::addressof(pNode->mValue), value);
-		#if EASTL_EXCEPTIONS_ENABLED
-			}
-			catch(...)
-			{
-				DoFreeNode(pNode);
-				throw;
-			}
-		#endif
-
-		#if EASTL_DEBUG
-			pNode->mpNodeRight  = NULL;
-			pNode->mpNodeLeft   = NULL;
-			pNode->mpNodeParent = NULL;
-			pNode->mColor       = kRBTreeColorBlack;
-		#endif
-
-		return pNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	typename rbtree<K, V, C, A, E, bM, bU>::node_type*
 	rbtree<K, V, C, A, E, bM, bU>::DoCreateNode(value_type&& value)
 	{
-		// Note that this function intentionally leaves the node pointers uninitialized.
-		// The caller would otherwise just turn right around and modify them, so there's
-		// no point in us initializing them to anything (except in a debug build).
-		node_type* const pNode = DoAllocateNode();
-
-		#if EASTL_EXCEPTIONS_ENABLED
-			try
-			{
-		#endif
-				detail::allocator_construct(mAllocator, eastl::addressof(pNode->mValue), eastl::move(value));
-		#if EASTL_EXCEPTIONS_ENABLED
-			}
-			catch(...)
-			{
-				DoFreeNode(pNode);
-				throw;
-			}
-		#endif
-
-		#if EASTL_DEBUG
-			pNode->mpNodeRight  = NULL;
-			pNode->mpNodeLeft   = NULL;
-			pNode->mpNodeParent = NULL;
-			pNode->mColor       = kRBTreeColorBlack;
-		#endif
-
-		return pNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
@@ -2259,104 +1592,31 @@ namespace eastl
 	typename rbtree<K, V, C, A, E, bM, bU>::node_type*
 	rbtree<K, V, C, A, E, bM, bU>::DoCreateNode(Args&&... args)
 	{
-		// Note that this function intentionally leaves the node pointers uninitialized.
-		// The caller would otherwise just turn right around and modify them, so there's
-		// no point in us initializing them to anything (except in a debug build).
-		node_type* const pNode = DoAllocateNode();
-
-		#if EASTL_EXCEPTIONS_ENABLED
-			try
-			{
-		#endif
-				detail::allocator_construct(mAllocator, eastl::addressof(pNode->mValue), eastl::forward<Args>(args)...);
-		#if EASTL_EXCEPTIONS_ENABLED
-			}
-			catch(...)
-			{
-				DoFreeNode(pNode);
-				throw;
-			}
-		#endif
-
-		#if EASTL_DEBUG
-			pNode->mpNodeRight  = NULL;
-			pNode->mpNodeLeft   = NULL;
-			pNode->mpNodeParent = NULL;
-			pNode->mColor       = kRBTreeColorBlack;
-		#endif
-
-		return pNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	typename rbtree<K, V, C, A, E, bM, bU>::node_type*
 	rbtree<K, V, C, A, E, bM, bU>::DoCreateNode(const node_type* pNodeSource, rbtree_node_base* pNodeParent)
 	{
-		node_type* const pNode = DoCreateNode(pNodeSource->mValue);
-
-		pNode->mpNodeRight  = NULL;
-		pNode->mpNodeLeft   = NULL;
-		pNode->mpNodeParent = pNodeParent;
-		pNode->mColor       = pNodeSource->mColor;
-
-		return pNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	rbtree_node_base*
 	rbtree<K, V, C, A, E, bM, bU>::DoCopySubtree(const node_type* pNodeSource, rbtree_node_base* pNodeDest)
 	{
-		node_type* const pNewNodeRoot = DoCreateNode(pNodeSource, pNodeDest);
-
-		#if EASTL_EXCEPTIONS_ENABLED
-			try
-			{
-		#endif
-				// Copy the right side of the tree recursively.
-				if(pNodeSource->mpNodeRight)
-					pNewNodeRoot->mpNodeRight = DoCopySubtree(static_cast<const node_type*>(pNodeSource->mpNodeRight), pNewNodeRoot);
-
-				rbtree_node_base* pNewNodeLeft;
-
-				for(pNodeSource = static_cast<const node_type*>(pNodeSource->mpNodeLeft), pNodeDest = pNewNodeRoot;
-					pNodeSource;
-					pNodeSource = static_cast<const node_type*>(pNodeSource->mpNodeLeft), pNodeDest = pNewNodeLeft)
-				{
-					pNewNodeLeft = DoCreateNode(pNodeSource, pNodeDest);
-
-					pNodeDest->mpNodeLeft = pNewNodeLeft;
-
-					// Copy the right side of the tree recursively.
-					if(pNodeSource->mpNodeRight)
-						pNewNodeLeft->mpNodeRight = DoCopySubtree(static_cast<const node_type*>(pNodeSource->mpNodeRight), pNewNodeLeft);
-				}
-		#if EASTL_EXCEPTIONS_ENABLED
-			}
-			catch(...)
-			{
-				DoNukeSubtree(pNewNodeRoot);
-				throw;
-			}
-		#endif
-
-		return pNewNodeRoot;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename C, typename A, typename E, bool bM, bool bU>
 	void rbtree<K, V, C, A, E, bM, bU>::DoNukeSubtree(rbtree_node_base* pNode)
 	{
-		while(pNode) // Recursively traverse the tree and destroy items as we go.
-		{
-			DoNukeSubtree(pNode->mpNodeRight);
-
-			node_type* const pNodeLeft = static_cast<node_type*>(pNode->mpNodeLeft);
-			DoFreeNode(static_cast<node_type*>(pNode));
-			pNode = pNodeLeft;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -2367,8 +1627,8 @@ namespace eastl
 	template <typename K, typename V, typename A, typename C, typename E, bool bM, bool bU>
 	inline bool operator==(const rbtree<K, V, C, A, E, bM, bU>& a, const rbtree<K, V, C, A, E, bM, bU>& b)
 	{
-		return (a.size() == b.size()) && eastl::equal(a.begin(), a.end(), b.begin());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// Note that in operator< we do comparisons based on the tree value_type with operator<() of the
@@ -2380,43 +1640,43 @@ namespace eastl
 	template <typename K, typename V, typename A, typename C, typename E, bool bM, bool bU>
 	inline bool operator<(const rbtree<K, V, C, A, E, bM, bU>& a, const rbtree<K, V, C, A, E, bM, bU>& b)
 	{
-		return eastl::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename A, typename C, typename E, bool bM, bool bU>
 	inline bool operator!=(const rbtree<K, V, C, A, E, bM, bU>& a, const rbtree<K, V, C, A, E, bM, bU>& b)
 	{
-		return !(a == b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename A, typename C, typename E, bool bM, bool bU>
 	inline bool operator>(const rbtree<K, V, C, A, E, bM, bU>& a, const rbtree<K, V, C, A, E, bM, bU>& b)
 	{
-		return b < a;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename A, typename C, typename E, bool bM, bool bU>
 	inline bool operator<=(const rbtree<K, V, C, A, E, bM, bU>& a, const rbtree<K, V, C, A, E, bM, bU>& b)
 	{
-		return !(b < a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename A, typename C, typename E, bool bM, bool bU>
 	inline bool operator>=(const rbtree<K, V, C, A, E, bM, bU>& a, const rbtree<K, V, C, A, E, bM, bU>& b)
 	{
-		return !(a < b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename V, typename A, typename C, typename E, bool bM, bool bU>
 	inline void swap(rbtree<K, V, C, A, E, bM, bU>& a, rbtree<K, V, C, A, E, bM, bU>& b)
 	{
-		a.swap(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -157,10 +159,8 @@ namespace eastl
 		typedef T* (this_type::*bool_)() const;             /// Allows for a more portable version of testing an instance of this class as a bool.
 		operator bool_() const                              // A bug in the CodeWarrior compiler forces us to implement this inline instead of below.
 		{
-			if(mpObject)
-				return &this_type::get;
-			return NULL;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 } // namespace eastl
@@ -182,24 +182,19 @@ namespace eastl
 inline eastl::safe_object::safe_object()
   :  mpSafePtrList(0)
 {
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
 inline bool eastl::safe_object::is_unreferenced() const
 {
-	return (mpSafePtrList == NULL);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
 inline void eastl::safe_object::clear_references()
 {
-	while(mpSafePtrList != NULL)
-	{
-		safe_ptr_base* const pNext = mpSafePtrList->mpNext;
-		mpSafePtrList->mpNext = NULL;
-		mpSafePtrList->mpObject = NULL;
-		mpSafePtrList = pNext;
-	}
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
@@ -219,30 +214,13 @@ inline eastl::safe_object::~safe_object()
 
 inline void eastl::safe_object::add(safe_ptr_base* pBase) const
 {
-	pBase->mpNext = mpSafePtrList;
-	mpSafePtrList = pBase;
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
 inline void eastl::safe_object::remove(safe_ptr_base* pBase) const
 {
-	// We have a singly-linked list (starting with mpSafePtrList) and need to 
-	// remove an element from within it.
-	if(pBase == mpSafePtrList)
-		mpSafePtrList = mpSafePtrList->mpNext;
-	else
-	{
-		for(safe_ptr_base *pPrev = mpSafePtrList, *pCurrent = mpSafePtrList->mpNext; 
-			pCurrent;
-			pPrev = pCurrent, pCurrent = pCurrent->mpNext)
-		{
-			if(pCurrent == pBase)
-			{
-				pPrev->mpNext = pCurrent->mpNext;
-				break;
-			}
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
@@ -254,10 +232,7 @@ inline eastl::safe_ptr_base::safe_ptr_base(const safe_ptr_base& safePtrBase)
   : mpObject(safePtrBase.mpObject),
 	mpNext(NULL)    
 {
-	EASTL_ASSERT(this != &safePtrBase);
-
-	if(mpObject)
-		mpObject->add(this);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
@@ -265,6 +240,7 @@ inline eastl::safe_ptr_base::safe_ptr_base()
   : mpObject(NULL),
 	mpNext(NULL)
 {
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
@@ -272,8 +248,7 @@ inline eastl::safe_ptr_base::safe_ptr_base(const safe_object* pObject)
   : mpObject(pObject),
 	mpNext(NULL)
 {
-	if(mpObject)
-		mpObject->add(this);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
@@ -286,38 +261,25 @@ inline eastl::safe_ptr_base::~safe_ptr_base()
 
 inline void eastl::safe_ptr_base::reset()
 {
-	if(mpObject)
-	{
-		mpObject->remove(this);
-		mpObject = NULL;
-	}
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
 inline bool eastl::safe_ptr_base::empty() const
 {
-	return (mpObject == NULL);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
 inline void eastl::safe_ptr_base::reset(const safe_object* pNewObject)
 {
-	if(mpObject != pNewObject)
-	{
-		if(mpObject)
-			mpObject->remove(this);
-
-		mpObject = pNewObject;
-
-		if(mpObject)
-			mpObject->add(this);
-	}
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
 inline bool eastl::safe_ptr_base::unique() const
 {
-	return (mpNext == NULL) && ((mpObject == NULL) || (mpObject->mpSafePtrList == this));
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
@@ -332,7 +294,7 @@ inline bool eastl::safe_ptr_base::unique() const
 // being used before their inline implementations. 
 inline bool eastl::safe_object::has_unique_reference() const
 {
-	return mpSafePtrList ? mpSafePtrList->unique() : false;
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
@@ -344,6 +306,7 @@ template<class T>
 inline eastl::safe_ptr<T>::safe_ptr() 
   : safe_ptr_base()
 {
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
@@ -351,6 +314,7 @@ template<class T>
 inline eastl::safe_ptr<T>::safe_ptr(T* pObject)
   : safe_ptr_base(pObject)
 {
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
@@ -358,65 +322,63 @@ template<class T>
 inline eastl::safe_ptr<T>::safe_ptr(const this_type& safePtr)
   : safe_ptr_base(safePtr)
 {
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
 template<class T>
 inline typename eastl::safe_ptr<T>::this_type& eastl::safe_ptr<T>::operator=(const this_type& safePtr)
 {
-	if(this != &safePtr)
-		reset(safePtr.mpObject);
-	return *this;
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
 template<class T>
 inline typename eastl::safe_ptr<T>::this_type& eastl::safe_ptr<T>::operator=(T* const pObject)
 {
-	reset(pObject);
-	return *this;
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
 template<class T>
 inline bool eastl::safe_ptr<T>::operator==(const this_type& rhs) const
 {
-	return (mpObject == rhs.mpObject);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
 template<class T>
 inline T* eastl::safe_ptr<T>::get() const
 {
-	return static_cast<T*>(const_cast<safe_object*>(mpObject));
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
 template<class T>
 inline eastl::safe_ptr<T>::operator T*() const
 {
-	return static_cast<T*>(const_cast<safe_object*>(mpObject));
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
 template<class T>
 inline T* eastl::safe_ptr<T>::operator->() const
 {
-	return static_cast<T*>(const_cast<safe_object*>(mpObject));
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
 template<class T>
 inline T& eastl::safe_ptr<T>::operator*() const
 {
-	return *static_cast<T*>(const_cast<safe_object*>(mpObject));
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
 template<class T>
 inline bool eastl::safe_ptr<T>::operator!() const
 {
-	return (mpObject == NULL);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 // A bug in the CodeWarrior compiler forces us to implement this inline in the class instead of here.
@@ -437,21 +399,21 @@ inline bool eastl::safe_ptr<T>::operator!() const
 template<class T>
 inline bool operator==(const eastl::safe_ptr<T>& safePtr, const T* pObject)
 {
-	return (safePtr.get() == pObject);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
 template<class T>
 inline bool operator!=(const eastl::safe_ptr<T>& safePtr, const T* pObject)
 {
-	return (safePtr.get() != pObject);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
 template<class T>
 inline bool operator<(const eastl::safe_ptr<T>& safePtrA, const eastl::safe_ptr<T>& safePtrB)
 {
-	return (safePtrA.get() < safePtrB.get());
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 

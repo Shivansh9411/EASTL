@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -147,56 +149,34 @@ namespace eastl
 
 				static Functor* GetFunctorPtr(void* storage) EA_NOEXCEPT
 				{
-					// This case we know the functor fits directly in the storage.
-					return static_cast<Functor*>(storage);
-				}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 				template <typename T>
 				static void CreateFunctor(void* storage, T&& functor)
 				{
-					::new (GetFunctorPtr(storage)) Functor(eastl::forward<T>(functor));
-				}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 				static void DestructFunctor(void* storage)
 				{
-					GetFunctorPtr(storage)->~Functor();
-				}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 				static void CopyFunctor(void* to, void* from)
 				{
-					::new (GetFunctorPtr(to)) Functor(*GetFunctorPtr(from));
-				}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 				static void MoveFunctor(void* to, void* from) EA_NOEXCEPT
 				{
-					::new (GetFunctorPtr(to)) Functor(eastl::move(*GetFunctorPtr(from)));
-				}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 				static void* Manager(void* to, void* from, typename internal::ManagerOperations ops) EA_NOEXCEPT
 				{
-					switch (ops)
-					{
-						case MGROPS_DESTRUCT_FUNCTOR:
-						{
-							DestructFunctor(to);
-						}
-						break;
-						case MGROPS_COPY_FUNCTOR:
-						{
-							CopyFunctor(to, from);
-						}
-						break;
-						case MGROPS_MOVE_FUNCTOR:
-						{
-							MoveFunctor(to, from);
-							DestructFunctor(from);
-						}
-						break;
-						default:
-							break;
-					}
-					return nullptr;
-				}
+    __builtin_trap() /* STUB: not implemented */;
+}
 			};
 
 			// Functor is allocated on the heap
@@ -414,8 +394,8 @@ namespace eastl
 				 */
 				static R Invoker(Args... args, void* storage)
 				{
-					return eastl::invoke(*Base::GetFunctorPtr(storage), eastl::forward<Args>(args)...);
-				}
+    __builtin_trap() /* STUB: not implemented */;
+}
 			};
 
 			function_base_detail() EA_NOEXCEPT = default;
@@ -453,15 +433,14 @@ namespace eastl
 
 		public:
 			function_detail() EA_NOEXCEPT = default;
-			function_detail(std::nullptr_t) EA_NOEXCEPT {}
+			function_detail(std::nullptr_t) EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			function_detail(const function_detail& other)
 			{
-				if (this != &other)
-				{
-					Copy(other);
-				}
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			function_detail(function_detail&& other)
 			{
@@ -474,16 +453,14 @@ namespace eastl
 			template<int OTHER_SIZE_IN_BYTES>
 			function_detail(function_detail <OTHER_SIZE_IN_BYTES, R(Args...)> && other)
 			{
-				static_assert(OTHER_SIZE_IN_BYTES < SIZE_IN_BYTES, "Other sized function_detail must be smaller");
-				Move(eastl::move(other));
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			template <int OTHER_SIZE_IN_BYTES>
 			function_detail(const function_detail<OTHER_SIZE_IN_BYTES, R(Args...)>& other)
 			{
-				static_assert(OTHER_SIZE_IN_BYTES < SIZE_IN_BYTES, "Other sized function_detail must be smaller");
-				Copy(other);
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			template <typename Functor, typename = EASTL_INTERNAL_FUNCTION_DETAIL_VALID_FUNCTION_ARGS(Functor, R, Args..., function_detail)>
 			function_detail(Functor&& functor)
@@ -745,18 +722,8 @@ namespace eastl
 			// it will always throw or assert so we never use the return value anyways and neither should the caller.
 			static R DefaultInvoker(Args... /*args*/, void* /*storage*/)
 			{
-				#if EASTL_EXCEPTIONS_ENABLED
-					throw eastl::bad_function_call();
-				#else
-					EASTL_ASSERT_MSG(false, "function_detail call on an empty function_detail<R(Args..)>");
-				#endif
-				// We want to explicitly crash here, since calling this function is equivalent
-				// to dereferencing a nullptr, we don't want to silently continue execution and
-				// have this function (which has no return value) potentially return arbitrary
-				// garbage to the caller.
-				*((volatile int*)0) = 0xDEADC0DE;
-
-			};
+    __builtin_trap() /* STUB: not implemented */;
+};
 			EA_RESTORE_VC_WARNING();
 			EA_RESTORE_VC_WARNING();
 			EA_RESTORE_CLANG_WARNING();

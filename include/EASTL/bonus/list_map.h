@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -90,8 +92,8 @@ namespace eastl
 		inline list_map_iterator(const iterator& x)
 			: mpNode(x.mpNode)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		reference operator*() const;
 		pointer   operator->() const;
@@ -136,7 +138,9 @@ namespace eastl
 		typedef typename Object::value_type::first_type result_type;
 
 		const result_type& operator()(const Object& x) const
-			{ return x.mValue.first; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -412,9 +416,8 @@ namespace eastl
 	inline list_map_data<Value>::list_map_data(const Value& value)
 	  : mValue(value)
 	{
-		mpNext = NULL; // GCC 4.8 is generating warnings about referencing these values in list_map::push_front unless we 
-		mpPrev = NULL; // initialize them here. The compiler seems to be mistaken, as our code isn't actually using them unintialized.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	///////////////////////////////////////////////////////////////////////
@@ -425,70 +428,64 @@ namespace eastl
 	inline list_map_iterator<T, Pointer, Reference>::list_map_iterator()
 		: mpNode(NULL)
 	{
-		// Empty
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline list_map_iterator<T, Pointer, Reference>::list_map_iterator(const base_node_type* pNode)
 		: mpNode(const_cast<base_node_type*>(pNode))
 	{
-		// Empty
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename list_map_iterator<T, Pointer, Reference>::reference
 	list_map_iterator<T, Pointer, Reference>::operator*() const
 	{
-		return static_cast<node_type*>(mpNode)->mValue;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename list_map_iterator<T, Pointer, Reference>::pointer
 	list_map_iterator<T, Pointer, Reference>::operator->() const
 	{
-		return &static_cast<node_type*>(mpNode)->mValue;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename list_map_iterator<T, Pointer, Reference>::this_type&
 	list_map_iterator<T, Pointer, Reference>::operator++()
 	{
-		mpNode = mpNode->mpNext;
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename list_map_iterator<T, Pointer, Reference>::this_type
 	list_map_iterator<T, Pointer, Reference>::operator++(int)
 	{
-		this_type temp(*this);
-		mpNode = mpNode->mpNext;
-		return temp;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename list_map_iterator<T, Pointer, Reference>::this_type&
 	list_map_iterator<T, Pointer, Reference>::operator--()
 	{
-		mpNode = mpNode->mpPrev;
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename list_map_iterator<T, Pointer, Reference>::this_type 
 	list_map_iterator<T, Pointer, Reference>::operator--(int)
 	{
-		this_type temp(*this);
-		mpNode = mpNode->mpPrev;
-		return temp;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// We provide additional template paremeters here to support comparisons between const and non-const iterators.
@@ -497,16 +494,16 @@ namespace eastl
 	inline bool operator==(const list_map_iterator<T, PointerA, ReferenceA>& a, 
 						   const list_map_iterator<T, PointerB, ReferenceB>& b)
 	{
-		return a.mpNode == b.mpNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename PointerA, typename ReferenceA, typename PointerB, typename ReferenceB>
 	inline bool operator!=(const list_map_iterator<T, PointerA, ReferenceA>& a, 
 						   const list_map_iterator<T, PointerB, ReferenceB>& b)
 	{
-		return a.mpNode != b.mpNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// We provide a version of operator!= for the case where the iterators are of the 
@@ -515,8 +512,8 @@ namespace eastl
 	inline bool operator!=(const list_map_iterator<T, Pointer, Reference>& a, 
 						   const list_map_iterator<T, Pointer, Reference>& b)
 	{
-		return a.mpNode != b.mpNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	///////////////////////////////////////////////////////////////////////
@@ -527,426 +524,245 @@ namespace eastl
 	inline list_map<Key, T, Compare, Allocator>::list_map(const allocator_type& allocator)
 		: base_type(allocator)
 	{
-		mNode.mpNext = &mNode;
-		mNode.mpPrev = &mNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline list_map<Key, T, Compare, Allocator>::list_map(const Compare& compare, const allocator_type& allocator)
 		: base_type(compare, allocator)
 	{
-		mNode.mpNext = &mNode;
-		mNode.mpPrev = &mNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::iterator 
 	list_map<Key, T, Compare, Allocator>::begin() EA_NOEXCEPT
 	{
-		return iterator(mNode.mpNext);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::const_iterator 
 	list_map<Key, T, Compare, Allocator>::begin() const EA_NOEXCEPT
 	{
-		return const_iterator(mNode.mpNext);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::const_iterator 
 	list_map<Key, T, Compare, Allocator>::cbegin() const EA_NOEXCEPT
 	{
-		return const_iterator(mNode.mpNext);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::iterator 
 	list_map<Key, T, Compare, Allocator>::end() EA_NOEXCEPT
 	{
-		return iterator(&mNode);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::const_iterator 
 	list_map<Key, T, Compare, Allocator>::end() const EA_NOEXCEPT
 	{
-		return const_iterator(&mNode);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::const_iterator 
 	list_map<Key, T, Compare, Allocator>::cend() const EA_NOEXCEPT
 	{
-		return const_iterator(&mNode);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::reverse_iterator 
 	list_map<Key, T, Compare, Allocator>::rbegin() EA_NOEXCEPT
 	{
-		return reverse_iterator(&mNode);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::const_reverse_iterator 
 	list_map<Key, T, Compare, Allocator>::rbegin() const EA_NOEXCEPT
 	{
-		return const_reverse_iterator(&mNode);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::const_reverse_iterator 
 	list_map<Key, T, Compare, Allocator>::crbegin() const EA_NOEXCEPT
 	{
-		return const_reverse_iterator(&mNode);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::reverse_iterator 
 	list_map<Key, T, Compare, Allocator>::rend() EA_NOEXCEPT
 	{
-		return reverse_iterator(mNode.mpNext);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::const_reverse_iterator 
 	list_map<Key, T, Compare, Allocator>::rend() const EA_NOEXCEPT
 	{
-		return const_reverse_iterator(mNode.mpNext);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::const_reverse_iterator 
 	list_map<Key, T, Compare, Allocator>::crend() const EA_NOEXCEPT
 	{
-		return const_reverse_iterator(mNode.mpNext);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::reference
 	list_map<Key, T, Compare, Allocator>::front()
 	{
-		#if EASTL_ASSERT_ENABLED && EASTL_EMPTY_REFERENCE_ASSERT_ENABLED
-			if (EASTL_UNLIKELY(static_cast<internal_value_type*>(mNode.mpNext) == &mNode))
-				EASTL_FAIL_MSG("list_map::front -- empty container");
-		#else
-			// We allow the user to reference an empty container.
-		#endif
-
-		return static_cast<internal_value_type*>(mNode.mpNext)->mValue;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::const_reference
 	list_map<Key, T, Compare, Allocator>::front() const
 	{
-		#if EASTL_ASSERT_ENABLED && EASTL_EMPTY_REFERENCE_ASSERT_ENABLED
-			if (EASTL_UNLIKELY(static_cast<internal_value_type*>(mNode.mpNext) == &mNode))
-				EASTL_FAIL_MSG("list_map::front -- empty container");
-		#else
-			// We allow the user to reference an empty container.
-		#endif
-
-		return static_cast<internal_value_type*>(mNode.mpNext)->mValue;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::reference
 	list_map<Key, T, Compare, Allocator>::back()
 	{
-		#if EASTL_ASSERT_ENABLED && EASTL_EMPTY_REFERENCE_ASSERT_ENABLED
-			if (EASTL_UNLIKELY(static_cast<internal_value_type*>(mNode.mpNext) == &mNode))
-				EASTL_FAIL_MSG("list_map::back -- empty container");
-		#else
-			// We allow the user to reference an empty container.
-		#endif
-
-		return static_cast<internal_value_type*>(mNode.mpPrev)->mValue;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::const_reference
 	list_map<Key, T, Compare, Allocator>::back() const
 	{
-		#if EASTL_ASSERT_ENABLED && EASTL_EMPTY_REFERENCE_ASSERT_ENABLED
-			if (EASTL_UNLIKELY(static_cast<internal_value_type*>(mNode.mpNext) == &mNode))
-				EASTL_FAIL_MSG("list_map::back -- empty container");
-		#else
-			// We allow the user to reference an empty container.
-		#endif
-
-		return static_cast<internal_value_type*>(mNode.mpPrev)->mValue;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	bool list_map<Key, T, Compare, Allocator>::push_front(const value_type& value)
 	{
-		internal_value_type tempValue(value);
-		typename base_type::insert_return_type baseReturn = base_type::insert(tempValue);
-
-		// Did the insert succeed?
-		if (baseReturn.second)
-		{
-			internal_value_type* pNode = &(*baseReturn.first);
-
-			pNode->mpNext = mNode.mpNext;
-			pNode->mpPrev = &mNode;
-
-			mNode.mpNext->mpPrev = pNode;
-			mNode.mpNext = pNode;
-
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	bool list_map<Key, T, Compare, Allocator>::push_back(const value_type& value)
 	{
-		internal_value_type tempValue(value);
-		typename base_type::insert_return_type baseReturn = base_type::insert(tempValue);
-
-		// Did the insert succeed?
-		if (baseReturn.second)
-		{
-			internal_value_type* pNode = &(*baseReturn.first);
-
-			pNode->mpPrev = mNode.mpPrev;
-			pNode->mpNext = &mNode;
-
-			mNode.mpPrev->mpNext = pNode;
-			mNode.mpPrev = pNode;
-
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	bool list_map<Key, T, Compare, Allocator>::push_front(const key_type& key, const mapped_type& value)
 	{
-		return push_front(eastl::make_pair(key, value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	bool list_map<Key, T, Compare, Allocator>::push_back(const key_type& key, const mapped_type& value)
 	{
-		return push_back(eastl::make_pair(key, value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	void list_map<Key, T, Compare, Allocator>::pop_front()
 	{
-		#if EASTL_ASSERT_ENABLED
-			if (EASTL_UNLIKELY(empty()))
-				EASTL_FAIL_MSG("list_map::pop_front -- empty container");
-		#endif
-
-		erase(static_cast<internal_value_type*>(mNode.mpNext)->mValue.first);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	void list_map<Key, T, Compare, Allocator>::pop_back()
 	{
-		#if EASTL_ASSERT_ENABLED
-			if (EASTL_UNLIKELY(empty()))
-				EASTL_FAIL_MSG("list_map::pop_back -- empty container");
-		#endif
-
-		erase(static_cast<internal_value_type*>(mNode.mpPrev)->mValue.first);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::iterator 
 	list_map<Key, T, Compare, Allocator>::find(const key_type& key)
 	{
-		typename base_type::iterator baseIter = base_type::find(key);
-		if (baseIter != base_type::end())
-		{
-			return iterator(&(*baseIter));
-		}
-		else
-		{
-			return end();
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::const_iterator
 	list_map<Key, T, Compare, Allocator>::find(const key_type& key) const
 	{
-		typename base_type::const_iterator baseIter = base_type::find(key);
-		if (baseIter != base_type::end())
-		{
-			return const_iterator(&(*baseIter));
-		}
-		else
-		{
-			return end();
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	template <typename U, typename Compare2>
 	inline typename list_map<Key, T, Compare, Allocator>::iterator
 	list_map<Key, T, Compare, Allocator>::find_as(const U& u, Compare2 compare2)
 	{
-		typename base_type::iterator baseIter = base_type::find_as(u, compare2);
-		if (baseIter != base_type::end())
-		{
-			return iterator(&(*baseIter));
-		}
-		else
-		{
-			return end();
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	template <typename U, typename Compare2>
 	inline typename list_map<Key, T, Compare, Allocator>::const_iterator
 	list_map<Key, T, Compare, Allocator>::find_as(const U& u, Compare2 compare2) const
 	{
-		typename base_type::const_iterator baseIter = base_type::find_as(u, compare2);
-		if (baseIter != base_type::end())
-		{
-			return const_iterator(&(*baseIter));
-		}
-		else
-		{
-			return end();
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::size_type
 	list_map<Key, T, Compare, Allocator>::count(const key_type& key) const
 	{
-		const typename base_type::const_iterator it = base_type::find(key);
-		return (it != base_type::end()) ? 1 : 0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::size_type
 	list_map<Key, T, Compare, Allocator>::erase(const key_type& key)
 	{
-		typename base_type::iterator baseIter = base_type::find(key);
-		if (baseIter != base_type::end())
-		{
-			internal_value_type* node = &(*baseIter);
-
-			node->mpNext->mpPrev = node->mpPrev;
-			node->mpPrev->mpNext = node->mpNext;
-
-			base_type::erase(baseIter);
-
-			return 1;
-		}
-		return 0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::iterator
 	list_map<Key, T, Compare, Allocator>::erase(const_iterator position)
 	{
-		iterator posIter(position.mpNode); // Convert from const.
-		iterator eraseIter(posIter++);
-		erase(eraseIter->first);
-		return posIter;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	inline typename list_map<Key, T, Compare, Allocator>::reverse_iterator
 	list_map<Key, T, Compare, Allocator>::erase(const_reverse_iterator position)
 	{
-		return reverse_iterator(erase((++position).base()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	void list_map<Key, T, Compare, Allocator>::clear()
 	{
-		base_type::clear();
-
-		mNode.mpNext = &mNode;
-		mNode.mpPrev = &mNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	void list_map<Key, T, Compare, Allocator>::reset_lose_memory()
 	{
-		base_type::reset_lose_memory();
-
-		mNode.mpNext = &mNode;
-		mNode.mpPrev = &mNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	bool list_map<Key, T, Compare, Allocator>::validate() const
 	{
-		if (!base_type::validate())
-		{
-			return false;
-		}
-
-		size_type nodeCount(0);
-		list_map_data_base* node = mNode.mpNext;
-		while (node != &mNode)
-		{
-			internal_value_type* data = static_cast<internal_value_type*>(node);
-			if (base_type::find(data->mValue.first) == base_type::end())
-			{
-				return false;
-			}
-			node = node->mpNext;
-			++nodeCount;
-		}
-		if (nodeCount != size())
-		{
-			return false;
-		}
-		nodeCount = 0;
-		node = mNode.mpPrev;
-		while (node != &mNode)
-		{
-			internal_value_type* data = static_cast<internal_value_type*>(node);
-			if (base_type::find(data->mValue.first) == base_type::end())
-			{
-				return false;
-			}
-			node = node->mpPrev;
-			++nodeCount;
-		}
-		if (nodeCount != size())
-		{
-			return false;
-		}
-
-		return true;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Key, typename T, typename Compare, typename Allocator>
 	int list_map<Key, T, Compare, Allocator>::validate_iterator(const_iterator iter) const
 	{
-		for (const_iterator temp = begin(), tempEnd = end(); temp != tempEnd; ++temp)
-		{
-			if (temp == iter)
-			{
-				return (isf_valid | isf_current | isf_can_dereference);
-			}
-		}
-
-		if (iter == end())
-			return (isf_valid | isf_current); 
-
-		return isf_none;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -54,16 +56,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Distance, typename T, typename ValueType>
 	inline void promote_heap_impl(RandomAccessIterator first, Distance topPosition, Distance position, T value)
 	{
-		for(Distance parentPosition = (position - 1) >> 1; // This formula assumes that (position > 0). // We use '>> 1' instead of '/ 2' because we have seen VC++ generate better code with >>.
-			(position > topPosition) && (*(first + parentPosition) < value);
-			parentPosition = (position - 1) >> 1)
-		{
-			*(first + position) = eastl::forward<ValueType>(*(first + parentPosition)); // Swap the node with its parent.
-			position = parentPosition;
-		}
-
-		*(first + position) = eastl::forward<ValueType>(value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// promote_heap
 	///
@@ -79,9 +73,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Distance, typename T>
 	inline void promote_heap(RandomAccessIterator first, Distance topPosition, Distance position, const T& value)
 	{
-		typedef typename iterator_traits<RandomAccessIterator>::value_type value_type;
-		promote_heap_impl<RandomAccessIterator, Distance, const T&, const value_type>(first, topPosition, position, value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// promote_heap
@@ -98,24 +91,15 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Distance, typename T>
 	inline void promote_heap(RandomAccessIterator first, Distance topPosition, Distance position, T&& value)
 	{
-		typedef typename iterator_traits<RandomAccessIterator>::value_type value_type;
-		promote_heap_impl<RandomAccessIterator, Distance, T&&, value_type>(first, topPosition, position, eastl::forward<T>(value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename RandomAccessIterator, typename Distance, typename T, typename Compare, typename ValueType>
 	inline void promote_heap_impl(RandomAccessIterator first, Distance topPosition, Distance position, T value, Compare compare)
 	{
-		for(Distance parentPosition = (position - 1) >> 1; // This formula assumes that (position > 0). // We use '>> 1' instead of '/ 2' because we have seen VC++ generate better code with >>.
-			(position > topPosition) && compare(*(first + parentPosition), value);
-			parentPosition = (position - 1) >> 1)
-		{
-			*(first + position) = eastl::forward<ValueType>(*(first + parentPosition)); // Swap the node with its parent.
-			position = parentPosition;
-		}
-
-		*(first + position) = eastl::forward<ValueType>(value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// promote_heap
@@ -132,9 +116,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Distance, typename T, typename Compare>
 	inline void promote_heap(RandomAccessIterator first, Distance topPosition, Distance position, const T& value, Compare compare)
 	{
-		typedef typename iterator_traits<RandomAccessIterator>::value_type value_type;
-		promote_heap_impl<RandomAccessIterator, Distance, const T&, Compare, const value_type>(first, topPosition, position, value, compare);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// promote_heap
@@ -151,9 +134,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Distance, typename T, typename Compare>
 	inline void promote_heap(RandomAccessIterator first, Distance topPosition, Distance position, T&& value, Compare compare)
 	{
-		typedef typename iterator_traits<RandomAccessIterator>::value_type value_type;
-		promote_heap_impl<RandomAccessIterator, Distance, T&&, Compare, value_type>(first, topPosition, position, eastl::forward<T>(value), compare);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -164,26 +146,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Distance, typename T, typename ValueType>
 	void adjust_heap_impl(RandomAccessIterator first, Distance topPosition, Distance heapSize, Distance position, T value)
 	{
-		// We do the conventional approach of moving the position down to the 
-		// bottom then inserting the value at the back and moving it up.
-		Distance childPosition = (2 * position) + 2;
-
-		for(; childPosition < heapSize; childPosition = (2 * childPosition) + 2)
-		{
-			if(*(first + childPosition) < *(first + (childPosition - 1))) // Choose the larger of the two children.
-				--childPosition;
-			*(first + position) = eastl::forward<ValueType>(*(first + childPosition)); // Swap positions with this child.
-			position = childPosition;
-		}
-
-		if(childPosition == heapSize) // If we are at the very last index of the bottom...
-		{
-			*(first + position) = eastl::forward<ValueType>(*(first + (childPosition - 1)));
-			position = childPosition - 1;
-		}
-
-		eastl::promote_heap<RandomAccessIterator, Distance, T>(first, topPosition, position, eastl::forward<ValueType>(value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// adjust_heap
 	///
@@ -198,9 +162,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Distance, typename T>
 	void adjust_heap(RandomAccessIterator first, Distance topPosition, Distance heapSize, Distance position, const T& value)
 	{
-		typedef typename iterator_traits<RandomAccessIterator>::value_type value_type;
-		adjust_heap_impl<RandomAccessIterator, Distance, const T&, const value_type>(first, topPosition, heapSize, position, eastl::forward<const T&>(value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// adjust_heap
@@ -216,34 +179,15 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Distance, typename T>
 	void adjust_heap(RandomAccessIterator first, Distance topPosition, Distance heapSize, Distance position, T&& value)
 	{
-		typedef typename iterator_traits<RandomAccessIterator>::value_type value_type;
-		adjust_heap_impl<RandomAccessIterator, Distance, T&&, value_type>(first, topPosition, heapSize, position, eastl::forward<T>(value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename RandomAccessIterator, typename Distance, typename T, typename Compare, typename ValueType>
 	void adjust_heap_impl(RandomAccessIterator first, Distance topPosition, Distance heapSize, Distance position, T value, Compare compare)
 	{
-		// We do the conventional approach of moving the position down to the 
-		// bottom then inserting the value at the back and moving it up.
-		Distance childPosition = (2 * position) + 2;
-
-		for(; childPosition < heapSize; childPosition = (2 * childPosition) + 2)
-		{
-			if(compare(*(first + childPosition), *(first + (childPosition - 1)))) // Choose the larger of the two children.
-				--childPosition;
-			*(first + position) = eastl::forward<ValueType>(*(first + childPosition)); // Swap positions with this child.
-			position = childPosition;
-		}
-
-		if(childPosition == heapSize) // If we are at the bottom...
-		{
-			*(first + position) = eastl::forward<ValueType>(*(first + (childPosition - 1)));
-			position = childPosition - 1;
-		}
-
-		eastl::promote_heap<RandomAccessIterator, Distance, T, Compare>(first, topPosition, position, eastl::forward<ValueType>(value), compare);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// adjust_heap
 	///
@@ -256,9 +200,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Distance, typename T, typename Compare>
 	void adjust_heap(RandomAccessIterator first, Distance topPosition, Distance heapSize, Distance position, const T& value, Compare compare)
 	{
-		typedef typename iterator_traits<RandomAccessIterator>::value_type value_type;
-		adjust_heap_impl<RandomAccessIterator, Distance, const T&, Compare, const value_type>(first, topPosition, heapSize, position, eastl::forward<const T&>(value), compare);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// adjust_heap
@@ -272,9 +215,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Distance, typename T, typename Compare>
 	void adjust_heap(RandomAccessIterator first, Distance topPosition, Distance heapSize, Distance position, T&& value, Compare compare)
 	{
-		typedef typename iterator_traits<RandomAccessIterator>::value_type value_type;
-		adjust_heap_impl<RandomAccessIterator, Distance, T&&, Compare, value_type>(first, topPosition, heapSize, position, eastl::forward<T>(value), compare);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	///////////////////////////////////////////////////////////////////////
@@ -296,14 +238,8 @@ namespace eastl
 	template <typename RandomAccessIterator>
 	inline void push_heap(RandomAccessIterator first, RandomAccessIterator last)
 	{
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::difference_type difference_type;
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::value_type      value_type;
-
-		const value_type tempBottom(eastl::forward<value_type>(*(last - 1)));
-
-		eastl::promote_heap<RandomAccessIterator, difference_type, value_type>
-						   (first, (difference_type)0, (difference_type)(last - first - 1), eastl::forward<const value_type>(tempBottom));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// push_heap
@@ -319,14 +255,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Compare>
 	inline void push_heap(RandomAccessIterator first, RandomAccessIterator last, Compare compare)
 	{
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::difference_type difference_type;
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::value_type      value_type;
-
-		const value_type tempBottom(*(last - 1));
-
-		eastl::promote_heap<RandomAccessIterator, difference_type, value_type, Compare>
-						   (first, (difference_type)0, (difference_type)(last - first - 1), tempBottom, compare);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -353,14 +283,8 @@ namespace eastl
 	template <typename RandomAccessIterator>
 	inline void pop_heap(RandomAccessIterator first, RandomAccessIterator last)
 	{
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::difference_type difference_type;
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::value_type      value_type;
-
-		value_type tempBottom(eastl::forward<value_type>(*(last - 1)));
-		*(last - 1) = eastl::forward<value_type>(*first);
-		eastl::adjust_heap<RandomAccessIterator, difference_type, value_type>
-						  (first, (difference_type)0, (difference_type)(last - first - 1), 0, eastl::forward<value_type>(tempBottom));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -377,14 +301,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Compare>
 	inline void pop_heap(RandomAccessIterator first, RandomAccessIterator last, Compare compare)
 	{
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::difference_type difference_type;
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::value_type      value_type;
-
-		value_type tempBottom(eastl::forward<value_type>(*(last - 1)));
-		*(last - 1) = eastl::forward<value_type>(*first);
-		eastl::adjust_heap<RandomAccessIterator, difference_type, value_type, Compare>
-						  (first, (difference_type)0, (difference_type)(last - first - 1), 0, eastl::forward<value_type>(tempBottom), compare);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	///////////////////////////////////////////////////////////////////////
@@ -401,46 +319,15 @@ namespace eastl
 	template <typename RandomAccessIterator>
 	void make_heap(RandomAccessIterator first, RandomAccessIterator last)
 	{
-		// We do bottom-up heap construction as per Sedgewick. Such construction is O(n).
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::difference_type difference_type;
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::value_type      value_type;
-
-		const difference_type heapSize = last - first;
-
-		if(heapSize >= 2) // If there is anything to do... (we need this check because otherwise the math fails below).
-		{
-			difference_type parentPosition = ((heapSize - 2) >> 1) + 1; // We use '>> 1' instead of '/ 2' because we have seen VC++ generate better code with >>.
-
-			do{
-				--parentPosition;
-				value_type temp(eastl::forward<value_type>(*(first + parentPosition)));
-				eastl::adjust_heap<RandomAccessIterator, difference_type, value_type>
-								  (first, parentPosition, heapSize, parentPosition, eastl::forward<value_type>(temp));
-			} while(parentPosition != 0);
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename RandomAccessIterator, typename Compare>
 	void make_heap(RandomAccessIterator first, RandomAccessIterator last, Compare compare)
 	{
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::difference_type difference_type;
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::value_type      value_type;
-
-		const difference_type heapSize = last - first;
-
-		if(heapSize >= 2) // If there is anything to do... (we need this check because otherwise the math fails below).
-		{
-			difference_type parentPosition = ((heapSize - 2) >> 1) + 1; // We use '>> 1' instead of '/ 2' because we have seen VC++ generate better code with >>.
-
-			do{
-				--parentPosition;
-				value_type temp(eastl::forward<value_type>(*(first + parentPosition)));
-				eastl::adjust_heap<RandomAccessIterator, difference_type, value_type, Compare>
-								  (first, parentPosition, heapSize, parentPosition, eastl::forward<value_type>(temp), compare);
-			} while(parentPosition != 0);
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	///////////////////////////////////////////////////////////////////////
@@ -462,9 +349,8 @@ namespace eastl
 	template <typename RandomAccessIterator>
 	inline void sort_heap(RandomAccessIterator first, RandomAccessIterator last)
 	{
-		for(; (last - first) > 1; --last) // We simply use the heap to sort itself.
-			eastl::pop_heap<RandomAccessIterator>(first, last);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// sort_heap
@@ -475,9 +361,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Compare>
 	inline void sort_heap(RandomAccessIterator first, RandomAccessIterator last, Compare compare)
 	{
-		for(; (last - first) > 1; --last) // We simply use the heap to sort itself.
-			eastl::pop_heap<RandomAccessIterator, Compare>(first, last, compare);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -500,14 +385,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Distance>
 	inline void remove_heap(RandomAccessIterator first, Distance heapSize, Distance position)
 	{
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::difference_type difference_type;
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::value_type      value_type;
-
-		const value_type tempBottom(*(first + heapSize - 1));
-		*(first + heapSize - 1) = *(first + position);
-		eastl::adjust_heap<RandomAccessIterator, difference_type, value_type>
-						  (first, (difference_type)0, (difference_type)(heapSize - 1), (difference_type)position, tempBottom);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// remove_heap
@@ -523,14 +402,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Distance, typename Compare>
 	inline void remove_heap(RandomAccessIterator first, Distance heapSize, Distance position, Compare compare)
 	{
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::difference_type difference_type;
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::value_type      value_type;
-
-		const value_type tempBottom(*(first + heapSize - 1));
-		*(first + heapSize - 1) = *(first + position);
-		eastl::adjust_heap<RandomAccessIterator, difference_type, value_type, Compare>
-						  (first, (difference_type)0, (difference_type)(heapSize - 1), (difference_type)position, tempBottom, compare);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -547,16 +420,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Distance>
 	inline void change_heap(RandomAccessIterator first, Distance heapSize, Distance position)
 	{
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::difference_type difference_type;
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::value_type      value_type;
-
-		eastl::remove_heap<RandomAccessIterator, Distance>(first, heapSize, position);
-
-		value_type tempBottom(*(first + heapSize - 1));
-
-		eastl::promote_heap<RandomAccessIterator, difference_type, value_type>
-						   (first, (difference_type)0, (difference_type)(heapSize - 1), tempBottom);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// change_heap
@@ -567,16 +432,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Distance, typename Compare>
 	inline void change_heap(RandomAccessIterator first, Distance heapSize, Distance position, Compare compare)
 	{
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::difference_type difference_type;
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::value_type      value_type;
-
-		eastl::remove_heap<RandomAccessIterator, Distance, Compare>(first, heapSize, position, compare);
-
-		value_type tempBottom(*(first + heapSize - 1));
-
-		eastl::promote_heap<RandomAccessIterator, difference_type, value_type, Compare>
-						   (first, (difference_type)0, (difference_type)(heapSize - 1), tempBottom, compare);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -589,17 +446,8 @@ namespace eastl
 	template <typename RandomAccessIterator>
 	inline RandomAccessIterator is_heap_until(RandomAccessIterator first, RandomAccessIterator last)
 	{
-		int counter = 0;
-
-		for(RandomAccessIterator child = first + 1; child < last; ++child, counter ^= 1)
-		{
-			if(*first < *child)  // We must use operator <, and are not allowed to use > or >= here.
-				return child;
-			first += counter; // counter switches between 0 and 1 every time through.
-		}
-
-		return last;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// is_heap_until
@@ -610,17 +458,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Compare>
 	inline RandomAccessIterator is_heap_until(RandomAccessIterator first, RandomAccessIterator last, Compare compare)
 	{
-		int counter = 0;
-
-		for(RandomAccessIterator child = first + 1; child < last; ++child, counter ^= 1)
-		{
-			if(compare(*first, *child))
-				return child;
-			first += counter; // counter switches between 0 and 1 every time through.
-		}
-
-		return last;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -636,8 +475,8 @@ namespace eastl
 	template <typename RandomAccessIterator>
 	inline bool is_heap(RandomAccessIterator first, RandomAccessIterator last)
 	{
-		return (eastl::is_heap_until(first, last) == last);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// is_heap
@@ -648,8 +487,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename Compare>
 	inline bool is_heap(RandomAccessIterator first, RandomAccessIterator last, Compare compare)
 	{
-		return (eastl::is_heap_until(first, last, compare) == last);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// To consider: The following may be a faster implementation for most cases.

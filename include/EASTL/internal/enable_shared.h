@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -40,16 +42,24 @@ namespace eastl
 	{
 	public:
 		shared_ptr<T> shared_from_this()
-			{ return shared_ptr<T>(mWeakPtr); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		shared_ptr<const T> shared_from_this() const
-			{ return shared_ptr<const T>(mWeakPtr); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		weak_ptr<T> weak_from_this()
-			{ return mWeakPtr; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		weak_ptr<const T> weak_from_this() const
-			{ return mWeakPtr; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	public: // This is public because the alternative fails on some compilers that we need to support.
 		mutable weak_ptr<T> mWeakPtr;
@@ -58,13 +68,19 @@ namespace eastl
 		template <typename U> friend class shared_ptr;
 
 		EA_CONSTEXPR enable_shared_from_this() EA_NOEXCEPT
-			{ }
+			{
+    
+}
 
 		enable_shared_from_this(const enable_shared_from_this&) EA_NOEXCEPT
-			{ }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		enable_shared_from_this& operator=(const enable_shared_from_this&) EA_NOEXCEPT
-			{ return *this; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		~enable_shared_from_this()
 			{ }

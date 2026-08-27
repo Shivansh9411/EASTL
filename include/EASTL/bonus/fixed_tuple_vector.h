@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -57,11 +59,15 @@ private:
 public:
 	fixed_tuple_vector()
 		: base_type(fixed_allocator_type(mBuffer.buffer), mBuffer.buffer, nodeCount, fixed_allocator_type::kNodeSize)
-	{ }
+	{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	fixed_tuple_vector(const overflow_allocator_type& allocator)
 		: base_type(fixed_allocator_type(mBuffer.buffer, allocator), mBuffer.buffer, nodeCount, fixed_allocator_type::kNodeSize)
-	{ }
+	{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	fixed_tuple_vector(this_type&& x)
 		: base_type(fixed_allocator_type(mBuffer.buffer), mBuffer.buffer, nodeCount, fixed_allocator_type::kNodeSize)
@@ -74,126 +80,116 @@ public:
 	fixed_tuple_vector(this_type&& x, const overflow_allocator_type& allocator)
 		: base_type(fixed_allocator_type(mBuffer.buffer, allocator), mBuffer.buffer, nodeCount, fixed_allocator_type::kNodeSize)
 	{
-		base_type::DoInitFromIterator(eastl::make_move_iterator(x.begin()), eastl::make_move_iterator(x.end()));
-		x.clear();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	fixed_tuple_vector(const this_type& x)
 		: base_type(fixed_allocator_type(mBuffer.buffer), mBuffer.buffer, nodeCount, fixed_allocator_type::kNodeSize)
-	{ 
-		base_type::get_allocator().copy_overflow_allocator(x.get_allocator());
-		base_type::DoInitFromIterator(x.begin(), x.end());
-	}
+	{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	fixed_tuple_vector(const this_type& x, const overflow_allocator_type& allocator)
 		: base_type(fixed_allocator_type(mBuffer.buffer, allocator), mBuffer.buffer, nodeCount, fixed_allocator_type::kNodeSize)
 	{
-		base_type::DoInitFromIterator(x.begin(), x.end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename MoveIterBase>
 	fixed_tuple_vector(move_iterator<MoveIterBase> begin, move_iterator<MoveIterBase> end, const overflow_allocator_type& allocator = EASTL_FIXED_TUPLE_VECTOR_DEFAULT_ALLOCATOR)
 		: base_type(fixed_allocator_type(mBuffer.buffer, allocator), mBuffer.buffer, nodeCount, fixed_allocator_type::kNodeSize)
 	{
-		base_type::DoInitFromIterator(begin, end);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Iterator>
 	fixed_tuple_vector(Iterator begin, Iterator end, const overflow_allocator_type& allocator = EASTL_FIXED_TUPLE_VECTOR_DEFAULT_ALLOCATOR)
 		: base_type(fixed_allocator_type(mBuffer.buffer, allocator), mBuffer.buffer, nodeCount, fixed_allocator_type::kNodeSize)
 	{
-		base_type::DoInitFromIterator(begin, end);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	fixed_tuple_vector(size_type n, const overflow_allocator_type& allocator = EASTL_FIXED_TUPLE_VECTOR_DEFAULT_ALLOCATOR)
 		: base_type(fixed_allocator_type(mBuffer.buffer, allocator), mBuffer.buffer, nodeCount, fixed_allocator_type::kNodeSize)
 	{
-		base_type::DoInitDefaultFill(n);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	fixed_tuple_vector(size_type n, const Ts&... args)
 		: base_type(fixed_allocator_type(mBuffer.buffer), mBuffer.buffer, nodeCount, fixed_allocator_type::kNodeSize)
 	{
-		base_type::DoInitFillArgs(n, args...);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	fixed_tuple_vector(size_type n, const Ts&... args, const overflow_allocator_type& allocator)
 		: base_type(fixed_allocator_type(mBuffer.buffer, allocator), mBuffer.buffer, nodeCount, fixed_allocator_type::kNodeSize)
 	{
-		base_type::DoInitFillArgs(n, args...);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	fixed_tuple_vector(size_type n,
 				typename base_type::const_reference_tuple tup,
 				const overflow_allocator_type& allocator = EASTL_FIXED_TUPLE_VECTOR_DEFAULT_ALLOCATOR)
 		: base_type(fixed_allocator_type(mBuffer.buffer, allocator), mBuffer.buffer, nodeCount, fixed_allocator_type::kNodeSize)
 	{
-		base_type::DoInitFillTuple(n, tup);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	fixed_tuple_vector(const typename base_type::value_tuple* first, const typename base_type::value_tuple* last,
 		const overflow_allocator_type& allocator = EASTL_FIXED_TUPLE_VECTOR_DEFAULT_ALLOCATOR)
 		: base_type(fixed_allocator_type(mBuffer.buffer, allocator), mBuffer.buffer, nodeCount, fixed_allocator_type::kNodeSize)
 	{
-		base_type::DoInitFromTupleArray(first, last);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	fixed_tuple_vector(std::initializer_list<typename base_type::value_tuple> iList,
 		const overflow_allocator_type& allocator = EASTL_FIXED_TUPLE_VECTOR_DEFAULT_ALLOCATOR)
 		: base_type(fixed_allocator_type(mBuffer.buffer, allocator), mBuffer.buffer, nodeCount, fixed_allocator_type::kNodeSize)
 	{
-		base_type::DoInitFromTupleArray(iList.begin(), iList.end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	this_type& operator=(const this_type& other)
 	{
-		base_type::operator=(other);
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	this_type& operator=(this_type&& other)
 	{
-		base_type::clear();
-		// OK to call DoInitFromIterator in a non-ctor scenario because clear() reset everything, more-or-less
-		base_type::DoInitFromIterator(eastl::make_move_iterator(other.begin()), eastl::make_move_iterator(other.end()));
-		other.clear();
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	this_type& operator=(std::initializer_list<typename base_type::value_tuple> iList)
 	{
-		base_type::operator=(iList);
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	void swap(this_type& x)
 	{
-		// If both containers are using the heap instead of local memory 
-		// then we can do a fast pointer swap instead of content swap.
-		if ((has_overflowed() && x.has_overflowed()) && (get_overflow_allocator() == x.get_overflow_allocator()))
-		{
-			base_type::swap(x);
-		}
-		else
-		{
-			// Fixed containers use a special swap that can deal with excessively large buffers.
-			eastl::fixed_swap(*this, x);
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	// Returns the max fixed size, which is the user-supplied nodeCount parameter.
-	size_type max_size() const { return nodeCount; }
+	size_type max_size() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	// Returns true if the fixed space has been fully allocated. Note that if overflow is enabled,
 	// the container size can be greater than nodeCount but full() could return true because the
 	// fixed space may have a recently freed slot.
-	bool full() const { return (base_type::mNumElements >= nodeCount) || ((void*)base_type::mpData != (void*)mBuffer.buffer);	}
+	bool full() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	// Returns true if the allocations spilled over into the overflow allocator. Meaningful
 	// only if overflow is enabled.
-	bool has_overflowed() const { return ((void*)base_type::mpData != (void*)mBuffer.buffer); }
+	bool has_overflowed() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	// Returns the value of the bEnableOverflow template parameter.
 	static constexpr bool can_overflow() { return bEnableOverflow; }
 
-	const overflow_allocator_type& get_overflow_allocator() const { return base_type::get_allocator().get_overflow_allocator(); }
+	const overflow_allocator_type& get_overflow_allocator() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 };
 
 
@@ -201,7 +197,7 @@ template <size_t nodeCount, bool bEnableOverflow, typename... Ts>
 inline void swap(fixed_tuple_vector<nodeCount, bEnableOverflow, Ts...>& a,
 				fixed_tuple_vector<nodeCount, bEnableOverflow, Ts...>& b)
 {
-	a.swap(b);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 

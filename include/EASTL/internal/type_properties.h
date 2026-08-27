@@ -60,9 +60,7 @@ namespace eastl
 	#if EASTL_VARIABLE_TEMPLATES_ENABLED && !defined(EA_COMPILER_NO_TEMPLATE_ALIASES)
 		template<class T>
 		constexpr underlying_type_t<T> to_underlying(T value) noexcept
-		{
-			return static_cast<underlying_type_t<T>>(value);
-		}
+		{ return {}; }
 	#endif
 
 

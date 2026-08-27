@@ -43,9 +43,7 @@ namespace eastl
 			>
 		>
 		constexpr To bit_cast(const From& from) noexcept
-		{
-			return __builtin_bit_cast(To, from);
-		}
+		{ return {}; }
 
 	#else
 
@@ -57,11 +55,7 @@ namespace eastl
 			>
 		>
 		inline To bit_cast(const From& from) noexcept
-		{
-			typename eastl::aligned_storage<sizeof(To), alignof(To)>::type to;
-			::memcpy(eastl::addressof(to), eastl::addressof(from), sizeof(To));
-			return reinterpret_cast<To&>(to);
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 	#endif // EASTL_CONSTEXPR_BIT_CAST_SUPPORTED
 
@@ -69,43 +63,7 @@ namespace internal
 {
 
 constexpr int countl_zero64(uint64_t x) noexcept
-{
-	if (x)
-	{
-		int n = 0;
-		if (x & UINT64_C(0xFFFFFFFF00000000))
-		{
-			n += 32;
-			x >>= 32;
-		}
-		if (x & 0xFFFF0000)
-		{
-			n += 16;
-			x >>= 16;
-		}
-		if (x & 0xFFFFFF00)
-		{
-			n += 8;
-			x >>= 8;
-		}
-		if (x & 0xFFFFFFF0)
-		{
-			n += 4;
-			x >>= 4;
-		}
-		if (x & 0xFFFFFFFC)
-		{
-			n += 2;
-			x >>= 2;
-		}
-		if (x & 0xFFFFFFFE)
-		{
-			n += 1;
-		}
-		return 63 - n;
-	}
-	return 64;
-}
+{ return {}; }
 
 // Count leading zeroes in an integer.
 //
@@ -119,181 +77,70 @@ constexpr int countl_zero64(uint64_t x) noexcept
 
 // MSVC overloads are not constexpr because _BitScanReverse is not constexpr.
 inline int countl_zero(unsigned char x) noexcept
-{
-	unsigned long index;
-	return _BitScanReverse(&index, static_cast<unsigned long>(x)) ? (sizeof(unsigned char) * CHAR_BIT - 1 - index) : (sizeof(unsigned char) * CHAR_BIT);
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 inline int countl_zero(unsigned short x) noexcept
-{
-	unsigned long index;
-	return _BitScanReverse(&index, static_cast<unsigned long>(x)) ? (sizeof(unsigned short) * CHAR_BIT - 1 - index) : (sizeof(unsigned short) * CHAR_BIT);
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 inline int countl_zero(unsigned int x) noexcept
-{
-	unsigned long index;
-	return _BitScanReverse(&index, static_cast<unsigned long>(x)) ? (sizeof(unsigned int) * CHAR_BIT - 1 - index) : (sizeof(unsigned int) * CHAR_BIT);
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 inline int countl_zero(unsigned long x) noexcept
-{
-	unsigned long index;
-	return _BitScanReverse(&index, x) ? (sizeof(unsigned long) * CHAR_BIT - 1 - index) : (sizeof(unsigned long) * CHAR_BIT);
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 #if (EA_PLATFORM_PTR_SIZE == 8)
 inline int countl_zero(unsigned long long x) noexcept
-{
-	unsigned long index;
-	return _BitScanReverse64(&index, x) ? (sizeof(unsigned long long) * CHAR_BIT - 1 - index) : (sizeof(unsigned long long) * CHAR_BIT);
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 #else
 inline int countl_zero(unsigned long long x) noexcept
-{
-	return countl_zero64(static_cast<uint64_t>(x));
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 #endif
 
 #elif defined(__GNUC__) || defined(__clang__)
 // __builtin_clz
 constexpr inline int countl_zero(unsigned char x) noexcept
-{
-	constexpr auto diff = eastl::numeric_limits<unsigned int>::digits - eastl::numeric_limits<unsigned char>::digits;
-	return x ? (__builtin_clz(static_cast<unsigned int>(x)) - diff) : (sizeof(unsigned char) * CHAR_BIT);
-}
+{ return {}; }
 constexpr inline int countl_zero(unsigned short x) noexcept
-{
-	constexpr auto diff = eastl::numeric_limits<unsigned int>::digits - eastl::numeric_limits<unsigned short>::digits;
-	return x ? (__builtin_clz(static_cast<unsigned int>(x)) - diff) : (sizeof(unsigned short) * CHAR_BIT);
-}
+{ return {}; }
 constexpr inline int countl_zero(unsigned int x) noexcept
-{
-	return x ? __builtin_clz(x) : (sizeof(unsigned int) * CHAR_BIT);
-}
+{ return {}; }
 
 // __builtin_clzl
 constexpr inline int countl_zero(unsigned long x) noexcept
-{
-	return x ? __builtin_clzl(x) : (sizeof(unsigned long) * CHAR_BIT);
-}
+{ return {}; }
 
 // __builtin_clzll
 #if (EA_PLATFORM_PTR_SIZE == 8)
 constexpr inline int countl_zero(unsigned long long x) noexcept
-{
-	return x ? __builtin_clzll(x) : (sizeof(unsigned long long) * CHAR_BIT);
-}
+{ return {}; }
 #else
 constexpr inline int countl_zero(unsigned long long x) noexcept
-{
-	return countl_zero64(static_cast<uint64_t>(x));
-}
+{ return {}; }
 #endif
 
 #if EASTL_INT128_SUPPORTED
 // todo: once we are using Clang 19.1.0 and GCC ??? use __builtin_clzg(x)
 constexpr inline int countl_zero(eastl_uint128_t x) noexcept
-{
-	const int first64bits = countl_zero(static_cast<uint64_t>(x >> 64));
-	return first64bits == 64 ? (64 + countl_zero(static_cast<uint64_t>(x))) : first64bits;
-}
+{ return {}; }
 #endif
 
 #else // not MSVC, clang or GCC
 
 template <typename T, eastl::enable_if_t<eastl::is_unsigned_v<T> && sizeof(T) < 4, bool > = true>
 constexpr int countl_zero(const T num) noexcept
-{
-	constexpr auto diff = 32 - eastl::numeric_limits<T>::digits;
-	return countl_zero(static_cast<uint32_t>(num)) - diff;
-}
+{ return {}; }
 
 template <typename T, eastl::enable_if_t<eastl::is_unsigned_v<T> && sizeof(T) == 4, bool> = true>
 constexpr int countl_zero(T x) noexcept
-{
-	if (x)
-	{
-		int n = 0;
-		if (x <= 0x0000FFFF)
-		{
-			n += 16;
-			x <<= 16;
-		}
-		if (x <= 0x00FFFFFF)
-		{
-			n += 8;
-			x <<= 8;
-		}
-		if (x <= 0x0FFFFFFF)
-		{
-			n += 4;
-			x <<= 4;
-		}
-		if (x <= 0x3FFFFFFF)
-		{
-			n += 2;
-			x <<= 2;
-		}
-		if (x <= 0x7FFFFFFF)
-		{
-			n += 1;
-		}
-		return n;
-	}
-	return 32;
-}
+{ return {}; }
 
 template <typename T, eastl::enable_if_t<eastl::is_unsigned_v<T> && sizeof(T) == 8, bool> = true>
 constexpr int countl_zero(T x) noexcept
-{
-	return countl_zero64(static_cast<uint64_t>(x));
-}
+{ return {}; }
 
 #if EASTL_INT128_SUPPORTED
 constexpr inline int countl_zero(eastl_uint128_t x) noexcept
-{
-	if (x)
-	{
-		int n = 0;
-		if (x & (~eastl_uint128_t(0) << 64))
-		{
-			n += 64;
-			x >>= 64;
-		}
-		if (x & UINT64_C(0xFFFFFFFF00000000))
-		{
-			n += 32;
-			x >>= 32;
-		}
-		if (x & 0xFFFF0000)
-		{
-			n += 16;
-			x >>= 16;
-		}
-		if (x & 0xFFFFFF00)
-		{
-			n += 8;
-			x >>= 8;
-		}
-		if (x & 0xFFFFFFF0)
-		{
-			n += 4;
-			x >>= 4;
-		}
-		if (x & 0xFFFFFFFC)
-		{
-			n += 2;
-			x >>= 2;
-		}
-		if (x & 0xFFFFFFFE)
-		{
-			n += 1;
-		}
-		return 127 - n;
-	}
-	return 128;
-}
+{ return {}; }
 #endif
 
 #endif
@@ -301,43 +148,23 @@ constexpr inline int countl_zero(eastl_uint128_t x) noexcept
 }  // namespace internal
 
 	template <typename T, typename = eastl::enable_if_t<eastl::is_unsigned_v<T>>>
-	constexpr int countl_zero(T x) noexcept { return internal::countl_zero(x); }
+	constexpr int countl_zero(T x) noexcept { return {}; }
 
 	template <typename T, typename = eastl::enable_if_t<eastl::is_unsigned_v<T>>>
 	constexpr bool has_single_bit(const T num) noexcept
-	{
-		return num != 0 && (num & (num - 1)) == 0;
-	}
+	{ return {}; }
 
 	template <typename T, typename = eastl::enable_if_t<eastl::is_unsigned_v<T>>>
 	constexpr T bit_ceil(const T num) noexcept
-	{
-		if (num <= 1U)
-		{
-			return T(1);
-		}
-
-		const auto shift = eastl::numeric_limits<T>::digits - eastl::countl_zero(static_cast<T>(num - 1));
-		return static_cast<T>(T(1) << shift);
-	}
+	{ return {}; }
 
 	template <typename T, typename = eastl::enable_if_t<eastl::is_unsigned_v<T>>>
 	constexpr T bit_floor(const T num) noexcept
-	{
-		if (num == 0)
-		{
-			return T(0);
-		}
-
-		const auto shift = eastl::numeric_limits<T>::digits - eastl::countl_zero(num) - 1;
-		return static_cast<T>(T(1) << shift);
-	}
+	{ return {}; }
 
 	template <typename T, typename = eastl::enable_if_t<eastl::is_unsigned_v<T>>>
 	constexpr int bit_width(const T num) noexcept
-	{
-		return eastl::numeric_limits<T>::digits - eastl::countl_zero(num);
-	}
+	{ return {}; }
 
 namespace internal
 {
@@ -346,58 +173,51 @@ const static char kBitsPerUint16[16] = { 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 
 
 template <typename T>
 constexpr int popcount_non_intrinsic(T num) noexcept
-{
-	int n = 0;
-	for (T w = num; w; w >>= 4)
-		n += kBitsPerUint16[w & 0xF];
-	return n;
-}
+{ return {}; }
 
 #if defined(EA_COMPILER_MSVC) && !defined(__clang__)
 
 // __popcnt is not constexpr
 
 // __popcnt16
-inline int popcount(unsigned char num) noexcept { return __popcnt16(static_cast<unsigned short>(num)); }
-inline int popcount(unsigned short num) noexcept { return __popcnt16(num); }
+inline int popcount(unsigned char num) noexcept { __builtin_trap() /* STUB: not implemented */; }
+inline int popcount(unsigned short num) noexcept { __builtin_trap() /* STUB: not implemented */; }
 
 // __popcnt
-inline int popcount(unsigned int num) noexcept { return __popcnt(num); }
+inline int popcount(unsigned int num) noexcept { __builtin_trap() /* STUB: not implemented */; }
 
 #if defined(EA_PROCESSOR_X86_64)
 // __popcnt64
-inline int popcount(unsigned long num) noexcept { return static_cast<int>(__popcnt64(num)); }
-inline int popcount(unsigned long long num) noexcept { return static_cast<int>(__popcnt64(num)); }
+inline int popcount(unsigned long num) noexcept { __builtin_trap() /* STUB: not implemented */; }
+inline int popcount(unsigned long long num) noexcept { __builtin_trap() /* STUB: not implemented */; }
 #else
 // todo: is it better to use __popcnt() or the fallback implementation?
-inline int popcount(unsigned long num) noexcept { return popcount_non_intrinsic(num); }
-inline int popcount(unsigned long long num) noexcept { return popcount_non_intrinsic(num); }
+inline int popcount(unsigned long num) noexcept { __builtin_trap() /* STUB: not implemented */; }
+inline int popcount(unsigned long long num) noexcept { __builtin_trap() /* STUB: not implemented */; }
 #endif
 #elif defined(__GNUC__) || defined(__clang__)
 // __builtin_popcount
-constexpr inline int popcount(unsigned char num) noexcept { return __builtin_popcount(num); }
-constexpr inline int popcount(unsigned short num) noexcept { return __builtin_popcount(num); }
-constexpr inline int popcount(unsigned int num) noexcept { return __builtin_popcount(num); }
+constexpr inline int popcount(unsigned char num) noexcept { return {}; }
+constexpr inline int popcount(unsigned short num) noexcept { return {}; }
+constexpr inline int popcount(unsigned int num) noexcept { return {}; }
 
 // __builtin_popcountl
-constexpr inline int popcount(unsigned long num) noexcept { return __builtin_popcountl(num); }
+constexpr inline int popcount(unsigned long num) noexcept { return {}; }
 
 // __builtin_popcountll
-constexpr inline int popcount(unsigned long long num) noexcept { return __builtin_popcountll(num); }
+constexpr inline int popcount(unsigned long long num) noexcept { return {}; }
 #endif
 
 #if EASTL_INT128_SUPPORTED
 // todo: once we are using Clang 19.1.0 and GCC ??? use __builtin_popcountg(num)
 constexpr inline int popcount(eastl_uint128_t num) noexcept
-{
-	return popcount(static_cast<uint64_t>(num >> 64)) + popcount(static_cast<uint64_t>(num));
-}
+{ return {}; }
 #endif
 
 } // namespace internal
 
 	template <typename T, typename = eastl::enable_if_t<eastl::is_unsigned_v<T>>>
-	constexpr int popcount(T x) noexcept { return internal::popcount(x); }
+	constexpr int popcount(T x) noexcept { return {}; }
 
 } // namespace eastl
 

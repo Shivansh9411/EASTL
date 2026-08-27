@@ -1,3 +1,4 @@
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -149,11 +150,15 @@ namespace eastl
 
 		// We intentionally provide no constructor, destructor, or assignment operator.
 
-		void fill(const value_type&) {}
+		void fill(const value_type&) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// Unlike the swap function for other containers, array::swap takes linear time,
 		// may exit via an exception, and does not cause iterators to become associated with the other container.
-		void swap(this_type&) EA_NOEXCEPT {}
+		void swap(this_type&) EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		EA_CPP14_CONSTEXPR iterator       begin() EA_NOEXCEPT { return nullptr; }
 		EA_CPP14_CONSTEXPR const_iterator begin() const EA_NOEXCEPT { return nullptr; }
@@ -211,8 +216,12 @@ namespace eastl
 		EA_CPP14_CONSTEXPR reference       back() { return *data(); }
 		EA_CPP14_CONSTEXPR const_reference back() const { return *data(); }
 
-		bool validate() const { return true; }
-		int  validate_iterator(const_iterator) const { return isf_none; }
+		bool validate() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		int  validate_iterator(const_iterator) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // class array
 
@@ -234,15 +243,15 @@ namespace eastl
 	template <typename T, size_t N>
 	inline void array<T, N>::fill(const value_type& value)
 	{
-		eastl::fill_n(&mValue[0], N, value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, size_t N>
 	inline void array<T, N>::swap(this_type& x) EA_NOEXCEPT_IF(eastl::is_nothrow_swappable<value_type>::value)
 	{
-		eastl::swap_ranges(&mValue[0], &mValue[N], &x.mValue[0]);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, size_t N>
@@ -477,24 +486,15 @@ namespace eastl
 	template <typename T, size_t N>
 	inline bool array<T, N>::validate() const
 	{
-		return true; // There is nothing to do.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, size_t N>
 	inline int array<T, N>::validate_iterator(const_iterator i) const
 	{
-		if(i >= mValue)
-		{
-			if(i < (mValue + N))
-				return (isf_valid | isf_current | isf_can_dereference);
-
-			if(i <= (mValue + N))
-				return (isf_valid | isf_current);
-		}
-
-		return isf_none;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -586,8 +586,8 @@ namespace eastl
 	template <typename T, size_t N>
 	inline void swap(array<T, N>& a, array<T, N>& b)
 	{
-		eastl::swap_ranges(&a.mValue[0], &a.mValue[N], &b.mValue[0]);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	///////////////////////////////////////////////////////////////////////

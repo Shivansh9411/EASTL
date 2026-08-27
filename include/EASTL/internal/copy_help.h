@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -51,10 +53,8 @@ namespace eastl
 		template <typename InputIterator, typename OutputIterator>
 		static OutputIterator move_or_copy(InputIterator first, InputIterator last, OutputIterator result)
 		{
-			for(; first != last; ++result, ++first)
-				*result = *first;
-			return result;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	// Specialization for copying non-trivial data via a random-access iterator. It's theoretically faster because the compiler can see the count when its a compile-time const.
@@ -82,10 +82,8 @@ namespace eastl
 		template <typename InputIterator, typename OutputIterator>
 		static OutputIterator move_or_copy(InputIterator first, InputIterator last, OutputIterator result)
 		{
-			for(; first != last; ++result, ++first)
-				*result = eastl::move(*first);
-			return result;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	// Specialization for moving non-trivial data via a random-access iterator. It's theoretically faster because the compiler can see the count when its a compile-time const.
@@ -151,23 +149,16 @@ namespace eastl
 	template <bool isMove, typename InputIterator, typename OutputIterator>
 	inline OutputIterator move_and_copy_chooser(InputIterator first, InputIterator last, OutputIterator result)
 	{
-		typedef typename eastl::iterator_traits<InputIterator>::iterator_category  IIC;
-
-		const bool canBeMemmoved = internal::can_be_memmoved_helper<InputIterator, OutputIterator>::value;
-
-		// Need to choose based on the input iterator tag and not the output iterator tag, because containers accept input ranges of iterator types different than self.
-		return eastl::move_and_copy_helper<IIC, isMove, canBeMemmoved>::move_or_copy(first, last, result);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// We have a second layer of unwrap_iterator calls because the original iterator might be something like move_iterator<reverse_iterator<int*> > (i.e. doubly-wrapped).
 	template <bool isMove, typename InputIterator, typename OutputIterator>
 	EASTL_REMOVE_AT_2024_SEPT inline OutputIterator move_and_copy_unwrapper(InputIterator first, InputIterator last, OutputIterator result)
 	{
-		EASTL_INTERNAL_DISABLE_DEPRECATED() // 'unwrap_iterator': was declared deprecated
-		return OutputIterator(eastl::move_and_copy_chooser<isMove>(eastl::unwrap_iterator(first), eastl::unwrap_iterator(last), eastl::unwrap_iterator(result))); // Have to convert to OutputIterator because unwrap_iterator(result) could be a T*
-		EASTL_INTERNAL_RESTORE_DEPRECATED()
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// move
@@ -193,8 +184,8 @@ namespace eastl
 	template <typename InputIterator, typename OutputIterator>
 	inline OutputIterator move(InputIterator first, InputIterator last, OutputIterator result)
 	{
-		return eastl::move_and_copy_chooser<true>(first, last, result);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// copy
@@ -214,8 +205,8 @@ namespace eastl
 	template <typename InputIterator, typename OutputIterator>
 	inline OutputIterator copy(InputIterator first, InputIterator last, OutputIterator result)
 	{
-		return eastl::move_and_copy_chooser<false>(first, last, result);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 } // namespace eastl
 
 #endif // EASTL_INTERNAL_COPY_HELP_H

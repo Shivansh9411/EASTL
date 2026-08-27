@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -92,9 +94,8 @@ namespace eastl
 	///
 	uint32_t prime_rehash_policy::GetPrevBucketCountOnly(uint32_t nBucketCountHint)
 	{
-		const uint32_t nPrime = *(eastl::upper_bound(gPrimeNumberArray, gPrimeNumberArray + kPrimeCount, nBucketCountHint) - 1);
-		return nPrime;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// GetPrevBucketCount
@@ -103,11 +104,8 @@ namespace eastl
 	///
 	uint32_t prime_rehash_policy::GetPrevBucketCount(uint32_t nBucketCountHint) const
 	{
-		const uint32_t nPrime = *(eastl::upper_bound(gPrimeNumberArray, gPrimeNumberArray + kPrimeCount, nBucketCountHint) - 1);
-
-		mnNextResize = (uint32_t)ceilf(nPrime * mfMaxLoadFactor);
-		return nPrime;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// GetNextBucketCount
@@ -116,11 +114,8 @@ namespace eastl
 	///
 	uint32_t prime_rehash_policy::GetNextBucketCount(uint32_t nBucketCountHint) const
 	{
-		const uint32_t nPrime = *eastl::lower_bound(gPrimeNumberArray, gPrimeNumberArray + kPrimeCount, nBucketCountHint);
-
-		mnNextResize = (uint32_t)ceilf(nPrime * mfMaxLoadFactor);
-		return nPrime;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// GetBucketCount
@@ -129,12 +124,8 @@ namespace eastl
 	///
 	uint32_t prime_rehash_policy::GetBucketCount(uint32_t nElementCount) const
 	{
-		const uint32_t nMinBucketCount = (uint32_t)(nElementCount / mfMaxLoadFactor);
-		const uint32_t nPrime          = *eastl::lower_bound(gPrimeNumberArray, gPrimeNumberArray + kPrimeCount, nMinBucketCount);
-
-		mnNextResize = (uint32_t)ceilf(nPrime * mfMaxLoadFactor);
-		return nPrime;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// GetRehashRequired
@@ -146,30 +137,8 @@ namespace eastl
 	eastl::pair<bool, uint32_t>
 	prime_rehash_policy::GetRehashRequired(uint32_t nBucketCount, uint32_t nElementCount, uint32_t nElementAdd) const
 	{
-		if((nElementCount + nElementAdd) > mnNextResize) // It is significant that we specify > next resize and not >= next resize.
-		{
-			if(nBucketCount == 1) // We force rehashing to occur if the bucket count is < 2.
-				nBucketCount = 0;
-
-			float fMinBucketCount = (nElementCount + nElementAdd) / mfMaxLoadFactor;
-
-			if(fMinBucketCount > (float)nBucketCount)
-			{
-				fMinBucketCount       = eastl::max_alt(fMinBucketCount, mfGrowthFactor * nBucketCount);
-				const uint32_t nPrime = *eastl::lower_bound(gPrimeNumberArray, gPrimeNumberArray + kPrimeCount, (uint32_t)fMinBucketCount);
-				mnNextResize          = (uint32_t)ceilf(nPrime * mfMaxLoadFactor);
-
-				return eastl::pair<bool, uint32_t>(true, nPrime);
-			}
-			else
-			{
-				mnNextResize = (uint32_t)ceilf(nBucketCount * mfMaxLoadFactor);
-				return eastl::pair<bool, uint32_t>(false, (uint32_t)0);
-			}
-		}
-
-		return eastl::pair<bool, uint32_t>(false, (uint32_t)0);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

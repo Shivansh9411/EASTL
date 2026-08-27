@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -103,8 +105,8 @@ namespace eastl
 		EA_CPP14_CONSTEXPR unique_ptr() EA_NOEXCEPT
 			: mPair(pointer())
 		{
-			static_assert(!eastl::is_pointer<deleter_type>::value, "unique_ptr deleter default-constructed with null pointer. Use a different constructor or change your deleter to a class.");
-		}
+    
+}
 
 		/// unique_ptr
 		/// Construct a unique_ptr from a null pointer.
@@ -113,8 +115,8 @@ namespace eastl
 		EA_CPP14_CONSTEXPR unique_ptr(std::nullptr_t) EA_NOEXCEPT
 			: mPair(pointer())
 		{
-			static_assert(!eastl::is_pointer<deleter_type>::value, "unique_ptr deleter default-constructed with null pointer. Use a different constructor or change your deleter to a class.");
-		}
+    
+}
 
 		/// unique_ptr
 		/// Construct a unique_ptr from a pointer allocated via new.
@@ -123,8 +125,8 @@ namespace eastl
 		explicit unique_ptr(pointer pValue) EA_NOEXCEPT
 			: mPair(pValue)
 		{
-			static_assert(!eastl::is_pointer<deleter_type>::value, "unique_ptr deleter default-constructed with null pointer. Use a different constructor or change your deleter to a class.");
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// unique_ptr
 		/// Constructs a unique_ptr with the owner pointer and deleter specified
@@ -132,7 +134,9 @@ namespace eastl
 		///     eastl::smart_ptr_deleter<int> del;
 		///     unique_ptr<int> ptr(new int(3), del);
 		unique_ptr(pointer pValue, typename eastl::conditional<eastl::is_lvalue_reference<deleter_type>::value, deleter_type, typename eastl::add_lvalue_reference<const deleter_type>::type>::type deleter) EA_NOEXCEPT
-			: mPair(pValue, deleter) {}
+			: mPair(pValue, deleter) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// unique_ptr
 		/// Constructs a unique_ptr with the owned pointer and deleter specified (rvalue)
@@ -141,8 +145,8 @@ namespace eastl
 		unique_ptr(pointer pValue, typename eastl::remove_reference<deleter_type>::type&& deleter) EA_NOEXCEPT
 			: mPair(pValue, eastl::move(deleter))
 		{
-			static_assert(!eastl::is_lvalue_reference<deleter_type>::value, "deleter_type reference refers to an rvalue deleter. The reference will probably become invalid before used. Change the deleter_type to not be a reference or construct with permanent deleter.");
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// unique_ptr
 		/// Move constructor
@@ -159,7 +163,9 @@ namespace eastl
 		///     unique_ptr<int> newPtr = eastl::move(ptr);
 		template <typename U, typename E>
 		unique_ptr(unique_ptr<U, E>&& u, typename enable_if<!is_array<U>::value && is_convertible<typename unique_ptr<U, E>::pointer, pointer>::value && is_convertible<E, deleter_type>::value && (is_same<deleter_type, E>::value || !is_lvalue_reference<deleter_type>::value)>::type* = 0) EA_NOEXCEPT
-			: mPair(u.release(), eastl::forward<E>(u.get_deleter())) {}
+			: mPair(u.release(), eastl::forward<E>(u.get_deleter())) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// unique_ptr
 		/// Move assignment
@@ -169,10 +175,8 @@ namespace eastl
 		///     ptr = eastl::move(newPtr);  // Deletes int(3) and assigns mpValue to int(4)
 		this_type& operator=(this_type&& x) EA_NOEXCEPT
 		{
-			reset(x.release());
-			mPair.second() = eastl::move(eastl::forward<deleter_type>(x.get_deleter()));
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// unique_ptr
 		/// Move assignment
@@ -180,17 +184,14 @@ namespace eastl
 		typename enable_if<!is_array<U>::value && is_convertible<typename unique_ptr<U, E>::pointer, pointer>::value && is_assignable<deleter_type&, E&&>::value, this_type&>::type
 		operator=(unique_ptr<U, E>&& u) EA_NOEXCEPT
 		{
-			reset(u.release());
-			mPair.second() = eastl::move(eastl::forward<E>(u.get_deleter()));
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// operator=(nullptr_t)
 		this_type& operator=(std::nullptr_t) EA_NOEXCEPT
 		{
-			reset();
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// ~unique_ptr
 		/// Destroys the owned pointer. The destructor for the object
@@ -210,12 +211,8 @@ namespace eastl
 		///    ptr.reset(NULL);        // deletes int(4)
 		void reset(pointer pValue = pointer()) EA_NOEXCEPT
 		{
-			if (pValue != mPair.first())
-			{
-				if (auto first = eastl::exchange(mPair.first(), pValue))
-					get_deleter()(first);
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// release
 		/// This simply forgets the owned pointer. It doesn't 
@@ -226,21 +223,21 @@ namespace eastl
 		///    delete pInt;
 		pointer release() EA_NOEXCEPT
 		{
-			pointer const pTemp = mPair.first();
-			mPair.first() = pointer();
-			return pTemp;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// detach
 		/// For backwards-compatibility with pre-C++11 code.
-		pointer detach() EA_NOEXCEPT { return release(); } 
+		pointer detach() EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+} 
 
 		/// swap
 		/// Exchanges the owned pointer beween two unique_ptr objects. 
 		void swap(this_type& x) EA_NOEXCEPT
 		{
-			mPair.swap(x.mPair);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// operator*
 		/// Returns the owner pointer dereferenced.
@@ -249,8 +246,8 @@ namespace eastl
 		///    int x = *ptr;
 		typename add_lvalue_reference<T>::type operator*() const // Not noexcept, because the pointer may be NULL.
 		{
-			return *mPair.first();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// operator->
 		/// Allows access to the owned pointer via operator->()
@@ -260,8 +257,8 @@ namespace eastl
 		///    ptr->DoSomething();
 		pointer operator->() const EA_NOEXCEPT
 		{
-			return mPair.first();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// get
 		/// Returns the owned pointer. Note that this class does 
@@ -274,8 +271,8 @@ namespace eastl
 		///    pX->DoSomething();
 		pointer get() const EA_NOEXCEPT
 		{
-			return mPair.first();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// get_deleter
 		/// Returns the deleter used to delete the owned pointer
@@ -284,15 +281,15 @@ namespace eastl
 		/// eastl::smart_ptr_deleter<int>& del = ptr.get_deleter();
 		deleter_type& get_deleter() EA_NOEXCEPT
 		{
-			return mPair.second();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// get_deleter
 		/// Const version for getting the deleter
 		const deleter_type& get_deleter() const EA_NOEXCEPT
 		{
-			return mPair.second();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		#ifdef EA_COMPILER_NO_EXPLICIT_CONVERSION_OPERATORS
 			/// Note that below we do not use operator bool(). The reason for this
@@ -319,9 +316,9 @@ namespace eastl
 			///        ++*ptr;
 			///
 			explicit operator bool() const EA_NOEXCEPT
-			{ 
-				return (mPair.first() != pointer());
-			}
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 		#endif
 
 		/// These functions are deleted in order to prevent copying, for safety.
@@ -364,37 +361,37 @@ namespace eastl
 		EA_CPP14_CONSTEXPR unique_ptr() EA_NOEXCEPT
 			: mPair(pointer())
 		{
-			static_assert(!eastl::is_pointer<deleter_type>::value, "unique_ptr deleter default-constructed with null pointer. Use a different constructor or change your deleter to a class.");
-		}
+    
+}
 
 		EA_CPP14_CONSTEXPR unique_ptr(std::nullptr_t) EA_NOEXCEPT
 			: mPair(pointer())
 		{
-			static_assert(!eastl::is_pointer<deleter_type>::value, "unique_ptr deleter default-constructed with null pointer. Use a different constructor or change your deleter to a class.");
-		}
+    
+}
 
 		template <typename P,
 		          typename = eastl::enable_if_t<Internal::is_array_cv_convertible<P, pointer>::value>> // Pointers to types derived from T are rejected by the constructors, and by reset.
 		 explicit unique_ptr(P pArray) EA_NOEXCEPT
 		    : mPair(pArray)
 		{
-			static_assert(!eastl::is_pointer<deleter_type>::value,
-			              "unique_ptr deleter default-constructed with null pointer. Use a different constructor or "
-			              "change your deleter to a class.");
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename P>
 		unique_ptr(P pArray, typename eastl::conditional<eastl::is_lvalue_reference<deleter_type>::value, deleter_type,
 														typename eastl::add_lvalue_reference<const deleter_type>::type>::type deleter,
 														typename eastl::enable_if<Internal::is_array_cv_convertible<P, pointer>::value>::type* = 0) EA_NOEXCEPT
-			: mPair(pArray, deleter) {}
+			: mPair(pArray, deleter) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename P>
 		unique_ptr(P pArray, typename eastl::remove_reference<deleter_type>::type&& deleter, eastl::enable_if_t<Internal::is_array_cv_convertible<P, pointer>::value>* = 0) EA_NOEXCEPT
 			: mPair(pArray, eastl::move(deleter))
 		{
-			static_assert(!eastl::is_lvalue_reference<deleter_type>::value, "deleter_type reference refers to an rvalue deleter. The reference will probably become invalid before used. Change the deleter_type to not be a reference or construct with permanent deleter.");
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		unique_ptr(this_type&& x) EA_NOEXCEPT
 			: mPair(x.release(), eastl::forward<deleter_type>(x.get_deleter())) {}
@@ -403,29 +400,26 @@ namespace eastl
 		unique_ptr(unique_ptr<U, E>&& u, typename enable_if<Internal::is_safe_array_conversion<T, pointer, U, typename unique_ptr<U, E>::pointer>::value && 
 															eastl::is_convertible<E, deleter_type>::value &&
 														   (!eastl::is_lvalue_reference<deleter_type>::value || eastl::is_same<E, deleter_type>::value)>::type* = 0) EA_NOEXCEPT
-			: mPair(u.release(), eastl::forward<E>(u.get_deleter())) {}
+			: mPair(u.release(), eastl::forward<E>(u.get_deleter())) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		this_type& operator=(this_type&& x) EA_NOEXCEPT
 		{
-			reset(x.release());
-			mPair.second() = eastl::move(eastl::forward<deleter_type>(x.get_deleter()));
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename U, typename E>
 		typename enable_if<Internal::is_safe_array_conversion<T, pointer, U, typename unique_ptr<U, E>::pointer>::value && is_assignable<deleter_type&, E&&>::value, this_type&>::type
 		operator=(unique_ptr<U, E>&& u) EA_NOEXCEPT
 		{
-			reset(u.release());
-			mPair.second() = eastl::move(eastl::forward<E>(u.get_deleter()));
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		this_type& operator=(std::nullptr_t) EA_NOEXCEPT
 		{
-			reset();
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		~unique_ptr() EA_NOEXCEPT
 		{
@@ -434,28 +428,24 @@ namespace eastl
 
 		void reset(pointer pArray = pointer()) EA_NOEXCEPT
 		{
-			if(pArray != mPair.first())
-			{
-				if (auto first = eastl::exchange(mPair.first(), pArray))
-					get_deleter()(first);
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		pointer release() EA_NOEXCEPT
 		{
-			pointer const pTemp = mPair.first();
-			mPair.first() = pointer();
-			return pTemp;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// detach
 		/// For backwards-compatibility with pre-C++11 code.
-		pointer detach() EA_NOEXCEPT { return release(); }
+		pointer detach() EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void swap(this_type& x) EA_NOEXCEPT
 		{
-			mPair.swap(x.mPair);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// operator[]
 		/// Returns a reference to the specified item in the owned pointer
@@ -465,24 +455,23 @@ namespace eastl
 		///    int x = ptr[2];
 		typename add_lvalue_reference<T>::type operator[](ptrdiff_t i) const
 		{
-			// assert(mpArray && (i >= 0));
-			return mPair.first()[i];
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		pointer get() const EA_NOEXCEPT
 		{
-			return mPair.first();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		deleter_type& get_deleter() EA_NOEXCEPT
 		{
-			return mPair.second();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		const deleter_type& get_deleter() const EA_NOEXCEPT
 		{
-			return mPair.second();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		#ifdef EA_COMPILER_NO_EXPLICIT_CONVERSION_OPERATORS
 			typedef T* (this_type::*bool_)() const;
@@ -499,9 +488,9 @@ namespace eastl
 			}
 		#else
 			explicit operator bool() const EA_NOEXCEPT
-			{ 
-				return (mPair.first() != pointer());
-			}
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 		#endif
 
 		/// These functions are deleted in order to prevent copying, for safety.
@@ -538,14 +527,15 @@ namespace eastl
 	///
 	template <typename T, typename... Args>
 	inline typename eastl::enable_if<!eastl::is_array<T>::value, eastl::unique_ptr<T>>::type make_unique(Args&&... args)
-		{ return unique_ptr<T>(new T(eastl::forward<Args>(args)...)); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline typename eastl::enable_if<eastl::is_unbounded_array<T>::value, eastl::unique_ptr<T>>::type make_unique(size_t n)
 	{
-		typedef typename eastl::remove_extent<T>::type TBase;
-		return unique_ptr<T>(new TBase[n]);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	// It's not possible to create a unique_ptr for arrays of a known bound (e.g. int[4] as opposed to int[]).
 	template <typename T, typename... Args>
@@ -562,7 +552,9 @@ namespace eastl
 	struct hash< unique_ptr<T, D> >
 	{
 		size_t operator()(const unique_ptr<T, D>& x) const EA_NOEXCEPT
-			{ return eastl::hash<typename unique_ptr<T, D>::pointer>()(x.get()); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	/// swap
@@ -572,15 +564,15 @@ namespace eastl
 	template <typename T, typename D>
 	inline void swap(unique_ptr<T, D>& a, unique_ptr<T, D>& b) EA_NOEXCEPT
 	{
-		a.swap(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T1, typename D1, typename T2, typename D2>
 	inline bool operator==(const unique_ptr<T1, D1>& a, const unique_ptr<T2, D2>& b)
 	{
-		return (a.get() == b.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	#if defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
 	template <typename T1, typename D1, typename T2, typename D2>
 	requires std::three_way_comparable_with<typename unique_ptr<T1, D1>::pointer, typename unique_ptr<T2, D2>::pointer>
@@ -592,8 +584,8 @@ namespace eastl
 	template <typename T1, typename D1, typename T2, typename D2>
 	inline bool operator!=(const unique_ptr<T1, D1>& a, const unique_ptr<T2, D2>& b)
 	{
-		return !(a.get() == b.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	#endif
 
 	/// Returns which unique_ptr is 'less' than the other. Useful when storing
@@ -601,43 +593,33 @@ namespace eastl
 	template <typename T1, typename D1, typename T2, typename D2>
 	inline bool operator<(const unique_ptr<T1, D1>& a, const unique_ptr<T2, D2>& b)
 	{
-		//typedef typename eastl::unique_ptr<T1, D1>::pointer P1;       // We currently need to make these temporary variables, as otherwise clang complains about CPointer being int*&&&.
-		//typedef typename eastl::unique_ptr<T2, D2>::pointer P2;       // I think there's something wrong with our common_type type trait implementation.
-		//typedef typename eastl::common_type<P1, P2>::type   PCommon;  // "in instantiation of function template specialization 'eastl::operator<<int, int>, no known conversion from 'element_type *' (aka 'int *') to 'int *&&&' for 1st argument"
-		//return less<PCommon>()(a.get(), b.get());                     // It looks like common_type is making CPointer be (e.g.) int*&& instead of int*, though the problem may be in how less<> deals with that.
-
-		typedef typename eastl::unique_ptr<T1, D1>::pointer P1;
-		typedef typename eastl::unique_ptr<T2, D2>::pointer P2;
-		typedef typename eastl::common_type<P1, P2>::type   PCommon;
-		PCommon pT1 = a.get();
-		PCommon pT2 = b.get();
-		return less<PCommon>()(pT1, pT2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T1, typename D1, typename T2, typename D2>
 	inline bool operator>(const unique_ptr<T1, D1>& a, const unique_ptr<T2, D2>& b) 
 	{
-		return (b < a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T1, typename D1, typename T2, typename D2>
 	inline bool operator<=(const unique_ptr<T1, D1>& a, const unique_ptr<T2, D2>& b) 
 	{
-		return !(b < a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T1, typename D1, typename T2, typename D2>
 	inline bool operator>=(const unique_ptr<T1, D1>& a, const unique_ptr<T2, D2>& b) 
 	{
-		return !(a < b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename D>
 	inline bool operator==(const unique_ptr<T, D>& a, std::nullptr_t) EA_NOEXCEPT
 	{
-		return !a;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
 	template <typename T, typename D>
@@ -650,72 +632,69 @@ namespace eastl
 	template <typename T, typename D>
 	inline bool operator==(std::nullptr_t, const unique_ptr<T, D>& a) EA_NOEXCEPT
 	{
-		return !a;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename D>
 	inline bool operator!=(const unique_ptr<T, D>& a, std::nullptr_t) EA_NOEXCEPT
 	{
-		return static_cast<bool>(a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename D>
 	inline bool operator!=(std::nullptr_t, const unique_ptr<T, D>& a) EA_NOEXCEPT
 	{
-		return static_cast<bool>(a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 #endif
 
 	template <typename T, typename D>
 	inline bool operator<(const unique_ptr<T, D>& a, std::nullptr_t)
 	{
-		typedef typename unique_ptr<T, D>::pointer pointer;
-		return less<pointer>()(a.get(), nullptr);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename D>
 	inline bool operator<(std::nullptr_t, const unique_ptr<T, D>& b)
 	{
-		typedef typename unique_ptr<T, D>::pointer pointer;
-		pointer pT = b.get();
-		return less<pointer>()(nullptr, pT);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename D>
 	inline bool operator>(const unique_ptr<T, D>& a, std::nullptr_t)
 	{
-		return (nullptr < a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename D>
 	inline bool operator>(std::nullptr_t, const unique_ptr<T, D>& b)
 	{
-		return (b < nullptr);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename D>
 	inline bool operator<=(const unique_ptr<T, D>& a, std::nullptr_t)
 	{
-		return !(nullptr < a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename D>
 	inline bool operator<=(std::nullptr_t, const unique_ptr<T, D>& b)
 	{
-		return !(b < nullptr);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename D>
 	inline bool operator>=(const unique_ptr<T, D>& a, std::nullptr_t)
 	{
-		return !(a < nullptr);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename D>
 	inline bool operator>=(std::nullptr_t, const unique_ptr<T, D>& b)
 	{
-		return !(nullptr < b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

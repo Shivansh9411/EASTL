@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 //////////////////////////////////////////////////////////////////////////////
@@ -193,25 +195,39 @@ namespace eastl
 		void insert(InputIterator first, InputIterator last);
 
 		template <typename Iter = iterator, typename eastl::enable_if<!eastl::is_same_v<Iter, const_iterator>, int>::type = 0>
-		iterator		 erase(iterator position) { return erase(const_iterator(position)); }
+		iterator		 erase(iterator position) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		iterator         erase(const_iterator position);
 		iterator         erase(const_iterator first, const_iterator last);
-		size_type        erase(const key_type& k) { return DoErase(k); }
+		size_type        erase(const key_type& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		reverse_iterator erase(const_reverse_iterator position);
 		reverse_iterator erase(const_reverse_iterator first, const_reverse_iterator last);
 
 		template<typename KX, typename Cmp = Compare,
 			eastl::enable_if_t<!eastl::is_convertible_v<KX&&, iterator> && !eastl::is_convertible_v<KX&&, const_iterator>
 			&& eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		size_type		 erase(KX&& k) { return DoErase(eastl::forward<KX>(k)); }
+		size_type		 erase(KX&& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		iterator       find(const key_type& k) { return DoFind(k); }
-		const_iterator find(const key_type& k) const { return DoFind(k); }
+		iterator       find(const key_type& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		const_iterator find(const key_type& k) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		iterator       find(const KX& k) { return DoFind(k); }
+		iterator       find(const KX& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		const_iterator find(const KX& k) const { return DoFind(k); }
+		const_iterator find(const KX& k) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename U, typename BinaryPredicate>
 		iterator       find_as(const U& u, BinaryPredicate predicate);
@@ -219,50 +235,90 @@ namespace eastl
 		template <typename U, typename BinaryPredicate>
 		const_iterator find_as(const U& u, BinaryPredicate predicate) const;
 
-		bool contains(const key_type& key) const { return DoFind(key) != end(); }
+		bool contains(const key_type& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		bool contains(const KX& key) const { return DoFind(key) != end(); }
+		bool contains(const KX& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		size_type count(const key_type& k) const { return DoCount(k); }
-
-		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		size_type count(const KX& k) const { return DoCount(k); }
-
-		iterator       lower_bound(const key_type& k) { return DoLowerBound(k); }
-		const_iterator lower_bound(const key_type& k) const { return DoLowerBound(k); }
+		size_type count(const key_type& k) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		iterator       lower_bound(const KX& k) { return DoLowerBound(k); }
-		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		const_iterator lower_bound(const KX& k) const { return DoLowerBound(k); }
+		size_type count(const KX& k) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		iterator       upper_bound(const key_type& k) { return DoUpperBound(k); }
-		const_iterator upper_bound(const key_type& k) const { return DoUpperBound(k); }
-
-		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		iterator       upper_bound(const KX& k) { return DoUpperBound(k); }
-		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		const_iterator upper_bound(const KX& k) const { return DoUpperBound(k); }
-
-		eastl::pair<iterator, iterator>             equal_range(const key_type& k) { return DoEqualRange(k); }
-		eastl::pair<const_iterator, const_iterator> equal_range(const key_type& k) const { return DoEqualRange(k); }
+		iterator       lower_bound(const key_type& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		const_iterator lower_bound(const key_type& k) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		eastl::pair<iterator, iterator>             equal_range(const KX& k) { return DoEqualRange(k); }
+		iterator       lower_bound(const KX& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		eastl::pair<const_iterator, const_iterator> equal_range(const KX& k) const { return DoEqualRange(k); }
+		const_iterator lower_bound(const KX& k) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
+
+		iterator       upper_bound(const key_type& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		const_iterator upper_bound(const key_type& k) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
+
+		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
+		iterator       upper_bound(const KX& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
+		const_iterator upper_bound(const KX& k) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
+
+		eastl::pair<iterator, iterator>             equal_range(const key_type& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		eastl::pair<const_iterator, const_iterator> equal_range(const key_type& k) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
+
+		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
+		eastl::pair<iterator, iterator>             equal_range(const KX& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
+		eastl::pair<const_iterator, const_iterator> equal_range(const KX& k) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// equal_range_small
 		/// This is a special version of equal_range which is optimized for the 
 		/// case of there being few or no duplicated keys in the tree.
-		eastl::pair<iterator, iterator>             equal_range_small(const key_type& k) { return DoEqualRangeSmall(k); }
-		eastl::pair<const_iterator, const_iterator> equal_range_small(const key_type& k) const { return DoEqualRangeSmall(k); }
+		eastl::pair<iterator, iterator>             equal_range_small(const key_type& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		eastl::pair<const_iterator, const_iterator> equal_range_small(const key_type& k) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		eastl::pair<iterator, iterator>             equal_range_small(const KX& k) { return DoEqualRangeSmall(k); }
+		eastl::pair<iterator, iterator>             equal_range_small(const KX& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		eastl::pair<const_iterator, const_iterator> equal_range_small(const KX& k) const { return DoEqualRangeSmall(k); }
+		eastl::pair<const_iterator, const_iterator> equal_range_small(const KX& k) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		
 		// Functions which are disallowed due to being unsafe. 
 		void      push_back(const value_type& value) = delete;
@@ -282,9 +338,13 @@ namespace eastl
 		// the intent of code by leaving a trace that a manual call to sort is required.
 		// 
 		template <typename... Args> decltype(auto) push_back_unsorted(Args&&... args)    
-			{ return base_type::push_back(eastl::forward<Args>(args)...); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 		template <typename... Args> decltype(auto) emplace_back_unsorted(Args&&... args) 
-			{ return base_type::emplace_back(eastl::forward<Args>(args)...); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	private:
 		template<typename KX>
@@ -331,24 +391,24 @@ namespace eastl
 	inline vector_multiset<K, C, A, RAC>::vector_multiset()
 		: value_compare(), base_type()
 	{
-		get_allocator().set_name(EASTL_VECTOR_MULTISET_DEFAULT_NAME);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline vector_multiset<K, C, A, RAC>::vector_multiset(const allocator_type& allocator)
 		: value_compare(), base_type(allocator)
 	{
-		// Empty
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline vector_multiset<K, C, A, RAC>::vector_multiset(const key_compare& comp, const allocator_type& allocator)
 		: value_compare(comp), base_type(allocator)
 	{
-		// Empty
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -356,8 +416,8 @@ namespace eastl
 	inline vector_multiset<K, C, A, RAC>::vector_multiset(InputIterator first, InputIterator last)
 		: value_compare(), base_type(EASTL_VECTOR_MULTISET_DEFAULT_ALLOCATOR)
 	{
-		insert(first, last);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -365,16 +425,16 @@ namespace eastl
 	inline vector_multiset<K, C, A, RAC>::vector_multiset(InputIterator first, InputIterator last, const key_compare& compare)
 		: value_compare(compare), base_type(EASTL_VECTOR_MULTISET_DEFAULT_ALLOCATOR)
 	{
-		insert(first, last);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline vector_multiset<K, C, A, RAC>::vector_multiset(const this_type& x)
 		: value_compare(x), base_type(x)
 	{
-		// Empty
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -390,88 +450,79 @@ namespace eastl
 		// careful to only copy / move the distinct base sub-objects of x:
 		: value_compare(static_cast<value_compare&>(x)), base_type(eastl::move(static_cast<base_type&&>(x)), allocator)
 	{
-		// Empty. Note: x is left with empty contents but its original value_compare instead of the default one. 
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline vector_multiset<K, C, A, RAC>::vector_multiset(std::initializer_list<value_type> ilist, const key_compare& compare, const allocator_type& allocator)
 		: value_compare(compare), base_type(allocator)
 	{
-		insert(ilist.begin(), ilist.end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline vector_multiset<K, C, A, RAC>&
 	vector_multiset<K, C, A, RAC>::operator=(const this_type& x)
 	{
-		base_type::operator=(x);
-		value_compare::operator=(x);
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline vector_multiset<K, C, A, RAC>&
 	vector_multiset<K, C, A, RAC>::operator=(this_type&& x)
 	{
-		base_type::operator=(eastl::move(x));
-		using eastl::swap;
-		swap(static_cast<value_compare&>(*this), static_cast<value_compare&>(x));
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline vector_multiset<K, C, A, RAC>&
 	vector_multiset<K, C, A, RAC>::operator=(std::initializer_list<value_type> ilist)
 	{
-		base_type::clear();
-		insert(ilist.begin(), ilist.end());
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline void vector_multiset<K, C, A, RAC>::swap(this_type& x)
 	{
-		base_type::swap(x);
-		using eastl::swap;
-		swap(static_cast<value_compare&>(*this), static_cast<value_compare&>(x));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline const typename vector_multiset<K, C, A, RAC>::key_compare&
 	vector_multiset<K, C, A, RAC>::key_comp() const
 	{
-		return static_cast<const key_compare&>(*this);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline typename vector_multiset<K, C, A, RAC>::key_compare&
 	vector_multiset<K, C, A, RAC>::key_comp()
 	{
-		return static_cast<key_compare&>(*this);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline const typename vector_multiset<K, C, A, RAC>::value_compare&
 	vector_multiset<K, C, A, RAC>::value_comp() const
 	{
-		return static_cast<const value_compare&>(*this);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline typename vector_multiset<K, C, A, RAC>::value_compare&
 	vector_multiset<K, C, A, RAC>::value_comp()
 	{
-		return static_cast<value_compare&>(*this);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -479,44 +530,32 @@ namespace eastl
 	typename vector_multiset<K, C, A, RAC>::iterator
 	vector_multiset<K, C, A, RAC>::emplace(Args&&... args)
 	{
-		#if EASTL_USE_FORWARD_WORKAROUND
-			auto value = value_type(eastl::forward<Args>(args)...);  // Workaround for compiler bug in VS2013 which results in a compiler internal crash while compiling this code.
-		#else
-			value_type  value(eastl::forward<Args>(args)...);
-		#endif
-		return insert(eastl::move(value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename K, typename C, typename A, typename RAC>
 	template <class... Args> 
 	typename vector_multiset<K, C, A, RAC>::iterator
 	vector_multiset<K, C, A, RAC>::emplace_hint(const_iterator position, Args&&... args)
 	{
-		#if EASTL_USE_FORWARD_WORKAROUND
-			auto value = value_type(eastl::forward<Args>(args)...);  // Workaround for compiler bug in VS2013 which results in a compiler internal crash while compiling this code.
-		#else
-			value_type  value(eastl::forward<Args>(args)...);
-		#endif
-		return insert(position, eastl::move(value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline typename vector_multiset<K, C, A, RAC>::iterator
 	vector_multiset<K, C, A, RAC>::insert(const value_type& value)
 	{
-		const iterator itUB(upper_bound(value));
-		return base_type::insert(itUB, value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline typename vector_multiset<K, C, A, RAC>::iterator
 	vector_multiset<K, C, A, RAC>::insert(value_type&& value)
 	{
-		const iterator itUB(upper_bound(value));
-		return base_type::insert(itUB, eastl::move(value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -524,103 +563,71 @@ namespace eastl
 	typename vector_multiset<K, C, A, RAC>::iterator
 	vector_multiset<K, C, A, RAC>::insert(P&& otherValue)
 	{
-		value_type value(eastl::forward<P>(otherValue));
-		const iterator itUB(upper_bound(value));
-		return base_type::insert(itUB, eastl::move(value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline void vector_multiset<K, C, A, RAC>::insert(std::initializer_list<value_type> ilist)
 	{
-		insert(ilist.begin(), ilist.end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline typename vector_multiset<K, C, A, RAC>::iterator
 	vector_multiset<K, C, A, RAC>::insert(const_iterator position, const value_type& value)
 	{
-		// We assume that the user knows what he is doing and has supplied us with
-		// a position that is right where value should be inserted (put in front of). 
-		// We do a test to see if the position is correct. If so then we insert, 
-		// if not then we ignore the input position. However, 
-
-		if((position == end()) || !value_compare::operator()(*position, value))  // If value is <= the element at position...
-		{
-			if((position == begin()) || !value_compare::operator()(value, *(position - 1))) // If value is >= the element before position...
-				return base_type::insert(position, value);
-		}
-
-		// In this case we have an incorrect position. We fall back to the regular insert function.
-		return insert(value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	typename vector_multiset<K, C, A, RAC>::iterator
 	vector_multiset<K, C, A, RAC>::insert(const_iterator position, value_type&& value)
 	{
-		if((position == end()) || !value_compare::operator()(*position, value))  // If value is <= the element at position...
-		{
-			if((position == begin()) || !value_compare::operator()(value, *(position - 1))) // If value is >= the element before position...
-				return base_type::insert(position, eastl::move(value));
-		}
-
-		// In this case we have an incorrect position. We fall back to the regular insert function.
-		return insert(eastl::move(value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	template <typename InputIterator>
 	inline void vector_multiset<K, C, A, RAC>::insert(InputIterator first, InputIterator last)
 	{
-		// To consider: Improve the speed of this by getting the length of the 
-		//              input range and resizing our container to that size
-		//              before doing the insertions. We can't use reserve
-		//              because we don't know if we are using a vector or not.
-		//              Alternatively, force the user to do the reservation.
-		// To consider: When inserting values that come from a container
-		//              like this container, use the property that they are 
-		//              known to be sorted and speed up the inserts here.
-		for(; first != last; ++first)                               
-			base_type::insert(upper_bound(*first), *first);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline typename vector_multiset<K, C, A, RAC>::iterator 
 	vector_multiset<K, C, A, RAC>::erase(const_iterator position)
 	{
-		// Note that we return iterator and not void. This allows for more efficient use of 
-		// the container and is consistent with the C++ language defect report #130 (DR 130)
-		return base_type::erase(position);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline typename vector_multiset<K, C, A, RAC>::iterator
 	vector_multiset<K, C, A, RAC>::erase(const_iterator first, const_iterator last)
 	{
-		return base_type::erase(first, last);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline typename vector_multiset<K, C, A, RAC>::reverse_iterator 
 	vector_multiset<K, C, A, RAC>::erase(const_reverse_iterator position)
 	{
-		return reverse_iterator(base_type::erase((++position).base()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
 	inline typename vector_multiset<K, C, A, RAC>::reverse_iterator
 	vector_multiset<K, C, A, RAC>::erase(const_reverse_iterator first, const_reverse_iterator last)
 	{
-		return reverse_iterator(base_type::erase((++last).base(), (++first).base()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -628,13 +635,8 @@ namespace eastl
 	inline typename vector_multiset<K, C, A, RAC>::size_type
 	vector_multiset<K, C, A, RAC>::DoErase(KX&& k)
 	{
-		const eastl::pair<iterator, iterator> pairIts(equal_range(k));
-
-		if(pairIts.first != pairIts.second)
-			base_type::erase(pairIts.first, pairIts.second);
-
-		return (size_type)eastl::distance(pairIts.first, pairIts.second); // This can result in any value >= 0.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -642,9 +644,8 @@ namespace eastl
 	inline typename vector_multiset<K, C, A, RAC>::iterator
 	vector_multiset<K, C, A, RAC>::DoFind(const KX& k)
 	{
-		const eastl::pair<iterator, iterator> pairIts(equal_range(k));
-		return (pairIts.first != pairIts.second) ? pairIts.first : end();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -652,9 +653,8 @@ namespace eastl
 	inline typename vector_multiset<K, C, A, RAC>::const_iterator
 	vector_multiset<K, C, A, RAC>::DoFind(const KX& k) const
 	{
-		const eastl::pair<const_iterator, const_iterator> pairIts(equal_range(k));
-		return (pairIts.first != pairIts.second) ? pairIts.first : end();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -662,9 +662,8 @@ namespace eastl
 	inline typename vector_multiset<K, C, A, RAC>::iterator
 	vector_multiset<K, C, A, RAC>::find_as(const U& u, BinaryPredicate predicate)
 	{
-		const eastl::pair<iterator, iterator> pairIts(eastl::equal_range(begin(), end(), u, predicate));
-		return (pairIts.first != pairIts.second) ? pairIts.first : end();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -672,9 +671,8 @@ namespace eastl
 	inline typename vector_multiset<K, C, A, RAC>::const_iterator
 	vector_multiset<K, C, A, RAC>::find_as(const U& u, BinaryPredicate predicate) const
 	{
-		const eastl::pair<const_iterator, const_iterator> pairIts(eastl::equal_range(begin(), end(), u, predicate));
-		return (pairIts.first != pairIts.second) ? pairIts.first : end();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -682,9 +680,8 @@ namespace eastl
 	inline typename vector_multiset<K, C, A, RAC>::size_type
 	vector_multiset<K, C, A, RAC>::DoCount(const KX& k) const
 	{
-		const eastl::pair<const_iterator, const_iterator> pairIts(equal_range(k));
-		return (size_type)eastl::distance(pairIts.first, pairIts.second);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -692,8 +689,8 @@ namespace eastl
 	inline typename vector_multiset<K, C, A, RAC>::iterator
 	vector_multiset<K, C, A, RAC>::DoLowerBound(const KX& k)
 	{
-		return eastl::lower_bound(begin(), end(), k, static_cast<value_compare&>(*this));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -701,8 +698,8 @@ namespace eastl
 	inline typename vector_multiset<K, C, A, RAC>::const_iterator
 	vector_multiset<K, C, A, RAC>::DoLowerBound(const KX& k) const
 	{
-		return eastl::lower_bound(begin(), end(), k, static_cast<const value_compare&>(*this));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -710,8 +707,8 @@ namespace eastl
 	inline typename vector_multiset<K, C, A, RAC>::iterator
 	vector_multiset<K, C, A, RAC>::DoUpperBound(const KX& k)
 	{
-		return eastl::upper_bound(begin(), end(), k, static_cast<value_compare&>(*this));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -719,8 +716,8 @@ namespace eastl
 	inline typename vector_multiset<K, C, A, RAC>::const_iterator
 	vector_multiset<K, C, A, RAC>::DoUpperBound(const KX& k) const
 	{
-		return eastl::upper_bound(begin(), end(), k, static_cast<const value_compare&>(*this));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -728,8 +725,8 @@ namespace eastl
 	inline eastl::pair<typename vector_multiset<K, C, A, RAC>::iterator, typename vector_multiset<K, C, A, RAC>::iterator>
 	vector_multiset<K, C, A, RAC>::DoEqualRange(const KX& k)
 	{
-		return eastl::equal_range(begin(), end(), k, static_cast<value_compare&>(*this));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -737,8 +734,8 @@ namespace eastl
 	inline eastl::pair<typename vector_multiset<K, C, A, RAC>::const_iterator, typename vector_multiset<K, C, A, RAC>::const_iterator>
 	vector_multiset<K, C, A, RAC>::DoEqualRange(const KX& k) const
 	{
-		return eastl::equal_range(begin(), end(), k, static_cast<const value_compare&>(*this));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -746,14 +743,8 @@ namespace eastl
 	inline eastl::pair<typename vector_multiset<K, C, A, RAC>::iterator, typename vector_multiset<K, C, A, RAC>::iterator>
 	vector_multiset<K, C, A, RAC>::DoEqualRangeSmall(const KX& k)
 	{
-		const iterator itLower(lower_bound(k));
-		iterator       itUpper(itLower);
-
-		while((itUpper != end()) && !value_compare::operator()(k, *itUpper))
-			++itUpper;
-
-		return eastl::pair<iterator, iterator>(itLower, itUpper);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename K, typename C, typename A, typename RAC>
@@ -761,14 +752,8 @@ namespace eastl
 	inline eastl::pair<typename vector_multiset<K, C, A, RAC>::const_iterator, typename vector_multiset<K, C, A, RAC>::const_iterator>
 	vector_multiset<K, C, A, RAC>::DoEqualRangeSmall(const KX& k) const
 	{
-		const const_iterator itLower(lower_bound(k));
-		const_iterator       itUpper(itLower);
-
-		while((itUpper != end()) && !value_compare::operator()(k, *itUpper))
-			++itUpper;
-
-		return eastl::pair<const_iterator, const_iterator>(itLower, itUpper);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -780,56 +765,56 @@ namespace eastl
 	inline bool operator==(const vector_multiset<Key, Compare, Allocator, RandomAccessContainer>& a, 
 						   const vector_multiset<Key, Compare, Allocator, RandomAccessContainer>& b) 
 	{
-		return (a.size() == b.size()) && eastl::equal(b.begin(), b.end(), a.begin());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator, typename RandomAccessContainer>
 	inline bool operator<(const vector_multiset<Key, Compare, Allocator, RandomAccessContainer>& a,
 						  const vector_multiset<Key, Compare, Allocator, RandomAccessContainer>& b)
 	{
-		return eastl::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end(), a.value_comp());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator, typename RandomAccessContainer>
 	inline bool operator!=(const vector_multiset<Key, Compare, Allocator, RandomAccessContainer>& a,
 						   const vector_multiset<Key, Compare, Allocator, RandomAccessContainer>& b)
 	{
-		return !(a == b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator, typename RandomAccessContainer>
 	inline bool operator>(const vector_multiset<Key, Compare, Allocator, RandomAccessContainer>& a,
 						  const vector_multiset<Key, Compare, Allocator, RandomAccessContainer>& b)
 	{
-		return b < a;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator, typename RandomAccessContainer>
 	inline bool operator<=(const vector_multiset<Key, Compare, Allocator, RandomAccessContainer>& a,
 						   const vector_multiset<Key, Compare, Allocator, RandomAccessContainer>& b)
 	{
-		return !(b < a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator, typename RandomAccessContainer>
 	inline bool operator>=(const vector_multiset<Key, Compare, Allocator, RandomAccessContainer>& a,
 						   const vector_multiset<Key, Compare, Allocator, RandomAccessContainer>& b)
 	{
-		return !(a < b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator, typename RandomAccessContainer>
 	inline void swap(vector_multiset<Key, Compare, Allocator, RandomAccessContainer>& a,
 					 vector_multiset<Key, Compare, Allocator, RandomAccessContainer>& b)
 	{
-		a.swap(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

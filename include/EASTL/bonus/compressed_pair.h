@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -108,10 +110,8 @@ namespace eastl
 	template <typename T>
 	inline void cp_swap(T& t1, T& t2)
 	{
-		T tTemp = t1;
-		t1 = t2;
-		t2 = tTemp;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// Derive from neither
@@ -128,28 +128,43 @@ namespace eastl
 		typedef typename call_traits<first_type>::const_reference  first_const_reference;
 		typedef typename call_traits<second_type>::const_reference second_const_reference;
 
-		compressed_pair_imp() {} 
+		compressed_pair_imp() {
+    __builtin_trap() /* STUB: not implemented */;
+} 
 
 		compressed_pair_imp(first_param_type x, second_param_type y)
-			: mFirst(x), mSecond(y) {}
+			: mFirst(x), mSecond(y) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		compressed_pair_imp(first_param_type x)
-			: mFirst(x) {}
+			: mFirst(x) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		compressed_pair_imp(second_param_type y)
-			: mSecond(y) {}
+			: mSecond(y) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		first_reference       first()       { return mFirst; }
-		first_const_reference first() const { return mFirst; }
+		first_reference       first()       {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		first_const_reference first() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		second_reference       second()       { return mSecond; }
-		second_const_reference second() const { return mSecond; }
+		second_reference       second()       {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		second_const_reference second() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void swap(compressed_pair<T1, T2>& y)
 		{
-			cp_swap(mFirst, y.first());
-			cp_swap(mSecond, y.second());
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	private:
 		first_type  mFirst;
@@ -171,28 +186,43 @@ namespace eastl
 		typedef typename call_traits<first_type>::const_reference  first_const_reference;
 		typedef typename call_traits<second_type>::const_reference second_const_reference;
 
-		compressed_pair_imp() {}
+		compressed_pair_imp() {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		compressed_pair_imp(first_param_type x, second_param_type y)
-			: first_type(x), mSecond(y) {}
+			: first_type(x), mSecond(y) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		compressed_pair_imp(first_param_type x)
-			: first_type(x) {}
+			: first_type(x) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		compressed_pair_imp(second_param_type y)
-			: mSecond(y) {}
+			: mSecond(y) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		first_reference       first()       { return *this; }
-		first_const_reference first() const { return *this; }
+		first_reference       first()       {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		first_const_reference first() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		second_reference       second()       { return mSecond; }
-		second_const_reference second() const { return mSecond; }
+		second_reference       second()       {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		second_const_reference second() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void swap(compressed_pair<T1,T2>& y)
 		{
-			// No need to swap empty base class
-			cp_swap(mSecond, y.second());
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	private:
 		second_type mSecond;
@@ -214,28 +244,43 @@ namespace eastl
 		typedef typename call_traits<first_type>::const_reference  first_const_reference;
 		typedef typename call_traits<second_type>::const_reference second_const_reference;
 
-		compressed_pair_imp() {}
+		compressed_pair_imp() {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		compressed_pair_imp(first_param_type x, second_param_type y)
-			: second_type(y), mFirst(x) {}
+			: second_type(y), mFirst(x) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		compressed_pair_imp(first_param_type x)
-			: mFirst(x) {}
+			: mFirst(x) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		compressed_pair_imp(second_param_type y)
-			: second_type(y) {}
+			: second_type(y) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		first_reference       first()       { return mFirst; }
-		first_const_reference first() const { return mFirst; }
+		first_reference       first()       {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		first_const_reference first() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		second_reference       second()       { return *this; }
-		second_const_reference second() const { return *this; }
+		second_reference       second()       {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		second_const_reference second() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void swap(compressed_pair<T1,T2>& y)
 		{
-			// No need to swap empty base class
-			cp_swap(mFirst, y.first());
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	private:
 		first_type mFirst;
@@ -257,26 +302,44 @@ namespace eastl
 		typedef typename call_traits<first_type>::const_reference  first_const_reference;
 		typedef typename call_traits<second_type>::const_reference second_const_reference;
 
-		compressed_pair_imp() {}
+		compressed_pair_imp() {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		compressed_pair_imp(first_param_type x, second_param_type y)
-			: first_type(x), second_type(y) {}
+			: first_type(x), second_type(y) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		compressed_pair_imp(first_param_type x)
-			: first_type(x) {}
+			: first_type(x) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		compressed_pair_imp(second_param_type y)
-			: second_type(y) {}
+			: second_type(y) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		first_reference       first()       { return *this; }
-		first_const_reference first() const { return *this; }
+		first_reference       first()       {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		first_const_reference first() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		second_reference       second()       { return *this; }
-		second_const_reference second() const { return *this; }
+		second_reference       second()       {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		second_const_reference second() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// No need to swap empty bases
 		void swap(compressed_pair<T1, T2>&) 
-			{ }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -296,21 +359,37 @@ namespace eastl
 		typedef typename call_traits<first_type>::const_reference  first_const_reference;
 		typedef typename call_traits<second_type>::const_reference second_const_reference;
 
-		compressed_pair_imp() {}
+		compressed_pair_imp() {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		compressed_pair_imp(first_param_type x, second_param_type)
-			: first_type(x) {}
+			: first_type(x) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		compressed_pair_imp(first_param_type x)
-			: first_type(x) {}
+			: first_type(x) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		first_reference       first()       { return *this; }
-		first_const_reference first() const { return *this; }
+		first_reference       first()       {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		first_const_reference first() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		second_reference       second()       { return *this; }
-		second_const_reference second() const { return *this; }
+		second_reference       second()       {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		second_const_reference second() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		void swap(compressed_pair<T1, T2>&) { }
+		void swap(compressed_pair<T1, T2>&) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -328,25 +407,38 @@ namespace eastl
 		typedef typename call_traits<first_type>::const_reference  first_const_reference;
 		typedef typename call_traits<second_type>::const_reference second_const_reference;
 
-		compressed_pair_imp() {}
+		compressed_pair_imp() {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		compressed_pair_imp(first_param_type x, second_param_type y)
-			: mFirst(x), mSecond(y) {}
+			: mFirst(x), mSecond(y) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		compressed_pair_imp(first_param_type x)
-			: mFirst(x), mSecond(x) {}
+			: mFirst(x), mSecond(x) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		first_reference       first()       { return mFirst; }
-		first_const_reference first() const { return mFirst; }
+		first_reference       first()       {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		first_const_reference first() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		second_reference       second()       { return mSecond; }
-		second_const_reference second() const { return mSecond; }
+		second_reference       second()       {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		second_const_reference second() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void swap(compressed_pair<T1, T2>& y)
 		{
-			cp_swap(mFirst, y.first());
-			cp_swap(mSecond, y.second());
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	private:
 		first_type  mFirst;
@@ -383,18 +475,36 @@ namespace eastl
 		typedef typename call_traits<first_type>::const_reference  first_const_reference;
 		typedef typename call_traits<second_type>::const_reference second_const_reference;
 
-		compressed_pair() : base() {}
-		compressed_pair(first_param_type x, second_param_type y) : base(x, y) {}
-		explicit compressed_pair(first_param_type x) : base(x) {}
-		explicit compressed_pair(second_param_type y) : base(y) {}
+		compressed_pair() : base() {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		compressed_pair(first_param_type x, second_param_type y) : base(x, y) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		explicit compressed_pair(first_param_type x) : base(x) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		explicit compressed_pair(second_param_type y) : base(y) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		first_reference       first()       { return base::first(); }
-		first_const_reference first() const { return base::first(); }
+		first_reference       first()       {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		first_const_reference first() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		second_reference       second()       { return base::second(); }
-		second_const_reference second() const { return base::second(); }
+		second_reference       second()       {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		second_const_reference second() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		void swap(compressed_pair& y) { base::swap(y); }
+		void swap(compressed_pair& y) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -427,25 +537,41 @@ namespace eastl
 		typedef typename call_traits<first_type>::const_reference  first_const_reference;
 		typedef typename call_traits<second_type>::const_reference second_const_reference;
 
-		compressed_pair() : base() {}
-		compressed_pair(first_param_type x, second_param_type y) : base(x, y) {}
-		explicit compressed_pair(first_param_type x) : base(x) {}
+		compressed_pair() : base() {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		compressed_pair(first_param_type x, second_param_type y) : base(x, y) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		explicit compressed_pair(first_param_type x) : base(x) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		first_reference       first()       { return base::first(); }
-		first_const_reference first() const { return base::first(); }
+		first_reference       first()       {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		first_const_reference first() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		second_reference       second()       { return base::second(); }
-		second_const_reference second() const { return base::second(); }
+		second_reference       second()       {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		second_const_reference second() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		void swap(compressed_pair<T, T>& y) { base::swap(y); }
+		void swap(compressed_pair<T, T>& y) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
 	template <typename T1, typename T2>
 	inline void swap(compressed_pair<T1, T2>& x, compressed_pair<T1, T2>& y)
 	{
-		x.swap(y);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

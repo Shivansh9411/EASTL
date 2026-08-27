@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -125,7 +127,9 @@ namespace eastl
 		{
 		public:
 			EA_FORCE_INLINE auto_mutex(mutex& mutex) : pMutex(&mutex)
-				{ pMutex->lock(); }
+				{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			EA_FORCE_INLINE ~auto_mutex()
 				{ pMutex->unlock(); }

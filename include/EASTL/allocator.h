@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -83,23 +85,45 @@ namespace eastl
 	class EASTL_API dummy_allocator
 	{
 	public:
-		EASTL_ALLOCATOR_EXPLICIT dummy_allocator(const char* = NULL) { }
-		dummy_allocator(const dummy_allocator&) { }
-		dummy_allocator(const dummy_allocator&, const char*) { }
+		EASTL_ALLOCATOR_EXPLICIT dummy_allocator(const char* = NULL) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		dummy_allocator(const dummy_allocator&) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		dummy_allocator(const dummy_allocator&, const char*) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		dummy_allocator& operator=(const dummy_allocator&) { return *this; }
+		dummy_allocator& operator=(const dummy_allocator&) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		void* allocate(size_t, int = 0)                 { return NULL; }
-		void* allocate(size_t, size_t, size_t, int = 0) { return NULL; }
-		void  deallocate(void*, size_t)                 { }
+		void* allocate(size_t, int = 0)                 {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		void* allocate(size_t, size_t, size_t, int = 0) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		void  deallocate(void*, size_t)                 {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		const char* get_name() const      { return ""; }
-		void        set_name(const char*) { }
+		const char* get_name() const      {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		void        set_name(const char*) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
-	inline bool operator==(const dummy_allocator&, const dummy_allocator&) { return true;  }
+	inline bool operator==(const dummy_allocator&, const dummy_allocator&) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 #if !defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
-	inline bool operator!=(const dummy_allocator&, const dummy_allocator&) { return false; }
+	inline bool operator!=(const dummy_allocator&, const dummy_allocator&) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 #endif
 
 
@@ -180,132 +204,68 @@ namespace eastl
 	{
 		inline allocator::allocator(const char* EASTL_NAME(pName))
 		{
-			#if EASTL_NAME_ENABLED
-				mpName = pName ? pName : EASTL_ALLOCATOR_DEFAULT_NAME;
-			#endif
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		inline allocator::allocator(const allocator& EASTL_NAME(alloc))
 		{
-			#if EASTL_NAME_ENABLED
-				mpName = alloc.mpName;
-			#endif
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		inline allocator::allocator(const allocator&, const char* EASTL_NAME(pName))
 		{
-			#if EASTL_NAME_ENABLED
-				mpName = pName ? pName : EASTL_ALLOCATOR_DEFAULT_NAME;
-			#endif
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		inline allocator& allocator::operator=(const allocator& EASTL_NAME(alloc))
 		{
-			#if EASTL_NAME_ENABLED
-				mpName = alloc.mpName;
-			#endif
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		inline const char* allocator::get_name() const
 		{
-			#if EASTL_NAME_ENABLED
-				return mpName;
-			#else
-				return EASTL_ALLOCATOR_DEFAULT_NAME;
-			#endif
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		inline void allocator::set_name(const char* EASTL_NAME(pName))
 		{
-			#if EASTL_NAME_ENABLED
-				mpName = pName;
-			#endif
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		inline void* allocator::allocate(size_t n, int flags)
 		{
-			#if EASTL_NAME_ENABLED
-				#define pName mpName
-			#else
-				#define pName EASTL_ALLOCATOR_DEFAULT_NAME
-			#endif
-
-			#if EASTL_DLL
-				return allocate(n, EASTL_SYSTEM_ALLOCATOR_MIN_ALIGNMENT, 0, flags);
-			#elif (EASTL_DEBUGPARAMS_LEVEL <= 0)
-				return ::new((char*)0, flags, 0, (char*)0,        0) char[n];
-			#elif (EASTL_DEBUGPARAMS_LEVEL == 1)
-				return ::new(   pName, flags, 0, (char*)0,        0) char[n];
-			#else
-				return ::new(   pName, flags, 0, __FILE__, __LINE__) char[n];
-			#endif
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		inline void* allocator::allocate(size_t n, size_t alignment, size_t offset, int flags)
 		{
-			#if EASTL_DLL
-				// We currently have no support for implementing flags when 
-				// using the C runtime library operator new function. The user 
-				// can use SetDefaultAllocator to override the default allocator.
-				EA_UNUSED(offset); EA_UNUSED(flags);
-
-				size_t adjustedAlignment = (alignment > EA_PLATFORM_PTR_SIZE) ? alignment : EA_PLATFORM_PTR_SIZE;
-
-				void* p = new char[n + adjustedAlignment + EA_PLATFORM_PTR_SIZE];
-				void* pPlusPointerSize = (void*)((uintptr_t)p + EA_PLATFORM_PTR_SIZE);
-				void* pAligned = (void*)(((uintptr_t)pPlusPointerSize + adjustedAlignment - 1) & ~(adjustedAlignment - 1));
-
-				void** pStoredPtr = (void**)pAligned - 1;
-				EASTL_ASSERT(pStoredPtr >= p);
-				*(pStoredPtr) = p;
-
-				EASTL_ASSERT(((size_t)pAligned & ~(alignment - 1)) == (size_t)pAligned);
-
-				return pAligned;
-			#elif (EASTL_DEBUGPARAMS_LEVEL <= 0)
-				return ::new(alignment, offset, (char*)0, flags, 0, (char*)0,        0) char[n];
-			#elif (EASTL_DEBUGPARAMS_LEVEL == 1)
-				return ::new(alignment, offset,    pName, flags, 0, (char*)0,        0) char[n];
-			#else
-				return ::new(alignment, offset,    pName, flags, 0, __FILE__, __LINE__) char[n];
-			#endif
-
-			#undef pName  // See above for the definition of this.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		inline void allocator::deallocate(void* p, size_t)
 		{
-			#if EASTL_DLL
-				if (p != nullptr)
-				{
-					void* pOriginalAllocation = *((void**)p - 1);
-					delete[](char*)pOriginalAllocation;
-				}
-			#else
-				delete[](char*)p;
-			#endif
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		inline bool operator==(const allocator&, const allocator&)
 		{
-			return true; // All allocators are considered equal, as they merely use global new/delete.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if !defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
 		inline bool operator!=(const allocator&, const allocator&)
 		{
-			return false; // All allocators are considered equal, as they merely use global new/delete.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 #endif
 
 	} // namespace eastl
@@ -321,28 +281,20 @@ namespace eastl
 	template <typename Allocator>
 	inline Allocator* get_default_allocator(const Allocator*)
 	{
-		return NULL; // By default we return NULL; the user must make specialization of this function in order to provide their own implementation.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	inline EASTLAllocatorType* get_default_allocator(const EASTLAllocatorType*)
 	{
-		return EASTLAllocatorDefault(); // For the built-in allocator EASTLAllocatorType, we happen to already have a function for returning the default allocator instance, so we provide it.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	inline void* default_allocfreemethod(size_t n, void* pBuffer, void* /*pContext*/)
 	{
-		EASTLAllocatorType* const pAllocator = EASTLAllocatorDefault();
-
-		if(pBuffer) // If freeing...
-		{
-			EASTLFree(*pAllocator, pBuffer, n);
-			return NULL;  // The return value is meaningless for the free.
-		}
-		else // allocating
-			return EASTLAlloc(*pAllocator, n);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// allocate_memory
@@ -355,25 +307,8 @@ namespace eastl
 	template <typename Allocator>
 	inline void* allocate_memory(Allocator& a, size_t n, size_t alignment, size_t alignmentOffset)
 	{
-		void *result;
-		if (alignment <= EASTL_ALLOCATOR_MIN_ALIGNMENT)
-		{
-			result = EASTLAlloc(a, n);
-			// Ensure the result is correctly aligned.  An assertion likely indicates a mismatch between EASTL_ALLOCATOR_MIN_ALIGNMENT and the minimum alignment
-			// of EASTLAlloc.  If there is a mismatch it may be necessary to define EASTL_ALLOCATOR_MIN_ALIGNMENT to be the minimum alignment of EASTLAlloc, or
-			// to increase the alignment of EASTLAlloc to match EASTL_ALLOCATOR_MIN_ALIGNMENT.
-			EASTL_ASSERT((reinterpret_cast<size_t>(result)& ~(alignment - 1)) == reinterpret_cast<size_t>(result));
-		}
-		else
-		{
-			result = EASTLAllocAligned(a, n, alignment, alignmentOffset);
-			// Ensure the result is correctly aligned.  An assertion here may indicate a bug in the allocator.
-			auto resultMinusOffset = (char*)result - alignmentOffset;
-			EA_UNUSED(resultMinusOffset);
-			EASTL_ASSERT((reinterpret_cast<size_t>(resultMinusOffset)& ~(alignment - 1)) == reinterpret_cast<size_t>(resultMinusOffset));
-		}
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 }
 

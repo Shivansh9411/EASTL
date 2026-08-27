@@ -156,37 +156,24 @@ namespace EA
 
 		public:
 			CoreDeleterAdapter(AllocatorType* pAllocator = EASTL_CORE_ALLOCATOR_ADAPTER_GET_DEFAULT_CORE_ALLOCATOR()) EA_NOEXCEPT 
-			: mpCoreAllocator(pAllocator) {}
+			: mpCoreAllocator(pAllocator) { __builtin_trap() /* STUB: not implemented */; }
 
-			~CoreDeleterAdapter() EA_NOEXCEPT {}
+			~CoreDeleterAdapter() EA_NOEXCEPT { __builtin_trap() /* STUB: not implemented */; }
 
 			template <typename T>
 			void operator()(T* p)
-			{
-				p->~T();
-				mpCoreAllocator->Free(p);
-			}
+			{ __builtin_trap() /* STUB: not implemented */; }
 
-			CoreDeleterAdapter(const CoreDeleterAdapter& in) { mpCoreAllocator = in.mpCoreAllocator; }
+			CoreDeleterAdapter(const CoreDeleterAdapter& in) { __builtin_trap() /* STUB: not implemented */; }
 
 			CoreDeleterAdapter(CoreDeleterAdapter&& in)
-			{
-				mpCoreAllocator = in.mpCoreAllocator;
-				in.mpCoreAllocator = nullptr;
-			}
+			{ __builtin_trap() /* STUB: not implemented */; }
 
 			CoreDeleterAdapter& operator=(const CoreDeleterAdapter& in)
-			{
-				mpCoreAllocator = in.mpCoreAllocator;
-				return *this;
-			}
+			{ __builtin_trap() /* STUB: not implemented */; }
 
 			CoreDeleterAdapter& operator=(CoreDeleterAdapter&& in)
-			{
-				mpCoreAllocator = in.mpCoreAllocator;
-				in.mpCoreAllocator = nullptr;
-				return *this;
-			}
+			{ __builtin_trap() /* STUB: not implemented */; }
 		};
 
 
@@ -220,135 +207,72 @@ namespace EA
 		template<class AllocatorType>
 		inline CoreAllocatorAdapter<AllocatorType>::CoreAllocatorAdapter(const char* EASTL_NAME(pName), AllocatorType* pCoreAllocator)
 			: mpCoreAllocator(pCoreAllocator), mnFlags(0)
-		{
-			#if EASTL_NAME_ENABLED
-				mpName = pName ? pName : EASTL_ALLOCATOR_DEFAULT_NAME;
-			#endif
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template<class AllocatorType>
 		inline CoreAllocatorAdapter<AllocatorType>::CoreAllocatorAdapter(const char* EASTL_NAME(pName), AllocatorType* pCoreAllocator, int flags)
 			: mpCoreAllocator(pCoreAllocator), mnFlags(flags)
-		{
-			#if EASTL_NAME_ENABLED
-				mpName = pName ? pName : EASTL_ALLOCATOR_DEFAULT_NAME;
-			#endif
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template<class AllocatorType>
 		inline CoreAllocatorAdapter<AllocatorType>::CoreAllocatorAdapter(const CoreAllocatorAdapter& x)
 			: mpCoreAllocator(x.mpCoreAllocator), mnFlags(x.mnFlags)
-		{
-			#if EASTL_NAME_ENABLED
-				mpName = x.mpName;
-			#endif
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template<class AllocatorType>
 		inline CoreAllocatorAdapter<AllocatorType>::CoreAllocatorAdapter(const CoreAllocatorAdapter& x, const char* EASTL_NAME(pName))
 			: mpCoreAllocator(x.mpCoreAllocator), mnFlags(x.mnFlags)
-		{
-			#if EASTL_NAME_ENABLED
-				mpName = pName ? pName : EASTL_ALLOCATOR_DEFAULT_NAME;
-			#endif
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template<class AllocatorType>
 		inline CoreAllocatorAdapter<AllocatorType>& CoreAllocatorAdapter<AllocatorType>::operator=(const CoreAllocatorAdapter& x)
-		{
-			mpCoreAllocator = x.mpCoreAllocator;
-			mnFlags         = x.mnFlags;
-
-			#if EASTL_NAME_ENABLED
-				mpName = x.mpName;
-			#endif
-				
-			return *this;
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template<class AllocatorType>
 		inline void* CoreAllocatorAdapter<AllocatorType>::allocate(size_t n, int /*flags*/)
-		{
-			// It turns out that EASTL itself doesn't use the flags parameter, 
-			// whereas the user here might well want to specify a flags 
-			// parameter. So we use ours instead of the one passed in.
-			return mpCoreAllocator->Alloc(n, EASTL_NAME_VAL(mpName), (unsigned)mnFlags);
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template<class AllocatorType>
 		inline void* CoreAllocatorAdapter<AllocatorType>::allocate(size_t n, size_t alignment, size_t offset, int /*flags*/)
-		{
-			// It turns out that EASTL itself doesn't use the flags parameter, 
-			// whereas the user here might well want to specify a flags 
-			// parameter. So we use ours instead of the one passed in.
-			return mpCoreAllocator->Alloc(n, EASTL_NAME_VAL(mpName), (unsigned)mnFlags, (unsigned)alignment, (unsigned)offset);
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template<class AllocatorType>
 		inline void CoreAllocatorAdapter<AllocatorType>::deallocate(void* p, size_t n)
-		{
-			return mpCoreAllocator->Free(p, n);
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template<class AllocatorType>
 		inline AllocatorType* CoreAllocatorAdapter<AllocatorType>::get_allocator() const
-		{
-			return mpCoreAllocator;
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template<class AllocatorType>
 		inline void CoreAllocatorAdapter<AllocatorType>::set_allocator(AllocatorType* pAllocator)
-		{
-			mpCoreAllocator = pAllocator;
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template<class AllocatorType>
 		inline int CoreAllocatorAdapter<AllocatorType>::get_flags() const
-		{
-			return mnFlags;
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template<class AllocatorType>
 		inline void CoreAllocatorAdapter<AllocatorType>::set_flags(int flags)
-		{
-			mnFlags = flags;
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template<class AllocatorType>
 		inline const char* CoreAllocatorAdapter<AllocatorType>::get_name() const
-		{
-			#if EASTL_NAME_ENABLED
-				return mpName;
-			#else
-				return EASTL_ALLOCATOR_DEFAULT_NAME;
-			#endif
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template<class AllocatorType>
 		inline void CoreAllocatorAdapter<AllocatorType>::set_name(const char* pName)
-		{
-			#if EASTL_NAME_ENABLED
-				mpName = pName;
-			#else
-				(void)pName;
-			#endif
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 
 
 		template<class AllocatorType>
 		inline bool operator==(const CoreAllocatorAdapter<AllocatorType>& a, const CoreAllocatorAdapter<AllocatorType>& b)
-		{
-			return (a.mpCoreAllocator == b.mpCoreAllocator) &&
-				   (a.mnFlags         == b.mnFlags);
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template<class AllocatorType>
 		inline bool operator!=(const CoreAllocatorAdapter<AllocatorType>& a, const CoreAllocatorAdapter<AllocatorType>& b)
-		{
-			return (a.mpCoreAllocator != b.mpCoreAllocator) ||
-				   (a.mnFlags         != b.mnFlags);
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 
 	} // namespace Allocator

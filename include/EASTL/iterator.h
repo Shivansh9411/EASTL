@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -214,7 +216,9 @@ namespace eastl
 	{
 		using iterator_type = Iterator;
 
-		static iterator_type get_unwrapped(Iterator it) { return it; }
+		static iterator_type get_unwrapped(Iterator it) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -232,13 +236,17 @@ EASTL_INTERNAL_DISABLE_DEPRECATED()
 		using iterator_type =
 		    typename eastl::remove_cvref<decltype(eastl::declval<Iterator>().unwrap())>::type;
 
-		static iterator_type get_unwrapped(Iterator it) { return it.unwrap(); }
+		static iterator_type get_unwrapped(Iterator it) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
 	template <typename Iterator>
 	EASTL_REMOVE_AT_2024_SEPT inline typename is_iterator_wrapper_helper<Iterator, eastl::is_iterator_wrapper<Iterator>::value>::iterator_type unwrap_iterator(Iterator it)
-		{ return eastl::is_iterator_wrapper_helper<Iterator, eastl::is_iterator_wrapper<Iterator>::value>::get_unwrapped(it); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 EASTL_INTERNAL_RESTORE_DEPRECATED()
 
 
@@ -272,14 +280,20 @@ EASTL_INTERNAL_RESTORE_DEPRECATED()
 
 	public:
 		EA_CPP14_CONSTEXPR reverse_iterator()      // It's important that we construct mIterator, because if Iterator
-			: mIterator() { }					   // is a pointer, there's a difference between doing it and not.
+			: mIterator() {
+    
+}					   // is a pointer, there's a difference between doing it and not.
 
 		EA_CPP14_CONSTEXPR explicit reverse_iterator(iterator_type i)
-			: mIterator(i) { }
+			: mIterator(i) {
+    
+}
 
 		template <typename U>
 		EA_CPP14_CONSTEXPR reverse_iterator(const reverse_iterator<U>& ri)
-			: mIterator(ri.base()) { }
+			: mIterator(ri.base()) {
+    
+}
 
 		template <typename U>
 		EA_CPP14_CONSTEXPR reverse_iterator<Iterator>& operator=(const reverse_iterator<U>& ri)
@@ -480,84 +494,93 @@ EASTL_INTERNAL_RESTORE_DEPRECATED()
 		move_iterator()
 		  : mIterator()
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		explicit move_iterator(iterator_type mi)
-		  : mIterator(mi) { }
+		  : mIterator(mi) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename U>
 		move_iterator(const move_iterator<U>& mi)
 		  : mIterator(mi.base())
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename U>
 		move_iterator& operator=(const move_iterator<U>& mi)
 		{
-			mIterator = mi.mIterator;
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		iterator_type base() const
-			{ return mIterator; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		reference operator*() const { return static_cast<reference>(*mIterator); }
+		reference operator*() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		pointer operator->() const
-			{ return mIterator; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		move_iterator& operator++()
 		{
-			++mIterator;
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		move_iterator operator++(int)
 		{
-			move_iterator tempMoveIterator = *this;
-			++mIterator;
-			return tempMoveIterator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		move_iterator& operator--()
 		{
-			--mIterator;
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		move_iterator operator--(int)
 		{
-			move_iterator tempMoveIterator = *this;
-			--mIterator;
-			return tempMoveIterator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		move_iterator operator+(difference_type n) const
-			{ return move_iterator(mIterator + n); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		move_iterator& operator+=(difference_type n)
 		{
-			mIterator += n;
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		move_iterator operator-(difference_type n) const
-			{ return move_iterator(mIterator - n); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		move_iterator& operator-=(difference_type n)
 		{
-			mIterator -= n;
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		reference operator[](difference_type n) const
-			{ return eastl::move(mIterator[n]); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	EASTL_INTERNAL_DISABLE_DEPRECATED() // 'is_iterator_wrapper': was declared deprecated
 	private:
 		// Unwrapping interface, not part of the public API.
 		EASTL_REMOVE_AT_2024_SEPT iterator_type unwrap() const
-			{ return mIterator; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// The unwrapper helpers need access to unwrap().
 		using this_type = move_iterator<Iterator>;
@@ -569,54 +592,72 @@ EASTL_INTERNAL_RESTORE_DEPRECATED()
 	template<typename Iterator1, typename Iterator2>
 	inline bool
 	operator==(const move_iterator<Iterator1>& a, const move_iterator<Iterator2>& b)
-		{ return a.base() == b.base(); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template<typename Iterator1, typename Iterator2>
 	inline bool
 	operator!=(const move_iterator<Iterator1>& a, const move_iterator<Iterator2>& b)
-		{ return !(a == b); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template<typename Iterator1, typename Iterator2>
 	inline bool
 	operator<(const move_iterator<Iterator1>& a, const move_iterator<Iterator2>& b)
-		{ return a.base() < b.base(); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template<typename Iterator1, typename Iterator2>
 	inline bool
 	operator<=(const move_iterator<Iterator1>& a, const move_iterator<Iterator2>& b)
-		{ return !(b < a); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template<typename Iterator1, typename Iterator2>
 	inline bool
 	operator>(const move_iterator<Iterator1>& a, const move_iterator<Iterator2>& b)
-		{ return b < a; }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template<typename Iterator1, typename Iterator2>
 	inline bool
 	operator>=(const move_iterator<Iterator1>& a, const move_iterator<Iterator2>& b)
-		{ return !(a < b); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template<typename Iterator1, typename Iterator2>
 	inline auto
 	operator-(const move_iterator<Iterator1>& a, const move_iterator<Iterator2>& b) -> decltype(a.base() - b.base())
-		{ return a.base() - b.base(); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template<typename Iterator>
 	inline move_iterator<Iterator>
 	operator+(typename move_iterator<Iterator>::difference_type n, const move_iterator<Iterator>& a)
-		{ return a + n; }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template<typename Iterator>
 	inline move_iterator<Iterator> make_move_iterator(Iterator i)
-		{ return move_iterator<Iterator>(i); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// make_move_if_noexcept_iterator returns move_iterator<Iterator> if the Iterator is of a noexcept type;
@@ -633,7 +674,9 @@ EASTL_INTERNAL_RESTORE_DEPRECATED()
 		// Else there are no exceptions and thus we always return a move_iterator.
 		template <typename Iterator>
 		inline eastl::move_iterator<Iterator> make_move_if_noexcept_iterator(Iterator i)
-			{ return eastl::move_iterator<Iterator>(i); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	#endif
 
 
@@ -674,9 +717,8 @@ EASTL_INTERNAL_DISABLE_DEPRECATED() // is_iterator_wrapper_helper is deprecated
 	template <typename Iterator>
 	EASTL_REMOVE_AT_2024_SEPT inline typename eastl::is_iterator_wrapper_helper<Iterator, eastl::is_move_iterator<Iterator>::value>::iterator_type unwrap_move_iterator(Iterator it)
 	{
-		// get_unwrapped(it) -> it.unwrap() which is equivalent to `it.base()` for move_iterator and to `it` otherwise.
-		return eastl::is_iterator_wrapper_helper<Iterator, eastl::is_move_iterator<Iterator>::value>::get_unwrapped(it);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 EASTL_INTERNAL_RESTORE_DEPRECATED()
 
 
@@ -703,25 +745,37 @@ EASTL_INTERNAL_RESTORE_DEPRECATED()
 
 	public:
 		explicit back_insert_iterator(Container& x)
-			: container(eastl::addressof(x)) { }
+			: container(eastl::addressof(x)) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		back_insert_iterator(const back_insert_iterator&) = default;
 		back_insert_iterator& operator=(const back_insert_iterator&) = default;
 
 		back_insert_iterator& operator=(const typename Container::value_type& value)
-			{ container->push_back(value); return *this; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		back_insert_iterator& operator=(typename Container::value_type&& value)
-			{ container->push_back(eastl::move(value)); return *this; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		back_insert_iterator& operator*()
-			{ return *this; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		back_insert_iterator& operator++()
-			{ return *this; } // This is by design.
+			{
+    __builtin_trap() /* STUB: not implemented */;
+} // This is by design.
 
 		back_insert_iterator operator++(int)
-			{ return *this; } // This is by design.
+			{
+    __builtin_trap() /* STUB: not implemented */;
+} // This is by design.
 	};
 
 
@@ -732,7 +786,9 @@ EASTL_INTERNAL_RESTORE_DEPRECATED()
 	template <typename Container>
 	inline back_insert_iterator<Container>
 	back_inserter(Container& x)
-		{ return back_insert_iterator<Container>(x); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -759,22 +815,32 @@ EASTL_INTERNAL_RESTORE_DEPRECATED()
 		Container* container;
 
 	public:
-		explicit front_insert_iterator(Container& x) : container(eastl::addressof(x)) {}
+		explicit front_insert_iterator(Container& x) : container(eastl::addressof(x)) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		front_insert_iterator(const front_insert_iterator&) = default;
 		front_insert_iterator& operator=(const front_insert_iterator&) = default;
 
 		front_insert_iterator& operator=(const typename Container::value_type& value)
-			{ container->push_front(value); return *this; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		front_insert_iterator& operator*()
-			{ return *this; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		front_insert_iterator& operator++()
-			{ return *this; } // This is by design.
+			{
+    __builtin_trap() /* STUB: not implemented */;
+} // This is by design.
 
 		front_insert_iterator operator++(int)
-			{ return *this; } // This is by design.
+			{
+    __builtin_trap() /* STUB: not implemented */;
+} // This is by design.
 	};
 
 
@@ -785,7 +851,9 @@ EASTL_INTERNAL_RESTORE_DEPRECATED()
 	template <typename Container>
 	inline front_insert_iterator<Container>
 	front_inserter(Container& x)
-		{ return front_insert_iterator<Container>(x); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -825,26 +893,32 @@ EASTL_INTERNAL_RESTORE_DEPRECATED()
 
 	public:
 		insert_iterator(Container& x, iterator_type itNew)
-			: container(eastl::addressof(x)), it(itNew) {}
+			: container(eastl::addressof(x)), it(itNew) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		insert_iterator(const insert_iterator&) = default;
 		insert_iterator& operator=(const insert_iterator&) = default;
 
 		insert_iterator& operator=(const typename Container::value_type& value)
 		{
-			it = container->insert(it, value);
-			++it;
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		insert_iterator& operator*()
-			{ return *this; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		insert_iterator& operator++()
-			{ return *this; } // This is by design.
+			{
+    __builtin_trap() /* STUB: not implemented */;
+} // This is by design.
 
 		insert_iterator& operator++(int)
-			{ return *this; } // This is by design.
+			{
+    __builtin_trap() /* STUB: not implemented */;
+} // This is by design.
 
 	}; // insert_iterator
 
@@ -857,9 +931,8 @@ EASTL_INTERNAL_RESTORE_DEPRECATED()
 	inline eastl::insert_iterator<Container>
 	inserter(Container& x, Iterator i)
 	{
-		typedef typename Container::iterator iterator;
-		return eastl::insert_iterator<Container>(x, iterator(i));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// is_insert_iterator
@@ -957,9 +1030,8 @@ EASTL_INTERNAL_RESTORE_DEPRECATED()
 	inline void
 	advance_impl(InputIterator& i, Distance n, eastl::input_iterator_tag)
 	{
-		while(n--)
-			++i;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <bool signedDistance>
 	struct advance_bi_impl
@@ -967,9 +1039,8 @@ EASTL_INTERNAL_RESTORE_DEPRECATED()
 		template <typename BidirectionalIterator, typename Distance>
 		static void advance_impl(BidirectionalIterator& i, Distance n) // Specialization for unsigned distance type.
 		{
-			while(n--)
-				++i;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <>
@@ -978,32 +1049,23 @@ EASTL_INTERNAL_RESTORE_DEPRECATED()
 		template <typename BidirectionalIterator, typename Distance>
 		static void advance_impl(BidirectionalIterator& i, Distance n) // Specialization for signed distance type.
 		{
-			if(n > 0)
-			{
-				while(n--)
-					++i;
-			}
-			else
-			{
-				while(n++)
-					--i;
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <typename BidirectionalIterator, typename Distance>
 	inline void
 	advance_impl(BidirectionalIterator& i, Distance n, eastl::bidirectional_iterator_tag)
 	{
-		advance_bi_impl<eastl::is_signed<Distance>::value>::advance_impl(i, n);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename RandomAccessIterator, typename Distance>
 	inline void
 	advance_impl(RandomAccessIterator& i, Distance n, eastl::random_access_iterator_tag)
 	{
-		i += n;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	// Special version defined so that std C++ iterators can be recognized by
 	// this function. Unfortunately, this function treats all foreign iterators
@@ -1021,10 +1083,8 @@ EASTL_INTERNAL_RESTORE_DEPRECATED()
 	inline void
 	advance(InputIterator& i, Distance n)
 	{
-		typedef typename eastl::iterator_traits<InputIterator>::iterator_category IC;
-
-		eastl::advance_impl(i, n, IC());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// eastl::next / eastl::prev
@@ -1036,17 +1096,15 @@ EASTL_INTERNAL_RESTORE_DEPRECATED()
 	inline InputIterator
 	next(InputIterator it, typename eastl::iterator_traits<InputIterator>::difference_type n = 1)
 	{
-		eastl::advance(it, n);
-		return it;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename InputIterator>
 	inline InputIterator
 	prev(InputIterator it, typename eastl::iterator_traits<InputIterator>::difference_type n = 1)
 	{
-		eastl::advance(it, -n);
-		return it;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 #if defined(EA_COMPILER_CPP11_ENABLED) && EA_COMPILER_CPP11_ENABLED

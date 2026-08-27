@@ -288,7 +288,7 @@ namespace eastl
 		// chicken-and-egg problem. To do: Resolve this, probably by putting eastl::move somewhere else.
 		template <typename T>
 		inline typename eastl::remove_reference<T>::type&& move_internal(T&& x) EA_NOEXCEPT
-		{ return ((typename eastl::remove_reference<T>::type&&)x); }
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		template <typename T, class ...Args>
 		typename first_type_select<eastl::true_type, decltype(eastl::move_internal(T(eastl::declval<Args>()...)))>::type is(T&&, Args&& ...);

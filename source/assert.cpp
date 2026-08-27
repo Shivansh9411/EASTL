@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -54,67 +56,36 @@ namespace eastl
 	///
 	EASTL_API void SetAssertionFailureFunction(EASTL_AssertionFailureFunction pAssertionFailureFunction, void* pContext)
 	{
-		static EASTL_AssertionFailureFunction assertionFailureFunction_;
-		assertionFailureFunction_ = pAssertionFailureFunction;
-
-		gpAssertionFailureFunction = [](void* instructionPointer, const char* pExpression, void* pContext)
-		{
-			EA_UNUSED(instructionPointer);
-
-			if (assertionFailureFunction_)
-				assertionFailureFunction_(pExpression, pContext);
-		};
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	EASTL_API void SetAssertionFailureFunction(EASTL_AssertionFailureFunctionEx pAssertionFailureFunction, void* pContext)
 	{
-		gpAssertionFailureFunction = pAssertionFailureFunction;
-		gpAssertionFailureFunctionContext = pContext;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// AssertionFailureFunctionDefault
 	///
 	void AssertionFailureFunctionDefault(void* instructionPointer, const char* pExpression, void* pContext)
 	{
-		EA_UNUSED(instructionPointer);
-
-		AssertionFailureFunctionDefault(pExpression, pContext);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	EASTL_API void AssertionFailureFunctionDefault(const char* pExpression, void* /*pContext*/)
 	{
-		#if EASTL_ASSERT_ENABLED
-			#if defined(EA_PLATFORM_WINDOWS_KERNEL)
-				DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "%s", pExpression);
-			#elif defined(EA_PLATFORM_MICROSOFT)
-				printf("%s\n", pExpression); // Write the message to stdout
-				if(::IsDebuggerPresent())
-				{
-					OutputDebugStringA(pExpression);
-				}
-			#elif defined(EA_PLATFORM_ANDROID)
-				__android_log_print(ANDROID_LOG_INFO, "PRINTF", "%s\n", pExpression);
-			#else
-				printf("%s\n", pExpression); // Write the message to stdout, which happens to be the trace view for many console debug machines.
-			#endif
-		#else
-			EA_UNUSED(pExpression);
-		#endif
-
-		EASTL_DEBUG_BREAK();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// AssertionFailure
 	///
 	EASTL_API void AssertionFailure(const char* pExpression)
 	{
-		AssertionFailure(nullptr, pExpression);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	EASTL_API void AssertionFailure(void* instructionPointer, const char* pExpression)
 	{
-		if (gpAssertionFailureFunction)
-			gpAssertionFailureFunction(instructionPointer, pExpression, gpAssertionFailureFunctionContext);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

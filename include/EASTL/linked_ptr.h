@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -68,13 +70,9 @@ namespace eastl
 
 		template <typename U, typename D>
 		void link(const linked_ptr<U, D>& linkedPtr)
-		{   // This code can only be called when we are in a reset state.
-			// assert(!mpValue && (mpNext == mpPrev));
-			mpNext           = linkedPtr.mpNext;
-			mpNext->mpPrev   = this;
-			mpPrev           = const_cast<linked_ptr<U, D>*>(&linkedPtr);
-			linkedPtr.mpNext = this;
-		}
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	public:
 		/// element_type
@@ -88,8 +86,8 @@ namespace eastl
 		linked_ptr() 
 			: mpValue(NULL)
 		{
-			mpPrev = mpNext = this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// linked_ptr
@@ -98,8 +96,8 @@ namespace eastl
 		explicit linked_ptr(U* pValue) 
 			: mpValue(pValue)
 		{
-			mpPrev = mpNext = this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// linked_ptr
@@ -110,11 +108,8 @@ namespace eastl
 		linked_ptr(const linked_ptr& linkedPtr)
 			: mpValue(linkedPtr.mpValue)
 		{
-			if(mpValue)
-				link(linkedPtr);
-			else
-				mpPrev = mpNext = this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// linked_ptr
@@ -123,11 +118,8 @@ namespace eastl
 		linked_ptr(const linked_ptr<U, D>& linkedPtr)
 			: mpValue(linkedPtr.mpValue)
 		{
-			if(mpValue)
-				link(linkedPtr);
-			else
-				mpPrev = mpNext = this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// ~linked_ptr
@@ -146,14 +138,8 @@ namespace eastl
 		/// the compiler will generate this function and things will go wrong.
 		linked_ptr& operator=(const linked_ptr& linkedPtr)
 		{
-			if(linkedPtr.mpValue != mpValue)
-			{
-				reset(linkedPtr.mpValue);
-				if(linkedPtr.mpValue)
-					link(linkedPtr);
-			}
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator=
@@ -165,14 +151,8 @@ namespace eastl
 		template <typename U, typename D>
 		linked_ptr& operator=(const linked_ptr<U, D>& linkedPtr)
 		{
-			if(linkedPtr.mpValue != mpValue)
-			{
-				reset(linkedPtr.mpValue);
-				if(linkedPtr.mpValue)
-					link(linkedPtr);
-			}
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator=
@@ -183,9 +163,8 @@ namespace eastl
 		template <typename U>
 		linked_ptr& operator=(U* pValue)
 		{
-			reset(pValue);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// reset
@@ -196,22 +175,8 @@ namespace eastl
 		template <typename U>
 		void reset(U* pValue)
 		{
-			if(pValue != mpValue)
-			{
-				if(unique())
-				{
-					deleter_type del;
-					del(mpValue);
-				}
-				else
-				{
-					mpPrev->mpNext  = mpNext;
-					mpNext->mpPrev  = mpPrev;
-					mpPrev = mpNext = this;
-				}
-				mpValue = pValue;
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// reset
@@ -219,8 +184,8 @@ namespace eastl
 		/// is non-NULL, it is unlinked and possibly destroyed.
 		void reset()
 		{
-			reset((T*)NULL);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// swap
@@ -249,16 +214,16 @@ namespace eastl
 		/// Returns the owner pointer dereferenced.
 		T& operator*() const
 		{
-			return *mpValue;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator->
 		/// Allows access to the owned pointer via operator->()
 		T* operator->() const
 		{
-			return mpValue;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// get
@@ -267,8 +232,8 @@ namespace eastl
 		/// a thing (automatic conversion) is deemed unsafe.
 		T* get() const
 		{
-			return mpValue;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// use_count
@@ -280,14 +245,8 @@ namespace eastl
 		/// not constant.
 		int use_count() const
 		{
-			int useCount(1);
-			
-			for(const linked_ptr_base* pCurrent = static_cast<const linked_ptr_base*>(this); 
-					pCurrent->mpNext != static_cast<const linked_ptr_base*>(this); pCurrent = pCurrent->mpNext)
-				++useCount;
-
-			return useCount;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// unique
@@ -295,8 +254,8 @@ namespace eastl
 		/// The return value is true if the owned pointer is null.
 		bool unique() const
 		{
-			return (mpNext == static_cast<const linked_ptr_base*>(this));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// Implicit operator bool
@@ -318,8 +277,8 @@ namespace eastl
 		/// the owned pointer is null. Some compilers require this and some don't.
 		bool operator!()
 		{
-			return (mpValue == NULL);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// detach
@@ -329,20 +288,8 @@ namespace eastl
 		/// refer to type T and none refer to any other type (e.g. U).
 		T* detach()
 		{
-			T* const pValue = mpValue;
-
-			linked_ptr_base* p = this;
-			do
-			{
-				linked_ptr_base* const pNext = p->mpNext;
-				static_cast<this_type*>(p)->mpValue = NULL;
-				p->mpNext = p->mpPrev = p;
-				p = pNext;
-			}
-			while(p != this);
-
-			return pValue;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// force_delete
 		/// Forces deletion of the shared pointer. Fixes all references to the 
@@ -351,10 +298,8 @@ namespace eastl
 		/// refer to type T and none refer to any other type (e.g. U).
 		void force_delete()
 		{
-			T* const pValue = detach();
-			Deleter del;
-			del(pValue);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // class linked_ptr
 
@@ -366,8 +311,8 @@ namespace eastl
 	template <typename T, typename D>
 	inline T* get_pointer(const linked_ptr<T, D>& linkedPtr)
 	{
-		return linkedPtr.get();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// operator==
@@ -376,8 +321,8 @@ namespace eastl
 	template <typename T, typename TD, typename U, typename UD>
 	inline bool operator==(const linked_ptr<T, TD>& linkedPtr1, const linked_ptr<U, UD>& linkedPtr2)
 	{
-		return (linkedPtr1.get() == linkedPtr2.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// operator!=
@@ -386,8 +331,8 @@ namespace eastl
 	template <typename T, typename TD, typename U, typename UD>
 	inline bool operator!=(const linked_ptr<T, TD>& linkedPtr1, const linked_ptr<U, UD>& linkedPtr2)
 	{
-		return (linkedPtr1.get() != linkedPtr2.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// operator<
@@ -396,8 +341,8 @@ namespace eastl
 	template <typename T, typename TD, typename U, typename UD>
 	inline bool operator<(const linked_ptr<T, TD>& linkedPtr1, const linked_ptr<U, UD>& linkedPtr2)
 	{
-		return (linkedPtr1.get() < linkedPtr2.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

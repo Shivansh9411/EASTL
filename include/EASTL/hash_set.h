@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -151,8 +153,8 @@ namespace eastl
 		hash_set()
 			: this_type(EASTL_HASH_SET_DEFAULT_ALLOCATOR)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// hash_set
@@ -162,8 +164,8 @@ namespace eastl
 		explicit hash_set(const allocator_type& allocator)
 			: base_type(0, Hash(), mod_range_hashing(), default_ranged_hash(), Predicate(), eastl::use_self<Value>(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// hash_set
@@ -177,8 +179,8 @@ namespace eastl
 						  const allocator_type& allocator = EASTL_HASH_SET_DEFAULT_ALLOCATOR)
 			: base_type(nBucketCount, hashFunction, mod_range_hashing(), default_ranged_hash(), predicate, eastl::use_self<Value>(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// hash_set(size_type nBucketCount, const allocator_type& allocator)
 		// hash_set(size_type nBucketCount, const Hash& hashFunction, const allocator_type& allocator)
@@ -187,7 +189,8 @@ namespace eastl
 		hash_set(const this_type& x)
 		  : base_type(x)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// hash_set(const this_type& x, const allocator_type& allocator)
 
@@ -201,7 +204,8 @@ namespace eastl
 		hash_set(this_type&& x, const allocator_type& allocator)
 		  : base_type(eastl::move(x), allocator)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// hash_set
@@ -213,14 +217,14 @@ namespace eastl
 				   const Predicate& predicate = Predicate(), const allocator_type& allocator = EASTL_HASH_SET_DEFAULT_ALLOCATOR)
 			: base_type(ilist.begin(), ilist.end(), nBucketCount, hashFunction, mod_range_hashing(), default_ranged_hash(), predicate, eastl::use_self<Value>(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		hash_set(std::initializer_list<value_type> ilist, const allocator_type& allocator)
 			: base_type(ilist.begin(), ilist.end(), 0, Hash(), mod_range_hashing(), default_ranged_hash(), Predicate(), eastl::use_self<Value>(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// hash_set(std::initializer_list<value_type> ilist, size_type nBucketCount, const allocator_type& allocator)
 
@@ -238,8 +242,8 @@ namespace eastl
 				 const Predicate& predicate = Predicate(), const allocator_type& allocator = EASTL_HASH_SET_DEFAULT_ALLOCATOR)
 			: base_type(first, last, nBucketCount, hashFunction, mod_range_hashing(), default_ranged_hash(), predicate, eastl::use_self<Value>(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// template <typename ForwardIterator>
 		// hash_set(ForwardIterator first, ForwardIterator last, size_type nBucketCount, const allocator_type& allocator)
@@ -250,43 +254,27 @@ namespace eastl
 
 		this_type& operator=(const this_type& x)
 		{
-			return static_cast<this_type&>(base_type::operator=(x));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		this_type& operator=(std::initializer_list<value_type> ilist)
 		{
-			return static_cast<this_type&>(base_type::operator=(ilist));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		this_type& operator=(this_type&& x)
 		{
-			return static_cast<this_type&>(base_type::operator=(eastl::move(x)));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename KX, typename HX = Hash, typename Pred = Predicate,
 			eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<HX> && eastl::detail::is_transparent_comparison_v<Pred>, bool> = true>
 		insert_return_type insert(KX&& k)
 		{
-			// There's no function in the base type that we can re-use here. insert(value_type&&) is implemented in terms of DoInsertValue(), but that
-			// unconditionally creates a node and therefore the key_type. So we create our own appropriate implementation.
-
-			const typename base_type::hash_code_t c = base_type::get_hash_code(k);
-			const size_type n = (size_type)base_type::bucket_index(k, c, (uint32_t)base_type::mnBucketCount);
-
-			node_type* const pNode = base_type::DoFindNode(base_type::mpBucketArray[n], k, c);
-
-			if (!pNode)
-			{
-				node_type* const pNodeNew = base_type::DoAllocateNode(eastl::forward<KX>(k));
-				return base_type::template DoInsertUniqueNode<true>(pNodeNew->mValue, c, n, pNodeNew);
-			}
-			else
-			{
-				return pair<iterator, bool>(iterator(pNode, base_type::mpBucketArray + n), false);
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// this function was incorrectly defined in the hashtable base type.
 		// this function implicitly converts to value_type, which it shouldn't. Additionally, it does not correctly support heterogeneous insertion (unconditionally creates a key_type).
@@ -295,8 +283,8 @@ namespace eastl
 		EA_REMOVE_AT_2025_OCT_MSG("Replace call with insert(value_type(...)) or emplace(...) or declare container with transparent hash and comparator.")
 		insert_return_type insert(P&& otherValue)
 		{
-			return base_type::emplace(eastl::forward<P>(otherValue));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // hash_set
 
@@ -306,21 +294,8 @@ namespace eastl
 	template <typename Value, typename Hash, typename Predicate, typename Allocator, bool bCacheHashCode, typename UserPredicate>
 	typename eastl::hash_set<Value, Hash, Predicate, Allocator, bCacheHashCode>::size_type erase_if(eastl::hash_set<Value, Hash, Predicate, Allocator, bCacheHashCode>& c, UserPredicate predicate)
 	{
-		auto oldSize = c.size();
-		// Erases all elements that satisfy the predicate pred from the container.
-		for (auto i = c.begin(), last = c.end(); i != last;)
-		{
-			if (predicate(*i))
-			{
-				i = c.erase(i);
-			}
-			else
-			{
-				++i;
-			}
-		}
-		return oldSize - c.size();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// hash_multiset
@@ -360,8 +335,8 @@ namespace eastl
 		explicit hash_multiset(const allocator_type& allocator = EASTL_HASH_MULTISET_DEFAULT_ALLOCATOR)
 			: base_type(0, Hash(), mod_range_hashing(), default_ranged_hash(), Predicate(), eastl::use_self<Value>(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// hash_multiset
@@ -375,8 +350,8 @@ namespace eastl
 							   const Predicate& predicate = Predicate(), const allocator_type& allocator = EASTL_HASH_MULTISET_DEFAULT_ALLOCATOR)
 			: base_type(nBucketCount, hashFunction, mod_range_hashing(), default_ranged_hash(), predicate, eastl::use_self<Value>(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// hash_multiset(size_type nBucketCount, const allocator_type& allocator)
 		// hash_multiset(size_type nBucketCount, const Hash& hashFunction, const allocator_type& allocator)
@@ -385,7 +360,8 @@ namespace eastl
 		hash_multiset(const this_type& x)
 		  : base_type(x)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// hash_multiset(const this_type& x, const allocator_type& allocator)
 
@@ -399,7 +375,8 @@ namespace eastl
 		hash_multiset(this_type&& x, const allocator_type& allocator)
 		  : base_type(eastl::move(x), allocator)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// hash_multiset
@@ -411,14 +388,14 @@ namespace eastl
 				   const Predicate& predicate = Predicate(), const allocator_type& allocator = EASTL_HASH_MULTISET_DEFAULT_ALLOCATOR)
 			: base_type(ilist.begin(), ilist.end(), nBucketCount, hashFunction, mod_range_hashing(), default_ranged_hash(), predicate, eastl::use_self<Value>(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		hash_multiset(std::initializer_list<value_type> ilist, const allocator_type& allocator)
 			: base_type(ilist.begin(), ilist.end(), 0, Hash(), mod_range_hashing(), default_ranged_hash(), Predicate(), eastl::use_self<Value>(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// hash_multiset(std::initializer_list<value_type> ilist, size_type nBucketCount, const allocator_type& allocator)
 
@@ -436,8 +413,8 @@ namespace eastl
 					  const Predicate& predicate = Predicate(), const allocator_type& allocator = EASTL_HASH_MULTISET_DEFAULT_ALLOCATOR)
 			: base_type(first, last, nBucketCount, hashFunction, mod_range_hashing(), default_ranged_hash(), predicate, eastl::use_self<Value>(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// template <typename ForwardIterator>
 		// hash_multiset(ForwardIterator first, ForwardIterator last, size_type nBucketCount, const allocator_type& allocator)
@@ -448,20 +425,20 @@ namespace eastl
 
 		this_type& operator=(const this_type& x)
 		{
-			return static_cast<this_type&>(base_type::operator=(x));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		this_type& operator=(std::initializer_list<value_type> ilist)
 		{
-			return static_cast<this_type&>(base_type::operator=(ilist));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		this_type& operator=(this_type&& x)
 		{
-			return static_cast<this_type&>(base_type::operator=(eastl::move(x)));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// this function was incorrectly defined in the hashtable base type.
 		// this function implicitly converts to value_type, which it shouldn't.
@@ -469,8 +446,8 @@ namespace eastl
 		EA_REMOVE_AT_2025_OCT_MSG("Replace call with insert(value_type(...)) or emplace(...).")
 		insert_return_type insert(P&& otherValue)
 		{
-			return base_type::emplace(eastl::forward<P>(otherValue));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // hash_multiset
 
@@ -480,21 +457,8 @@ namespace eastl
 	template <typename Value, typename Hash, typename Predicate, typename Allocator, bool bCacheHashCode, typename UserPredicate>
 	typename eastl::hash_multiset<Value, Hash, Predicate, Allocator, bCacheHashCode>::size_type erase_if(eastl::hash_multiset<Value, Hash, Predicate, Allocator, bCacheHashCode>& c, UserPredicate predicate)
 	{
-		auto oldSize = c.size();
-		// Erases all elements that satisfy the predicate pred from the container.
-		for (auto i = c.begin(), last = c.end(); i != last;)
-		{
-			if (predicate(*i))
-			{
-				i = c.erase(i);
-			}
-			else
-			{
-				++i;
-			}
-		}
-		return oldSize - c.size();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -506,90 +470,32 @@ namespace eastl
 	inline bool operator==(const hash_set<Value, Hash, Predicate, Allocator, bCacheHashCode>& a, 
 						   const hash_set<Value, Hash, Predicate, Allocator, bCacheHashCode>& b)
 	{
-		typedef typename hash_set<Value, Hash, Predicate, Allocator, bCacheHashCode>::const_iterator const_iterator;
-
-		// We implement branching with the assumption that the return value is usually false.
-		if(a.size() != b.size())
-			return false;
-
-		// For set (with its unique keys), we need only test that each element in a can be found in b,
-		// as there can be only one such pairing per element. multiset needs to do a something more elaborate.
-		for(const_iterator ai = a.begin(), aiEnd = a.end(), biEnd = b.end(); ai != aiEnd; ++ai)
-		{
-			const_iterator bi = b.find(*ai);
-
-			if((bi == biEnd) || !(*ai == *bi)) // We have to compare values in addition to making sure the lookups succeeded. This is because the lookup is done via the user-supplised Predicate
-				return false;                  // which isn't strictly required to be identical to the Value operator==, though 99% of the time it will be so.  
-		}
-
-		return true;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if !defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
 	template <typename Value, typename Hash, typename Predicate, typename Allocator, bool bCacheHashCode>
 	inline bool operator!=(const hash_set<Value, Hash, Predicate, Allocator, bCacheHashCode>& a, 
 						   const hash_set<Value, Hash, Predicate, Allocator, bCacheHashCode>& b)
 	{
-		return !(a == b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 #endif
 
 	template <typename Value, typename Hash, typename Predicate, typename Allocator, bool bCacheHashCode>
 	inline bool operator==(const hash_multiset<Value, Hash, Predicate, Allocator, bCacheHashCode>& a, 
 						   const hash_multiset<Value, Hash, Predicate, Allocator, bCacheHashCode>& b)
 	{
-		typedef typename hash_multiset<Value, Hash, Predicate, Allocator, bCacheHashCode>::const_iterator const_iterator;
-		typedef typename eastl::iterator_traits<const_iterator>::difference_type difference_type;
-
-		// We implement branching with the assumption that the return value is usually false.
-		if(a.size() != b.size())
-			return false;
-
-		// We can't simply search for each element of a in b, as it may be that the bucket for 
-		// two elements in a has those same two elements in b but in different order (which should 
-		// still result in equality). Also it's possible that one bucket in a has two elements which 
-		// both match a solitary element in the equivalent bucket in b (which shouldn't result in equality).
-		eastl::pair<const_iterator, const_iterator> aRange;
-		eastl::pair<const_iterator, const_iterator> bRange;
-
-		for(const_iterator ai = a.begin(), aiEnd = a.end(); ai != aiEnd; ai = aRange.second) // For each element in a...
-		{
-			aRange = a.equal_range(*ai); // Get the range of elements in a that are equal to ai.
-			bRange = b.equal_range(*ai); // Get the range of elements in b that are equal to ai.
-
-			// We need to verify that aRange == bRange. First make sure the range sizes are equivalent...
-			const difference_type aDistance = eastl::distance(aRange.first, aRange.second);
-			const difference_type bDistance = eastl::distance(bRange.first, bRange.second);
-
-			if(aDistance != bDistance)
-				return false;
-
-			// At this point, aDistance > 0 and aDistance == bDistance.
-			// Implement a fast pathway for the case that there's just a single element.
-			if(aDistance == 1)
-			{
-				if(!(*aRange.first == *bRange.first))   // We have to compare values in addition to making sure the distance (element count) was equal. This is because the lookup is done via the user-supplised Predicate
-					return false;                       // which isn't strictly required to be identical to the Value operator==, though 99% of the time it will be so. Ditto for the is_permutation usage below.
-			}
-			else
-			{
-				// Check to see if these aRange and bRange are any permutation of each other. 
-				// This check gets slower as there are more elements in the range.
-				if(!eastl::is_permutation(aRange.first, aRange.second, bRange.first))
-					return false;
-			}
-		}
-
-		return true;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if !defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
 	template <typename Value, typename Hash, typename Predicate, typename Allocator, bool bCacheHashCode>
 	inline bool operator!=(const hash_multiset<Value, Hash, Predicate, Allocator, bCacheHashCode>& a, 
 						   const hash_multiset<Value, Hash, Predicate, Allocator, bCacheHashCode>& b)
 	{
-		return !(a == b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 #endif
 
 } // namespace eastl

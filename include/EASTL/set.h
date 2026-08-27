@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 //////////////////////////////////////////////////////////////////////////////
@@ -135,18 +137,28 @@ namespace eastl
 		// set(InputIterator first, InputIterator last, const Allocator& alloc);
 
 		// The (this_type&& x) ctor above has the side effect of forcing us to make operator= visible in this subclass.
-		this_type& operator=(const this_type& x) { return (this_type&)base_type::operator=(x); }
-		this_type& operator=(std::initializer_list<value_type> ilist) { return (this_type&)base_type::operator=(ilist); }
-		this_type& operator=(this_type&& x) { return (this_type&)base_type::operator=(eastl::move(x)); }
+		this_type& operator=(const this_type& x) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		this_type& operator=(std::initializer_list<value_type> ilist) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		this_type& operator=(this_type&& x) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	public:
 		value_compare value_comp() const;
 
-		size_type erase(const Key& k) { return DoErase(k); }
+		size_type erase(const Key& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		template<typename KX, typename Cmp = Compare,
 			eastl::enable_if_t<!eastl::is_convertible_v<KX&&, iterator> && !eastl::is_convertible_v<KX&&, const_iterator>
 			&& eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		size_type erase(KX&& k) { return DoErase(eastl::forward<KX>(k)); }
+		size_type erase(KX&& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		iterator  erase(const_iterator position);
 		iterator  erase(const_iterator first, const_iterator last);
 
@@ -157,39 +169,38 @@ namespace eastl
 		// this function implicitly converts to value_type, which it shouldn't. Additionally, it does not correctly support heterogeneous insertion (unconditionally creates a key_type).
 		template <typename P, typename Cmp = Compare, eastl::enable_if_t<!eastl::is_convertible_v<P&&, value_type> && !eastl::detail::is_transparent_comparison_v<Cmp> && eastl::is_constructible_v<value_type, P&&>, bool> = true>
 		EA_REMOVE_AT_2025_OCT_MSG("Replace call with insert(value_type(...)) or emplace(...) or declare container with a transparent comparator.")
-		insert_return_type insert(P&& otherValue) { return base_type::emplace(eastl::forward<P>(otherValue)); }
+		insert_return_type insert(P&& otherValue) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
 		insert_return_type insert(KX&& key)
 		{
-			// There's no function in the base type that we can re-use here. insert(value_type&&) is implemented in terms of DoInsertValue(), but that
-			// unconditionally creates a node and therefore the key_type. So we create our own appropriate implementation.
-
-			bool       canInsert;
-			rbtree_node_base* pPosition = base_type::DoGetKeyInsertionPositionUniqueKeys(canInsert, key);
-
-			if (canInsert)
-			{
-				typename base_type::node_type* const pNodeNew = base_type::DoCreateNode(eastl::forward<KX>(key)); // Note that pNodeNew->mpLeft, mpRight, mpParent, will be uninitialized.
-				iterator itResult = base_type::DoInsertValueImpl(pPosition, false, pNodeNew->mValue, pNodeNew);
-				return pair<iterator, bool>(itResult, true);
-			}
-
-			return pair<iterator, bool>(iterator(pPosition), false);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		size_type count(const Key& k) const;
 
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		size_type count(const KX& key) const { return (find(key) != end()) ? 1 : 0; }
+		size_type count(const KX& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		eastl::pair<iterator, iterator>             equal_range(const Key& key) { return DoEqualRange(key); }
-		eastl::pair<const_iterator, const_iterator> equal_range(const Key& key) const { return DoEqualRange(key); }
+		eastl::pair<iterator, iterator>             equal_range(const Key& key) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		eastl::pair<const_iterator, const_iterator> equal_range(const Key& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		eastl::pair<iterator, iterator>             equal_range(const KX& key) { return DoEqualRange(key); }
+		eastl::pair<iterator, iterator>             equal_range(const KX& key) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		eastl::pair<const_iterator, const_iterator> equal_range(const KX& key) const { return DoEqualRange(key); }
+		eastl::pair<const_iterator, const_iterator> equal_range(const KX& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	private:
 		template<typename KX>
@@ -279,18 +290,28 @@ namespace eastl
 		// multiset(InputIterator first, InputIterator last, const Allocator& alloc);
 		
 		// The (this_type&& x) ctor above has the side effect of forcing us to make operator= visible in this subclass.
-		this_type& operator=(const this_type& x) { return (this_type&)base_type::operator=(x); }
-		this_type& operator=(std::initializer_list<value_type> ilist) { return (this_type&)base_type::operator=(ilist); }
-		this_type& operator=(this_type&& x) { return (this_type&)base_type::operator=(eastl::move(x)); }
+		this_type& operator=(const this_type& x) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		this_type& operator=(std::initializer_list<value_type> ilist) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		this_type& operator=(this_type&& x) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	public:
 		value_compare value_comp() const;
 
-		size_type erase(const Key& k) { return DoErase(k); }
+		size_type erase(const Key& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		template<typename KX, typename Cmp = Compare,
 			eastl::enable_if_t<!eastl::is_convertible_v<KX&&, iterator> && !eastl::is_convertible_v<KX&&, const_iterator>
 			&& eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		size_type erase(KX&& k) { return DoErase(eastl::forward<KX>(k)); }
+		size_type erase(KX&& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		iterator  erase(const_iterator position);
 		iterator  erase(const_iterator first, const_iterator last);
 
@@ -301,31 +322,53 @@ namespace eastl
 		// this function implicitly converts to value_type, which it shouldn't.
 		template <typename P, eastl::enable_if_t<!eastl::is_convertible_v<P&&, value_type> && eastl::is_constructible_v<value_type, P&&>, bool> = true>
 		EA_REMOVE_AT_2025_OCT_MSG("Replace call with insert(value_type(...)) or emplace(...).")
-		insert_return_type insert(P&& otherValue) { return base_type::emplace(eastl::forward<P>(otherValue)); }
+		insert_return_type insert(P&& otherValue) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		size_type count(const Key& key) const { return DoCount(key); }
-
-		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		size_type count(const KX& key) const { return DoCount(key); }
-
-		eastl::pair<iterator, iterator>             equal_range(const Key& key) { return DoEqualRange(key); }
-		eastl::pair<const_iterator, const_iterator> equal_range(const Key& key) const { return DoEqualRange(key); }
+		size_type count(const Key& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		eastl::pair<iterator, iterator>             equal_range(const KX& key) { return DoEqualRange(key); }
+		size_type count(const KX& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
+
+		eastl::pair<iterator, iterator>             equal_range(const Key& key) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		eastl::pair<const_iterator, const_iterator> equal_range(const Key& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
+
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		eastl::pair<const_iterator, const_iterator> equal_range(const KX& key) const { return DoEqualRange(key); }
+		eastl::pair<iterator, iterator>             equal_range(const KX& key) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
+		eastl::pair<const_iterator, const_iterator> equal_range(const KX& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// equal_range_small
 		/// This is a special version of equal_range which is optimized for the 
 		/// case of there being few or no duplicated keys in the tree.
-		eastl::pair<iterator, iterator>             equal_range_small(const Key& key) { return DoEqualRangeSmall(key); }
-		eastl::pair<const_iterator, const_iterator> equal_range_small(const Key& key) const { return DoEqualRangeSmall(key); }
+		eastl::pair<iterator, iterator>             equal_range_small(const Key& key) {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		eastl::pair<const_iterator, const_iterator> equal_range_small(const Key& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		eastl::pair<iterator, iterator>             equal_range_small(const KX& key) { return DoEqualRangeSmall(key); }
+		eastl::pair<iterator, iterator>             equal_range_small(const KX& key) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		template<typename KX, typename Cmp = Compare, eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<Cmp>, bool> = true>
-		eastl::pair<const_iterator, const_iterator> equal_range_small(const KX& key) const { return DoEqualRangeSmall(key); }
+		eastl::pair<const_iterator, const_iterator> equal_range_small(const KX& key) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	private:
 		template<typename KX>
@@ -357,21 +400,24 @@ namespace eastl
 	inline set<Key, Compare, Allocator>::set(const allocator_type& allocator)
 		: base_type(allocator)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline set<Key, Compare, Allocator>::set(const Compare& compare, const allocator_type& allocator)
 		: base_type(compare, allocator)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline set<Key, Compare, Allocator>::set(const this_type& x)
 		: base_type(x)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
@@ -384,21 +430,24 @@ namespace eastl
 	inline set<Key, Compare, Allocator>::set(this_type&& x, const allocator_type& allocator)
 		: base_type(eastl::move(x), allocator)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline set<Key, Compare, Allocator>::set(std::initializer_list<value_type> ilist, const Compare& compare, const allocator_type& allocator)
 		: base_type(ilist.begin(), ilist.end(), compare, allocator)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline set<Key, Compare, Allocator>::set(std::initializer_list<value_type> ilist, const allocator_type& allocator)
 		: base_type(ilist.begin(), ilist.end(), Compare(), allocator)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
@@ -406,15 +455,16 @@ namespace eastl
 	inline set<Key, Compare, Allocator>::set(Iterator itBegin, Iterator itEnd)
 		: base_type(itBegin, itEnd, Compare(), EASTL_SET_DEFAULT_ALLOCATOR)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline typename set<Key, Compare, Allocator>::value_compare
 	set<Key, Compare, Allocator>::value_comp() const
 	{
-		return get_compare();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
@@ -422,67 +472,48 @@ namespace eastl
 	inline typename set<Key, Compare, Allocator>::size_type
 	set<Key, Compare, Allocator>::DoErase(KX&& k)
 	{
-		const iterator it(find(k));
-
-		if(it != end()) // If it exists...
-		{
-			base_type::erase(it);
-			return 1;
-		}
-		return 0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline typename set<Key, Compare, Allocator>::iterator
 	set<Key, Compare, Allocator>::erase(const_iterator position)
 	{
-		// We need to provide this version because we override another version 
-		// and C++ hiding rules would make the base version of this hidden.
-		return base_type::erase(position);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline typename set<Key, Compare, Allocator>::iterator
 	set<Key, Compare, Allocator>::erase(const_iterator first, const_iterator last)
 	{
-		// We need to provide this version because we override another version 
-		// and C++ hiding rules would make the base version of this hidden.
-		return base_type::erase(first, last);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline typename set<Key, Compare, Allocator>::size_type
 	set<Key, Compare, Allocator>::count(const Key& k) const
 	{
-		const const_iterator it(find(k));
-		return (it != end()) ? (size_type)1 : (size_type)0;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline typename set<Key, Compare, Allocator>::reverse_iterator
 	set<Key, Compare, Allocator>::erase(const_reverse_iterator position)
 	{
-		return reverse_iterator(erase((++position).base()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline typename set<Key, Compare, Allocator>::reverse_iterator
 	set<Key, Compare, Allocator>::erase(const_reverse_iterator first, const_reverse_iterator last)
 	{
-		// Version which erases in order from first to last.
-		// difference_type i(first.base() - last.base());
-		// while(i--)
-		//     first = erase(first);
-		// return first;
-
-		// Version which erases in order from last to first, but is slightly more efficient:
-		return reverse_iterator(erase((++last).base(), (++first).base()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
@@ -491,18 +522,8 @@ namespace eastl
 					   typename set<Key, Compare, Allocator>::iterator>
 	set<Key, Compare, Allocator>::DoEqualRange(const KX& k)
 	{
-		// The resulting range will either be empty or have one element,
-		// so instead of doing two tree searches (one for lower_bound and 
-		// one for upper_bound), we do just lower_bound and see if the 
-		// result is a range of size zero or one.
-		const iterator itLower(lower_bound(k));
-
-		if((itLower == end()) || compare(k, *itLower)) // If at the end or if (k is < itLower)...
-			return eastl::pair<iterator, iterator>(itLower, itLower);
-
-		iterator itUpper(itLower);
-		return eastl::pair<iterator, iterator>(itLower, ++itUpper);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	
 
 	template <typename Key, typename Compare, typename Allocator>
@@ -511,15 +532,8 @@ namespace eastl
 					   typename set<Key, Compare, Allocator>::const_iterator>
 	set<Key, Compare, Allocator>::DoEqualRange(const KX& k) const
 	{
-		// See equal_range above for comments.
-		const const_iterator itLower(lower_bound(k));
-
-		if((itLower == end()) || compare(k, *itLower)) // If at the end or if (k is < itLower)...
-			return eastl::pair<const_iterator, const_iterator>(itLower, itLower);
-
-		const_iterator itUpper(itLower);
-		return eastl::pair<const_iterator, const_iterator>(itLower, ++itUpper);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	///////////////////////////////////////////////////////////////////////
@@ -530,20 +544,8 @@ namespace eastl
 	template <class Key, class Compare, class Allocator, class Predicate>
 	typename set<Key, Compare, Allocator>::size_type erase_if(set<Key, Compare, Allocator>& c, Predicate predicate)
 	{
-		auto oldSize = c.size();
-		for (auto i = c.begin(), last = c.end(); i != last;)
-		{
-			if (predicate(*i))
-			{
-				i = c.erase(i);
-			}
-			else
-			{
-				++i;
-			}
-		}
-		return oldSize - c.size();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
 	template <class Key, class Compare, class Allocator>
@@ -562,21 +564,24 @@ namespace eastl
 	inline multiset<Key, Compare, Allocator>::multiset(const allocator_type& allocator)
 		: base_type(allocator)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline multiset<Key, Compare, Allocator>::multiset(const Compare& compare, const allocator_type& allocator)
 		: base_type(compare, allocator)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline multiset<Key, Compare, Allocator>::multiset(const this_type& x)
 		: base_type(x)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
@@ -589,21 +594,24 @@ namespace eastl
 	inline multiset<Key, Compare, Allocator>::multiset(this_type&& x, const allocator_type& allocator)
 		: base_type(eastl::move(x), allocator)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline multiset<Key, Compare, Allocator>::multiset(std::initializer_list<value_type> ilist, const Compare& compare, const allocator_type& allocator)
 		: base_type(ilist.begin(), ilist.end(), compare, allocator)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline multiset<Key, Compare, Allocator>::multiset(std::initializer_list<value_type> ilist, const allocator_type& allocator)
 		: base_type(ilist.begin(), ilist.end(), Compare(), allocator)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
@@ -611,15 +619,16 @@ namespace eastl
 	inline multiset<Key, Compare, Allocator>::multiset(Iterator itBegin, Iterator itEnd)
 		: base_type(itBegin, itEnd, Compare(), EASTL_MULTISET_DEFAULT_ALLOCATOR)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline typename multiset<Key, Compare, Allocator>::value_compare
 	multiset<Key, Compare, Allocator>::value_comp() const
 	{
-		return get_compare();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
@@ -627,31 +636,24 @@ namespace eastl
 	inline typename multiset<Key, Compare, Allocator>::size_type
 	multiset<Key, Compare, Allocator>::DoErase(KX&& k)
 	{
-		const eastl::pair<iterator, iterator> range(equal_range(k));
-		const size_type n = (size_type)eastl::distance(range.first, range.second);
-		base_type::erase(range.first, range.second);
-		return n;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline typename multiset<Key, Compare, Allocator>::iterator
 	multiset<Key, Compare, Allocator>::erase(const_iterator position)
 	{
-		// We need to provide this version because we override another version 
-		// and C++ hiding rules would make the base version of this hidden.
-		return base_type::erase(position);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline typename multiset<Key, Compare, Allocator>::iterator
 	multiset<Key, Compare, Allocator>::erase(const_iterator first, const_iterator last)
 	{
-		// We need to provide this version because we override another version 
-		// and C++ hiding rules would make the base version of this hidden.
-		return base_type::erase(first, last);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
@@ -659,32 +661,24 @@ namespace eastl
 	inline typename multiset<Key, Compare, Allocator>::size_type
 	multiset<Key, Compare, Allocator>::DoCount(const KX& k) const
 	{
-		const eastl::pair<const_iterator, const_iterator> range(equal_range(k));
-		return (size_type)eastl::distance(range.first, range.second);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline typename multiset<Key, Compare, Allocator>::reverse_iterator
 	multiset<Key, Compare, Allocator>::erase(const_reverse_iterator position)
 	{
-		return reverse_iterator(erase((++position).base()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
 	inline typename multiset<Key, Compare, Allocator>::reverse_iterator
 	multiset<Key, Compare, Allocator>::erase(const_reverse_iterator first, const_reverse_iterator last)
 	{
-		// Version which erases in order from first to last.
-		// difference_type i(first.base() - last.base());
-		// while(i--)
-		//     first = erase(first);
-		// return first;
-
-		// Version which erases in order from last to first, but is slightly more efficient:
-		return reverse_iterator(erase((++last).base(), (++first).base()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
@@ -693,19 +687,8 @@ namespace eastl
 					   typename multiset<Key, Compare, Allocator>::iterator>
 	multiset<Key, Compare, Allocator>::DoEqualRange(const KX& k)
 	{
-		// There are multiple ways to implement equal_range. The implementation mentioned
-		// in the C++ standard and which is used by most (all?) commercial STL implementations
-		// is this:
-		//    return eastl::pair<iterator, iterator>(lower_bound(k), upper_bound(k));
-		//
-		// This does two tree searches -- one for the lower bound and one for the 
-		// upper bound. This works well for the case whereby you have a large container
-		// and there are lots of duplicated values. We provide an alternative version
-		// of equal_range called equal_range_small for cases where the user is confident
-		// that the number of duplicated items is only a few.
-
-		return eastl::pair<iterator, iterator>(lower_bound(k), upper_bound(k));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
@@ -714,9 +697,8 @@ namespace eastl
 					   typename multiset<Key, Compare, Allocator>::const_iterator>
 	multiset<Key, Compare, Allocator>::DoEqualRange(const KX& k) const
 	{
-		// See comments above in the non-const version of equal_range.
-		return eastl::pair<iterator, iterator>(lower_bound(k), upper_bound(k));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
@@ -725,16 +707,8 @@ namespace eastl
 					   typename multiset<Key, Compare, Allocator>::iterator>
 	multiset<Key, Compare, Allocator>::DoEqualRangeSmall(const KX& k)
 	{
-		// We provide alternative version of equal_range here which works faster
-		// for the case where there are at most small number of potential duplicated keys.
-		const iterator itLower(lower_bound(k));
-		iterator       itUpper(itLower);
-
-		while((itUpper != end()) && !compare(k, *itUpper))
-			++itUpper;
-
-		return eastl::pair<iterator, iterator>(itLower, itUpper);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename Key, typename Compare, typename Allocator>
@@ -743,16 +717,8 @@ namespace eastl
 					   typename multiset<Key, Compare, Allocator>::const_iterator>
 	multiset<Key, Compare, Allocator>::DoEqualRangeSmall(const KX& k) const
 	{
-		// We provide alternative version of equal_range here which works faster
-		// for the case where there are at most small number of potential duplicated keys.
-		const const_iterator itLower(lower_bound(k));
-		const_iterator       itUpper(itLower);
-
-		while((itUpper != end()) && !compare(k, *itUpper))
-			++itUpper;
-
-		return eastl::pair<const_iterator, const_iterator>(itLower, itUpper);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	///////////////////////////////////////////////////////////////////////
@@ -763,21 +729,8 @@ namespace eastl
 	template <class Key, class Compare, class Allocator, class Predicate>
 	typename multiset<Key, Compare, Allocator>::size_type erase_if(multiset<Key, Compare, Allocator>& c, Predicate predicate)
 	{
-		auto oldSize = c.size();
-		// Erases all elements that satisfy the predicate pred from the container.
-		for (auto i = c.begin(), last = c.end(); i != last;)
-		{
-			if (predicate(*i))
-			{
-				i = c.erase(i);
-			}
-			else
-			{
-				++i;
-			}
-		}
-		return oldSize - c.size();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
 	template <class Key, class Compare, class Allocator>

@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -219,53 +221,50 @@ namespace eastl
 	template <typename T, typename Pointer, typename Reference>
 	inline IntrusiveSDListIterator<T, Pointer, Reference>::IntrusiveSDListIterator()
 	{
-		#if EASTL_DEBUG
-			mpNode = NULL;
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Pointer, typename Reference>
 	inline IntrusiveSDListIterator<T, Pointer, Reference>::IntrusiveSDListIterator(pointer pNode)
 		: mpNode(pNode)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Pointer, typename Reference>
 	inline IntrusiveSDListIterator<T, Pointer, Reference>::IntrusiveSDListIterator(const iterator& x)
 		: mpNode(x.mpNode)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename IntrusiveSDListIterator<T, Pointer, Reference>::reference
 	IntrusiveSDListIterator<T, Pointer, Reference>::operator*() const
 	{
-		return *mpNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename IntrusiveSDListIterator<T, Pointer, Reference>::pointer
 	IntrusiveSDListIterator<T, Pointer, Reference>::operator->() const
 	{
-		return mpNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename IntrusiveSDListIterator<T, Pointer, Reference>::this_type&
 	IntrusiveSDListIterator<T, Pointer, Reference>::operator++()
 	{
-		mpNode = static_cast<node_type*>(mpNode->mpNext);
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename IntrusiveSDListIterator<T, Pointer, Reference>::this_type
 	IntrusiveSDListIterator<T, Pointer, Reference>::operator++(int)
 	{
-		this_type temp = *this;
-		mpNode = static_cast<node_type*>(mpNode->mpNext);
-		return temp;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	// The C++ defect report #179 requires that we support comparisons between const and non-const iterators.
 	// Thus we provide additional template paremeters here to support this. The defect report does not
@@ -274,16 +273,16 @@ namespace eastl
 	inline bool operator==(const IntrusiveSDListIterator<T, PointerA, ReferenceA>& a, 
 						   const IntrusiveSDListIterator<T, PointerB, ReferenceB>& b)
 	{
-		return a.mpNode == b.mpNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename PointerA, typename ReferenceA, typename PointerB, typename ReferenceB>
 	inline bool operator!=(const IntrusiveSDListIterator<T, PointerA, ReferenceA>& a, 
 						   const IntrusiveSDListIterator<T, PointerB, ReferenceB>& b)
 	{
-		return a.mpNode != b.mpNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// We provide a version of operator!= for the case where the iterators are of the 
@@ -292,8 +291,8 @@ namespace eastl
 	inline bool operator!=(const IntrusiveSDListIterator<T, Pointer, Reference>& a, 
 						   const IntrusiveSDListIterator<T, Pointer, Reference>& b)
 	{
-		return a.mpNode != b.mpNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -302,32 +301,33 @@ namespace eastl
 	///////////////////////////////////////////////////////////////////////
 
 	inline intrusive_sdlist_base::intrusive_sdlist_base() 
-		{ mpNext = NULL; }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	inline bool intrusive_sdlist_base::empty() const
-		{ return mpNext == NULL; }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	inline intrusive_sdlist_base::size_type intrusive_sdlist_base::size() const
 	{
-		size_type n = 0;
-		for(const intrusive_sdlist_node* pCurrent = mpNext; pCurrent; pCurrent = pCurrent->mpNext)
-			n++;
-		return n;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	inline void intrusive_sdlist_base::clear()
-		{ mpNext = NULL; } // Note that we don't do anything with the list nodes.
+		{
+    __builtin_trap() /* STUB: not implemented */;
+} // Note that we don't do anything with the list nodes.
 
 
 	inline void intrusive_sdlist_base::pop_front()
 	{
-		// To consider: Set mpNext's pointers to NULL in debug builds.
-		mpNext = mpNext->mpNext;
-		mpNext->mppPrevNext = &mpNext;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -338,212 +338,158 @@ namespace eastl
 	template <typename T>
 	inline intrusive_sdlist<T>::intrusive_sdlist()
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline intrusive_sdlist<T>::intrusive_sdlist(const this_type& /*x*/)
 	  : intrusive_sdlist_base()
 	{
-		// We intentionally ignore argument x.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_sdlist<T>::this_type& intrusive_sdlist<T>::operator=(const this_type& /*x*/)
-	{ 
-		return *this; // We intentionally ignore argument x.
-	}
+	{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_sdlist<T>::iterator intrusive_sdlist<T>::begin()
-		{ return iterator(static_cast<T*>(mpNext)); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_sdlist<T>::const_iterator intrusive_sdlist<T>::begin() const
-		{ return const_iterator(static_cast<T*>(const_cast<intrusive_sdlist_node*>(mpNext))); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_sdlist<T>::const_iterator intrusive_sdlist<T>::cbegin() const
-		{ return const_iterator(static_cast<T*>(const_cast<intrusive_sdlist_node*>(mpNext))); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_sdlist<T>::iterator intrusive_sdlist<T>::end()
-		{ return iterator(static_cast<T*>(NULL)); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_sdlist<T>::const_iterator intrusive_sdlist<T>::end() const
-		{ return const_iterator(static_cast<const T*>(NULL)); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_sdlist<T>::const_iterator intrusive_sdlist<T>::cend() const
-		{ return const_iterator(static_cast<const T*>(NULL)); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_sdlist<T>::reference intrusive_sdlist<T>::front()
-		{ return *static_cast<T*>(mpNext); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_sdlist<T>::const_reference intrusive_sdlist<T>::front() const
-		{ return *static_cast<const T*>(mpNext); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline void intrusive_sdlist<T>::push_front(value_type& value)
 	{
-		value.mpNext = mpNext;
-		value.mppPrevNext = &mpNext;
-		if(mpNext)
-			mpNext->mppPrevNext = &value.mpNext;
-		mpNext = &value;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline void intrusive_sdlist<T>::push_back(value_type& value)
 	{
-		intrusive_sdlist_node*  pNext      =  mpNext;
-		intrusive_sdlist_node** ppPrevNext = &mpNext;
-
-		while(pNext)
-		{
-			ppPrevNext = &pNext->mpNext;
-			pNext      =  pNext->mpNext;
-		}
-
-		*ppPrevNext       = &value;
-		value.mppPrevNext = ppPrevNext;
-		value.mpNext      = NULL;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline void intrusive_sdlist<T>::pop_back()
 	{
-		node_type* pCurrent = static_cast<node_type*>(mpNext);
-
-		while(pCurrent->mpNext)
-			pCurrent = static_cast<node_type*>(pCurrent->mpNext);
-
-		*pCurrent->mppPrevNext = NULL;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline bool intrusive_sdlist<T>::contains(const value_type& value) const
 	{
-		const intrusive_sdlist_node* pCurrent;
-
-		for(pCurrent = mpNext; pCurrent; pCurrent = pCurrent->mpNext)
-		{
-			if(pCurrent == &value)
-				break;
-		}
-
-		return (pCurrent != NULL);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_sdlist<T>::iterator intrusive_sdlist<T>::locate(value_type& value)
 	{
-		intrusive_sdlist_node* pCurrent;
-
-		for(pCurrent = static_cast<value_type*>(mpNext); pCurrent; pCurrent = pCurrent->mpNext)
-		{
-			if(pCurrent == &value)
-				break;
-		}
-
-		return iterator(static_cast<value_type*>(pCurrent));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_sdlist<T>::const_iterator intrusive_sdlist<T>::locate(const T& value) const
 	{
-		const intrusive_sdlist_node* pCurrent;
-
-		for(pCurrent = static_cast<value_type*>(mpNext); pCurrent; pCurrent = pCurrent->mpNext)
-		{
-			if(pCurrent == &value)
-				break;
-		}
-
-		return const_iterator(static_cast<value_type*>(const_cast<intrusive_sdlist_node*>(pCurrent)));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_sdlist<T>::iterator
 	intrusive_sdlist<T>::insert(iterator position, value_type& value)
 	{
-		value.mppPrevNext            = position.mpNode->mppPrevNext;
-		value.mpNext                 = position.mpNode;
-	   *value.mppPrevNext            = &value;
-		position.mpNode->mppPrevNext = &value.mpNext;
-
-		return iterator(&value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_sdlist<T>::iterator
 	intrusive_sdlist<T>::erase(iterator position)
 	{
-	   *position.mpNode->mppPrevNext         = position.mpNode->mpNext;
-		position.mpNode->mpNext->mppPrevNext = position.mpNode->mppPrevNext;
-
-		return iterator(position.mpNode);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_sdlist<T>::iterator
 	intrusive_sdlist<T>::erase(iterator first, iterator last)
 	{
-		if(first.mpNode) // If not erasing the end...
-		{
-			*first.mpNode->mppPrevNext = last.mpNode;
-
-			if(last.mpNode) // If not erasing to the end...
-				last.mpNode->mppPrevNext = first.mpNode->mppPrevNext;
-		}
-
-		return last;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline void intrusive_sdlist<T>::remove(value_type& value)
 	{
-		*value.mppPrevNext = value.mpNext;
-		if(value.mpNext)
-			value.mpNext->mppPrevNext = value.mppPrevNext;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	void intrusive_sdlist<T>::swap(intrusive_sdlist& x)
 	{
-		// swap anchors
-		intrusive_sdlist_node* const temp(mpNext);
-		mpNext   = x.mpNext;
-		x.mpNext = temp;
-
-		if(x.mpNext)
-			x.mpNext->mppPrevNext = &mpNext;
-
-		if(mpNext)
-			mpNext->mppPrevNext = &x.mpNext;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -554,54 +500,43 @@ namespace eastl
 	template <typename T>
 	void intrusive_sdlist<T>::splice(iterator /*position*/, value_type& /*value*/)
 	{
-		EASTL_ASSERT(false); // If you need this working, ask Paul Pedriana or submit a working version for inclusion.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	void intrusive_sdlist<T>::splice(iterator /*position*/, intrusive_sdlist& /*x*/)
 	{
-		EASTL_ASSERT(false); // If you need this working, ask Paul Pedriana or submit a working version for inclusion.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	void intrusive_sdlist<T>::splice(iterator /*position*/, intrusive_sdlist& /*x*/, iterator /*xPosition*/)
 	{
-		EASTL_ASSERT(false); // If you need this working, ask Paul Pedriana or submit a working version for inclusion.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	void intrusive_sdlist<T>::splice(iterator /*position*/, intrusive_sdlist& /*x*/, iterator /*first*/, iterator /*last*/)
 	{
-		EASTL_ASSERT(false); // If you need this working, ask Paul Pedriana or submit a working version for inclusion.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline bool intrusive_sdlist<T>::validate() const
 	{
-		return true; // To do.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline int intrusive_sdlist<T>::validate_iterator(const_iterator i) const
 	{
-		// To do: Come up with a more efficient mechanism of doing this.
-
-		for(const_iterator temp = begin(), tempEnd = end(); temp != tempEnd; ++temp)
-		{
-			if(temp == i)
-				return (isf_valid | isf_current | isf_can_dereference);
-		}
-
-		if(i == end())
-			return (isf_valid | isf_current); 
-
-		return isf_none;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -613,55 +548,44 @@ namespace eastl
 	template <typename T>
 	bool operator==(const intrusive_sdlist<T>& a, const intrusive_sdlist<T>& b)
 	{
-		// If we store an mSize member for intrusive_sdlist, we want to take advantage of it here.
-		typename intrusive_sdlist<T>::const_iterator ia   = a.begin();
-		typename intrusive_sdlist<T>::const_iterator ib   = b.begin();
-		typename intrusive_sdlist<T>::const_iterator enda = a.end();
-		typename intrusive_sdlist<T>::const_iterator endb = b.end();
-
-		while((ia != enda) && (ib != endb) && (*ia == *ib))
-		{
-			++ia;
-			++ib;
-		}
-		return (ia == enda) && (ib == endb);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator<(const intrusive_sdlist<T>& a, const intrusive_sdlist<T>& b)
 	{
-		return eastl::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator!=(const intrusive_sdlist<T>& a, const intrusive_sdlist<T>& b)
 	{
-		return !(a == b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator>(const intrusive_sdlist<T>& a, const intrusive_sdlist<T>& b)
 	{
-		return b < a;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator<=(const intrusive_sdlist<T>& a, const intrusive_sdlist<T>& b)
 	{
-		return !(b < a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator>=(const intrusive_sdlist<T>& a, const intrusive_sdlist<T>& b)
 	{
-		return !(a < b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	void swap(intrusive_sdlist<T>& a, intrusive_sdlist<T>& b)
 	{
-		a.swap(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

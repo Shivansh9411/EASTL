@@ -20,15 +20,11 @@ namespace eastl
 // bool atomic_flag_test_and_set(eastl::atomic<T>*)
 //
 EASTL_FORCE_INLINE bool atomic_flag_test_and_set(eastl::atomic_flag* atomicObj) EA_NOEXCEPT
-{
-	return atomicObj->test_and_set();
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 template <typename Order>
 EASTL_FORCE_INLINE bool atomic_flag_test_and_set_explicit(eastl::atomic_flag* atomicObj, Order order)
-{
-	return atomicObj->test_and_set(order);
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -36,15 +32,11 @@ EASTL_FORCE_INLINE bool atomic_flag_test_and_set_explicit(eastl::atomic_flag* at
 // bool atomic_flag_clear(eastl::atomic<T>*)
 //
 EASTL_FORCE_INLINE void atomic_flag_clear(eastl::atomic_flag* atomicObj)
-{
-	atomicObj->clear();
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 template <typename Order>
 EASTL_FORCE_INLINE void atomic_flag_clear_explicit(eastl::atomic_flag* atomicObj, Order order)
-{
-	atomicObj->clear(order);
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -52,15 +44,11 @@ EASTL_FORCE_INLINE void atomic_flag_clear_explicit(eastl::atomic_flag* atomicObj
 // bool atomic_flag_test(eastl::atomic<T>*)
 //
 EASTL_FORCE_INLINE bool atomic_flag_test(eastl::atomic_flag* atomicObj)
-{
-	return atomicObj->test();
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 template <typename Order>
 EASTL_FORCE_INLINE bool atomic_flag_test_explicit(eastl::atomic_flag* atomicObj, Order order)
-{
-	return atomicObj->test(order);
-}
+{ __builtin_trap() /* STUB: not implemented */; }
 
 
 } // namespace eastl

@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -31,34 +33,8 @@ namespace eastl
 
 			mutex::mutex()
 			{
-				#if defined(EA_PLATFORM_MICROSOFT)
-					static_assert(sizeof(mMutexBuffer) == sizeof(CRITICAL_SECTION), "mMutexBuffer size failure");
-					//static_assert(EA_ALIGN_OF(mMutexBuffer) >= EA_ALIGN_OF(CRITICAL_SECTION), "mMutexBuffer alignment failure"); // Enabling this causes the VS2012 compiler to crash.
-
-					#if !defined(_WIN32_WINNT) || (_WIN32_WINNT < 0x0403)
-						InitializeCriticalSection((CRITICAL_SECTION*)mMutexBuffer);
-					#elif !EA_WINAPI_FAMILY_PARTITION(EA_WINAPI_PARTITION_DESKTOP)
-						BOOL result = InitializeCriticalSectionEx((CRITICAL_SECTION*)mMutexBuffer, 10, 0);
-						EASTL_ASSERT(result != 0); EA_UNUSED(result);
-					#else
-						BOOL result = InitializeCriticalSectionAndSpinCount((CRITICAL_SECTION*)mMutexBuffer, 10);
-						EASTL_ASSERT(result != 0); EA_UNUSED(result);
-					#endif
-
-				#elif defined(EA_PLATFORM_POSIX)
-					pthread_mutexattr_t attr;
-
-					pthread_mutexattr_init(&attr);
-
-					#if defined(EA_HAVE_pthread_mutexattr_setpshared_DECL)
-						pthread_mutexattr_setpshared(&attr, PTHREAD_PROCESS_PRIVATE);
-					#endif
-
-					pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
-					pthread_mutex_init(&mMutex, &attr);
-					pthread_mutexattr_destroy(&attr);
-				#endif
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			mutex::~mutex()
 			{
@@ -71,23 +47,13 @@ namespace eastl
 
 			void mutex::lock()
 			{
-				#if defined(EA_PLATFORM_MICROSOFT)
-					EnterCriticalSection((CRITICAL_SECTION*)mMutexBuffer);
-				#elif defined(EA_PLATFORM_POSIX)
-					pthread_mutex_lock(&mMutex);
-				#else
-					EASTL_FAIL_MSG("EASTL thread safety is not implemented yet. See EAThread for how to do this for the given platform.");
-				#endif
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 			void mutex::unlock()
 			{
-				#if defined(EA_PLATFORM_MICROSOFT)
-					LeaveCriticalSection((CRITICAL_SECTION*)mMutexBuffer);
-				#elif defined(EA_PLATFORM_POSIX)
-					pthread_mutex_unlock(&mMutex);
-				#endif
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		#endif
 
 
@@ -102,7 +68,8 @@ namespace eastl
 		shared_ptr_auto_mutex::shared_ptr_auto_mutex(const void* /*pSharedPtr*/)
 			: auto_mutex(*gSharedPtrMutex.get())
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	} // namespace Internal

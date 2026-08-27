@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -303,7 +305,9 @@ namespace eastl
 	struct argument_sink
 	{
 		template<typename... Args>
-		argument_sink(Args&&...) {}
+		argument_sink(Args&&...) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 

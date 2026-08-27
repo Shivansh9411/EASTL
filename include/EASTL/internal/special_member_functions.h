@@ -37,9 +37,7 @@ struct NonTrivialCopyCtor : Base
 	NonTrivialCopyCtor() = default;
 	NonTrivialCopyCtor(const NonTrivialCopyCtor& other) noexcept(
 		noexcept(eastl::declval<Base>().ConstructFrom(static_cast<const Base&>(other))))
-	{
-		Base::ConstructFrom(static_cast<const Base&>(other));
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 	NonTrivialCopyCtor(NonTrivialCopyCtor&&) = default;
 	NonTrivialCopyCtor& operator=(const NonTrivialCopyCtor&) = default;
 	NonTrivialCopyCtor& operator=(NonTrivialCopyCtor&&) = default;
@@ -67,9 +65,7 @@ struct NonTrivialMoveCtor : CopyBase
 	NonTrivialMoveCtor(const NonTrivialMoveCtor&) = default;
 	NonTrivialMoveCtor(NonTrivialMoveCtor&& other) noexcept(
 		noexcept(eastl::declval<SelectedBase>().ConstructFrom(static_cast<SelectedBase&&>(other))))
-	{
-		SelectedBase::ConstructFrom(static_cast<SelectedBase&&>(other));
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 	NonTrivialMoveCtor& operator=(const NonTrivialMoveCtor&) = default;
 	NonTrivialMoveCtor& operator=(NonTrivialMoveCtor&&) = default;
 };
@@ -99,10 +95,7 @@ struct NonTrivialCopyAssign : MoveBase
 
 	NonTrivialCopyAssign& operator=(const NonTrivialCopyAssign& other) noexcept(
 		noexcept(eastl::declval<SelectedBase>().AssignFrom(static_cast<const SelectedBase&>(other))))
-	{
-		SelectedBase::AssignFrom(static_cast<const SelectedBase&>(other));
-		return *this;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 	NonTrivialCopyAssign& operator=(NonTrivialCopyAssign&&) = default;
 };
 
@@ -132,10 +125,7 @@ struct NonTrivialMoveAssign : CopyAssignBase
 
 	NonTrivialMoveAssign& operator=(NonTrivialMoveAssign&& other) noexcept(
 		noexcept(eastl::declval<SelectedBase>().AssignFrom(static_cast<SelectedBase&&>(other))))
-	{
-		SelectedBase::AssignFrom(static_cast<SelectedBase&&>(other));
-		return *this;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 };
 
 template <class CopyAssignBase> // requires SpecialMemberFunctions<CopyAssignBase>

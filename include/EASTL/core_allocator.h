@@ -30,38 +30,25 @@ namespace EA
 		{
 		public:
 			virtual void* Alloc(size_t size, const char* name, unsigned int flags)
-			{
-				return ::operator new[](size, name, flags, 0, __FILE__, __LINE__);
-			}
+			{ __builtin_trap() /* STUB: not implemented */; }
 
 			virtual void* Alloc(size_t size, const char* name, unsigned int flags, unsigned int alignment, unsigned int alignOffset = 0)
-			{
-				return ::operator new[](size, alignment, alignOffset, name, flags, 0, __FILE__, __LINE__);
-			}
+			{ __builtin_trap() /* STUB: not implemented */; }
 
 			virtual void Free(void* ptr, size_t size = 0)
-			{
-				::operator delete(static_cast<char*>(ptr));
-			}
+			{ __builtin_trap() /* STUB: not implemented */; }
 
 			virtual void* AllocDebug(size_t size, const DebugParams debugParams, unsigned int flags)
-			{
-				return Alloc(size, debugParams.mName, flags);
-			}
+			{ __builtin_trap() /* STUB: not implemented */; }
 
 			virtual void* AllocDebug(size_t size, const DebugParams debugParams, unsigned int flags, unsigned int align, unsigned int alignOffset = 0)
-			{
-				return Alloc(size, debugParams.mName, flags, align, alignOffset);
-			}
+			{ __builtin_trap() /* STUB: not implemented */; }
 
 			static EASTLCoreAllocatorImpl* GetDefaultAllocator();
 		};
 
 		inline EASTLCoreAllocatorImpl* EASTLCoreAllocatorImpl::GetDefaultAllocator()
-		{
-			static EASTLCoreAllocatorImpl allocator;
-			return &allocator;
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 	}
 }
 

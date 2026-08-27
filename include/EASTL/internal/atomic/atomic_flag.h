@@ -32,13 +32,11 @@ public: /* ctors */
 
 	EA_CONSTEXPR atomic_flag(bool desired) EA_NOEXCEPT
 		: mFlag{ desired }
-	{
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	EA_CONSTEXPR atomic_flag() EA_NOEXCEPT
 		: mFlag{ false }
-	{
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 public: /* deleted ctors && assignment operators */
 
@@ -51,117 +49,73 @@ public: /* clear */
 
 	template <typename Order>
 	void clear(Order /*order*/) volatile EA_NOEXCEPT
-	{
-		EASTL_ATOMIC_STATIC_ASSERT_VOLATILE_MEM_FN(Order);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename Order>
 	void clear(Order /*order*/) EA_NOEXCEPT
-	{
-		EASTL_ATOMIC_STATIC_ASSERT_INVALID_MEMORY_ORDER(Order);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	void clear(eastl::internal::memory_order_relaxed_s) EA_NOEXCEPT
-	{
-		mFlag.store(false, eastl::memory_order_relaxed);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	void clear(eastl::internal::memory_order_release_s) EA_NOEXCEPT
-	{
-		mFlag.store(false, eastl::memory_order_release);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	void clear(eastl::internal::memory_order_seq_cst_s) EA_NOEXCEPT
-	{
-		mFlag.store(false, eastl::memory_order_seq_cst);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	void clear() EA_NOEXCEPT
-	{
-		mFlag.store(false, eastl::memory_order_seq_cst);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 public: /* test_and_set */
 
 	template <typename Order>
 	bool test_and_set(Order /*order*/) volatile EA_NOEXCEPT
-	{
-		EASTL_ATOMIC_STATIC_ASSERT_VOLATILE_MEM_FN(Order);
-		return false;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename Order>
 	bool test_and_set(Order /*order*/) EA_NOEXCEPT
-	{
-		EASTL_ATOMIC_STATIC_ASSERT_INVALID_MEMORY_ORDER(Order);
-		return false;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	bool test_and_set(eastl::internal::memory_order_relaxed_s) EA_NOEXCEPT
-	{
-		return mFlag.exchange(true, eastl::memory_order_relaxed);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	bool test_and_set(eastl::internal::memory_order_acquire_s) EA_NOEXCEPT
-	{
-		return mFlag.exchange(true, eastl::memory_order_acquire);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	bool test_and_set(eastl::internal::memory_order_release_s) EA_NOEXCEPT
-	{
-		return mFlag.exchange(true, eastl::memory_order_release);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	bool test_and_set(eastl::internal::memory_order_acq_rel_s) EA_NOEXCEPT
-	{
-		return mFlag.exchange(true, eastl::memory_order_acq_rel);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	bool test_and_set(eastl::internal::memory_order_seq_cst_s) EA_NOEXCEPT
-	{
-		return mFlag.exchange(true, eastl::memory_order_seq_cst);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	bool test_and_set() EA_NOEXCEPT
-	{
-		return mFlag.exchange(true, eastl::memory_order_seq_cst);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 public: /* test */
 
 	template <typename Order>
 	bool test(Order /*order*/) const volatile EA_NOEXCEPT
-	{
-		EASTL_ATOMIC_STATIC_ASSERT_VOLATILE_MEM_FN(Order);
-		return false;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template <typename Order>
 	bool test(Order /*order*/) const EA_NOEXCEPT
-	{
-		EASTL_ATOMIC_STATIC_ASSERT_INVALID_MEMORY_ORDER(Order);
-		return false;
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	bool test(eastl::internal::memory_order_relaxed_s) const EA_NOEXCEPT
-	{
-		return mFlag.load(eastl::memory_order_relaxed);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	bool test(eastl::internal::memory_order_acquire_s) const EA_NOEXCEPT
-	{
-		return mFlag.load(eastl::memory_order_acquire);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	bool test(eastl::internal::memory_order_seq_cst_s) const EA_NOEXCEPT
-	{
-		return mFlag.load(eastl::memory_order_seq_cst);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	bool test() const EA_NOEXCEPT
-	{
-		return mFlag.load(eastl::memory_order_seq_cst);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 private:
 

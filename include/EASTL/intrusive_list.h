@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -177,18 +179,20 @@ namespace eastl
 		template <class PointerB, class ReferenceB>
 		bool operator==(const intrusive_list_iterator<T, PointerB, ReferenceB>& other) const
 		{
-			return mpNode == other.mpNode;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename PointerB, typename ReferenceB>
 		inline bool operator!=(const intrusive_list_iterator<T, PointerB, ReferenceB>& other) const
 		{
-			return mpNode != other.mpNode;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// We provide a version of operator!= for the case where the iterators are of the
 		// same type. This helps prevent ambiguity errors in the presence of rel_ops.
-		inline bool operator!=(const intrusive_list_iterator other) const { return mpNode != other.mpNode; }
+		inline bool operator!=(const intrusive_list_iterator other) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	private:
 
@@ -392,94 +396,85 @@ namespace eastl
 	template <typename T, typename Pointer, typename Reference>
 	inline intrusive_list_iterator<T, Pointer, Reference>::intrusive_list_iterator()
 	{
-		#if EASTL_DEBUG
-			mpNode = nullptr;
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline intrusive_list_iterator<T, Pointer, Reference>::intrusive_list_iterator(const base_node_type* pNode)
 		: mpNode(const_cast<base_node_type*>(pNode))
 	{
-		// Empty
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline intrusive_list_iterator<T, Pointer, Reference>::intrusive_list_iterator(const iterator& x)
 		: mpNode(x.mpNode)
 	{
-		// Empty
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename intrusive_list_iterator<T, Pointer, Reference>::this_type&
 	intrusive_list_iterator<T, Pointer, Reference>::operator=(const iterator& x)
 	{
-	    mpNode = x.mpNode;
-	    return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename intrusive_list_iterator<T, Pointer, Reference>::reference
 	intrusive_list_iterator<T, Pointer, Reference>::operator*() const
 	{
-		return *static_cast<pointer>(mpNode);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename intrusive_list_iterator<T, Pointer, Reference>::pointer
 	intrusive_list_iterator<T, Pointer, Reference>::operator->() const
 	{
-		return static_cast<pointer>(mpNode);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename intrusive_list_iterator<T, Pointer, Reference>::pointer
 	intrusive_list_iterator<T, Pointer, Reference>::nodePtr() const
 	{
-		return static_cast<pointer>(mpNode);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename intrusive_list_iterator<T, Pointer, Reference>::this_type&
 	intrusive_list_iterator<T, Pointer, Reference>::operator++()
 	{
-		mpNode = mpNode->mpNext;
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename intrusive_list_iterator<T, Pointer, Reference>::this_type
 	intrusive_list_iterator<T, Pointer, Reference>::operator++(int)
 	{
-		intrusive_list_iterator it(*this);
-		mpNode = mpNode->mpNext;
-		return it;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename intrusive_list_iterator<T, Pointer, Reference>::this_type&
 	intrusive_list_iterator<T, Pointer, Reference>::operator--()
 	{
-		mpNode = mpNode->mpPrev;
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename intrusive_list_iterator<T, Pointer, Reference>::this_type
 	intrusive_list_iterator<T, Pointer, Reference>::operator--(int)
 	{
-		intrusive_list_iterator it(*this);
-		mpNode = mpNode->mpPrev;
-		return it;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	///////////////////////////////////////////////////////////////////////
 	// intrusive_list_base
@@ -487,8 +482,8 @@ namespace eastl
 
 	inline intrusive_list_base::intrusive_list_base() 
 	{
-		mAnchor.mpNext = mAnchor.mpPrev = &mAnchor;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline intrusive_list_base::~intrusive_list_base()
 	{
@@ -501,81 +496,32 @@ namespace eastl
 
 	inline bool intrusive_list_base::empty() const EA_NOEXCEPT
 	{
-		return mAnchor.mpPrev == &mAnchor;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	inline intrusive_list_base::size_type intrusive_list_base::size() const EA_NOEXCEPT
 	{
-		const intrusive_list_node* p = &mAnchor;
-		size_type n = (size_type)-1;
-
-		do {
-			++n;
-			p = p->mpNext;
-		} while(p != &mAnchor);
-
-		return n;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	inline void intrusive_list_base::clear() EA_NOEXCEPT
 	{
-		#if EASTL_VALIDATE_INTRUSIVE_LIST
-			// Need to clear out all the next/prev pointers in the elements;
-			// this makes this operation O(n) instead of O(1).
-			intrusive_list_node* pNode = mAnchor.mpNext;
-
-			while(pNode != &mAnchor)
-			{
-				intrusive_list_node* const pNextNode = pNode->mpNext;
-				pNode->mpNext = pNode->mpPrev = nullptr;
-				pNode = pNextNode;
-			}
-		#endif
-
-		mAnchor.mpNext = mAnchor.mpPrev = &mAnchor;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	inline void intrusive_list_base::pop_front()
 	{
-		#if EASTL_VALIDATE_INTRUSIVE_LIST
-			intrusive_list_node* const pNode = mAnchor.mpNext;
-		#endif
-
-		mAnchor.mpNext->mpNext->mpPrev = &mAnchor;
-		mAnchor.mpNext = mAnchor.mpNext->mpNext;
-
-		#if EASTL_VALIDATE_INTRUSIVE_LIST
-			if(pNode != &mAnchor)
-				pNode->mpNext = pNode->mpPrev = nullptr;
-			#if EASTL_ASSERT_ENABLED
-			else
-				EASTL_FAIL_MSG("intrusive_list::pop_front(): empty list.");
-			#endif
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	inline void intrusive_list_base::pop_back()
 	{
-		#if EASTL_VALIDATE_INTRUSIVE_LIST
-			intrusive_list_node* const pNode = mAnchor.mpPrev;
-		#endif
-
-		mAnchor.mpPrev->mpPrev->mpNext = &mAnchor;
-		mAnchor.mpPrev = mAnchor.mpPrev->mpPrev;
-
-		#if EASTL_VALIDATE_INTRUSIVE_LIST
-			if(pNode != &mAnchor)
-				pNode->mpNext = pNode->mpPrev = nullptr;
-			#if EASTL_ASSERT_ENABLED
-			else
-				EASTL_FAIL_MSG("intrusive_list::pop_back(): empty list.");
-			#endif
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -587,678 +533,303 @@ namespace eastl
 	template <typename T>
 	inline intrusive_list<T>::intrusive_list()
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline intrusive_list<T>::intrusive_list(const this_type& /*x*/)
 	  : intrusive_list_base()
 	{
-		// We intentionally ignore argument x.
-		// To consider: Shouldn't this function simply not exist? Is there a useful purpose for having this function?
-		// There should be a comment here about it, though my first guess is that this exists to quell VC++ level 4/-Wall compiler warnings.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::this_type& intrusive_list<T>::operator=(const this_type& /*x*/)
-	{ 
-		// We intentionally ignore argument x.
-		// See notes above in the copy constructor about questioning the existence of this function.
-		return *this;
-	}
+	{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::iterator intrusive_list<T>::begin() EA_NOEXCEPT
 	{
-		return iterator(mAnchor.mpNext);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::const_iterator intrusive_list<T>::begin() const EA_NOEXCEPT
 	{
-		return const_iterator(mAnchor.mpNext);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::const_iterator intrusive_list<T>::cbegin() const EA_NOEXCEPT
 	{
-		return const_iterator(mAnchor.mpNext);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::iterator intrusive_list<T>::end() EA_NOEXCEPT
 	{
-		return iterator(&mAnchor);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::const_iterator intrusive_list<T>::end() const EA_NOEXCEPT
 	{
-		return const_iterator(&mAnchor);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::const_iterator intrusive_list<T>::cend() const EA_NOEXCEPT
 	{
-		return const_iterator(&mAnchor);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::reverse_iterator intrusive_list<T>::rbegin() EA_NOEXCEPT
 	{
-		return reverse_iterator(iterator(&mAnchor));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::const_reverse_iterator intrusive_list<T>::rbegin() const EA_NOEXCEPT
 	{
-		return const_reverse_iterator(const_iterator(&mAnchor));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::const_reverse_iterator intrusive_list<T>::crbegin() const EA_NOEXCEPT
 	{
-		return const_reverse_iterator(const_iterator(&mAnchor));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::reverse_iterator intrusive_list<T>::rend() EA_NOEXCEPT
 	{
-		return reverse_iterator(iterator(mAnchor.mpNext));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::const_reverse_iterator intrusive_list<T>::rend() const EA_NOEXCEPT
 	{
-		return const_reverse_iterator(const_iterator(mAnchor.mpNext));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::const_reverse_iterator intrusive_list<T>::crend() const EA_NOEXCEPT
 	{
-		return const_reverse_iterator(const_iterator(mAnchor.mpNext));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::reference intrusive_list<T>::front()
 	{
-		#if EASTL_VALIDATE_INTRUSIVE_LIST && EASTL_ASSERT_ENABLED
-			if(mAnchor.mpNext == &mAnchor)
-				EASTL_FAIL_MSG("intrusive_list::front(): empty list.");
-		#endif
-
-		return *static_cast<T*>(mAnchor.mpNext);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::const_reference intrusive_list<T>::front() const
 	{
-		#if EASTL_VALIDATE_INTRUSIVE_LIST && EASTL_ASSERT_ENABLED
-			if(mAnchor.mpNext == &mAnchor)
-				EASTL_FAIL_MSG("intrusive_list::front(): empty list.");
-		#endif
-
-		return *static_cast<const T*>(mAnchor.mpNext);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::reference intrusive_list<T>::back()
 	{
-		#if EASTL_VALIDATE_INTRUSIVE_LIST && EASTL_ASSERT_ENABLED
-			if(mAnchor.mpNext == &mAnchor)
-				EASTL_FAIL_MSG("intrusive_list::back(): empty list.");
-		#endif
-
-		return *static_cast<T*>(mAnchor.mpPrev);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::const_reference intrusive_list<T>::back() const
 	{
-		#if EASTL_VALIDATE_INTRUSIVE_LIST && EASTL_ASSERT_ENABLED
-			if(mAnchor.mpNext == &mAnchor)
-				EASTL_FAIL_MSG("intrusive_list::back(): empty list.");
-		#endif
-
-		return *static_cast<const T*>(mAnchor.mpPrev);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline void intrusive_list<T>::push_front(value_type& x)
 	{
-		#if EASTL_VALIDATE_INTRUSIVE_LIST && EASTL_ASSERT_ENABLED
-			if(x.mpNext || x.mpPrev)
-				EASTL_FAIL_MSG("intrusive_list::push_front(): element already on a list.");
-		#endif
-
-		x.mpNext = mAnchor.mpNext;
-		x.mpPrev = &mAnchor;
-		mAnchor.mpNext = &x;
-		x.mpNext->mpPrev = &x;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline void intrusive_list<T>::push_back(value_type& x)
 	{
-		#if EASTL_VALIDATE_INTRUSIVE_LIST && EASTL_ASSERT_ENABLED
-			if(x.mpNext || x.mpPrev)
-				EASTL_FAIL_MSG("intrusive_list::push_back(): element already on a list.");
-		#endif
-
-		x.mpPrev = mAnchor.mpPrev;
-		x.mpNext = &mAnchor;
-		mAnchor.mpPrev = &x;
-		x.mpPrev->mpNext = &x;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline bool intrusive_list<T>::contains(const value_type& x) const
 	{
-		for(const intrusive_list_node* p = mAnchor.mpNext; p != &mAnchor; p = p->mpNext)
-		{
-			if(p == &x)
-				return true;
-		}
-
-		return false;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::iterator intrusive_list<T>::locate(value_type& x)
 	{
-		for(intrusive_list_node* p = (T*)mAnchor.mpNext; p != &mAnchor; p = p->mpNext)
-		{
-			if(p == &x)
-				return iterator(p);
-		}
-
-		return iterator(&mAnchor);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::const_iterator intrusive_list<T>::locate(const value_type& x) const
 	{
-		for(const intrusive_list_node* p = mAnchor.mpNext; p != &mAnchor; p = p->mpNext)
-		{
-			if(p == &x)
-				return const_iterator(p);
-		}
-
-		return const_iterator(&mAnchor);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::iterator intrusive_list<T>::insert(const_iterator pos, value_type& x)
 	{
-		#if EASTL_VALIDATE_INTRUSIVE_LIST && EASTL_ASSERT_ENABLED
-			if(x.mpNext || x.mpPrev)
-				EASTL_FAIL_MSG("intrusive_list::insert(): element already on a list.");
-		#endif
-
-		intrusive_list_node& next = *pos.mpNode;
-		intrusive_list_node& prev = *next.mpPrev;
-
-		prev.mpNext = next.mpPrev = &x;
-		x.mpPrev    = &prev;
-		x.mpNext    = &next;
-
-		return iterator(&x);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::iterator
 	intrusive_list<T>::erase(const_iterator pos)
 	{
-		intrusive_list_node& prev = *pos.mpNode->mpPrev;
-		intrusive_list_node& next = *pos.mpNode->mpNext;
-		prev.mpNext = &next;
-		next.mpPrev = &prev;
-
-		#if EASTL_VALIDATE_INTRUSIVE_LIST
-			iterator ii(pos.mpNode);
-			ii.mpNode->mpPrev = ii.mpNode->mpNext = nullptr;
-		#endif
-
-		return iterator(&next);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::iterator
 	intrusive_list<T>::erase(const_iterator first, const_iterator last)
 	{
-		intrusive_list_node& prev = *(first.mpNode->mpPrev);
-		intrusive_list_node& next = *last.mpNode;
-
-		#if EASTL_VALIDATE_INTRUSIVE_LIST
-			// need to clear out all the next/prev pointers in the elements;
-			// this makes this operation O(n) instead of O(1), sadly, although
-			// it's technically amortized O(1) since you could count yourself
-			// as paying this cost with each insert.
-			intrusive_list_node* pCur = first.mpNode;
-
-			while(pCur != &next)
-			{
-				intrusive_list_node* const pCurNext = pCur->mpNext;
-				pCur->mpPrev = pCur->mpNext = nullptr;
-				pCur = pCurNext;
-			}
-		#endif
-
-		prev.mpNext = &next;
-		next.mpPrev = &prev;
-
-		return iterator(last.mpNode);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::reverse_iterator
 	intrusive_list<T>::erase(const_reverse_iterator position)
 	{
-		return reverse_iterator(erase((++position).base()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline typename intrusive_list<T>::reverse_iterator
 	intrusive_list<T>::erase(const_reverse_iterator first, const_reverse_iterator last)
 	{
-		// Version which erases in order from first to last.
-		// difference_type i(first.base() - last.base());
-		// while(i--)
-		//     first = erase(first);
-		// return first;
-
-		// Version which erases in order from last to first, but is slightly more efficient:
-		return reverse_iterator(erase((++last).base(), (++first).base()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	void intrusive_list<T>::swap(intrusive_list& x)
 	{
-		// swap anchors
-		intrusive_list_node temp(mAnchor);
-		mAnchor   = x.mAnchor;
-		x.mAnchor = temp;
-
-		// Fixup node pointers into the anchor, since the addresses of 
-		// the anchors must stay the same with each list.
-		if(mAnchor.mpNext == &x.mAnchor)
-			mAnchor.mpNext = mAnchor.mpPrev = &mAnchor;
-		else
-			mAnchor.mpNext->mpPrev = mAnchor.mpPrev->mpNext = &mAnchor;
-
-		if(x.mAnchor.mpNext == &mAnchor)
-			x.mAnchor.mpNext = x.mAnchor.mpPrev = &x.mAnchor;
-		else
-			x.mAnchor.mpNext->mpPrev = x.mAnchor.mpPrev->mpNext = &x.mAnchor;
-
-		#if EASTL_VALIDATE_INTRUSIVE_LIST
-			temp.mpPrev = temp.mpNext = nullptr;
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	void intrusive_list<T>::splice(const_iterator pos, value_type& value)
 	{
-		// Note that splice(pos, x, pos) and splice(pos+1, x, pos)
-		// are valid and need to be handled correctly.
-
-		if(pos.mpNode != &value)
-		{
-			// Unlink item from old list.
-			intrusive_list_node& oldNext = *value.mpNext;
-			intrusive_list_node& oldPrev = *value.mpPrev;
-			oldNext.mpPrev = &oldPrev;
-			oldPrev.mpNext = &oldNext;
-
-			// Relink item into new list.
-			intrusive_list_node& newNext = *pos.mpNode;
-			intrusive_list_node& newPrev = *newNext.mpPrev;
-
-			newPrev.mpNext = &value;
-			newNext.mpPrev = &value;
-			value.mpPrev = &newPrev;
-			value.mpNext = &newNext;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	void intrusive_list<T>::splice(const_iterator pos, intrusive_list& x)
 	{
-		// Note: &x == this is prohibited, so self-insertion is not a problem.
-		if(x.mAnchor.mpNext != &x.mAnchor) // If the list 'x' isn't empty...
-		{
-			intrusive_list_node& next       = *pos.mpNode;
-			intrusive_list_node& prev       = *next.mpPrev;
-			intrusive_list_node& insertPrev = *x.mAnchor.mpNext;
-			intrusive_list_node& insertNext = *x.mAnchor.mpPrev;
-
-			prev.mpNext       = &insertPrev;
-			insertPrev.mpPrev = &prev;
-			insertNext.mpNext = &next;
-			next.mpPrev       = &insertNext;
-			x.mAnchor.mpPrev  = x.mAnchor.mpNext = &x.mAnchor;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	void intrusive_list<T>::splice(const_iterator pos, intrusive_list& /*x*/, const_iterator i)
 	{
-		// Note: &x == this is prohibited, so self-insertion is not a problem.
-
-		// Note that splice(pos, x, pos) and splice(pos + 1, x, pos)
-		// are valid and need to be handled correctly.
-
-		// We don't need to check if the source list is empty, because 
-		// this function expects a valid iterator from the source list,
-		// and thus the list cannot be empty in such a situation.
-
-		iterator ii(i.mpNode); // Make a temporary non-const version.
-
-		if(pos != ii)
-		{
-			// Unlink item from old list.
-			intrusive_list_node& oldNext = *ii.mpNode->mpNext;
-			intrusive_list_node& oldPrev = *ii.mpNode->mpPrev;
-			oldNext.mpPrev = &oldPrev;
-			oldPrev.mpNext = &oldNext;
-
-			// Relink item into new list.
-			intrusive_list_node& newNext = *pos.mpNode;
-			intrusive_list_node& newPrev = *newNext.mpPrev;
-
-			newPrev.mpNext = ii.mpNode;
-			newNext.mpPrev = ii.mpNode;
-			ii.mpNode->mpPrev = &newPrev;
-			ii.mpNode->mpNext = &newNext;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	void intrusive_list<T>::splice(const_iterator pos, intrusive_list& /*x*/, const_iterator first, const_iterator last)
 	{
-		// Note: &x == this is prohibited, so self-insertion is not a problem.
-		if(first != last)
-		{
-			intrusive_list_node& insertPrev = *first.mpNode;
-			intrusive_list_node& insertNext = *last.mpNode->mpPrev;
-
-			// remove from old list
-			insertNext.mpNext->mpPrev = insertPrev.mpPrev;
-			insertPrev.mpPrev->mpNext = insertNext.mpNext;
-
-			// insert into this list
-			intrusive_list_node& next = *pos.mpNode;
-			intrusive_list_node& prev = *next.mpPrev;
-
-			prev.mpNext       = &insertPrev;
-			insertPrev.mpPrev = &prev;
-			insertNext.mpNext = &next;
-			next.mpPrev       = &insertNext;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline void intrusive_list<T>::remove(value_type& value)
 	{
-		intrusive_list_node& prev = *value.mpPrev;
-		intrusive_list_node& next = *value.mpNext;
-		prev.mpNext = &next;
-		next.mpPrev = &prev;
-
-		#if EASTL_VALIDATE_INTRUSIVE_LIST
-			value.mpPrev = value.mpNext = nullptr;
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	void intrusive_list<T>::merge(this_type& x)
 	{
-		if(this != &x)
-		{
-			iterator       first(begin());
-			iterator       firstX(x.begin());
-			const iterator last(end());
-			const iterator lastX(x.end());
-
-			while((first != last) && (firstX != lastX))
-			{
-				if(*firstX < *first)
-				{
-					iterator next(firstX);
-
-					splice(first, x, firstX, ++next);
-					firstX = next;
-				}
-				else
-					++first;
-			}
-
-			if(firstX != lastX)
-				splice(last, x, firstX, lastX);
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	template <typename Compare>
 	void intrusive_list<T>::merge(this_type& x, Compare compare)
 	{
-		if(this != &x)
-		{
-			iterator       first(begin());
-			iterator       firstX(x.begin());
-			const iterator last(end());
-			const iterator lastX(x.end());
-
-			while((first != last) && (firstX != lastX))
-			{
-				if(compare(*firstX, *first))
-				{
-					iterator next(firstX);
-
-					splice(first, x, firstX, ++next);
-					firstX = next;
-				}
-				else
-					++first;
-			}
-
-			if(firstX != lastX)
-				splice(last, x, firstX, lastX);
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	void intrusive_list<T>::unique()
 	{
-		iterator       first(begin());
-		const iterator last(end());
-
-		if(first != last)
-		{
-			iterator next(first);
-
-			while(++next != last)
-			{
-				if(*first == *next)
-					erase(next);
-				else
-					first = next;
-				next = first;
-			}
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	template <typename BinaryPredicate>
 	void intrusive_list<T>::unique(BinaryPredicate predicate)
 	{
-		iterator       first(begin());
-		const iterator last(end());
-
-		if(first != last)
-		{
-			iterator next(first);
-
-			while(++next != last)
-			{
-				if(predicate(*first, *next))
-					erase(next);
-				else
-					first = next;
-				next = first;
-			}
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	void intrusive_list<T>::sort()
 	{
-		// We implement the algorithm employed by Chris Caulfield whereby we use recursive
-		// function calls to sort the list. The sorting of a very large list may fail due to stack overflow
-		// if the stack is exhausted. The limit depends on the platform and the avaialble stack space.
-
-		// Easier-to-understand version of the 'if' statement:
-		// iterator i(begin());
-		// if((i != end()) && (++i != end())) // If the size is >= 2 (without calling the more expensive size() function)...
-
-		// Faster, more inlinable version of the 'if' statement:
-		if ((mAnchor.mpNext != &mAnchor) && (mAnchor.mpNext != mAnchor.mpPrev))
-		{
-			// Split the array into 2 roughly equal halves.
-			this_type leftList;     // This should cause no memory allocation.
-			this_type rightList;
-
-			// We find an iterator which is in the middle of the list. The fastest way to do 
-			// this is to iterate from the base node both forwards and backwards with two 
-			// iterators and stop when they meet each other. Recall that our size() function 
-			// is not O(1) but is instead O(n), at least when EASTL_LIST_SIZE_CACHE is disabled.
-			#if EASTL_LIST_SIZE_CACHE
-				iterator mid(begin());
-				eastl::advance(mid, size() / 2);
-			#else
-				iterator mid(begin()), tail(end());
-
-				while((mid != tail) && (++mid != tail))
-					--tail;
-			#endif
-
-			// Move the left half of this into leftList and the right half into rightList.
-			leftList.splice(leftList.begin(), *this, begin(), mid);
-			rightList.splice(rightList.begin(), *this);
-
-			// Sort the sub-lists.
-			leftList.sort();
-			rightList.sort();
-
-			// Merge the two halves into this list.
-			splice(begin(), leftList);
-			merge(rightList);
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	template<typename Compare>
 	void intrusive_list<T>::sort(Compare compare)
 	{
-		// We implement the algorithm employed by Chris Caulfield whereby we use recursive
-		// function calls to sort the list. The sorting of a very large list may fail due to stack overflow
-		// if the stack is exhausted. The limit depends on the platform and the avaialble stack space.
-
-		// Easier-to-understand version of the 'if' statement:
-		// iterator i(begin());
-		// if((i != end()) && (++i != end())) // If the size is >= 2 (without calling the more expensive size() function)...
-
-		// Faster, more inlinable version of the 'if' statement:
-		if ((mAnchor.mpNext != &mAnchor) && (mAnchor.mpNext != mAnchor.mpPrev))
-		{
-			// Split the array into 2 roughly equal halves.
-			this_type leftList;     // This should cause no memory allocation.
-			this_type rightList;
-
-			// We find an iterator which is in the middle of the list. The fastest way to do 
-			// this is to iterate from the base node both forwards and backwards with two 
-			// iterators and stop when they meet each other. Recall that our size() function 
-			// is not O(1) but is instead O(n), at least when EASTL_LIST_SIZE_CACHE is disabled.
-			#if EASTL_LIST_SIZE_CACHE
-				iterator mid(begin());
-				eastl::advance(mid, size() / 2);
-			#else
-				iterator mid(begin()), tail(end());
-
-				while((mid != tail) && (++mid != tail))
-					--tail;
-			#endif
-
-			// Move the left half of this into leftList and the right half into rightList.
-			leftList.splice(leftList.begin(), *this, begin(), mid);
-			rightList.splice(rightList.begin(), *this);
-
-			// Sort the sub-lists.
-			leftList.sort(compare);
-			rightList.sort(compare);
-
-			// Merge the two halves into this list.
-			splice(begin(), leftList);
-			merge(rightList, compare);
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	inline int intrusive_list<T>::validate_iterator(const_iterator i) const
 	{
-		// To do: Come up with a more efficient mechanism of doing this.
-
-		for(const_iterator temp = begin(), tempEnd = end(); temp != tempEnd; ++temp)
-		{
-			if(temp == i)
-				return (isf_valid | isf_current | isf_can_dereference);
-		}
-
-		if(i == end())
-			return (isf_valid | isf_current); 
-
-		return isf_none;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1269,55 +840,44 @@ namespace eastl
 	template <typename T>
 	bool operator==(const intrusive_list<T>& a, const intrusive_list<T>& b)
 	{
-		// If we store an mSize member for intrusive_list, we want to take advantage of it here.
-		typename intrusive_list<T>::const_iterator ia   = a.begin();
-		typename intrusive_list<T>::const_iterator ib   = b.begin();
-		typename intrusive_list<T>::const_iterator enda = a.end();
-		typename intrusive_list<T>::const_iterator endb = b.end();
-
-		while((ia != enda) && (ib != endb) && (*ia == *ib))
-		{
-			++ia;
-			++ib;
-		}
-		return (ia == enda) && (ib == endb);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator!=(const intrusive_list<T>& a, const intrusive_list<T>& b)
 	{
-		return !(a == b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator<(const intrusive_list<T>& a, const intrusive_list<T>& b)
 	{
-		return eastl::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator>(const intrusive_list<T>& a, const intrusive_list<T>& b)
 	{
-		return b < a;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator<=(const intrusive_list<T>& a, const intrusive_list<T>& b)
 	{
-		return !(b < a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator>=(const intrusive_list<T>& a, const intrusive_list<T>& b)
 	{
-		return !(a < b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	void swap(intrusive_list<T>& a, intrusive_list<T>& b)
 	{
-		a.swap(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

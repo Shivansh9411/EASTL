@@ -1,3 +1,4 @@
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -167,31 +168,14 @@ struct TupleRecurser<>
 	template<typename Allocator, size_type I, typename Indices, typename... VecTypes>
 	static pair<void*, size_type> DoAllocate(TupleVecImpl<Allocator, Indices, VecTypes...> &vec, void** ppNewLeaf, size_type capacity, size_type offset)
 	{
-		EA_UNUSED(ppNewLeaf);
-
-		// If n is zero, then we allocate no memory and just return NULL. 
-		// This is fine, as our default ctor initializes with NULL pointers. 
-		size_type alignment = TupleRecurser<VecTypes...>::GetTotalAlignment();
-		void* ptr = capacity ? allocate_memory(vec.get_allocator(), offset, alignment, 0) : nullptr;
-
-	#if EASTL_ASSERT_ENABLED
-		if (EASTL_UNLIKELY((size_t)ptr & (alignment - 1)) != 0)
-		{
-			EASTL_FAIL_MSG("tuple_vector::DoAllocate -- memory not alignment at requested alignment");
-		}
-	#endif
-
-		return make_pair(ptr, offset);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename TupleVecImplType, size_type I>
 	static void SetNewData(TupleVecImplType &vec, void* pData, size_type capacity, size_type offset) 
-	{ 
-		EA_UNUSED(vec);
-		EA_UNUSED(pData);
-		EA_UNUSED(capacity);
-		EA_UNUSED(offset);
-	}
+	{
+    __builtin_trap() /* STUB: not implemented */;
+}
 };
 
 template <typename T, typename... Ts>
@@ -212,22 +196,14 @@ struct TupleRecurser<T, Ts...> : TupleRecurser<Ts...>
 	template<typename Allocator, size_type I, typename Indices, typename... VecTypes>
 	static pair<void*, size_type> DoAllocate(TupleVecImpl<Allocator, Indices, VecTypes...> &vec, void** ppNewLeaf, size_type capacity, size_type offset)
 	{
-		size_type allocationOffset = CalculatAllocationOffset(offset);
-		size_type allocationSize = CalculateAllocationSize(offset, capacity);
-		pair<void*, size_type> allocation = TupleRecurser<Ts...>::template DoAllocate<Allocator, I + 1, Indices, VecTypes...>(
-			vec, ppNewLeaf, capacity, allocationSize);
-		ppNewLeaf[I] = (void*)((uintptr_t)(allocation.first) + allocationOffset);
-		return allocation;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename TupleVecImplType, size_type I>
 	static void SetNewData(TupleVecImplType &vec, void* pData, size_type capacity, size_type offset)
 	{
-		size_type allocationOffset = CalculatAllocationOffset(offset);
-		size_type allocationSize = CalculateAllocationSize(offset, capacity);
-		vec.TupleVecLeaf<I, T>::mpData = (T*)((uintptr_t)pData + allocationOffset);
-		TupleRecurser<Ts...>::template SetNewData<TupleVecImplType, I + 1>(vec, pData, capacity, allocationSize);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 private:
 	static EA_CONSTEXPR size_type CalculateAllocationSize(size_type offset, size_type capacity)
@@ -245,62 +221,23 @@ struct TupleVecLeaf
 
 	void DoUninitializedMoveAndDestruct(const size_type begin, const size_type end, T* pDest)
 	{
-		T* pBegin = mpData + begin;
-		T* pEnd = mpData + end;
-		eastl::uninitialized_move_if_noexcept(pBegin, pEnd, pDest);
-		eastl::destruct(pBegin, pEnd);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	void DoInsertAndFill(size_type pos, size_type n, size_type numElements, const T& arg)
 	{
-		T* pDest = mpData + pos;
-		T* pDataEnd = mpData + numElements;
-		const T temp = arg;
-		const size_type nExtra = (numElements - pos);
-		if (n < nExtra) // If the inserted values are entirely within initialized memory (i.e. are before mpEnd)...
-		{
-			eastl::uninitialized_move(pDataEnd - n, pDataEnd, pDataEnd);
-			eastl::move_backward(pDest, pDataEnd - n, pDataEnd); // We need move_backward because of potential overlap issues.
-			eastl::fill(pDest, pDest + n, temp);
-		}
-		else
-		{
-			eastl::uninitialized_fill_n(pDataEnd, n - nExtra, temp);
-			eastl::uninitialized_move(pDest, pDataEnd, pDataEnd + n - nExtra);
-			eastl::fill(pDest, pDataEnd, temp);
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	void DoInsertRange(T* pSrcBegin, T* pSrcEnd, T* pDestBegin, size_type numDataElements)
 	{
-		size_type pos = static_cast<size_type>(pDestBegin - mpData);
-		size_type n = static_cast<size_type>(pSrcEnd - pSrcBegin);
-		T* pDataEnd = mpData + numDataElements;
-		const size_type nExtra = numDataElements - pos;
-		if (n < nExtra) // If the inserted values are entirely within initialized memory (i.e. are before mpEnd)...
-		{
-			eastl::uninitialized_move(pDataEnd - n, pDataEnd, pDataEnd);
-			eastl::move_backward(pDestBegin, pDataEnd - n, pDataEnd); // We need move_backward because of potential overlap issues.
-			eastl::copy(pSrcBegin, pSrcEnd, pDestBegin);
-		}
-		else
-		{
-			eastl::uninitialized_copy(pSrcEnd - (n - nExtra), pSrcEnd, pDataEnd);
-			eastl::uninitialized_move(pDestBegin, pDataEnd, pDataEnd + n - nExtra);
-			eastl::copy(pSrcBegin, pSrcEnd - (n - nExtra), pDestBegin);
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	void DoInsertValue(size_type pos, size_type numElements, T&& arg)
 	{
-		T* pDest = mpData + pos;
-		T* pDataEnd = mpData + numElements;
-
-		eastl::uninitialized_move(pDataEnd - 1, pDataEnd, pDataEnd);
-		eastl::move_backward(pDest, pDataEnd - 1, pDataEnd); // We need move_backward because of potential overlap issues.
-		eastl::destruct(pDest);
-		::new (pDest) T(eastl::forward<T>(arg));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	T* mpData = nullptr;
 };
@@ -309,11 +246,17 @@ struct TupleVecLeaf
 // if a void function is used for operation expansion, it should be wrapped in (..., 0) so that the compiler
 // thinks it has a parameter to pass into the function
 template <typename... Ts>
-void swallow(Ts&&...) { }
+void swallow(Ts&&...) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-inline bool variadicAnd(bool cond) { return cond; }
+inline bool variadicAnd(bool cond) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-inline bool variadicAnd(bool cond, bool conds...) { return cond && variadicAnd(conds); }
+inline bool variadicAnd(bool cond, bool conds...) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 // Helper struct to check for strict compatibility between two iterators, whilst still allowing for
 // conversion between TupleVecImpl<Ts...>::iterator and TupleVecImpl<Ts...>::const_iterator. 
@@ -1495,49 +1438,49 @@ template <typename AllocatorA, typename AllocatorB, typename Indices, typename..
 inline bool operator==(const TupleVecInternal::TupleVecImpl<AllocatorA, Indices, Ts...>& a,
 					   const TupleVecInternal::TupleVecImpl<AllocatorB, Indices, Ts...>& b)
 {
-	return ((a.size() == b.size()) && eastl::equal(a.begin(), a.end(), b.begin()));
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template <typename AllocatorA, typename AllocatorB, typename Indices, typename... Ts>
 inline bool operator!=(const TupleVecInternal::TupleVecImpl<AllocatorA, Indices, Ts...>& a,
 					   const TupleVecInternal::TupleVecImpl<AllocatorB, Indices, Ts...>& b)
 {
-	return ((a.size() != b.size()) || !eastl::equal(a.begin(), a.end(), b.begin()));
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template <typename AllocatorA, typename AllocatorB, typename Indices, typename... Ts>
 inline bool operator<(const TupleVecInternal::TupleVecImpl<AllocatorA, Indices, Ts...>& a,
 					  const TupleVecInternal::TupleVecImpl<AllocatorB, Indices, Ts...>& b)
 {
-	return eastl::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template <typename AllocatorA, typename AllocatorB, typename Indices, typename... Ts>
 inline bool operator>(const TupleVecInternal::TupleVecImpl<AllocatorA, Indices, Ts...>& a,
 					  const TupleVecInternal::TupleVecImpl<AllocatorB, Indices, Ts...>& b)
 {
-	return b < a;
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template <typename AllocatorA, typename AllocatorB, typename Indices, typename... Ts>
 inline bool operator<=(const TupleVecInternal::TupleVecImpl<AllocatorA, Indices, Ts...>& a,
 					   const TupleVecInternal::TupleVecImpl<AllocatorB, Indices, Ts...>& b)
 {
-	return !(b < a);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template <typename AllocatorA, typename AllocatorB, typename Indices, typename... Ts>
 inline bool operator>=(const TupleVecInternal::TupleVecImpl<AllocatorA, Indices, Ts...>& a,
 					   const TupleVecInternal::TupleVecImpl<AllocatorB, Indices, Ts...>& b)
 {
-	return !(a < b);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template <typename AllocatorA, typename AllocatorB, typename Indices, typename... Ts>
 inline void swap(TupleVecInternal::TupleVecImpl<AllocatorA, Indices, Ts...>& a,
 				TupleVecInternal::TupleVecImpl<AllocatorB, Indices, Ts...>& b)
 {
-	a.swap(b);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 // A customization of swap is made for r-values of tuples-of-references - 
@@ -1551,7 +1494,7 @@ inline
 typename enable_if<conjunction<is_swappable<Ts>...>::value>::type
 swap(tuple<Ts&...>&& a, tuple<Ts&...>&& b)
 {
-	a.swap(b);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename... Ts>
@@ -1571,9 +1514,8 @@ class tuple_vector : public TupleVecInternal::TupleVecImpl<EASTLAllocatorType, m
 public:
 	this_type& operator=(std::initializer_list<typename base_type::value_tuple> iList) 
 	{
-		base_type::operator=(iList);
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 };
 
 // Variant of tuple_vector that allows a user-defined allocator type (can't mix default template params with variadics)
@@ -1589,9 +1531,8 @@ public:
 
 	this_type& operator=(std::initializer_list<typename base_type::value_tuple> iList)
 	{
-		base_type::operator=(iList);
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 };
 
 }  // namespace eastl

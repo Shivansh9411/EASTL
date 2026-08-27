@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -91,7 +93,8 @@ namespace eastl
 		fixed_allocator(const char* /*pName*/ = EASTL_FIXED_POOL_DEFAULT_NAME)
 			: fixed_pool_base(NULL)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// fixed_allocator
@@ -104,7 +107,8 @@ namespace eastl
 		fixed_allocator(const fixed_allocator&)
 			: fixed_pool_base(NULL)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator=
@@ -115,8 +119,8 @@ namespace eastl
 		///
 		fixed_allocator& operator=(const fixed_allocator&)
 		{
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		// init
@@ -134,51 +138,16 @@ namespace eastl
 		///
 		void* allocate(size_t n, int /*flags*/ = 0)
 		{
-			// To consider: Verify that 'n' is what the user initialized us with.
-
-			Link* pLink = mpHead;
-
-			if(pLink) // If we have space...
-			{
-				#if EASTL_FIXED_SIZE_TRACKING_ENABLED
-					if(++mnCurrentSize > mnPeakSize)
-						mnPeakSize = mnCurrentSize;
-				#endif
-
-				mpHead = pLink->mpNext;
-				return pLink;
-			}
-			else
-			{
-				// If there's no free node in the free list, just
-				// allocate another from the reserved memory area
-
-				if(mpNext != mpCapacity)
-				{
-					pLink = mpNext;
-					
-					mpNext = reinterpret_cast<Link*>(reinterpret_cast<char*>(mpNext) + n);
-
-					#if EASTL_FIXED_SIZE_TRACKING_ENABLED
-						if(++mnCurrentSize > mnPeakSize)
-							mnPeakSize = mnCurrentSize;
-					#endif
-
-					return pLink;
-				}
-
-				// EASTL_ASSERT(false); To consider: enable this assert. However, we intentionally disable it because this isn't necessarily an assertable error.
-				return NULL;
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// allocate
 		///
 		void* allocate(size_t n, size_t /*alignment*/, size_t /*offset*/, int flags = 0)
 		{
-			return allocate(n, flags);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// deallocate
@@ -189,13 +158,8 @@ namespace eastl
 		///
 		void deallocate(void* p, size_t)
 		{
-			#if EASTL_FIXED_SIZE_TRACKING_ENABLED
-				--mnCurrentSize;
-			#endif
-
-			((Link*)p)->mpNext = mpHead;
-			mpHead = ((Link*)p);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		using fixed_pool_base::can_allocate;
@@ -203,14 +167,14 @@ namespace eastl
 
 		const char* get_name() const
 		{
-			return EASTL_FIXED_POOL_DEFAULT_NAME;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void set_name(const char*)
 		{
-			// Nothing to do. We don't allocate memory.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // fixed_allocator
 
@@ -273,7 +237,8 @@ namespace eastl
 			, mpPoolEnd(nullptr)
 			, mnNodeSize(0)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// fixed_allocator_with_overflow
@@ -289,7 +254,8 @@ namespace eastl
 			, mpPoolEnd(nullptr)
 			, mnNodeSize(0)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator=
@@ -300,14 +266,8 @@ namespace eastl
 		///
 		fixed_allocator_with_overflow& operator=(const fixed_allocator_with_overflow& x)
 		{
-			#if EASTL_ALLOCATOR_COPY_ENABLED
-				mOverflowAllocator = x.mOverflowAllocator;
-			#else
-				(void)x;
-			#endif
-
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// init
@@ -315,12 +275,8 @@ namespace eastl
 		void init(void* pMemory, size_t memorySize, size_t nodeSize,
 					size_t alignment, size_t alignmentOffset = 0)
 		{
-			fixed_pool_base::init(pMemory, memorySize, nodeSize, alignment, alignmentOffset);
-
-			mpPoolBegin = pMemory;
-			mpPoolEnd   = (void*)((uintptr_t)pMemory + memorySize);
-			mnNodeSize  = (eastl_size_t)nodeSize;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// allocate
@@ -330,44 +286,16 @@ namespace eastl
 		///
 		void* allocate(size_t /*n*/, int /*flags*/ = 0)
 		{
-			// To consider: Verify that 'n' is what the user initialized us with.
-
-			void* p;
-
-			if(mpHead) // If we have space...
-			{
-				p      = mpHead;
-				mpHead = mpHead->mpNext;
-			}
-			else
-			{
-				// If there's no free node in the free list, just
-				// allocate another from the reserved memory area
-
-				if (mpNext != mpCapacity)
-				{
-					p = mpNext;
-					mpNext = reinterpret_cast<Link*>(reinterpret_cast<char*>(mpNext) + mnNodeSize);
-				}
-				else
-					p = mOverflowAllocator.allocate(mnNodeSize);
-			}
-
-			#if EASTL_FIXED_SIZE_TRACKING_ENABLED
-				if(p && (++mnCurrentSize > mnPeakSize))
-					mnPeakSize = mnCurrentSize;
-			#endif
-
-			return p;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// allocate
 		///
 		void* allocate(size_t n, size_t /*alignment*/, size_t /*offset*/, int flags = 0)
 		{
-			return allocate(n, flags);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// deallocate
@@ -378,18 +306,8 @@ namespace eastl
 		///
 		void deallocate(void* p, size_t)
 		{
-			#if EASTL_FIXED_SIZE_TRACKING_ENABLED
-				--mnCurrentSize;
-			#endif
-
-			if((p >= mpPoolBegin) && (p < mpPoolEnd))
-			{
-				((Link*)p)->mpNext = mpHead;
-				mpHead = ((Link*)p);
-			}
-			else
-				mOverflowAllocator.deallocate(p, (size_t)mnNodeSize);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		using fixed_pool_base::can_allocate;
@@ -397,14 +315,14 @@ namespace eastl
 
 		const char* get_name() const
 		{
-			return mOverflowAllocator.get_name();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		void set_name(const char* pName)
 		{
-			mOverflowAllocator.set_name(pName);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	protected:
 		EASTLAllocatorType mOverflowAllocator;  // To consider: Allow the user to define the type of this, presumably via a template parameter.
@@ -428,23 +346,23 @@ namespace eastl
 
 	inline bool operator==(const fixed_allocator&, const fixed_allocator&)
 	{
-		return false;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline bool operator!=(const fixed_allocator&, const fixed_allocator&)
 	{
-		return false;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline bool operator==(const fixed_allocator_with_overflow&, const fixed_allocator_with_overflow&)
 	{
-		return false;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline bool operator!=(const fixed_allocator_with_overflow&, const fixed_allocator_with_overflow&)
 	{
-		return false;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

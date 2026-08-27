@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -29,15 +31,13 @@
 
 		EASTL_API allocator* GetDefaultAllocator()
 		{
-			return gpDefaultAllocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		EASTL_API allocator* SetDefaultAllocator(allocator* pAllocator)
 		{
-			allocator* const pPrevAllocator = gpDefaultAllocator;
-			gpDefaultAllocator = pAllocator;
-			return pPrevAllocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	} // namespace eastl
 

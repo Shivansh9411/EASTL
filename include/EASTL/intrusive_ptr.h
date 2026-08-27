@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -26,14 +28,14 @@ namespace eastl
 	template <typename T>
 	void intrusive_ptr_add_ref(T* p)
 	{
-		p->AddRef();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	 
 	template <typename T>
 	void intrusive_ptr_release(T* p)
 	{
-		p->Release();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -90,8 +92,8 @@ namespace eastl
 		intrusive_ptr()
 			: mpObject(NULL)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// intrusive_ptr
 		/// Provides a constructor which takes ownership of a pointer.
@@ -102,18 +104,16 @@ namespace eastl
 		intrusive_ptr(T* p, bool bAddRef = true)
 			: mpObject(p) 
 		{
-			if(mpObject && bAddRef)
-				intrusive_ptr_add_ref(mpObject);  // Intentionally do not prefix the call with eastl:: but instead allow namespace lookup to resolve the namespace.
-		} 
+    __builtin_trap() /* STUB: not implemented */;
+} 
 
 		/// intrusive_ptr
 		/// Construction from self type.
 		intrusive_ptr(const intrusive_ptr& ip) 
 			: mpObject(ip.mpObject) 
 		{
-			if(mpObject)
-				intrusive_ptr_add_ref(mpObject);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// intrusive_ptr
@@ -136,9 +136,8 @@ namespace eastl
 		intrusive_ptr(const intrusive_ptr<U>& ip) 
 			: mpObject(ip.mpObject) 
 		{
-			if(mpObject)
-				intrusive_ptr_add_ref(mpObject);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// intrusive_ptr
 		/// Releases the owned pointer.
@@ -153,17 +152,16 @@ namespace eastl
 		/// Assignment to self type.
 		intrusive_ptr& operator=(const intrusive_ptr& ip)
 		{
-			return operator=(ip.mpObject);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator=
 		/// Move assignment operator 
 		intrusive_ptr& operator=(intrusive_ptr&& ip)
 		{
-			swap(ip);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator =
@@ -177,8 +175,8 @@ namespace eastl
 		template <typename U>
 		intrusive_ptr& operator=(const intrusive_ptr<U>& ip)       
 		{
-			return operator=(ip.mpObject);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// operator=
 		/// Assigns an intrusive_ptr object to this intrusive_ptr object.
@@ -189,58 +187,44 @@ namespace eastl
 		/// member pointer is Released.
 		intrusive_ptr& operator=(T* pObject)
 		{
-			if(pObject != mpObject)
-			{
-				T* const pTemp = mpObject; // Create temporary to prevent possible problems with re-entrancy.
-				if(pObject)
-					intrusive_ptr_add_ref(pObject);
-				mpObject = pObject;
-				if(pTemp)
-					intrusive_ptr_release(pTemp);
-			}
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// operator *
 		/// Returns a reference to the contained object.
 		T& operator *() const 
 		{
-			return *mpObject;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// operator *
 		/// Returns a pointer to the contained object, allowing the 
 		/// user to use this container as if it were contained pointer itself. 
 		T* operator ->() const
 		{
-			return mpObject;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// get()
 		/// Returns a pointer to the contained object. 
 		T* get() const
 		{
-			return mpObject;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// reset
 		/// Releases the owned object and clears our reference to it.
 		void reset() 
 		{
-			T* const pTemp = mpObject;
-			mpObject = NULL;
-			if(pTemp)
-				intrusive_ptr_release(pTemp);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// swap
 		/// Exchanges the owned pointer beween two intrusive_ptr objects.
 		void swap(this_type& ip)
 		{
-			T* const pTemp = mpObject;
-			mpObject = ip.mpObject;
-			ip.mpObject = pTemp;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// attach
 		/// Sets an intrusive_ptr pointer without calling AddRef() on
@@ -252,11 +236,8 @@ namespace eastl
 		///
 		void attach(T* pObject)
 		{
-			T* const pTemp = mpObject;
-			mpObject = pObject;
-			if(pTemp)
-				intrusive_ptr_release(pTemp);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// detach
 		/// Surrenders the reference held by an intrusive_ptr pointer -- 
@@ -274,10 +255,8 @@ namespace eastl
 		/// }
 		T* detach()
 		{
-			T* const pTemp = mpObject;
-			mpObject = NULL;
-			return pTemp;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// Implicit operator bool
 		/// Allows for using a intrusive_ptr as a boolean. 
@@ -292,10 +271,8 @@ namespace eastl
 		typedef T* (this_type::*bool_)() const;
 		operator bool_() const
 		{
-			if(mpObject)
-				return &this_type::get;
-			return NULL;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// operator!
 		/// This returns the opposite of operator bool; it returns true if 
@@ -305,8 +282,8 @@ namespace eastl
 		///        assert(false);
 		bool operator!() const
 		{
-			return (mpObject == NULL);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // class intrusive_ptr
 
@@ -316,8 +293,8 @@ namespace eastl
 	template <typename T>
 	inline T* get_pointer(const intrusive_ptr<T>& intrusivePtr)
 	{
-		return intrusivePtr.get();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// swap
 	/// Exchanges the owned pointer beween two intrusive_ptr objects.
@@ -326,51 +303,51 @@ namespace eastl
 	template <typename T>
 	inline void swap(intrusive_ptr<T>& intrusivePtr1, intrusive_ptr<T>& intrusivePtr2)
 	{
-		intrusivePtr1.swap(intrusivePtr2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename U>
 	bool operator==(intrusive_ptr<T> const& iPtr1, intrusive_ptr<U> const& iPtr2)
 	{
-		return (iPtr1.get() == iPtr2.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename U>
 	bool operator!=(intrusive_ptr<T> const& iPtr1, intrusive_ptr<U> const& iPtr2)
 	{
-		return (iPtr1.get() != iPtr2.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator==(intrusive_ptr<T> const& iPtr1, T* p)
 	{
-		return (iPtr1.get() == p);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator!=(intrusive_ptr<T> const& iPtr1, T* p)
 	{
-		return (iPtr1.get() != p);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator==(T* p, intrusive_ptr<T> const& iPtr2)
 	{
-		return (p == iPtr2.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator!=(T* p, intrusive_ptr<T> const& iPtr2)
 	{
-		return (p != iPtr2.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename U>
 	bool operator<(intrusive_ptr<T> const& iPtr1, intrusive_ptr<U> const& iPtr2)
 	{
-		return ((uintptr_t)iPtr1.get() < (uintptr_t)iPtr2.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// static_pointer_cast
@@ -378,8 +355,8 @@ namespace eastl
 	template <class T, class U>
 	intrusive_ptr<T> static_pointer_cast(const intrusive_ptr<U>& intrusivePtr)
 	{
-		return static_cast<T*>(intrusivePtr.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	#if EASTL_RTTI_ENABLED
@@ -389,8 +366,8 @@ namespace eastl
 	template <class T, class U>
 	intrusive_ptr<T> dynamic_pointer_cast(const intrusive_ptr<U>& intrusivePtr)
 	{
-		return dynamic_cast<T*>(intrusivePtr.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	#endif
 

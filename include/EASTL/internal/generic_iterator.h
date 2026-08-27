@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -123,61 +125,89 @@ namespace eastl
 
 	template <typename IteratorL, typename IteratorR, typename Container>
 	inline bool operator==(const generic_iterator<IteratorL, Container>& lhs, const generic_iterator<IteratorR, Container>& rhs)
-		{ return lhs.base() == rhs.base(); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Iterator, typename Container>
 	inline bool operator==(const generic_iterator<Iterator, Container>& lhs, const generic_iterator<Iterator, Container>& rhs)
-		{ return lhs.base() == rhs.base(); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename IteratorL, typename IteratorR, typename Container>
 	inline bool operator!=(const generic_iterator<IteratorL, Container>& lhs, const generic_iterator<IteratorR, Container>& rhs)
-		{ return lhs.base() != rhs.base(); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Iterator, typename Container>
 	inline bool operator!=(const generic_iterator<Iterator, Container>& lhs, const generic_iterator<Iterator, Container>& rhs)
-		{ return lhs.base() != rhs.base(); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename IteratorL, typename IteratorR, typename Container>
 	inline bool operator<(const generic_iterator<IteratorL, Container>& lhs, const generic_iterator<IteratorR, Container>& rhs)
-		{ return lhs.base() < rhs.base(); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Iterator, typename Container>
 	inline bool operator<(const generic_iterator<Iterator, Container>& lhs, const generic_iterator<Iterator, Container>& rhs)
-		{ return lhs.base() < rhs.base(); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename IteratorL, typename IteratorR, typename Container>
 	inline bool operator>(const generic_iterator<IteratorL, Container>& lhs, const generic_iterator<IteratorR, Container>& rhs)
-		{ return lhs.base() > rhs.base(); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Iterator, typename Container>
 	inline bool operator>(const generic_iterator<Iterator, Container>& lhs, const generic_iterator<Iterator, Container>& rhs)
-		{ return lhs.base() > rhs.base(); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename IteratorL, typename IteratorR, typename Container>
 	inline bool operator<=(const generic_iterator<IteratorL, Container>& lhs, const generic_iterator<IteratorR, Container>& rhs)
-		{ return lhs.base() <= rhs.base(); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Iterator, typename Container>
 	inline bool operator<=(const generic_iterator<Iterator, Container>& lhs, const generic_iterator<Iterator, Container>& rhs)
-		{ return lhs.base() <= rhs.base(); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename IteratorL, typename IteratorR, typename Container>
 	inline bool operator>=(const generic_iterator<IteratorL, Container>& lhs, const generic_iterator<IteratorR, Container>& rhs)
-		{ return lhs.base() >= rhs.base(); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Iterator, typename Container>
 	inline bool operator>=(const generic_iterator<Iterator, Container>& lhs, const generic_iterator<Iterator, Container>& rhs)
-		{ return lhs.base() >= rhs.base(); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename IteratorL, typename IteratorR, typename Container>
 	inline typename generic_iterator<IteratorL, Container>::difference_type
 	operator-(const generic_iterator<IteratorL, Container>& lhs, const generic_iterator<IteratorR, Container>& rhs)
-		{ return lhs.base() - rhs.base(); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Iterator, typename Container>
 	inline generic_iterator<Iterator, Container>
 	operator+(typename generic_iterator<Iterator, Container>::difference_type n, const generic_iterator<Iterator, Container>& x)
-		{ return generic_iterator<Iterator, Container>(x.base() + n); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 

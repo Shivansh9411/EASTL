@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -51,7 +53,9 @@ namespace eastl
 		bool m_engaged = false;
 
 	public:
-		finally(Functor f) : m_functor(eastl::move(f)), m_engaged(true) {}
+		finally(Functor f) : m_functor(eastl::move(f)), m_engaged(true) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		finally(finally&& other) : m_functor(eastl::move(other.m_functor)), m_engaged(other.m_engaged)
 		{
@@ -64,15 +68,14 @@ namespace eastl
 		finally& operator=(const finally&) = delete;
 		finally& operator=(finally&&) = delete;
 
-		inline void dismiss() { m_engaged = false; }
+		inline void dismiss() {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		inline void execute()
 		{
-			if (m_engaged)
-				m_functor();
-
-			dismiss();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -86,8 +89,8 @@ namespace eastl
 	template <typename F>
 	auto make_finally(F&& f)
 	{
-		return finally<F>(eastl::forward<F>(f));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 }
 
 #endif // EASTL_FINALLY_H

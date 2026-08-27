@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -723,19 +725,8 @@ namespace eastl
 	template <typename DestType, typename SourceType>
 	DestType union_cast(SourceType sourceValue)
 	{
-		EASTL_CT_ASSERT((sizeof(DestType) == sizeof(SourceType)) && 
-						(EA_ALIGN_OF(DestType) == EA_ALIGN_OF(SourceType)));               // To support differening alignments, we would need to use a memcpy-based solution or find a way to make the two union members align with each other.
-		//EASTL_CT_ASSERT(is_pod<DestType>::value && is_pod<SourceType>::value);           // Disabled because we don't want to restrict what the user can do, as some compiler's definitions of is_pod aren't up to C++11 Standards.
-		//EASTL_CT_ASSERT(!is_pointer<DestType>::value && !is_pointer<SourceType>::value); // Disabled because it's valid to alias pointers as long as you are aliasong the pointer value and not what it points to.
-
-		union {
-			SourceType sourceValue;
-			DestType   destValue;
-		} u;
-		u.sourceValue = sourceValue;
-
-		return u.destValue;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 } // namespace eastl
 

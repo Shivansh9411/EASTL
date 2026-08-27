@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -39,34 +41,14 @@ namespace eastl
 	template <typename ForwardIterator, typename StrictWeakOrdering>
 	void selection_sort(ForwardIterator first, ForwardIterator last, StrictWeakOrdering compare)
 	{
-		ForwardIterator iCurrent, iMin;
-
-		for(; first != last; ++first)
-		{
-			iCurrent = first;
-			iMin     = iCurrent;
-
-			for(++iCurrent; iCurrent != last; ++iCurrent)
-			{
-				if(compare(*iCurrent, *iMin))
-				{
-					EASTL_VALIDATE_COMPARE(!compare(*iMin, *iCurrent)); // Validate that the compare function is sane.
-					iMin = iCurrent;
-				}
-			}
-
-			if(first != iMin)
-				eastl::iter_swap(first, iMin);
-		}
-	} // selection_sort
+    __builtin_trap() /* STUB: not implemented */;
+} // selection_sort
 
 	template <typename ForwardIterator>
 	inline void selection_sort(ForwardIterator first, ForwardIterator last)
 	{
-		typedef eastl::less<typename eastl::iterator_traits<ForwardIterator>::value_type> Less;
-
-		eastl::selection_sort<ForwardIterator, Less>(first, last, Less());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -79,58 +61,14 @@ namespace eastl
 	template <typename BidirectionalIterator, typename StrictWeakOrdering>
 	void shaker_sort(BidirectionalIterator first, BidirectionalIterator last, StrictWeakOrdering compare)
 	{
-		if(first != last)
-		{
-			BidirectionalIterator iCurrent, iNext, iLastModified;
-
-			--last;
-
-			while(first != last)
-			{
-				iLastModified = first;
-
-				for(iCurrent = first; iCurrent != last; iCurrent = iNext)
-				{
-					iNext = iCurrent;
-					++iNext;
-
-					if(compare(*iNext, *iCurrent))
-					{
-						EASTL_VALIDATE_COMPARE(!compare(*iCurrent, *iNext)); // Validate that the compare function is sane.
-						iLastModified = iCurrent;
-						eastl::iter_swap(iCurrent, iNext);
-					}
-				}
-
-				last = iLastModified;
-
-				if(first != last)
-				{
-					for(iCurrent = last; iCurrent != first; iCurrent = iNext)
-					{
-						iNext = iCurrent;
-						--iNext;
-
-						if(compare(*iCurrent, *iNext))
-						{
-							EASTL_VALIDATE_COMPARE(!compare(*iNext, *iCurrent)); // Validate that the compare function is sane.
-							iLastModified = iCurrent;
-							eastl::iter_swap(iNext, iCurrent);
-						}
-					}
-					first = iLastModified;
-				}
-			}
-		}
-	} // shaker_sort
+    __builtin_trap() /* STUB: not implemented */;
+} // shaker_sort
 
 	template <typename BidirectionalIterator>
 	inline void shaker_sort(BidirectionalIterator first, BidirectionalIterator last)
 	{
-		typedef eastl::less<typename eastl::iterator_traits<BidirectionalIterator>::value_type> Less;
-
-		eastl::shaker_sort<BidirectionalIterator, Less>(first, last, Less());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -152,7 +90,9 @@ namespace eastl
 	struct hash_use_self
 	{
 		T operator()(const T& x) const
-			{ return x; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	// Requires buckeyArray to be an array of arrays with a size equal to the range of values
@@ -169,12 +109,8 @@ namespace eastl
 	template <typename ForwardIterator, typename ContainerArray, typename HashFunction>
 	void bucket_sort(ForwardIterator first, ForwardIterator last, ContainerArray& bucketArray, HashFunction hash /*= hash_use_self*/)
 	{
-		for(ForwardIterator iInput = first; iInput != last; ++iInput)
-			bucketArray[hash(*iInput)].push_back(*iInput);
-
-		for(typename ContainerArray::const_iterator iBucket = bucketArray.begin(); iBucket != bucketArray.end(); ++iBucket)
-			first = eastl::copy((*iBucket).begin(), (*iBucket).end(), first);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 

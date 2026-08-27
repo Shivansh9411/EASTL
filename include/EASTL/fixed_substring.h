@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -96,31 +98,28 @@ namespace eastl
 
 		void SetInternalHeapLayout(value_type* pBeginPtr, size_type nSize, size_type nCap)
 		{
-			internalLayout().SetHeapBeginPtr(pBeginPtr);
-			internalLayout().SetHeapSize(nSize);
-			internalLayout().SetHeapCapacity(nCap);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	public:
 		fixed_substring()
 			: base_type()
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		fixed_substring(const fixed_substring& x)
 			: fixed_substring(static_cast<const base_type&>(x))
-		{}
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		fixed_substring(const base_type& x)
 			: base_type()
 		{
-			#if EASTL_NAME_ENABLED
-				get_allocator().set_name(x.get_allocator().get_name());
-			#endif
-
-			assign(x);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// We gain no benefit from having an rvalue move constructor or assignment operator,
 		// as this class is a const class.
@@ -128,30 +127,26 @@ namespace eastl
 		fixed_substring(const base_type& x, size_type position, size_type n = base_type::npos)
 			: base_type()
 		{
-			#if EASTL_NAME_ENABLED
-				get_allocator().set_name(x.get_allocator().get_name());
-			#endif
-
-			assign(x, position, n);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		fixed_substring(const value_type* p, size_type n)
 			: base_type()
 		{
-			assign(p, n);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		fixed_substring(const value_type* p)
 			: base_type()
 		{
-			 assign(p);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		fixed_substring(const value_type* pBegin, const value_type* pEnd)
 			: base_type()
 		{
-			assign(pBegin, pEnd);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		~fixed_substring()
 		{
@@ -162,56 +157,43 @@ namespace eastl
 
 		this_type& operator=(const this_type& x)
 		{
-			assign(x);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		this_type& operator=(const base_type& x)
 		{
-			assign(x);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		this_type& operator=(const value_type* p)
 		{
-			assign(p);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		this_type& assign(const base_type& x)
 		{
-			// By design, we need to cast away const-ness here.
-			SetInternalHeapLayout(const_cast<value_type*>(x.data()), x.size(), x.size());
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		this_type& assign(const base_type& x, size_type position, size_type n)
 		{
-			// By design, we need to cast away const-ness here.
-			SetInternalHeapLayout(const_cast<value_type*>(x.data()) + position, n, n);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		this_type& assign(const value_type* p, size_type n)
 		{
-			// By design, we need to cast away const-ness here.
-			SetInternalHeapLayout(const_cast<value_type*>(p), n, n);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		this_type& assign(const value_type* p)
 		{
-			// By design, we need to cast away const-ness here.
-			SetInternalHeapLayout(const_cast<value_type*>(p), (size_type)CharStrlen(p), (size_type)CharStrlen(p));
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		this_type& assign(const value_type* pBegin, const value_type* pEnd)
 		{
-			// By design, we need to cast away const-ness here.
-			SetInternalHeapLayout(const_cast<value_type*>(pBegin), (size_type)(pEnd - pBegin), (size_type)(pEnd - pBegin));
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		// Partially supported functionality

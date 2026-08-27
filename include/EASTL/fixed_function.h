@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -59,12 +61,14 @@ namespace eastl
 		fixed_function(std::nullptr_t p) EA_NOEXCEPT
 			: Base(p)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		fixed_function(const fixed_function& other)
 			: Base(other)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		fixed_function(fixed_function&& other)
 			: Base(eastl::move(other))
@@ -77,143 +81,130 @@ namespace eastl
 		fixed_function(Functor&& functor)
 		    : Base(eastl::forward<Functor>(functor))
 		{
-			EASTL_INTERNAL_FIXED_FUNCTION_STATIC_ASSERT(Functor);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<int OTHER_SIZE_IN_BYTES>
 		fixed_function(const fixed_function<OTHER_SIZE_IN_BYTES, R(Args...)>& other)
 		    : Base(static_cast<const internal::function_detail<OTHER_SIZE_IN_BYTES, R(Args...)>&>(other))
 		{
-			EASTL_INTERNAL_FIXED_FUNCTION_OTHER_SIZE_STATIC_ASSERT(OTHER_SIZE_IN_BYTES);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<int OTHER_SIZE_IN_BYTES>
 		fixed_function(fixed_function<OTHER_SIZE_IN_BYTES, R(Args...)>&& other)
 		    : Base(static_cast<internal::function_detail<OTHER_SIZE_IN_BYTES, R(Args...)>&&>(other))
 		{
-			EASTL_INTERNAL_FIXED_FUNCTION_OTHER_SIZE_STATIC_ASSERT(OTHER_SIZE_IN_BYTES);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		~fixed_function() EA_NOEXCEPT = default;
 
 		fixed_function& operator=(const fixed_function& other)
 		{
-			Base::operator=(other);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		fixed_function& operator=(fixed_function&& other)
 		{
-			Base::operator=(eastl::move(other));
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		fixed_function& operator=(std::nullptr_t p) EA_NOEXCEPT
 		{
-			Base::operator=(p);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<int OTHER_SIZE_IN_BYTES>
 		fixed_function& operator=(const fixed_function<OTHER_SIZE_IN_BYTES, R(Args...)>& other)
 		{
-			EASTL_INTERNAL_FIXED_FUNCTION_OTHER_SIZE_STATIC_ASSERT(OTHER_SIZE_IN_BYTES);
-
-			Base::operator=(static_cast<const internal::function_detail<OTHER_SIZE_IN_BYTES, R(Args...)>&>(other));
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<int OTHER_SIZE_IN_BYTES>
 		fixed_function& operator=(fixed_function<OTHER_SIZE_IN_BYTES, R(Args...)>&& other)
 		{
-			EASTL_INTERNAL_FIXED_FUNCTION_OTHER_SIZE_STATIC_ASSERT(OTHER_SIZE_IN_BYTES);
-
-			Base::operator=(static_cast<internal::function_detail<OTHER_SIZE_IN_BYTES, R(Args...)>&&>(other));
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename Functor,
 		          typename = EASTL_INTERNAL_FUNCTION_VALID_FUNCTION_ARGS(Functor, R, Args..., Base, fixed_function),
 		          typename = EASTL_DISABLE_OVERLOAD_IF_FIXED_FUNCTION<Functor>>
 		fixed_function& operator=(Functor&& functor)
 		{
-			EASTL_INTERNAL_FIXED_FUNCTION_STATIC_ASSERT(eastl::decay_t<Functor>);
-			Base::operator=(eastl::forward<Functor>(functor));
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename Functor>
 		fixed_function& operator=(eastl::reference_wrapper<Functor> f) EA_NOEXCEPT
 		{
-			EASTL_INTERNAL_FIXED_FUNCTION_STATIC_ASSERT(eastl::reference_wrapper<Functor>);
-			Base::operator=(f);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void swap(fixed_function& other) EA_NOEXCEPT
 		{
-			Base::swap(other);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		explicit operator bool() const EA_NOEXCEPT
 		{
-			return Base::operator bool();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		R operator ()(Args... args) const
 		{
-			return Base::operator ()(eastl::forward<Args>(args)...);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	#if EASTL_RTTI_ENABLED
 		const std::type_info& target_type() const EA_NOEXCEPT
 		{
-			return Base::target_type();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename Functor>
 		Functor* target() EA_NOEXCEPT
 		{
-			return Base::target();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename Functor>
 		const Functor* target() const EA_NOEXCEPT
 		{
-			return Base::target();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	#endif
 	};
 
 	template <int S, typename R, typename... Args>
 	bool operator==(const fixed_function<S, R(Args...)>& f, std::nullptr_t) EA_NOEXCEPT
 	{
-		return !f;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <int S, typename R, typename... Args>
 	bool operator==(std::nullptr_t, const fixed_function<S, R(Args...)>& f) EA_NOEXCEPT
 	{
-		return !f;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <int S, typename R, typename... Args>
 	bool operator!=(const fixed_function<S, R(Args...)>& f, std::nullptr_t) EA_NOEXCEPT
 	{
-		return !!f;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <int S, typename R, typename... Args>
 	bool operator!=(std::nullptr_t, const fixed_function<S, R(Args...)>& f) EA_NOEXCEPT
 	{
-		return !!f;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <int S, typename R, typename... Args>
 	void swap(fixed_function<S, R(Args...)>& lhs, fixed_function<S, R(Args...)>& rhs)
 	{
-		lhs.swap(rhs);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 } // namespace eastl
 

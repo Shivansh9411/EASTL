@@ -1,3 +1,4 @@
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -125,8 +126,8 @@ namespace eastl
 		inline SListIterator(const iterator& x)
 			: mpNode(x.mpNode)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		reference operator*() const;
 		pointer   operator->() const;
@@ -158,10 +159,18 @@ namespace eastl
 			size_type  mSize;
 		#endif
 
-		base_node_type& internalNode() EA_NOEXCEPT { return mNodeAllocator.first(); }
-		base_node_type const& internalNode() const EA_NOEXCEPT { return mNodeAllocator.first(); }
-		allocator_type& internalAllocator() EA_NOEXCEPT { return mNodeAllocator.second(); }
-		const allocator_type& internalAllocator() const EA_NOEXCEPT { return mNodeAllocator.second(); }
+		base_node_type& internalNode() EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		base_node_type const& internalNode() const EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		allocator_type& internalAllocator() EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
+		const allocator_type& internalAllocator() const EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	public:
 		const allocator_type& get_allocator() const EA_NOEXCEPT;
@@ -426,77 +435,38 @@ namespace eastl
 
 	inline SListNodeBase* SListNodeInsertAfter(SListNodeBase* pPrevNode, SListNodeBase* pNode)
 	{
-		pNode->mpNext = pPrevNode->mpNext;
-		pPrevNode->mpNext = pNode;
-		return pNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline SListNodeBase* SListNodeGetPrevious(SListNodeBase* pNodeBase, const SListNodeBase* pNode)
 	{
-		while(pNodeBase && (pNodeBase->mpNext != pNode))
-			pNodeBase = pNodeBase->mpNext;
-		return pNodeBase;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline const SListNodeBase* SListNodeGetPrevious(const SListNodeBase* pNodeBase, const SListNodeBase* pNode)
 	{
-		while(pNodeBase && (pNodeBase->mpNext != pNode))
-			pNodeBase = pNodeBase->mpNext;
-		return pNodeBase;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline void SListNodeSpliceAfter(SListNodeBase* pNode, SListNodeBase* pNodeBeforeFirst, SListNodeBase* pNodeBeforeLast)
 	{
-		if((pNode != pNodeBeforeFirst) && (pNode != pNodeBeforeLast))
-		{
-			SListNodeBase* const pFirst    = pNodeBeforeFirst->mpNext;
-			SListNodeBase* const pPosition = pNode->mpNext;
-
-			pNodeBeforeFirst->mpNext = pNodeBeforeLast->mpNext;
-			pNode->mpNext            = pFirst;
-			pNodeBeforeLast->mpNext  = pPosition;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline void SListNodeSpliceAfter(SListNodeBase* pNode, SListNodeBase* pNodeBase)
 	{
-		SListNodeBase* const pNodeBeforeLast = SListNodeGetPrevious(pNodeBase, NULL);
-
-		if(pNodeBeforeLast != pNodeBase)
-		{
-			SListNodeBase* const pPosition = pNode->mpNext;
-			pNode->mpNext           = pNodeBase->mpNext;
-			pNodeBase->mpNext       = NULL;
-			pNodeBeforeLast->mpNext = pPosition;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline SListNodeBase* SListNodeReverse(SListNodeBase* pNode)
 	{
-		SListNodeBase* pNodeFirst = pNode;
-		pNode = pNode->mpNext;
-		pNodeFirst->mpNext = NULL;
-
-		while(pNode)
-		{
-			SListNodeBase* const pTemp = pNode->mpNext;
-			pNode->mpNext = pNodeFirst;
-			pNodeFirst    = pNode;
-			pNode         = pTemp;
-		}
-		return pNodeFirst;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline uint32_t SListNodeGetSize(SListNodeBase* pNode)
 	{
-		uint32_t n = 0;
-		while(pNode)
-		{
-			++n;
-			pNode = pNode->mpNext;
-		}
-		return n;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -509,51 +479,48 @@ namespace eastl
 	inline SListIterator<T, Pointer, Reference>::SListIterator()
 		: mpNode(NULL)
 	{
-		// Empty
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline SListIterator<T, Pointer, Reference>::SListIterator(const SListNodeBase* pNode)
 		: mpNode(const_cast<base_node_type*>(pNode))
 	{
-		// Empty
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename SListIterator<T, Pointer, Reference>::reference
 	SListIterator<T, Pointer, Reference>::operator*() const
 	{
-		return static_cast<node_type*>(mpNode)->mValue;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename SListIterator<T, Pointer, Reference>::pointer
 	SListIterator<T, Pointer, Reference>::operator->() const
 	{
-		return &static_cast<node_type*>(mpNode)->mValue;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename SListIterator<T, Pointer, Reference>::this_type&
 	SListIterator<T, Pointer, Reference>::operator++()
 	{
-		mpNode = mpNode->mpNext;
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Pointer, typename Reference>
 	inline typename SListIterator<T, Pointer, Reference>::this_type
 	SListIterator<T, Pointer, Reference>::operator++(int)
 	{
-		this_type temp(*this);
-		mpNode = mpNode->mpNext;
-		return temp;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	// The C++ defect report #179 requires that we support comparisons between const and non-const iterators.
 	// Thus we provide additional template paremeters here to support this. The defect report does not
@@ -562,16 +529,16 @@ namespace eastl
 	inline bool operator==(const SListIterator<T, PointerA, ReferenceA>& a, 
 						   const SListIterator<T, PointerB, ReferenceB>& b)
 	{
-		return a.mpNode == b.mpNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename PointerA, typename ReferenceA, typename PointerB, typename ReferenceB>
 	inline bool operator!=(const SListIterator<T, PointerA, ReferenceA>& a, 
 						   const SListIterator<T, PointerB, ReferenceB>& b)
 	{
-		return a.mpNode != b.mpNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// We provide a version of operator!= for the case where the iterators are of the 
@@ -580,8 +547,8 @@ namespace eastl
 	inline bool operator!=(const SListIterator<T, Pointer, Reference>& a, 
 						   const SListIterator<T, Pointer, Reference>& b)
 	{
-		return a.mpNode != b.mpNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -597,9 +564,9 @@ namespace eastl
 		  #if EASTL_SLIST_SIZE_CACHE
 		  , mSize(0)
 		  #endif
-	{ 
-		internalNode().mpNext = NULL;
-	}
+	{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
@@ -608,9 +575,9 @@ namespace eastl
 		  #if EASTL_SLIST_SIZE_CACHE
 		  , mSize(0)
 		  #endif
-	{ 
-		internalNode().mpNext = NULL;
-	}
+	{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
@@ -624,76 +591,52 @@ namespace eastl
 	inline const typename SListBase<T, Allocator>::allocator_type&
 	SListBase<T, Allocator>::get_allocator() const EA_NOEXCEPT
 	{
-		return internalAllocator();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename SListBase<T, Allocator>::allocator_type&
 	SListBase<T, Allocator>::get_allocator() EA_NOEXCEPT
 	{
-		return internalAllocator();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	void
 	SListBase<T, Allocator>::set_allocator(const allocator_type& allocator)
 	{
-		if((internalAllocator() != allocator) && (static_cast<node_type*>(internalNode().mpNext) != NULL))
-			EASTL_THROW_MSG_OR_ASSERT(std::logic_error, "slist::set_allocator -- cannot change allocator after allocations have been made.");
-		internalAllocator() = allocator;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline SListNode<T>* SListBase<T, Allocator>::DoAllocateNode()
 	{
-		return (node_type*)allocate_memory(internalAllocator(), sizeof(node_type), EASTL_ALIGN_OF(node_type), 0);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline void SListBase<T, Allocator>::DoFreeNode(node_type* pNode)
 	{
-		EASTLFree(internalAllocator(), pNode, sizeof(node_type));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	SListNodeBase* SListBase<T, Allocator>::DoEraseAfter(SListNodeBase* pNode)
 	{
-		node_type*     const pNodeNext     = static_cast<node_type*>((base_node_type*)pNode->mpNext);
-		SListNodeBase* const pNodeNextNext = pNodeNext->mpNext;
-
-		pNode->mpNext = pNodeNextNext;
-		pNodeNext->~node_type();
-		DoFreeNode(pNodeNext);
-		#if EASTL_SLIST_SIZE_CACHE
-		   --mSize;
-		#endif
-		return pNodeNextNext;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	SListNodeBase* SListBase<T, Allocator>::DoEraseAfter(SListNodeBase* pNode, SListNodeBase* pNodeLast)
 	{
-		node_type* pNodeCurrent = static_cast<node_type*>((base_node_type*)pNode->mpNext);
-
-		while(pNodeCurrent != (base_node_type*)pNodeLast)
-		{
-			node_type* const pNodeTemp = pNodeCurrent;
-			pNodeCurrent = static_cast<node_type*>((base_node_type*)pNodeCurrent->mpNext);
-			pNodeTemp->~node_type();
-			DoFreeNode(pNodeTemp);
-			#if EASTL_SLIST_SIZE_CACHE
-			--mSize;
-			#endif
-		}
-		pNode->mpNext = pNodeLast;
-		return pNodeLast;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -706,40 +649,40 @@ namespace eastl
 	inline slist<T, Allocator>::slist()
 		: base_type()
 	{
-		// Empty
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline slist<T, Allocator>::slist(const allocator_type& allocator)
 		: base_type(allocator)
 	{
-		// Empty
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline slist<T, Allocator>::slist(size_type n, const allocator_type& allocator)
 		: base_type(allocator)
 	{
-		DoInsertValuesAfter(&internalNode(), n, value_type());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline slist<T, Allocator>::slist(size_type n, const value_type& value, const allocator_type& allocator)
 		: base_type(allocator)
 	{
-		DoInsertValuesAfter(&internalNode(), n, value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline slist<T, Allocator>::slist(const slist& x)
 		: base_type(x.internalAllocator())
 	{
-		DoInsertAfter(&internalNode(), const_iterator(x.internalNode().mpNext), const_iterator(NULL), false_type());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
@@ -753,16 +696,16 @@ namespace eastl
 	slist<T, Allocator>::slist(this_type&& x, const allocator_type& allocator)
 		: base_type(allocator)
 	{
-		swap(x); // member swap handles the case that x has a different allocator than our allocator by doing a copy.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline slist<T, Allocator>::slist(std::initializer_list<value_type> ilist, const allocator_type& allocator)
 		: base_type(allocator)
 	{
-		DoInsertAfter(&internalNode(), ilist.begin(), ilist.end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
@@ -770,259 +713,191 @@ namespace eastl
 	inline slist<T, Allocator>::slist(InputIterator first, InputIterator last)
 		: base_type(EASTL_SLIST_DEFAULT_ALLOCATOR)
 	{
-		DoInsertAfter(&internalNode(), first, last);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::iterator
 	slist<T, Allocator>::begin() EA_NOEXCEPT
 	{
-		return iterator(internalNode().mpNext);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::const_iterator
 	slist<T, Allocator>::begin() const EA_NOEXCEPT
 	{
-		return const_iterator(internalNode().mpNext);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::const_iterator
 	slist<T, Allocator>::cbegin() const EA_NOEXCEPT
 	{
-		return const_iterator(internalNode().mpNext);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::iterator
 	slist<T, Allocator>::end() EA_NOEXCEPT
 	{
-		return iterator(NULL);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::const_iterator
 	slist<T, Allocator>::end() const EA_NOEXCEPT
 	{
-		return const_iterator(NULL);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::const_iterator
 	slist<T, Allocator>::cend() const EA_NOEXCEPT
 	{
-		return const_iterator(NULL);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::iterator
 	slist<T, Allocator>::before_begin() EA_NOEXCEPT
 	{
-		return iterator(&internalNode());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::const_iterator
 	slist<T, Allocator>::before_begin() const EA_NOEXCEPT
 	{
-		return const_iterator(&internalNode());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::const_iterator
 	slist<T, Allocator>::cbefore_begin() const EA_NOEXCEPT
 	{
-		return const_iterator(&internalNode());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::iterator
 	slist<T, Allocator>::previous(const_iterator position)
 	{
-		return iterator(SListNodeGetPrevious(&internalNode(), position.mpNode));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::const_iterator
 	slist<T, Allocator>::previous(const_iterator position) const
 	{
-		return const_iterator(SListNodeGetPrevious(&internalNode(), position.mpNode));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::reference
 	slist<T, Allocator>::front()
 	{
-		#if EASTL_ASSERT_ENABLED
-			if(EASTL_UNLIKELY(internalNode().mpNext == NULL))
-				EASTL_FAIL_MSG("slist::front -- empty container");
-		#endif
-
-		EA_ANALYSIS_ASSUME(internalNode().mpNext != NULL);
-
-		return ((node_type*)internalNode().mpNext)->mValue;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::const_reference
 	slist<T, Allocator>::front() const
 	{
-		#if EASTL_ASSERT_ENABLED
-			if(EASTL_UNLIKELY(internalNode().mpNext == NULL))
-				EASTL_FAIL_MSG("slist::front -- empty container");
-		#endif
-
-		EA_ANALYSIS_ASSUME(internalNode().mpNext != NULL);
-
-		return static_cast<node_type*>(internalNode().mpNext)->mValue;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	template <class... Args>
 	typename slist<T, Allocator>::reference slist<T, Allocator>::emplace_front(Args&&... args)
 	{
-		DoInsertValueAfter(&internalNode(), eastl::forward<Args>(args)...);
-		return static_cast<node_type*>(internalNode().mpNext)->mValue; // Same as return front();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::push_front(const value_type& value)
 	{
-		SListNodeInsertAfter(&internalNode(), DoCreateNode(value));
-		#if EASTL_SLIST_SIZE_CACHE
-		   ++mSize;
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::reference
 	slist<T, Allocator>::push_front()
 	{
-		SListNodeInsertAfter(&internalNode(), DoCreateNode());
-		#if EASTL_SLIST_SIZE_CACHE
-		   ++mSize;
-		#endif
-		return ((node_type*)internalNode().mpNext)->mValue; // Same as return front();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Allocator>
 	void slist<T, Allocator>::push_front(value_type&& value)
 	{
-		emplace_after(before_begin(), eastl::move(value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	void slist<T, Allocator>::pop_front()
 	{
-		#if EASTL_ASSERT_ENABLED
-			if(EASTL_UNLIKELY(internalNode().mpNext == NULL))
-				EASTL_FAIL_MSG("slist::front -- empty container");
-		#endif
-
-		EA_ANALYSIS_ASSUME(internalNode().mpNext != NULL);
-
-		node_type* const pNode = static_cast<node_type*>(internalNode().mpNext);
-		internalNode().mpNext = pNode->mpNext;
-		pNode->~node_type();
-		DoFreeNode(pNode);
-		#if EASTL_SLIST_SIZE_CACHE
-		   --mSize;
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	typename slist<T, Allocator>::this_type& slist<T, Allocator>::operator=(const this_type& x)
 	{
-		if(&x != this)
-		{
-			// If (EASTL_ALLOCATOR_COPY_ENABLED == 1) and the current contents are allocated by an 
-			// allocator that's unequal to x's allocator, we need to reallocate our elements with 
-			// our current allocator and reallocate it with x's allocator. If the allocators are 
-			// equal then we can use a more optimal algorithm that doesn't reallocate our elements
-			// but instead can copy them in place.
-
-			#if EASTL_ALLOCATOR_COPY_ENABLED
-				bool bSlowerPathwayRequired = (internalAllocator() != x.internalAllocator());
-			#else
-				bool bSlowerPathwayRequired = false;
-			#endif
-
-			if(bSlowerPathwayRequired)
-			{
-				clear();
-
-				#if EASTL_ALLOCATOR_COPY_ENABLED
-					internalAllocator() = x.internalAllocator();
-				#endif
-			}
-
-			DoAssign(x.begin(), x.end(), eastl::false_type());
-		}
-
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	typename slist<T, Allocator>::this_type& slist<T, Allocator>::operator=(this_type&& x)
 	{
-		if(this != &x)
-		{
-			clear();        // To consider: Are we really required to clear here? x is going away soon and will clear itself in its dtor.
-			swap(x);        // member swap handles the case that x has a different allocator than our allocator by doing a copy.
-		}
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	typename slist<T, Allocator>::this_type& slist<T, Allocator>::operator=(std::initializer_list<value_type> ilist)
 	{
-		DoAssign(ilist.begin(), ilist.end(), false_type());
-		return *this;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::assign(std::initializer_list<value_type> ilist)
 	{
-		DoAssign(ilist.begin(), ilist.end(), false_type());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	template <typename InputIterator>                                                // It turns out that the C++ std::list specifies a two argument
 	inline void slist<T, Allocator>::assign(InputIterator first, InputIterator last) // version of assign that takes (int size, int value). These are not 
-	{                                                                                // iterators, so we need to do a template compiler trick to do the right thing.
-		DoAssign(first, last, is_integral<InputIterator>());
-	}
+	{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::assign(size_type n, const value_type& value)
 	{
-		// To do: get rid of DoAssignValues and put its implementation directly here.
-		DoAssignValues(n, value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	
 	// does not propagate allocators on swap.
@@ -1030,137 +905,114 @@ namespace eastl
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::swap(this_type& x)
 	{
-		if(internalAllocator() == x.internalAllocator()) // If allocators are equivalent...
-			DoSwap(x);
-		else // else swap the contents.
-		{
-			const this_type temp(*this); // Can't call eastl::swap because that would
-			*this = x;                   // itself call this member swap function.
-			x     = temp;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline bool slist<T, Allocator>::empty() const EA_NOEXCEPT
 	{
-		return internalNode().mpNext == NULL;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::size_type
 	slist<T, Allocator>::size() const EA_NOEXCEPT
 	{
-		return SListNodeGetSize(internalNode().mpNext);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::clear() EA_NOEXCEPT
 	{
-		DoEraseAfter(&internalNode(), NULL);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::reset_lose_memory() EA_NOEXCEPT
 	{
-		// The reset function is a special extension function which unilaterally 
-		// resets the container to an empty state without freeing the memory of 
-		// the contained objects. This is useful for very quickly tearing down a 
-		// container built into scratch memory.
-		internalNode().mpNext = NULL;
-		#if EASTL_SLIST_SIZE_CACHE
-			mSize = 0;
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	void slist<T, Allocator>::resize(size_type n, const value_type& value)
 	{
-		SListNodeBase* pNode = &internalNode();
-
-		for(; pNode->mpNext && (n > 0); --n)
-			pNode = pNode->mpNext;
-
-		if(pNode->mpNext)
-			DoEraseAfter(pNode, NULL);
-		else
-			DoInsertValuesAfter(pNode, n, value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::resize(size_type n)
 	{
-		resize(n, value_type());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::iterator
 	slist<T, Allocator>::insert(const_iterator position)
 	{
-		return iterator(DoInsertValueAfter(SListNodeGetPrevious(&internalNode(), position.mpNode), value_type()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::iterator
 	slist<T, Allocator>::insert(const_iterator position, const value_type& value)
 	{
-		return iterator(DoInsertValueAfter(SListNodeGetPrevious(&internalNode(), position.mpNode), value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::insert(const_iterator position, size_type n, const value_type& value)
 	{
-		// To do: get rid of DoAssignValues and put its implementation directly here.
-		DoInsertValuesAfter(SListNodeGetPrevious(&internalNode(), position.mpNode), n, value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	template <typename InputIterator>
 	inline void slist<T, Allocator>::insert(const_iterator position, InputIterator first, InputIterator last)
 	{
-		DoInsertAfter(SListNodeGetPrevious(&internalNode(), position.mpNode), first, last);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::iterator
 	slist<T, Allocator>::insert_after(const_iterator position)
 	{
-		return insert_after(position, value_type());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::iterator
 	slist<T, Allocator>::insert_after(const_iterator position, const value_type& value)
 	{
-		return iterator(DoInsertValueAfter(position.mpNode, value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::iterator
 	slist<T, Allocator>::insert_after(const_iterator position, size_type n, const value_type& value)
 	{
-		return iterator(DoInsertValuesAfter(position.mpNode, n, value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::iterator
 	slist<T, Allocator>::insert_after(const_iterator position, std::initializer_list<value_type> ilist)
 	{
-		return iterator(DoInsertAfter(position.mpNode, ilist.begin(), ilist.end(), false_type()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
@@ -1168,16 +1020,16 @@ namespace eastl
 	inline typename slist<T, Allocator>::iterator
 	slist<T, Allocator>::insert_after(const_iterator position, InputIterator first, InputIterator last)
 	{
-		return iterator(DoInsertAfter(position.mpNode, first, last));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::iterator
 	slist<T, Allocator>::insert_after(const_iterator position, value_type&& value)
 	{
-		return emplace_after(position, eastl::move(value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
@@ -1185,354 +1037,172 @@ namespace eastl
 	inline typename slist<T, Allocator>::iterator
 	slist<T, Allocator>::emplace_after(const_iterator position, Args&&... args)
 	{
-		return iterator(DoInsertValueAfter(position.mpNode, eastl::forward<Args>(args)...));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::iterator
 	slist<T, Allocator>::erase(const_iterator position)
 	{
-		return DoEraseAfter(SListNodeGetPrevious(&internalNode(), position.mpNode));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::iterator
 	slist<T, Allocator>::erase(const_iterator first, const_iterator last)
 	{
-		return DoEraseAfter(SListNodeGetPrevious(&internalNode(), first.mpNode), last.mpNode);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::iterator
 	slist<T, Allocator>::erase_after(const_iterator position)
 	{
-		return iterator(DoEraseAfter(position.mpNode));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::iterator
 	slist<T, Allocator>::erase_after(const_iterator before_first, const_iterator last)
 	{
-		return iterator(DoEraseAfter(before_first.mpNode, last.mpNode));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	typename slist<T, Allocator>::size_type slist<T, Allocator>::remove(const value_type& value)
-	{ 
-		base_node_type* pNode = &internalNode();
-		size_type numErased = 0;
-
-		while(pNode && pNode->mpNext)
-		{
-			if (static_cast<node_type*>(pNode->mpNext)->mValue == value)
-			{
-				DoEraseAfter(pNode); // This will take care of modifying pNode->mpNext.
-				++numErased;
-			}
-			else
-				pNode = pNode->mpNext;
-		}
-		return numErased;
-	}
+	{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Allocator>
 	template <typename Predicate>
 	inline typename slist<T, Allocator>::size_type slist<T, Allocator>::remove_if(Predicate predicate)
 	{
-		base_node_type* pNode = &internalNode();
-		size_type numErased = 0;
-
-		while(pNode && pNode->mpNext)
-		{
-			if (predicate(static_cast<node_type*>(pNode->mpNext)->mValue))
-			{
-				DoEraseAfter(pNode); // This will take care of modifying pNode->mpNext.
-				++numErased;
-			}
-			else
-				pNode = pNode->mpNext;
-		}
-		return numErased;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::splice(const_iterator position, this_type& x)
 	{
-		// Splicing operations cannot succeed if the two containers use unequal allocators.
-		// This issue is not addressed in the C++ 1998 standard but is discussed in the 
-		// LWG defect reports, such as #431. There is no simple solution to this problem.
-		// One option is to throw an exception. Another option which probably captures the
-		// user intent most of the time is to copy the range from the source to the dest and 
-		// remove it from the source. Until then it's simply disallowed to splice with unequal allocators.
-		// EASTL_ASSERT(internalAllocator() == x.internalAllocator()); // Disabled because our member sort function uses splice but with allocators that may be unequal. There isn't a simple workaround aside from disabling this assert.
-
-		if(x.internalNode().mpNext) // If there is anything to splice...
-		{
-			if(internalAllocator() == x.internalAllocator())
-			{
-				SListNodeSpliceAfter(SListNodeGetPrevious(&internalNode(), position.mpNode),
-									 &x.internalNode(),
-									 SListNodeGetPrevious(&x.internalNode(), NULL));
-
-				#if EASTL_SLIST_SIZE_CACHE
-					mSize += x.mSize;
-					x.mSize = 0;
-				#endif
-			}
-			else
-			{
-				insert(position, x.begin(), x.end());
-				x.clear();
-			}
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::splice(const_iterator position, this_type& x, const_iterator i)
 	{
-		if(internalAllocator() == x.internalAllocator())
-		{
-			SListNodeSpliceAfter(SListNodeGetPrevious(&internalNode(), position.mpNode),
-								 SListNodeGetPrevious(&x.internalNode(), i.mpNode),
-								 i.mpNode);
-
-			#if EASTL_SLIST_SIZE_CACHE
-				++mSize;
-				--x.mSize;
-			#endif
-		}
-		else
-		{
-			insert(position, *i);
-			x.erase(i);
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::splice(const_iterator position, this_type& x, const_iterator first, const_iterator last)
 	{
-		if(first != last) // If there is anything to splice...
-		{
-			if(internalAllocator() == x.internalAllocator())
-			{
-				#if EASTL_SLIST_SIZE_CACHE
-					const size_type n = (size_type)eastl::distance(first, last);
-					mSize += n;
-					x.mSize -= n;
-				#endif
-
-				SListNodeSpliceAfter(SListNodeGetPrevious(&internalNode(),       position.mpNode),
-									 SListNodeGetPrevious(&x.internalNode(),     first.mpNode),
-									 SListNodeGetPrevious(first.mpNode, last.mpNode));
-			}
-			else
-			{
-				insert(position, first, last);
-				x.erase(first, last);
-			}
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	void slist<T, Allocator>::splice(const_iterator position, this_type&& x)
 	{
-		return splice(position, x); // This will splice(const_iterator, this_type&)
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Allocator>
 	void slist<T, Allocator>::splice(const_iterator position, this_type&& x, const_iterator i)
 	{
-		return splice(position, x, i); // This will splice_after(const_iterator, this_type&, const_iterator)
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Allocator>
 	void slist<T, Allocator>::splice(const_iterator position, this_type&& x, const_iterator first, const_iterator last)
 	{
-		return splice(position, x, first, last); // This will splice(const_iterator, this_type&, const_iterator, const_iterator)
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::splice_after(const_iterator position, this_type& x)
 	{
-		if(!x.empty()) // If there is anything to splice...
-		{
-			if(internalAllocator() == x.internalAllocator())
-			{
-				SListNodeSpliceAfter(position.mpNode, &x.internalNode());
-
-				#if EASTL_SLIST_SIZE_CACHE
-					mSize += x.mSize;
-					x.mSize = 0;
-				#endif
-			}
-			else
-			{
-				insert_after(position, x.begin(), x.end());
-				x.clear();
-			}
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::splice_after(const_iterator position, this_type& x, const_iterator i)
 	{
-		if(internalAllocator() == x.internalAllocator())
-		{
-			SListNodeSpliceAfter(position.mpNode, i.mpNode);
-
-			#if EASTL_SLIST_SIZE_CACHE
-				mSize++;
-				x.mSize--;
-			#endif
-		}
-		else
-		{
-			const_iterator iNext(i);
-			insert_after(position, i, ++iNext);
-			x.erase(i);
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::splice_after(const_iterator position, this_type& x, const_iterator first, const_iterator last)
 	{
-		if(first != last) // If there is anything to splice...
-		{
-			if(internalAllocator() == x.internalAllocator())
-			{
-				#if EASTL_SLIST_SIZE_CACHE
-					const size_type n = (size_type)eastl::distance(first, last);
-					mSize += n;
-					x.mSize -= n;
-				#endif
-
-				SListNodeSpliceAfter(position.mpNode, first.mpNode, last.mpNode);
-			}
-			else
-			{
-				insert_after(position, first, last);
-				x.erase(first, last);
-			}
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::splice_after(const_iterator position, this_type&& x)
 	{
-		return splice_after(position, x);  // This will call splice_after(const_iterator, this_type&)
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::splice_after(const_iterator position, this_type&& x, const_iterator i) 
 	{
-		return splice_after(position, x, i);  // This will call splice_after(const_iterator, this_type&, const_iterator)
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::splice_after(const_iterator position, this_type&& x, const_iterator first, const_iterator last)
 	{
-		return splice_after(position, x, first, last);  // This will call splice_after(const_iterator, this_type&, const_iterator, const_iterator)
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	typename slist<T, Allocator>::size_type slist<T, Allocator>::unique()
 	{
-		size_type      numRemoved = 0;
-		iterator       first(begin());
-		const iterator last(end());
-
-		if (first != last)
-		{
-			iterator next(first);
-
-			while (++next != last)
-			{
-				if (*first == *next)
-				{
-					DoEraseAfter(first.mpNode);
-					++numRemoved;
-					next = first;
-				}
-				else
-				{
-					first = next;
-				}
-			}
-		}
-
-		return numRemoved;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	template <typename BinaryPredicate>
 	typename slist<T, Allocator>::size_type slist<T, Allocator>::unique(BinaryPredicate predicate)
 	{
-		size_type      numRemoved = 0;
-		iterator       first(begin());
-		const iterator last(end());
-
-		if (first != last)
-		{
-			iterator next(first);
-
-			while (++next != last)
-			{
-				if (predicate(*first, *next))
-				{
-					DoEraseAfter(first.mpNode);
-					++numRemoved;
-					next = first;
-				}
-				else
-				{
-					first = next;
-				}
-			}
-		}
-
-		return numRemoved;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::sort()
 	{
-		// To do: look at using a merge sort, which may well be faster. 
-		eastl::comb_sort(begin(), end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	template <class Compare>
 	inline void slist<T, Allocator>::sort(Compare compare)
 	{
-		// To do: look at using a merge sort, which may well be faster. 
-		eastl::comb_sort(begin(), end(), compare);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::reverse() EA_NOEXCEPT
 	{
-		if(internalNode().mpNext)
-			internalNode().mpNext = static_cast<node_type*>((base_node_type*)SListNodeReverse(internalNode().mpNext));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
@@ -1540,95 +1210,39 @@ namespace eastl
 	inline typename slist<T, Allocator>::node_type*
 	slist<T, Allocator>::DoCreateNode(Args&&... args)
 	{
-		node_type* const pNode = DoAllocateNode();  // pNode is of type node_type, but it's uninitialized memory.
-
-		#if EASTL_EXCEPTIONS_ENABLED
-			try
-			{
-				detail::allocator_construct(internalAllocator(), &pNode->mValue, eastl::forward<Args>(args)...);
-			}
-			catch(...)
-			{
-				DoFreeNode(pNode);
-				throw;
-			}
-		#else
-			detail::allocator_construct(internalAllocator(), &pNode->mValue, eastl::forward<Args>(args)...);
-		#endif
-
-		return pNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::node_type*
 	slist<T, Allocator>::DoCreateNode()
 	{
-		node_type* const pNode = DoAllocateNode();
-		#if EASTL_EXCEPTIONS_ENABLED
-			try
-			{
-				detail::allocator_construct(internalAllocator(), &pNode->mValue);
-			}
-			catch(...)
-			{
-				DoFreeNode(pNode);
-				throw;
-			}
-		#else
-			detail::allocator_construct(internalAllocator(), &pNode->mValue);
-		#endif
-		return pNode;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	template <typename Integer>
 	void slist<T, Allocator>::DoAssign(Integer n, Integer value, true_type)
 	{
-		DoAssignValues(static_cast<size_type>(n), static_cast<value_type>(value));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	template <typename InputIterator>
 	void slist<T, Allocator>::DoAssign(InputIterator first, InputIterator last, false_type)
 	{
-		base_node_type* pNodePrev = &internalNode();
-		base_node_type* pNode     = internalNode().mpNext;
-
-		for(; pNode && (first != last); ++first)
-		{
-			static_cast<node_type*>(pNode)->mValue = *first;
-			pNodePrev     = pNode;
-			pNode         = pNode->mpNext;
-		}
-
-		if(first == last)
-			DoEraseAfter(pNodePrev, NULL);
-		else
-			DoInsertAfter(pNodePrev, first, last);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	void slist<T, Allocator>::DoAssignValues(size_type n, const value_type& value)
 	{
-		base_node_type* pNodePrev = &internalNode();
-		base_node_type* pNode     = internalNode().mpNext;
-
-		for(; pNode && (n > 0); --n)
-		{
-			static_cast<node_type*>(pNode)->mValue = value;
-			pNodePrev     = pNode;
-			pNode         = pNode->mpNext;
-		}
-
-		if(n)
-			DoInsertValuesAfter(pNodePrev, n, value);
-		else
-			DoEraseAfter(pNodePrev, NULL);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		
 
 	template <typename T, typename Allocator>
@@ -1636,8 +1250,8 @@ namespace eastl
 	inline typename slist<T, Allocator>::node_type*
 	slist<T, Allocator>::DoInsertAfter(SListNodeBase* pNode, InputIterator first, InputIterator last)
 	{
-		return DoInsertAfter(pNode, first, last, is_integral<InputIterator>());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
@@ -1645,8 +1259,8 @@ namespace eastl
 	inline typename slist<T, Allocator>::node_type*
 	slist<T, Allocator>::DoInsertAfter(SListNodeBase* pNode, Integer n, Integer value, true_type)
 	{
-		return DoInsertValuesAfter(pNode, n, value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
@@ -1654,30 +1268,16 @@ namespace eastl
 	inline typename slist<T, Allocator>::node_type*
 	slist<T, Allocator>::DoInsertAfter(SListNodeBase* pNode, InputIterator first, InputIterator last, false_type)
 	{
-		for(; first != last; ++first)
-		{
-			pNode = SListNodeInsertAfter(pNode, DoCreateNode(*first));
-			#if EASTL_SLIST_SIZE_CACHE
-				++mSize;
-			#endif
-		}
-
-		return static_cast<node_type*>((base_node_type*)pNode);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::node_type*
 	slist<T, Allocator>::DoInsertValueAfter(SListNodeBase* pNode)
 	{
-		#if EASTL_SLIST_SIZE_CACHE
-			pNode = SListNodeInsertAfter(pNode, DoCreateNode());
-			++mSize;
-			return static_cast<node_type*>((base_node_type*)pNode);
-		#else
-			return static_cast<node_type*>((base_node_type*)SListNodeInsertAfter(pNode, DoCreateNode()));
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
@@ -1685,75 +1285,37 @@ namespace eastl
 	inline typename slist<T, Allocator>::node_type*
 	slist<T, Allocator>::DoInsertValueAfter(SListNodeBase* pNode, Args&&... args)
 	{
-		SListNodeBase* pNodeNew = DoCreateNode(eastl::forward<Args>(args)...);
-		pNode = SListNodeInsertAfter(pNode, pNodeNew);
-		#if EASTL_LIST_SIZE_CACHE
-			++mSize; // Increment the size after the node creation because we need to assume an exception can occur in the creation.
-		#endif
-		return static_cast<node_type*>((base_node_type*)pNode);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline typename slist<T, Allocator>::node_type*
 	slist<T, Allocator>::DoInsertValuesAfter(SListNodeBase* pNode, size_type n, const value_type& value)
 	{
-		for(size_type i = 0; i < n; ++i)
-		{
-			pNode = SListNodeInsertAfter(pNode, DoCreateNode(value));
-			#if EASTL_SLIST_SIZE_CACHE
-				++mSize; // We don't do a single mSize += n at the end because an exception may result in only a partial range insertion.
-			#endif
-		}
-		return static_cast<node_type*>((base_node_type*)pNode);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline void slist<T, Allocator>::DoSwap(this_type& x)
 	{
-		eastl::swap(internalNode().mpNext, x.internalNode().mpNext);
-		eastl::swap(internalAllocator(), x.internalAllocator()); // We do this even if EASTL_ALLOCATOR_COPY_ENABLED is 0.
-		#if EASTL_LIST_SIZE_CACHE
-			eastl::swap(mSize, x.mSize);
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline bool slist<T, Allocator>::validate() const
 	{
-		#if EASTL_SLIST_SIZE_CACHE
-			size_type n = 0;
-			
-			for(const_iterator i(begin()), iEnd(end()); i != iEnd; ++i)
-				++n;
-
-			if(n != mSize)
-				return false;
-		#endif
-
-		// To do: More validation.
-		return true;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline int slist<T, Allocator>::validate_iterator(const_iterator i) const
 	{
-		// To do: Come up with a more efficient mechanism of doing this.
-
-		for(const_iterator temp = begin(), tempEnd = end(); temp != tempEnd; ++temp)
-		{
-			if(temp == i)
-				return (isf_valid | isf_current | isf_can_dereference);
-		}
-
-		if(i == end())
-			return (isf_valid | isf_current); 
-
-		return isf_none;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	///////////////////////////////////////////////////////////////////////
@@ -1763,32 +1325,8 @@ namespace eastl
 	template <typename T, typename Allocator>
 	bool operator==(const slist<T, Allocator>& a, const slist<T, Allocator>& b)
 	{
-		typename slist<T, Allocator>::const_iterator ia   = a.begin();
-		typename slist<T, Allocator>::const_iterator ib   = b.begin();
-		typename slist<T, Allocator>::const_iterator enda = a.end();
-
-		#if EASTL_SLIST_SIZE_CACHE
-			if(a.size() == b.size())
-			{
-				while((ia != enda) && (*ia == *ib))
-				{
-					++ia;
-					++ib;
-				}
-				return (ia == enda);
-			}
-			return false;
-		#else
-			typename slist<T, Allocator>::const_iterator endb = b.end();
-
-			while((ia != enda) && (ib != endb) && (*ia == *ib))
-			{
-				++ia;
-				++ib;
-			}
-			return (ia == enda) && (ib == endb);
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
 	template <typename T, typename Allocator>
@@ -1800,43 +1338,43 @@ namespace eastl
 	template <typename T, typename Allocator>
 	inline bool operator<(const slist<T, Allocator>& a, const slist<T, Allocator>& b)
 	{
-		return eastl::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline bool operator!=(const slist<T, Allocator>& a, const slist<T, Allocator>& b)
 	{
-		return !(a == b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline bool operator>(const slist<T, Allocator>& a, const slist<T, Allocator>& b)
 	{
-		return b < a;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline bool operator<=(const slist<T, Allocator>& a, const slist<T, Allocator>& b)
 	{
-		return !(b < a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Allocator>
 	inline bool operator>=(const slist<T, Allocator>& a, const slist<T, Allocator>& b)
 	{
-		return !(a < b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 #endif
 
 	template <typename T, typename Allocator>
 	inline void swap(slist<T, Allocator>& a, slist<T, Allocator>& b)
 	{
-		a.swap(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// erase / erase_if
@@ -1845,16 +1383,14 @@ namespace eastl
 	template <class T, class Allocator, class U>
 	typename slist<T, Allocator>::size_type erase(slist<T, Allocator>& c, const U& value)
 	{
-		// Erases all elements that compare equal to value from the container.
-		return c.remove(value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <class T, class Allocator, class Predicate>
 	typename slist<T, Allocator>::size_type erase_if(slist<T, Allocator>& c, Predicate predicate)
 	{
-		// Erases all elements that satisfy the predicate pred from the container.
-		return c.remove_if(predicate);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// insert_iterator
@@ -1884,23 +1420,28 @@ namespace eastl
 		insert_iterator(Container& x, iterator_type i)
 			: container(x)
 		{
-			if(i == x.begin())
-				it = x.before_begin();
-			else
-				it = x.previous(i);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		insert_iterator<Container>& operator=(const_reference value)
-			{ it = container.insert_after(it, value); return *this; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		insert_iterator<Container>& operator*()
-			{ return *this; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		insert_iterator<Container>& operator++()
-			{ return *this; } // This is by design.
+			{
+    __builtin_trap() /* STUB: not implemented */;
+} // This is by design.
 
 		insert_iterator<Container>& operator++(int)
-			{ return *this; } // This is by design.
+			{
+    __builtin_trap() /* STUB: not implemented */;
+} // This is by design.
 
 	}; // insert_iterator<slist>
 

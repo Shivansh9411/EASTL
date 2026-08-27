@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -159,13 +161,14 @@ namespace eastl
 		#endif
 
 		template <typename U>  // Enable if T* can be constructed with U* (i.e. U* is convertible to T*).
-		default_delete(const default_delete<U>&, typename eastl::enable_if<is_convertible<U*, T*>::value>::type* = 0) EA_NOEXCEPT {}
+		default_delete(const default_delete<U>&, typename eastl::enable_if<is_convertible<U*, T*>::value>::type* = 0) EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void operator()(T* p) const EA_NOEXCEPT
 		{
-			static_assert(eastl::internal::is_complete_type_v<T>, "Attempting to call the destructor of an incomplete type");
-			delete p;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -179,10 +182,14 @@ namespace eastl
 		#endif
 
 		template <typename U> // This ctor is enabled if T is equal to or a base of U, and if U is less or equal const/volatile-qualified than T.
-		default_delete(const default_delete<U[]>&, typename eastl::enable_if<Internal::is_array_cv_convertible<U*, T*>::value>::type* = 0) EA_NOEXCEPT {}
+		default_delete(const default_delete<U[]>&, typename eastl::enable_if<Internal::is_array_cv_convertible<U*, T*>::value>::type* = 0) EA_NOEXCEPT {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void operator()(T* p) const EA_NOEXCEPT
-			{ delete[] p; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -198,7 +205,9 @@ namespace eastl
 		typedef T value_type;
 
 		void operator()(const value_type* p) const // We use a const argument type in order to be most flexible with what types we accept. 
-			{ delete const_cast<value_type*>(p); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <>
@@ -207,7 +216,9 @@ namespace eastl
 		typedef void value_type;
 
 		void operator()(const void* p) const
-			{ delete[] (char*)p; } // We don't seem to have much choice but to cast to a scalar type.
+			{
+    __builtin_trap() /* STUB: not implemented */;
+} // We don't seem to have much choice but to cast to a scalar type.
 	};
 
 	template <>
@@ -216,7 +227,9 @@ namespace eastl
 		typedef void value_type;
 
 		void operator()(const void* p) const
-			{ delete[] (char*)p; } // We don't seem to have much choice but to cast to a scalar type.
+			{
+    __builtin_trap() /* STUB: not implemented */;
+} // We don't seem to have much choice but to cast to a scalar type.
 	};
 
 
@@ -231,7 +244,9 @@ namespace eastl
 		typedef T value_type;
 
 		void operator()(const value_type* p) const // We use a const argument type in order to be most flexible with what types we accept. 
-			{ delete[] const_cast<value_type*>(p); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <>
@@ -240,7 +255,9 @@ namespace eastl
 		typedef void value_type;
 
 		void operator()(const void* p) const
-			{ delete[] (char*)p; } // We don't seem to have much choice but to cast to a scalar type.
+			{
+    __builtin_trap() /* STUB: not implemented */;
+} // We don't seem to have much choice but to cast to a scalar type.
 	};
 
 

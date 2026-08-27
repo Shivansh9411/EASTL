@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -87,7 +89,9 @@ namespace eastl
 		/// Example usage:
 		///    scoped_ptr<int> ptr(new int(3));
 		explicit scoped_ptr(T* pValue = NULL) noexcept
-			: mpValue(pValue) {}
+			: mpValue(pValue) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// ~scoped_ptr
 		/// Destroys the owned pointer. The destructor for the object
@@ -108,13 +112,8 @@ namespace eastl
 		///    ptr.reset(NULL);        // deletes int(4)
 		void reset(T* pValue = NULL) noexcept
 		{
-			if(pValue != mpValue)
-			{
-				Deleter del;
-				del(mpValue);
-				mpValue = pValue;
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// detach
 		/// This simply forgets the owned pointer. It doesn't 
@@ -125,20 +124,15 @@ namespace eastl
 		///    delete pInt;
 		T* detach() noexcept
 		{
-			T* const pTemp = mpValue;
-			mpValue = NULL;
-			return pTemp;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// swap
 		/// Exchanges the owned pointer beween two scoped_ptr objects. 
 		void swap(this_type& scopedPtr) noexcept
 		{
-			// std::swap(mpValue, scopedPtr.mpValue); // Not used so that we can reduce a dependency.
-			T* const pValue   = scopedPtr.mpValue;
-			scopedPtr.mpValue = mpValue;
-			mpValue           = pValue;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// operator*
 		/// Returns the owner pointer dereferenced.
@@ -147,9 +141,8 @@ namespace eastl
 		///    int x = *ptr;
 		typename add_lvalue_reference<T>::type operator*() const
 		{
-			// assert(mpValue);
-			return *mpValue;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// operator->
 		/// Allows access to the owned pointer via operator->()
@@ -159,9 +152,8 @@ namespace eastl
 		///    ptr->DoSomething();
 		T* operator->() const
 		{
-			// assert(mpValue);
-			return mpValue;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// get
 		/// Returns the owned pointer. Note that this class does 
@@ -174,8 +166,8 @@ namespace eastl
 		///    pX->DoSomething();
 		T* get() const noexcept
 		{
-			return mpValue;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// Implicit operator bool
 		/// Allows for using a scoped_ptr as a boolean. 
@@ -203,8 +195,8 @@ namespace eastl
 		///        assert(false);
 		bool operator!() const noexcept
 		{
-			return (mpValue == NULL);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // class scoped_ptr
 
@@ -215,8 +207,8 @@ namespace eastl
 	template <typename T, typename D>
 	inline T* get_pointer(const scoped_ptr<T, D>& scopedPtr)
 	{
-		return scopedPtr.get();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// swap
@@ -226,8 +218,8 @@ namespace eastl
 	template <typename T, typename D>
 	inline void swap(scoped_ptr<T, D>& scopedPtr1, scoped_ptr<T, D>& scopedPtr2)
 	{
-		scopedPtr1.swap(scopedPtr2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// operator<
@@ -236,8 +228,8 @@ namespace eastl
 	template <typename T, typename D>
 	inline bool operator<(const scoped_ptr<T, D>& scopedPtr1, const scoped_ptr<T, D>& scopedPtr2)
 	{
-		return (scopedPtr1.get() < scopedPtr2.get()); // Alternatively use: std::less<T*>(scopedPtr1.get(), scopedPtr2.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

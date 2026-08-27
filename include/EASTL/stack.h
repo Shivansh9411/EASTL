@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -81,19 +83,22 @@ namespace eastl
 		explicit stack(const Allocator& allocator, typename eastl::enable_if<eastl::uses_allocator<container_type, Allocator>::value>::type* = NULL)
 		  : c(allocator)
 		{
-		}    
+    __builtin_trap() /* STUB: not implemented */;
+}    
 
 		template <class Allocator>
 		stack(const this_type& x, const Allocator& allocator, typename eastl::enable_if<eastl::uses_allocator<container_type, Allocator>::value>::type* = NULL)
 		  : c(x.c, allocator)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <class Allocator>
 		stack(this_type&& x, const Allocator& allocator, typename eastl::enable_if<eastl::uses_allocator<container_type, Allocator>::value>::type* = NULL)
 		  : c(eastl::move(x.c), allocator)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		explicit stack(const container_type& x);
 		explicit stack(container_type&& x);
@@ -149,152 +154,129 @@ namespace eastl
 	inline stack<T, Container>::stack()
 		: c() // To consider: use c(EASTL_STACK_DEFAULT_ALLOCATOR) here, though that would add the requirement that the user supplied container support this.
 	{
-		// Empty
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline stack<T, Container>::stack(const Container& x)
 		: c(x)
 	{
-		// Empty
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline stack<T, Container>::stack(Container&& x)
 		: c(eastl::move(x))
 	{
-		// Empty
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline stack<T, Container>::stack(std::initializer_list<value_type> ilist)
 		: c() // We could alternatively use c(ilist) here, but that would require c to have an ilist constructor.
 	{
-		// Better solution but requires an insert function.
-		// c.insert(ilist.begin(), ilist.end());
-
-		// Possibly slower solution but doesn't require an insert function.
-		for(const auto& value : ilist)
-		{
-			c.push_back(value);
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Container>
 	inline bool stack<T, Container>::empty() const
 	{
-		return c.empty();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline typename stack<T, Container>::size_type
 	stack<T, Container>::size() const
 	{
-		return c.size();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline typename stack<T, Container>::reference
 	stack<T, Container>::top()
 	{
-#if EASTL_ASSERT_ENABLED && EASTL_EMPTY_REFERENCE_ASSERT_ENABLED
-		if (EASTL_UNLIKELY(c.empty()))
-			EASTL_FAIL_MSG("stack::top -- empty container");
-#endif
-
-		return c.back();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline typename stack<T, Container>::const_reference
 	stack<T, Container>::top() const
 	{
-#if EASTL_ASSERT_ENABLED && EASTL_EMPTY_REFERENCE_ASSERT_ENABLED
-		if (EASTL_UNLIKELY(c.empty()))
-			EASTL_FAIL_MSG("stack::top -- empty container");
-#endif
-
-		return c.back();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline void stack<T, Container>::push(const value_type& value)
 	{
-		c.push_back(const_cast<value_type&>(value)); // const_cast so that intrusive_list can work. We may revisit this.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline void stack<T, Container>::push(value_type&& x) 
 	{
-		c.push_back(eastl::move(x));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	template <class... Args>
 	inline void stack<T, Container>::emplace_back(Args&&... args)
 	{
-		emplace(eastl::forward<Args>(args)...);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	template <class... Args>
 	inline decltype(auto) stack<T, Container>::emplace(Args&&... args)
 	{
-		return c.emplace_back(eastl::forward<Args>(args)...);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline void stack<T, Container>::pop()
 	{
-#if EASTL_ASSERT_ENABLED
-		if (EASTL_UNLIKELY(c.empty()))
-			EASTL_FAIL_MSG("stack::pop -- empty container");
-#endif
-
-		c.pop_back();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline typename stack<T, Container>::container_type&
 	stack<T, Container>::get_container()
 	{
-		return c;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline const typename stack<T, Container>::container_type&
 	stack<T, Container>::get_container() const
 	{
-		return c;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	void stack<T, Container>::swap(this_type& x) EA_NOEXCEPT_IF(eastl::is_nothrow_swappable<this_type::container_type>::value)
 	{
-		using eastl::swap;
-		swap(c, x.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	bool stack<T, Container>::validate() const
 	{
-		return c.validate();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -305,8 +287,8 @@ namespace eastl
 	template <typename T, typename Container>
 	inline bool operator==(const stack<T, Container>& a, const stack<T, Container>& b)
 	{
-		return (a.c == b.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
 	template <typename T, typename Container> requires std::three_way_comparable<Container>
@@ -319,42 +301,42 @@ namespace eastl
 	template <typename T, typename Container>
 	inline bool operator!=(const stack<T, Container>& a, const stack<T, Container>& b)
 	{
-		return !(a.c == b.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline bool operator<(const stack<T, Container>& a, const stack<T, Container>& b)
 	{
-		return (a.c < b.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline bool operator>(const stack<T, Container>& a, const stack<T, Container>& b)
 	{
-		return (b.c < a.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline bool operator<=(const stack<T, Container>& a, const stack<T, Container>& b)
 	{
-		return !(b.c < a.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline bool operator>=(const stack<T, Container>& a, const stack<T, Container>& b)
 	{
-		return !(a.c < b.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Container>
 	inline void swap(stack<T, Container>& a, stack<T, Container>& b) EA_NOEXCEPT_IF((eastl::is_nothrow_swappable<typename stack<T, Container>::container_type>::value))
 	{
-		a.swap(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

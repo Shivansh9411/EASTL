@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -45,7 +47,8 @@ namespace eastl
 		template <class U>
 		EA_CPP14_CONSTEXPR overloaded(U&& u) : T(eastl::forward<U>(u))
 		{
-		}
+    
+}
 
 		using T::operator();
 	};
@@ -56,7 +59,8 @@ namespace eastl
 		template <class U, class... V>
 		EA_CPP14_CONSTEXPR overloaded(U&& u, V&&... v) : T(eastl::forward<U>(u)), overloaded<R...>(eastl::forward<V>(v)...)
 		{
-		}
+    
+}
 
 		using T::operator();
 		using overloaded<R...>::operator();

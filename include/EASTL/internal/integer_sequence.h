@@ -21,7 +21,7 @@ class integer_sequence
 public:
 	typedef T value_type;
 	static_assert(is_integral<T>::value, "eastl::integer_sequence can only be instantiated with an integral type");
-	static EA_CONSTEXPR size_t size() EA_NOEXCEPT { return sizeof...(Ints); }
+	static EA_CONSTEXPR size_t size() EA_NOEXCEPT { __builtin_trap() /* STUB: not implemented */; }
 };
 
 template <size_t... Is>

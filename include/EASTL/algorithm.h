@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -309,19 +311,8 @@ namespace eastl
 	template <typename ForwardIterator>
 	ForwardIterator min_element(ForwardIterator first, ForwardIterator last)
 	{
-		if(first != last)
-		{
-			ForwardIterator currentMin = first;
-
-			while(++first != last)
-			{
-				if(*first < *currentMin)
-					currentMin = first;
-			}
-			return currentMin;
-		}
-		return first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// min_element
@@ -341,19 +332,8 @@ namespace eastl
 	template <typename ForwardIterator, typename Compare>
 	ForwardIterator min_element(ForwardIterator first, ForwardIterator last, Compare compare)
 	{
-		if(first != last)
-		{
-			ForwardIterator currentMin = first;
-
-			while(++first != last)
-			{
-				if(compare(*first, *currentMin))
-					currentMin = first;
-			}
-			return currentMin;
-		}
-		return first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// max_element
@@ -373,19 +353,8 @@ namespace eastl
 	template <typename ForwardIterator>
 	ForwardIterator max_element(ForwardIterator first, ForwardIterator last)
 	{
-		if(first != last)
-		{
-			ForwardIterator currentMax = first;
-
-			while(++first != last)
-			{
-				if(*currentMax < *first)
-					currentMax = first;
-			}
-			return currentMax;
-		}
-		return first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// max_element
@@ -405,19 +374,8 @@ namespace eastl
 	template <typename ForwardIterator, typename Compare>
 	ForwardIterator max_element(ForwardIterator first, ForwardIterator last, Compare compare)
 	{
-		if(first != last)
-		{
-			ForwardIterator currentMax = first;
-
-			while(++first != last)
-			{
-				if(compare(*currentMax, *first))
-					currentMax = first;
-			}
-			return currentMax;
-		}
-		return first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	#if EASTL_MINMAX_ENABLED
@@ -484,8 +442,8 @@ namespace eastl
 	inline typename eastl::enable_if<!eastl::is_scalar<T>::value, const T&>::type
 	min_alt(const T& a, const T& b)
 	{
-		return b < a ? b : a;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline EA_CONSTEXPR float       min_alt(float  a, float   b)           { return b < a ? b : a; }
 	inline EA_CONSTEXPR double      min_alt(double a, double  b)           { return b < a ? b : a; }
@@ -522,8 +480,8 @@ namespace eastl
 		inline const T&
 		min(const T& a, const T& b, Compare compare)
 		{
-			return compare(b, a) ? b : a;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	#endif // EASTL_MINMAX_ENABLED
 
@@ -539,8 +497,8 @@ namespace eastl
 	inline const T&
 	min_alt(const T& a, const T& b, Compare compare)
 	{
-		return compare(b, a) ? b : a;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	#if EASTL_MINMAX_ENABLED
@@ -617,8 +575,8 @@ namespace eastl
 		inline const T&
 		max(const T& a, const T& b, Compare compare)
 		{
-			return compare(a, b) ? b : a;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	#endif
 
 
@@ -631,8 +589,8 @@ namespace eastl
 	inline const T&
 	max_alt(const T& a, const T& b, Compare compare)
 	{
-		return compare(a, b) ? b : a;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// min(std::initializer_list)
@@ -640,16 +598,16 @@ namespace eastl
 	template <typename T >
 	T min(std::initializer_list<T> ilist)
 	{
-		return *eastl::min_element(ilist.begin(), ilist.end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// min(std::initializer_list, Compare)
 	///
 	template <typename T, typename Compare>
 	T min(std::initializer_list<T> ilist, Compare compare)
 	{
-		return *eastl::min_element(ilist.begin(), ilist.end(), compare);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// max(std::initializer_list)
@@ -657,16 +615,16 @@ namespace eastl
 	template <typename T >
 	T max(std::initializer_list<T> ilist)
 	{
-		return *eastl::max_element(ilist.begin(), ilist.end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// max(std::initializer_list, Compare)
 	///
 	template <typename T, typename Compare>
 	T max(std::initializer_list<T> ilist, Compare compare)
 	{
-		return *eastl::max_element(ilist.begin(), ilist.end(), compare);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// minmax_element
@@ -683,64 +641,16 @@ namespace eastl
 	eastl::pair<ForwardIterator, ForwardIterator>
 	minmax_element(ForwardIterator first, ForwardIterator last, Compare compare)
 	{
-		eastl::pair<ForwardIterator, ForwardIterator> result(first, first);
-
-		if(!(first == last) && !(++first == last))
-		{
-			if(compare(*first, *result.first))
-			{
-				result.second = result.first;
-				result.first = first;
-			}
-			else
-				result.second = first;
-
-			while(++first != last)
-			{
-				ForwardIterator i = first;
-
-				if(++first == last)
-				{
-					if(compare(*i, *result.first))
-						result.first = i;
-					else if(!compare(*i, *result.second))
-						result.second = i;
-					break;
-				}
-				else
-				{
-					if(compare(*first, *i))
-					{
-						if(compare(*first, *result.first))
-							result.first = first;
-
-						if(!compare(*i, *result.second))
-							result.second = i;
-					}
-					else
-					{
-						if(compare(*i, *result.first))
-							result.first = i;
-
-						if(!compare(*first, *result.second))
-							result.second = first;
-					}
-				}
-			}
-		}
-
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename ForwardIterator>
 	eastl::pair<ForwardIterator, ForwardIterator>
 	minmax_element(ForwardIterator first, ForwardIterator last)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-
-		return eastl::minmax_element(first, last, eastl::less<value_type>());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -777,16 +687,16 @@ namespace eastl
 	inline eastl::pair<const T&, const T&>
 	minmax(const T& a, const T& b)
 	{
-		return (b < a) ? eastl::make_pair(b, a) : eastl::make_pair(a, b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Compare>
 	eastl::pair<const T&, const T&>
 	minmax(const T& a, const T& b, Compare compare)
 	{
-		return compare(b, a) ? eastl::make_pair(b, a) : eastl::make_pair(a, b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -794,38 +704,21 @@ namespace eastl
 	eastl::pair<T, T>
 	minmax(std::initializer_list<T> ilist)
 	{
-		typedef typename std::initializer_list<T>::iterator iterator_type;
-		eastl::pair<iterator_type, iterator_type> iteratorPair = eastl::minmax_element(ilist.begin(), ilist.end());
-		return eastl::make_pair(*iteratorPair.first, *iteratorPair.second);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, class Compare>
 	eastl::pair<T, T>
 	minmax(std::initializer_list<T> ilist, Compare compare)
 	{
-		typedef typename std::initializer_list<T>::iterator iterator_type;
-		eastl::pair<iterator_type, iterator_type> iteratorPair = eastl::minmax_element(ilist.begin(), ilist.end(), compare);
-		return eastl::make_pair(*iteratorPair.first, *iteratorPair.second);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline T&& median_impl(T&& a, T&& b, T&& c)
 	{
-		if(a < b)
-		{
-			if(b < c)
-				return eastl::forward<T>(b);
-			else if(a < c)
-				return eastl::forward<T>(c);
-			else
-				return eastl::forward<T>(a);
-		}
-		else if(a < c)
-			return eastl::forward<T>(a);
-		else if(b < c)
-			return eastl::forward<T>(c);
-		return eastl::forward<T>(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// median
 	///
@@ -838,8 +731,8 @@ namespace eastl
 	template <typename T>
 	inline const T& median(const T& a, const T& b, const T& c)
 	{
-		return median_impl(a, b, c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// median
 	///
@@ -852,28 +745,15 @@ namespace eastl
 	template <typename T>
 	inline T&& median(T&& a, T&& b, T&& c)
 	{
-		return eastl::forward<T>(median_impl(eastl::forward<T>(a), eastl::forward<T>(b), eastl::forward<T>(c)));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Compare>
 	inline T&& median_impl(T&& a, T&& b, T&& c, Compare compare)
 	{
-		if(compare(a, b))
-		{
-			if(compare(b, c))
-				return eastl::forward<T>(b);
-			else if(compare(a, c))
-				return eastl::forward<T>(c);
-			else
-				return eastl::forward<T>(a);
-		}
-		else if(compare(a, c))
-			return eastl::forward<T>(a);
-		else if(compare(b, c))
-			return eastl::forward<T>(c);
-		return eastl::forward<T>(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// median
@@ -887,8 +767,8 @@ namespace eastl
 	template <typename T, typename Compare>
 	inline const T& median(const T& a, const T& b, const T& c, Compare compare)
 	{
-		return median_impl<const T&, Compare>(a, b, c, compare);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// median
 	///
@@ -901,8 +781,8 @@ namespace eastl
 	template <typename T, typename Compare>
 	inline T&& median(T&& a, T&& b, T&& c, Compare compare)
 	{
-		return eastl::forward<T>(median_impl<T&&, Compare>(eastl::forward<T>(a), eastl::forward<T>(b), eastl::forward<T>(c), compare));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -914,13 +794,8 @@ namespace eastl
 	template <typename InputIterator, typename Predicate>
 	inline bool all_of(InputIterator first, InputIterator last, Predicate p)
 	{
-		for(; first != last; ++first)
-		{
-			if(!p(*first))
-				return false;
-		}
-		return true;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// any_of
@@ -930,13 +805,8 @@ namespace eastl
 	template <typename InputIterator, typename Predicate>
 	inline bool any_of(InputIterator first, InputIterator last, Predicate p)
 	{
-		for(; first != last; ++first)
-		{
-			if(p(*first))
-				return true;
-		}
-		return false;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// none_of
@@ -946,13 +816,8 @@ namespace eastl
 	template <typename InputIterator, typename Predicate>
 	inline bool none_of(InputIterator first, InputIterator last, Predicate p)
 	{
-		for(; first != last; ++first)
-		{
-			if(p(*first))
-				return false;
-		}
-		return true;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// adjacent_find
@@ -967,19 +832,8 @@ namespace eastl
 	inline ForwardIterator
 	adjacent_find(ForwardIterator first, ForwardIterator last)
 	{
-		if(first != last)
-		{
-			ForwardIterator i = first;
-
-			for(++i; i != last; ++i)
-			{
-				if(*first == *i)
-					return first;
-				first = i;
-			}
-		}
-		return last;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -995,19 +849,8 @@ namespace eastl
 	inline ForwardIterator
 	adjacent_find(ForwardIterator first, ForwardIterator last, BinaryPredicate predicate)
 	{
-		if(first != last)
-		{
-			ForwardIterator i = first;
-
-			for(++i; i != last; ++i)
-			{
-				if(predicate(*first, *i))
-					return first;
-				first = i;
-			}
-		}
-		return last;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// shuffle
@@ -1033,19 +876,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename UniformRandomNumberGenerator>
 	void shuffle(RandomAccessIterator first, RandomAccessIterator last, UniformRandomNumberGenerator&& urng)
 	{
-		if(first != last)
-		{
-			typedef typename eastl::iterator_traits<RandomAccessIterator>::difference_type difference_type;
-			typedef typename eastl::make_unsigned<difference_type>::type                   unsigned_difference_type;
-			typedef typename eastl::uniform_int_distribution<unsigned_difference_type>     uniform_int_distribution;
-			typedef typename uniform_int_distribution::param_type                          uniform_int_distribution_param_type;
-
-			uniform_int_distribution uid;
-
-			for(RandomAccessIterator i = first + 1; i != last; ++i)
-				iter_swap(i, first + uid(urng, uniform_int_distribution_param_type(0, i - first)));
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// random_shuffle
@@ -1068,21 +900,8 @@ namespace eastl
 	template <typename RandomAccessIterator, typename RandomNumberGenerator>
 	inline void random_shuffle(RandomAccessIterator first, RandomAccessIterator last, RandomNumberGenerator&& rng)
 	{
-		typedef typename eastl::iterator_traits<RandomAccessIterator>::difference_type difference_type;
-
-		// We must do 'rand((i - first) + 1)' here and cannot do 'rand(last - first)',
-		// as it turns out that the latter results in unequal distribution probabilities.
-		// http://www.cigital.com/papers/download/developer_gambling.php
-
-		const difference_type swapMax = eastl::distance(first, last);
-
-		// deliberately start at 1.
-		for (difference_type swapIter = 1; swapIter < swapMax; ++swapIter)
-		{
-			RandomAccessIterator i = first + swapIter;
-			iter_swap(i, first + (difference_type)rng((eastl_size_t)((i - first) + 1)));
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// random_shuffle
@@ -1118,26 +937,23 @@ namespace eastl
 	inline OutputIterator
 	move_n_impl(InputIterator first, Size n, OutputIterator result, eastl::input_iterator_tag)
 	{
-		for(; n > 0; --n)
-			*result++ = eastl::move(*first++);
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename RandomAccessIterator, typename Size, typename OutputIterator>
 	inline OutputIterator
 	move_n_impl(RandomAccessIterator first, Size n, OutputIterator result, eastl::random_access_iterator_tag)
 	{
-		return eastl::move(first, first + n, result); // Take advantage of the optimizations present in the move algorithm.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename InputIterator, typename Size, typename OutputIterator>
 	inline OutputIterator
 	move_n(InputIterator first, Size n, OutputIterator result)
 	{
-		typedef typename eastl::iterator_traits<InputIterator>::iterator_category IC;
-		return eastl::move_n_impl(first, n, result, IC());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1152,26 +968,23 @@ namespace eastl
 	inline OutputIterator
 	copy_n_impl(InputIterator first, Size n, OutputIterator result, eastl::input_iterator_tag)
 	{
-		for(; n > 0; --n)
-			*result++ = *first++;
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename RandomAccessIterator, typename Size, typename OutputIterator>
 	inline OutputIterator
 	copy_n_impl(RandomAccessIterator first, Size n, OutputIterator result, eastl::random_access_iterator_tag)
 	{
-		return eastl::copy(first, first + n, result); // Take advantage of the optimizations present in the copy algorithm.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename InputIterator, typename Size, typename OutputIterator>
 	inline OutputIterator
 	copy_n(InputIterator first, Size n, OutputIterator result)
 	{
-		typedef typename eastl::iterator_traits<InputIterator>::iterator_category IC;
-		return eastl::copy_n_impl(first, n, result, IC());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// copy_if
@@ -1182,15 +995,8 @@ namespace eastl
 	inline OutputIterator
 	copy_if(InputIterator first, InputIterator last, OutputIterator result, Predicate predicate)
 	{
-		// This implementation's performance could be improved by taking a more complicated approach like with the copy algorithm.
-		for(; first != last; ++first)
-		{
-			if(predicate(*first))
-				*result++ = *first;
-		}
-
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1202,10 +1008,8 @@ namespace eastl
 		template <typename BidirectionalIterator1, typename BidirectionalIterator2>
 		static BidirectionalIterator2 move_or_copy_backward(BidirectionalIterator1 first, BidirectionalIterator1 last, BidirectionalIterator2 resultEnd)
 		{
-			while(first != last)
-				*--resultEnd = *--last;
-			return resultEnd; // resultEnd now points to the beginning of the destination sequence instead of the end.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	// Specialization for moving non-trivial data via a lesser iterator than random-access.
@@ -1215,10 +1019,8 @@ namespace eastl
 		template <typename BidirectionalIterator1, typename BidirectionalIterator2>
 		static BidirectionalIterator2 move_or_copy_backward(BidirectionalIterator1 first, BidirectionalIterator1 last, BidirectionalIterator2 resultEnd)
 		{
-			while(first != last)
-				*--resultEnd = eastl::move(*--last);
-			return resultEnd; // resultEnd now points to the beginning of the destination sequence instead of the end.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	// Specialization for moving non-trivial data via a random-access iterator. It's theoretically faster because the compiler can see the count when its a compile-time const.
@@ -1228,12 +1030,8 @@ namespace eastl
 		template<typename BidirectionalIterator1, typename BidirectionalIterator2>
 		static BidirectionalIterator2 move_or_copy_backward(BidirectionalIterator1 first, BidirectionalIterator1 last, BidirectionalIterator2 resultEnd)
 		{
-			typedef typename eastl::iterator_traits<BidirectionalIterator1>::difference_type difference_type;
-
-			for(difference_type n = (last - first); n > 0; --n)
-				*--resultEnd = eastl::move(*--last);
-			return resultEnd; // resultEnd now points to the beginning of the destination sequence instead of the end.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	// Specialization for copying non-trivial data via a random-access iterator. It's theoretically faster because the compiler can see the count when its a compile-time const.
@@ -1245,12 +1043,8 @@ namespace eastl
 		template <typename BidirectionalIterator1, typename BidirectionalIterator2>
 		static BidirectionalIterator2 move_or_copy_backward(BidirectionalIterator1 first, BidirectionalIterator1 last, BidirectionalIterator2 resultEnd)
 		{
-			typedef typename eastl::iterator_traits<BidirectionalIterator1>::difference_type difference_type;
-
-			for(difference_type n = (last - first); n > 0; --n)
-				*--resultEnd = *--last;
-			return resultEnd; // resultEnd now points to the beginning of the destination sequence instead of the end.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	// Specialization for when we can use memmove/memcpy. See the notes above for what conditions allow this.
@@ -1260,33 +1054,22 @@ namespace eastl
 		template <typename T>
 		static T* move_or_copy_backward(const T* first, const T* last, T* resultEnd)
 		{
-			const size_t n = (size_t)((uintptr_t)last - (uintptr_t)first);
-			// We could use memcpy here if there's no range overlap, but memcpy is rarely much faster than memmove.
-			if (n > 0)
-				return (T*)memmove(resultEnd - (last - first), first, n);
-			else
-				return resultEnd;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <bool isMove, typename BidirectionalIterator1, typename BidirectionalIterator2>
 	inline BidirectionalIterator2 move_and_copy_backward_chooser(BidirectionalIterator1 first, BidirectionalIterator1 last, BidirectionalIterator2 resultEnd)
 	{
-		typedef typename eastl::iterator_traits<BidirectionalIterator1>::iterator_category IIC;
-
-		const bool canBeMemmoved = internal::can_be_memmoved_helper<BidirectionalIterator1, BidirectionalIterator2>::value;
-
-		return eastl::move_and_copy_backward_helper<IIC, isMove, canBeMemmoved>::move_or_copy_backward(first, last, resultEnd); // Need to chose based on the input iterator tag and not the output iterator tag, because containers accept input ranges of iterator types different than self.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <bool isMove, typename BidirectionalIterator1, typename BidirectionalIterator2>
 	EASTL_REMOVE_AT_2024_SEPT inline BidirectionalIterator2 move_and_copy_backward_unwrapper(BidirectionalIterator1 first, BidirectionalIterator1 last, BidirectionalIterator2 resultEnd)
 	{
-		EASTL_INTERNAL_DISABLE_DEPRECATED() // 'unwrap_iterator': was declared deprecated
-		return BidirectionalIterator2(eastl::move_and_copy_backward_chooser<isMove>(eastl::unwrap_iterator(first), eastl::unwrap_iterator(last), eastl::unwrap_iterator(resultEnd))); // Have to convert to BidirectionalIterator2 because result.base() could be a T*
-		EASTL_INTERNAL_RESTORE_DEPRECATED()
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// move_backward
@@ -1313,8 +1096,8 @@ namespace eastl
 	template <typename BidirectionalIterator1, typename BidirectionalIterator2>
 	inline BidirectionalIterator2 move_backward(BidirectionalIterator1 first, BidirectionalIterator1 last, BidirectionalIterator2 resultEnd)
 	{
-		return eastl::move_and_copy_backward_chooser<true>(first, last, resultEnd);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// copy_backward
@@ -1334,8 +1117,8 @@ namespace eastl
 	template <typename BidirectionalIterator1, typename BidirectionalIterator2>
 	inline BidirectionalIterator2 copy_backward(BidirectionalIterator1 first, BidirectionalIterator1 last, BidirectionalIterator2 resultEnd)
 	{
-		return eastl::move_and_copy_backward_chooser<false>(first, last, resultEnd);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// count
@@ -1354,15 +1137,8 @@ namespace eastl
 	inline typename eastl::iterator_traits<InputIterator>::difference_type
 	count(InputIterator first, InputIterator last, const T& value)
 	{
-		typename eastl::iterator_traits<InputIterator>::difference_type result = 0;
-
-		for(; first != last; ++first)
-		{
-			if(*first == value)
-				++result;
-		}
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// C++ doesn't define a count with predicate, as it can effectively be synthesized via count_if
@@ -1371,15 +1147,8 @@ namespace eastl
 	inline typename eastl::iterator_traits<InputIterator>::difference_type
 	count(InputIterator first, InputIterator last, const T& value, Predicate predicate)
 	{
-		typename eastl::iterator_traits<InputIterator>::difference_type result = 0;
-
-		for(; first != last; ++first)
-		{
-			if(predicate(*first, value))
-				++result;
-		}
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// count_if
@@ -1399,15 +1168,8 @@ namespace eastl
 	inline typename eastl::iterator_traits<InputIterator>::difference_type
 	count_if(InputIterator first, InputIterator last, Predicate predicate)
 	{
-		typename eastl::iterator_traits<InputIterator>::difference_type result = 0;
-
-		for(; first != last; ++first)
-		{
-			if(predicate(*first))
-				++result;
-		}
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// find
@@ -1428,10 +1190,8 @@ namespace eastl
 	inline InputIterator
 	find(InputIterator first, InputIterator last, const T& value)
 	{
-		while((first != last) && !(*first == value)) // Note that we always express value comparisons in terms of < or ==.
-			++first;
-		return first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// C++ doesn't define a find with predicate, as it can effectively be synthesized via find_if
@@ -1440,10 +1200,8 @@ namespace eastl
 	inline InputIterator
 	find(InputIterator first, InputIterator last, const T& value, Predicate predicate)
 	{
-		while((first != last) && !predicate(*first, value))
-			++first;
-		return first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1466,10 +1224,8 @@ namespace eastl
 	inline InputIterator
 	find_if(InputIterator first, InputIterator last, Predicate predicate)
 	{
-		while((first != last) && !predicate(*first))
-			++first;
-		return first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1482,13 +1238,8 @@ namespace eastl
 	inline InputIterator
 	find_if_not(InputIterator first, InputIterator last, Predicate predicate)
 	{
-		for(; first != last; ++first)
-		{
-			if(!predicate(*first))
-				return first;
-		}
-		return last;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1518,16 +1269,8 @@ namespace eastl
 	find_first_of(ForwardIterator1 first1, ForwardIterator1 last1,
 				  ForwardIterator2 first2, ForwardIterator2 last2)
 	{
-		for(; first1 != last1; ++first1)
-		{
-			for(ForwardIterator2 i = first2; i != last2; ++i)
-			{
-				if(*first1 == *i)
-					return first1;
-			}
-		}
-		return last1;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// find_first_of
@@ -1554,16 +1297,8 @@ namespace eastl
 				  ForwardIterator2 first2, ForwardIterator2 last2,
 				  BinaryPredicate predicate)
 	{
-		for(; first1 != last1; ++first1)
-		{
-			for(ForwardIterator2 i = first2; i != last2; ++i)
-			{
-				if(predicate(*first1, *i))
-					return first1;
-			}
-		}
-		return last1;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// find_first_not_of
@@ -1583,14 +1318,8 @@ namespace eastl
 	find_first_not_of(ForwardIterator1 first1, ForwardIterator1 last1,
 					  ForwardIterator2 first2, ForwardIterator2 last2)
 	{
-		for(; first1 != last1; ++first1)
-		{
-			if(eastl::find(first2, last2, *first1) == last2)
-				break;
-		}
-
-		return first1;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1612,16 +1341,8 @@ namespace eastl
 					  ForwardIterator2 first2, ForwardIterator2 last2,
 					  BinaryPredicate predicate)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator1>::value_type value_type;
-
-		for(; first1 != last1; ++first1)
-		{
-			if(eastl::find_if(first2, last2, [&predicate, first1](value_type& rhs) { return predicate(*first1, rhs); }) == last2)
-				break;
-		}
-
-		return first1;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <class BidirectionalIterator1, class ForwardIterator2>
@@ -1629,19 +1350,8 @@ namespace eastl
 	find_last_of(BidirectionalIterator1 first1, BidirectionalIterator1 last1,
 				 ForwardIterator2 first2, ForwardIterator2 last2)
 	{
-		if((first1 != last1) && (first2 != last2))
-		{
-			BidirectionalIterator1 it1(last1);
-
-			while((--it1 != first1) && (eastl::find(first2, last2, *it1) == last2))
-				; // Do nothing
-
-			if((it1 != first1) || (eastl::find(first2, last2, *it1) != last2))
-				return it1;
-		}
-
-		return last1;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <class BidirectionalIterator1, class ForwardIterator2, class BinaryPredicate>
@@ -1650,21 +1360,8 @@ namespace eastl
 				 ForwardIterator2 first2, ForwardIterator2 last2,
 				 BinaryPredicate predicate)
 	{
-		typedef typename eastl::iterator_traits<BidirectionalIterator1>::value_type value_type;
-
-		if((first1 != last1) && (first2 != last2))
-		{
-			BidirectionalIterator1 it1(last1);
-
-			while((--it1 != first1) && (eastl::find_if(first2, last2, [&predicate, it1](value_type& rhs) { return predicate(*it1, rhs); }) == last2))
-				; // Do nothing
-
-			if((it1 != first1) || (eastl::find_if(first2, last2, [&predicate, it1](value_type& rhs) { return predicate(*it1, rhs); }) != last2))
-				return it1;
-		}
-
-		return last1;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <class BidirectionalIterator1, class ForwardIterator2>
@@ -1672,19 +1369,8 @@ namespace eastl
 	find_last_not_of(BidirectionalIterator1 first1, BidirectionalIterator1 last1,
 					 ForwardIterator2 first2, ForwardIterator2 last2)
 	{
-		if((first1 != last1) && (first2 != last2))
-		{
-			BidirectionalIterator1 it1(last1);
-
-			while((--it1 != first1) && (eastl::find(first2, last2, *it1) != last2))
-				; // Do nothing
-
-			if((it1 != first1) || (eastl::find( first2, last2, *it1) == last2))
-				return it1;
-		}
-
-		return last1;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <class BidirectionalIterator1, class ForwardIterator2, class BinaryPredicate>
@@ -1693,21 +1379,8 @@ namespace eastl
 					 ForwardIterator2 first2, ForwardIterator2 last2,
 					 BinaryPredicate predicate)
 	{
-		typedef typename eastl::iterator_traits<BidirectionalIterator1>::value_type value_type;
-
-		if((first1 != last1) && (first2 != last2))
-		{
-			BidirectionalIterator1 it1(last1);
-
-			while((--it1 != first1) && (eastl::find_if(first2, last2, [&predicate, it1](value_type& rhs) { return predicate(*it1, rhs); }) != last2))
-				; // Do nothing
-
-			if((it1 != first1) || (eastl::find_if(first2, last2, [&predicate, it1](value_type& rhs) { return predicate(*it1, rhs); })) != last2)
-				return it1;
-		}
-
-		return last1;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1730,10 +1403,8 @@ namespace eastl
 	inline Function
 	for_each(InputIterator first, InputIterator last, Function function)
 	{
-		for(; first != last; ++first)
-			function(*first);
-		return function;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// for_each_n
 	///
@@ -1773,9 +1444,8 @@ namespace eastl
 	inline void
 	generate(ForwardIterator first, ForwardIterator last, Generator generator)
 	{
-		for(; first != last; ++first) // We cannot call generate_n(first, last-first, generator)
-			*first = generator();     // because the 'last-first' might not be supported by the
-	}                                 // given iterator.
+    __builtin_trap() /* STUB: not implemented */;
+}                                 // given iterator.
 
 
 	/// generate_n
@@ -1790,10 +1460,8 @@ namespace eastl
 	inline OutputIterator
 	generate_n(OutputIterator first, Size n, Generator generator)
 	{
-		for(; n > 0; --n, ++first)
-			*first = generator();
-		return first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// transform
@@ -1816,10 +1484,8 @@ namespace eastl
 	inline OutputIterator
 	transform(InputIterator first, InputIterator last, OutputIterator result, UnaryOperation unaryOperation)
 	{
-		for(; first != last; ++first, ++result)
-			*result = unaryOperation(*first);
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// transform
@@ -1842,10 +1508,8 @@ namespace eastl
 	inline OutputIterator
 	transform(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, OutputIterator result, BinaryOperation binaryOperation)
 	{
-		for(; first1 != last1; ++first1, ++first2, ++result)
-			*result = binaryOperation(*first1, *first2);
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// equal
@@ -1924,13 +1588,8 @@ namespace eastl
 	inline bool
 	equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, BinaryPredicate predicate)
 	{
-		for(; first1 != last1; ++first1, ++first2)
-		{
-			if(!predicate(*first1, *first2))
-				return false;
-		}
-		return true;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1957,13 +1616,8 @@ namespace eastl
 	bool identical(InputIterator1 first1, InputIterator1 last1,
 				   InputIterator2 first2, InputIterator2 last2)
 	{
-		while((first1 != last1) && (first2 != last2) && (*first1 == *first2))
-		{
-			++first1;
-			++first2;
-		}
-		return (first1 == last1) && (first2 == last2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// identical
@@ -1972,13 +1626,8 @@ namespace eastl
 	bool identical(InputIterator1 first1, InputIterator1 last1,
 				   InputIterator2 first2, InputIterator2 last2, BinaryPredicate predicate)
 	{
-		while((first1 != last1) && (first2 != last2) && predicate(*first1, *first2))
-		{
-			++first1;
-			++first2;
-		}
-		return (first1 == last1) && (first2 == last2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -2003,81 +1652,44 @@ namespace eastl
 	inline bool
 	lexicographical_compare(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2)
 	{
-		for(; (first1 != last1) && (first2 != last2); ++first1, ++first2)
-		{
-			if(*first1 < *first2)
-				return true;
-			if(*first2 < *first1)
-				return false;
-		}
-		return (first1 == last1) && (first2 != last2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline bool     // Specialization for const char*.
 	lexicographical_compare(const char* first1, const char* last1, const char* first2, const char* last2)
 	{
-		const ptrdiff_t n1(last1 - first1), n2(last2 - first2);
-		const size_t n = (size_t)eastl::min_alt(n1, n2);
-		if (n == 0) // don't call memcmp with n == 0
-			return false;
-		const int result = memcmp(first1, first2, n);
-		return result ? (result < 0) : (n1 < n2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline bool     // Specialization for char*.
 	lexicographical_compare(char* first1, char* last1, char* first2, char* last2)
 	{
-		const ptrdiff_t n1(last1 - first1), n2(last2 - first2);
-		const size_t n = (size_t)eastl::min_alt(n1, n2);
-		if (n == 0) // don't call memcmp with n == 0
-			return false;
-		const int result = memcmp(first1, first2, n);
-		return result ? (result < 0) : (n1 < n2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline bool     // Specialization for const unsigned char*.
 	lexicographical_compare(const unsigned char* first1, const unsigned char* last1, const unsigned char* first2, const unsigned char* last2)
 	{
-		const ptrdiff_t n1(last1 - first1), n2(last2 - first2);
-		const size_t n = (size_t)eastl::min_alt(n1, n2);
-		if (n == 0) // don't call memcmp with n == 0
-			return false;
-		const int result = memcmp(first1, first2, n);
-		return result ? (result < 0) : (n1 < n2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline bool     // Specialization for unsigned char*.
 	lexicographical_compare(unsigned char* first1, unsigned char* last1, unsigned char* first2, unsigned char* last2)
 	{
-		const ptrdiff_t n1(last1 - first1), n2(last2 - first2);
-		const size_t n = (size_t)eastl::min_alt(n1, n2);
-		if (n == 0) // don't call memcmp with n == 0
-			return false;
-		const int result = memcmp(first1, first2, n);
-		return result ? (result < 0) : (n1 < n2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline bool     // Specialization for const signed char*.
 	lexicographical_compare(const signed char* first1, const signed char* last1, const signed char* first2, const signed char* last2)
 	{
-		const ptrdiff_t n1(last1 - first1), n2(last2 - first2);
-		const size_t n = (size_t)eastl::min_alt(n1, n2);
-		if (n == 0) // don't call memcmp with n == 0
-			return false;
-		const int result = memcmp(first1, first2, n);
-		return result ? (result < 0) : (n1 < n2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline bool     // Specialization for signed char*.
 	lexicographical_compare(signed char* first1, signed char* last1, signed char* first2, signed char* last2)
 	{
-		const ptrdiff_t n1(last1 - first1), n2(last2 - first2);
-		const size_t n = (size_t)eastl::min_alt(n1, n2);
-		if (n == 0) // don't call memcmp with n == 0
-			return false;
-		const int result = memcmp(first1, first2, n);
-		return result ? (result < 0) : (n1 < n2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	#if defined(_MSC_VER) // If using the VC++ compiler (and thus bool is known to be a single byte)...
 		//Not sure if this is a good idea.
@@ -2128,15 +1740,8 @@ namespace eastl
 	lexicographical_compare(InputIterator1 first1, InputIterator1 last1,
 							InputIterator2 first2, InputIterator2 last2, Compare compare)
 	{
-		for(; (first1 != last1) && (first2 != last2); ++first1, ++first2)
-		{
-			if(compare(*first1, *first2))
-				return true;
-			if(compare(*first2, *first1))
-				return false;
-		}
-		return (first1 == last1) && (first2 != last2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 #if defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
@@ -2194,14 +1799,8 @@ namespace eastl
 	mismatch(InputIterator1 first1, InputIterator1 last1,
 			 InputIterator2 first2) // , InputIterator2 last2)
 	{
-		while((first1 != last1) && (*first1 == *first2)) // && (first2 != last2) <- C++ standard mismatch function doesn't check first2/last2.
-		{
-			++first1;
-			++first2;
-		}
-
-		return eastl::pair<InputIterator1, InputIterator2>(first1, first2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// mismatch
@@ -2224,14 +1823,8 @@ namespace eastl
 			 InputIterator2 first2, // InputIterator2 last2,
 			 BinaryPredicate predicate)
 	{
-		while((first1 != last1) && predicate(*first1, *first2)) // && (first2 != last2) <- C++ standard mismatch function doesn't check first2/last2.
-		{
-			++first1;
-			++first2;
-		}
-
-		return eastl::pair<InputIterator1, InputIterator2>(first1, first2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// lower_bound
@@ -2256,28 +1849,8 @@ namespace eastl
 	ForwardIterator
 	lower_bound(ForwardIterator first, ForwardIterator last, const T& value)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator>::difference_type DifferenceType;
-
-		DifferenceType d = eastl::distance(first, last); // This will be efficient for a random access iterator such as an array.
-
-		while(d > 0)
-		{
-			ForwardIterator i  = first;
-			DifferenceType  d2 = d >> 1; // We use '>>1' here instead of '/2' because MSVC++ for some reason generates significantly worse code for '/2'. Go figure.
-
-			eastl::advance(i, d2); // This will be efficient for a random access iterator such as an array.
-
-			if(*i < value)
-			{
-				// Disabled because std::lower_bound doesn't specify (23.3.3.3, p3) this can be done: EASTL_VALIDATE_COMPARE(!(value < *i)); // Validate that the compare function is sane.
-				first = ++i;
-				d    -= d2 + 1;
-			}
-			else
-				d = d2;
-		}
-		return first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// lower_bound
@@ -2304,28 +1877,8 @@ namespace eastl
 	ForwardIterator
 	lower_bound(ForwardIterator first, ForwardIterator last, const T& value, Compare compare)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator>::difference_type DifferenceType;
-
-		DifferenceType d = eastl::distance(first, last); // This will be efficient for a random access iterator such as an array.
-
-		while(d > 0)
-		{
-			ForwardIterator i  = first;
-			DifferenceType  d2 = d >> 1; // We use '>>1' here instead of '/2' because MSVC++ for some reason generates significantly worse code for '/2'. Go figure.
-
-			eastl::advance(i, d2); // This will be efficient for a random access iterator such as an array.
-
-			if(compare(*i, value))
-			{
-				// Disabled because std::lower_bound doesn't specify (23.3.3.1, p3) this can be done: EASTL_VALIDATE_COMPARE(!compare(value, *i)); // Validate that the compare function is sane.
-				first = ++i;
-				d    -= d2 + 1;
-			}
-			else
-				d = d2;
-		}
-		return first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -2347,30 +1900,8 @@ namespace eastl
 	ForwardIterator
 	upper_bound(ForwardIterator first, ForwardIterator last, const T& value)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator>::difference_type DifferenceType;
-
-		DifferenceType len = eastl::distance(first, last);
-
-		while(len > 0)
-		{
-			ForwardIterator i    = first;
-			DifferenceType  len2 = len >> 1; // We use '>>1' here instead of '/2' because MSVC++ for some reason generates significantly worse code for '/2'. Go figure.
-
-			eastl::advance(i, len2);
-
-			if(!(value < *i)) // Note that we always express value comparisons in terms of < or ==.
-			{
-				first = ++i;
-				len -= len2 + 1;
-			}
-			else
-			{
-				// Disabled because std::upper_bound doesn't specify (23.3.3.2, p3) this can be done: EASTL_VALIDATE_COMPARE(!(*i < value)); // Validate that the compare function is sane.
-				len = len2;
-			}
-		}
-		return first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// upper_bound
@@ -2393,30 +1924,8 @@ namespace eastl
 	ForwardIterator
 	upper_bound(ForwardIterator first, ForwardIterator last, const T& value, Compare compare)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator>::difference_type DifferenceType;
-
-		DifferenceType len = eastl::distance(first, last);
-
-		while(len > 0)
-		{
-			ForwardIterator i    = first;
-			DifferenceType  len2 = len >> 1; // We use '>>1' here instead of '/2' because MSVC++ for some reason generates significantly worse code for '/2'. Go figure.
-
-			eastl::advance(i, len2);
-
-			if(!compare(value, *i))
-			{
-				first = ++i;
-				len -= len2 + 1;
-			}
-			else
-			{
-				// Disabled because std::upper_bound doesn't specify (23.3.3.2, p3) this can be done: EASTL_VALIDATE_COMPARE(!compare(*i, value)); // Validate that the compare function is sane.
-				len = len2;
-			}
-		}
-		return first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// equal_range
@@ -2431,8 +1940,8 @@ namespace eastl
 	pair<ForwardIterator, ForwardIterator>
 	equal_range(ForwardIterator first, ForwardIterator last, const T& value)
 	{
-		return equal_range(first, last, value, eastl::less<>{});
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// equal_range
@@ -2447,40 +1956,8 @@ namespace eastl
 	pair<ForwardIterator, ForwardIterator>
 	equal_range(ForwardIterator first, ForwardIterator last, const T& value, Compare compare)
 	{
-		typedef pair<ForwardIterator, ForwardIterator> ResultType;
-		typedef typename eastl::iterator_traits<ForwardIterator>::difference_type DifferenceType;
-
-		DifferenceType d = eastl::distance(first, last);
-
-		while(d > 0)
-		{
-			ForwardIterator i(first);
-			DifferenceType  d2 = d >> 1; // We use '>>1' here instead of '/2' because MSVC++ for some reason generates significantly worse code for '/2'. Go figure.
-
-			eastl::advance(i, d2);
-
-			if(compare(*i, value))
-			{
-				EASTL_VALIDATE_COMPARE(!compare(value, *i)); // Validate that the compare function is sane.
-				first = ++i;
-				d    -= d2 + 1;
-			}
-			else if(compare(value, *i))
-			{
-				EASTL_VALIDATE_COMPARE(!compare(*i, value)); // Validate that the compare function is sane.
-				d    = d2;
-				last = i;
-			}
-			else
-			{
-				ForwardIterator j(i);
-
-				return ResultType(eastl::lower_bound(first, i, value, compare),
-								  eastl::upper_bound(++j, last, value, compare));
-			}
-		}
-		return ResultType(first, first);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// replace
@@ -2497,12 +1974,8 @@ namespace eastl
 	inline void
 	replace(ForwardIterator first, ForwardIterator last, const T& old_value, const T& new_value)
 	{
-		for(; first != last; ++first)
-		{
-			if(*first == old_value)
-				*first = new_value;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// replace_if
@@ -2519,12 +1992,8 @@ namespace eastl
 	inline void
 	replace_if(ForwardIterator first, ForwardIterator last, Predicate predicate, const T& new_value)
 	{
-		for(; first != last; ++first)
-		{
-			if(predicate(*first))
-				*first = new_value;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// remove_copy
 	///
@@ -2542,16 +2011,8 @@ namespace eastl
 	inline OutputIterator
 	remove_copy(InputIterator first, InputIterator last, OutputIterator result, const T& value)
 	{
-		for(; first != last; ++first)
-		{
-			if(!(*first == value)) // Note that we always express value comparisons in terms of < or ==.
-			{
-				*result = *first;
-				++result;
-			}
-		}
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// remove_copy_if
 	///
@@ -2569,16 +2030,8 @@ namespace eastl
 	inline OutputIterator
 	remove_copy_if(InputIterator first, InputIterator last, OutputIterator result, Predicate predicate)
 	{
-		for(; first != last; ++first)
-		{
-			if(!predicate(*first))
-			{
-				*result = *first;
-				++result;
-			}
-		}
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// remove
@@ -2608,19 +2061,8 @@ namespace eastl
 	inline ForwardIterator
 	remove(ForwardIterator first, ForwardIterator last, const T& value)
 	{
-		first = eastl::find(first, last, value);
-		if(first != last)
-		{
-			for (ForwardIterator i = first; ++i != last;)
-			{
-				if (!(*i == value))
-				{
-					*first++ = eastl::move(*i);
-				}
-			}
-		}
-		return first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// remove_if
 	///
@@ -2649,19 +2091,8 @@ namespace eastl
 	inline ForwardIterator
 	remove_if(ForwardIterator first, ForwardIterator last, Predicate predicate)
 	{
-		first = eastl::find_if(first, last, predicate);
-		if(first != last)
-		{
-			for (ForwardIterator i = first; ++i != last;)
-			{
-				if (!predicate(*i))
-				{
-					*first++ = eastl::move(*i);
-				}
-			}
-		}
-		return first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// apply_and_remove_if
 	///
@@ -2688,23 +2119,8 @@ namespace eastl
 	                                           Function function,
 	                                           Predicate predicate)
 	{
-		first = eastl::find_if(first, last, predicate);
-		if (first != last)
-		{
-			function(*first);
-			for (auto i = next(first); i != last; ++i)
-			{
-				if (predicate(*i))
-				{
-					function(*i);
-					continue;
-				}
-				*first = eastl::move(*i);
-				++first;
-			}
-		}
-		return first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// apply_and_remove
@@ -2732,23 +2148,8 @@ namespace eastl
 	                                        Function function,
 	                                        const T& value)
 	{
-		first = eastl::find(first, last, value);
-		if (first != last)
-		{
-			function(*first);
-			for (auto i = next(first); i != last; ++i)
-			{
-				if (value == *i)
-				{
-					function(*i);
-					continue;
-				}
-				*first = eastl::move(*i);
-				++first;
-			}
-		}
-		return first;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// replace_copy
@@ -2770,10 +2171,8 @@ namespace eastl
 	inline OutputIterator
 	replace_copy(InputIterator first, InputIterator last, OutputIterator result, const T& old_value, const T& new_value)
 	{
-		for(; first != last; ++first, ++result)
-			*result = (*first == old_value) ? new_value : *first;
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// replace_copy_if
@@ -2795,10 +2194,8 @@ namespace eastl
 	inline OutputIterator
 	replace_copy_if(InputIterator first, InputIterator last, OutputIterator result, Predicate predicate, const T& new_value)
 	{
-		for(; first != last; ++first, ++result)
-			*result = predicate(*first) ? new_value : *first;
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -2811,19 +2208,14 @@ namespace eastl
 	template <typename BidirectionalIterator>
 	inline void reverse_impl(BidirectionalIterator first, BidirectionalIterator last, eastl::bidirectional_iterator_tag)
 	{
-		for(; (first != last) && (first != --last); ++first) // We are not allowed to use operator <, <=, >, >= with a
-			eastl::iter_swap(first, last);                   // generic (bidirectional or otherwise) iterator.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename RandomAccessIterator>
 	inline void reverse_impl(RandomAccessIterator first, RandomAccessIterator last, eastl::random_access_iterator_tag)
 	{
-		if(first != last)
-		{
-			for(; first < --last; ++first)      // With a random access iterator, we can use operator < to more efficiently implement
-				eastl::iter_swap(first, last);  // this algorithm. A generic iterator doesn't necessarily have an operator < defined.
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// reverse
 	///
@@ -2837,9 +2229,8 @@ namespace eastl
 	template <typename BidirectionalIterator>
 	inline void reverse(BidirectionalIterator first, BidirectionalIterator last)
 	{
-		typedef typename eastl::iterator_traits<BidirectionalIterator>::iterator_category IC;
-		eastl::reverse_impl(first, last, IC());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -2863,10 +2254,8 @@ namespace eastl
 	inline OutputIterator
 	reverse_copy(BidirectionalIterator first, BidirectionalIterator last, OutputIterator result)
 	{
-		for(; first != last; ++result)
-			*result = *--last;
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -2889,80 +2278,8 @@ namespace eastl
 	search(ForwardIterator1 first1, ForwardIterator1 last1,
 		   ForwardIterator2 first2, ForwardIterator2 last2)
 	{
-		if(first2 != last2) // If there is anything to search for...
-		{
-			// We need to make a special case for a pattern of one element,
-			// as the logic below prevents one element patterns from working.
-			ForwardIterator2 temp2(first2);
-			++temp2;
-
-			if(temp2 != last2) // If what we are searching for has a length > 1...
-			{
-				ForwardIterator1 cur1(first1);
-				ForwardIterator2 p2;
-
-				while(first1 != last1)
-				{
-					// The following loop is the equivalent of eastl::find(first1, last1, *first2)
-					while((first1 != last1) && !(*first1 == *first2))
-						++first1;
-
-					if(first1 != last1)
-					{
-						p2   = temp2;
-						cur1 = first1;
-
-						if(++cur1 != last1)
-						{
-							while(*cur1 == *p2)
-							{
-								if(++p2 == last2)
-									return first1;
-
-								if(++cur1 == last1)
-									return last1;
-							}
-
-							++first1;
-							continue;
-						}
-					}
-					return last1;
-				}
-
-				// Fall through to the end.
-			}
-			else
-				return eastl::find(first1, last1, *first2);
-		}
-
-		return first1;
-
-
-		#if 0
-		/*  Another implementation which is a little more simpler but executes a little slower on average.
-			typedef typename eastl::iterator_traits<ForwardIterator1>::difference_type difference_type_1;
-			typedef typename eastl::iterator_traits<ForwardIterator2>::difference_type difference_type_2;
-
-			const difference_type_2 d2 = eastl::distance(first2, last2);
-
-			for(difference_type_1 d1 = eastl::distance(first1, last1); d1 >= d2; ++first1, --d1)
-			{
-				ForwardIterator1 temp1 = first1;
-
-				for(ForwardIterator2 temp2 = first2; ; ++temp1, ++temp2)
-				{
-					if(temp2 == last2)
-						return first1;
-					if(!(*temp1 == *temp2))
-						break;
-				}
-			}
-
-			return last1;
-		*/
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// search
@@ -2985,30 +2302,8 @@ namespace eastl
 		   ForwardIterator2 first2, ForwardIterator2 last2,
 		   BinaryPredicate predicate)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator1>::difference_type difference_type_1;
-		typedef typename eastl::iterator_traits<ForwardIterator2>::difference_type difference_type_2;
-
-		difference_type_2 d2 = eastl::distance(first2, last2);
-
-		if(d2 != 0)
-		{
-			ForwardIterator1 i(first1);
-			eastl::advance(i, d2);
-
-			for(difference_type_1 d1 = eastl::distance(first1, last1); d1 >= d2; --d1)
-			{
-				if(eastl::equal<ForwardIterator1, ForwardIterator2, BinaryPredicate>(first1, i, first2, predicate))
-					return first1;
-				if(d1 > d2) // To do: Find a way to make the algorithm more elegant.
-				{
-					++first1;
-					++i;
-				}
-			}
-			return last1;
-		}
-		return first1; // Just like with strstr, we return first1 if the match string is empty.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -3018,84 +2313,15 @@ namespace eastl
 	ForwardIterator     // Generic implementation.
 	search_n_impl(ForwardIterator first, ForwardIterator last, Size count, const T& value, eastl::forward_iterator_tag)
 	{
-		if(count <= 0)
-			return first;
-
-		Size d1 = (Size)eastl::distance(first, last); // Should d1 be of type Size, ptrdiff_t, or iterator_traits<ForwardIterator>::difference_type?
-													  // The problem with using iterator_traits<ForwardIterator>::difference_type is that
-		if(count > d1)                                // ForwardIterator may not be a true iterator but instead something like a pointer.
-			return last;
-
-		for(; d1 >= count; ++first, --d1)
-		{
-			ForwardIterator i(first);
-
-			for(Size n = 0; n < count; ++n, ++i, --d1)
-			{
-				if(!(*i == value)) // Note that we always express value comparisons in terms of < or ==.
-					goto not_found;
-			}
-			return first;
-
-			not_found:
-			first = i;
-		}
-		return last;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename RandomAccessIterator, typename Size, typename T> inline
 	RandomAccessIterator    // Random access iterator implementation. Much faster than generic implementation.
 	search_n_impl(RandomAccessIterator first, RandomAccessIterator last, Size count, const T& value, eastl::random_access_iterator_tag)
 	{
-		if(count <= 0)
-			return first;
-		else if(count == 1)
-			return eastl::find(first, last, value);
-		else if(last > first)
-		{
-			RandomAccessIterator lookAhead;
-			RandomAccessIterator backTrack;
-
-			Size skipOffset = (count - 1);
-			Size tailSize = (Size)(last - first);
-			Size remainder;
-			Size prevRemainder;
-
-			for(lookAhead = first + skipOffset; tailSize >= count; lookAhead += count)
-			{
-				tailSize -= count;
-
-				if(*lookAhead == value)
-				{
-					remainder = skipOffset;
-
-					for(backTrack = lookAhead - 1; *backTrack == value; --backTrack)
-					{
-						if(--remainder == 0)
-							return (lookAhead - skipOffset); // success
-					}
-
-					if(remainder <= tailSize)
-					{
-						prevRemainder = remainder;
-
-						while(*(++lookAhead) == value)
-						{
-							if(--remainder == 0)
-								return (backTrack + 1); // success
-						}
-						tailSize -= (prevRemainder - remainder);
-					}
-					else
-						return last; // failure
-				}
-
-				// lookAhead here is always pointing to the element of the last mismatch.
-			}
-		}
-
-		return last; // failure
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// search_n
@@ -3111,9 +2337,8 @@ namespace eastl
 	ForwardIterator
 	search_n(ForwardIterator first, ForwardIterator last, Size count, const T& value)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator>::iterator_category IC;
-		return eastl::search_n_impl(first, last, count, value, IC());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// binary_search
@@ -3141,10 +2366,8 @@ namespace eastl
 	inline bool
 	binary_search(ForwardIterator first, ForwardIterator last, const T& value)
 	{
-		// To do: This can be made slightly faster by not using lower_bound.
-		ForwardIterator i(eastl::lower_bound<ForwardIterator, T>(first, last, value));
-		return ((i != last) && !(value < *i)); // Note that we always express value comparisons in terms of < or ==.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// binary_search
@@ -3161,10 +2384,8 @@ namespace eastl
 	inline bool
 	binary_search(ForwardIterator first, ForwardIterator last, const T& value, Compare compare)
 	{
-		// To do: This can be made slightly faster by not using lower_bound.
-		ForwardIterator i(eastl::lower_bound<ForwardIterator, T, Compare>(first, last, value, compare));
-		return ((i != last) && !compare(value, *i));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// binary_search_i
@@ -3179,12 +2400,8 @@ namespace eastl
 	inline ForwardIterator
 	binary_search_i(ForwardIterator first, ForwardIterator last, const T& value)
 	{
-		// To do: This can be made slightly faster by not using lower_bound.
-		ForwardIterator i(eastl::lower_bound<ForwardIterator, T>(first, last, value));
-		if((i != last) && !(value < *i)) // Note that we always express value comparisons in terms of < or ==.
-			return i;
-		return last;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// binary_search_i
@@ -3199,12 +2416,8 @@ namespace eastl
 	inline ForwardIterator
 	binary_search_i(ForwardIterator first, ForwardIterator last, const T& value, Compare compare)
 	{
-		// To do: This can be made slightly faster by not using lower_bound.
-		ForwardIterator i(eastl::lower_bound<ForwardIterator, T, Compare>(first, last, value, compare));
-		if((i != last) && !compare(value, *i))
-			return i;
-		return last;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// unique
@@ -3232,21 +2445,8 @@ namespace eastl
 	template <typename ForwardIterator>
 	ForwardIterator unique(ForwardIterator first, ForwardIterator last)
 	{
-		first = eastl::adjacent_find<ForwardIterator>(first, last);
-
-		if(first != last) // We expect that there are duplicated items, else the user wouldn't be calling this function.
-		{
-			ForwardIterator dest(first);
-
-			for(++first; first != last; ++first)
-			{
-				if(!(*dest == *first)) // Note that we always express value comparisons in terms of < or ==.
-					*++dest = *first;
-			}
-			return ++dest;
-		}
-		return last;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// unique
@@ -3269,21 +2469,8 @@ namespace eastl
 	template <typename ForwardIterator, typename BinaryPredicate>
 	ForwardIterator unique(ForwardIterator first, ForwardIterator last, BinaryPredicate predicate)
 	{
-		first = eastl::adjacent_find<ForwardIterator, BinaryPredicate>(first, last, predicate);
-
-		if(first != last) // We expect that there are duplicated items, else the user wouldn't be calling this function.
-		{
-			ForwardIterator dest(first);
-
-			for(++first; first != last; ++first)
-			{
-				if(!predicate(*dest, *first))
-					*++dest = *first;
-			}
-			return ++dest;
-		}
-		return last;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -3300,23 +2487,8 @@ namespace eastl
 				  ForwardIterator2 first2, ForwardIterator2 last2,
 				  eastl::forward_iterator_tag, eastl::forward_iterator_tag)
 	{
-		if(first2 != last2) // We have to do this check because the search algorithm below will return first1 (and not last1) if the first2/last2 range is empty.
-		{
-			for(ForwardIterator1 result(last1); ; )
-			{
-				const ForwardIterator1 resultNext(eastl::search(first1, last1, first2, last2));
-
-				if(resultNext != last1) // If another sequence was found...
-				{
-					first1 = result = resultNext;
-					++first1;
-				}
-				else
-					return result;
-			}
-		}
-		return last1;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename BidirectionalIterator1, typename BidirectionalIterator2>
 	BidirectionalIterator1
@@ -3324,20 +2496,8 @@ namespace eastl
 				  BidirectionalIterator2 first2, BidirectionalIterator2 last2,
 				  eastl::bidirectional_iterator_tag, eastl::bidirectional_iterator_tag)
 	{
-		typedef eastl::reverse_iterator<BidirectionalIterator1> reverse_iterator1;
-		typedef eastl::reverse_iterator<BidirectionalIterator2> reverse_iterator2;
-
-		reverse_iterator1 rresult(eastl::search(reverse_iterator1(last1), reverse_iterator1(first1),
-												reverse_iterator2(last2), reverse_iterator2(first2)));
-		if(rresult.base() != first1) // If we found something...
-		{
-			BidirectionalIterator1 result(rresult.base());
-
-			eastl::advance(result, -eastl::distance(first2, last2)); // We have an opportunity to optimize this, as the
-			return result;                                           // search function already calculates this distance.
-		}
-		return last1;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// find_end
 	///
@@ -3355,11 +2515,8 @@ namespace eastl
 	find_end(ForwardIterator1 first1, ForwardIterator1 last1,
 			 ForwardIterator2 first2, ForwardIterator2 last2)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator1>::iterator_category IC1;
-		typedef typename eastl::iterator_traits<ForwardIterator2>::iterator_category IC2;
-
-		return eastl::find_end_impl(first1, last1, first2, last2, IC1(), IC2());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -3373,23 +2530,8 @@ namespace eastl
 				  BinaryPredicate predicate,
 				  eastl::forward_iterator_tag, eastl::forward_iterator_tag)
 	{
-		if(first2 != last2) // We have to do this check because the search algorithm below will return first1 (and not last1) if the first2/last2 range is empty.
-		{
-			for(ForwardIterator1 result = last1; ; )
-			{
-				const ForwardIterator1 resultNext(eastl::search<ForwardIterator1, ForwardIterator2, BinaryPredicate>(first1, last1, first2, last2, predicate));
-
-				if(resultNext != last1) // If another sequence was found...
-				{
-					first1 = result = resultNext;
-					++first1;
-				}
-				else
-					return result;
-			}
-		}
-		return last1;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename BidirectionalIterator1, typename BidirectionalIterator2, typename BinaryPredicate>
 	BidirectionalIterator1
@@ -3398,21 +2540,8 @@ namespace eastl
 				  BinaryPredicate predicate,
 				  eastl::bidirectional_iterator_tag, eastl::bidirectional_iterator_tag)
 	{
-		typedef eastl::reverse_iterator<BidirectionalIterator1> reverse_iterator1;
-		typedef eastl::reverse_iterator<BidirectionalIterator2> reverse_iterator2;
-
-		reverse_iterator1 rresult(eastl::search<reverse_iterator1, reverse_iterator2, BinaryPredicate>
-											   (reverse_iterator1(last1), reverse_iterator1(first1),
-												reverse_iterator2(last2), reverse_iterator2(first2),
-												predicate));
-		if(rresult.base() != first1) // If we found something...
-		{
-			BidirectionalIterator1 result(rresult.base());
-			eastl::advance(result, -eastl::distance(first2, last2));
-			return result;
-		}
-		return last1;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// find_end
@@ -3433,12 +2562,8 @@ namespace eastl
 			 ForwardIterator2 first2, ForwardIterator2 last2,
 			 BinaryPredicate predicate)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator1>::iterator_category IC1;
-		typedef typename eastl::iterator_traits<ForwardIterator2>::iterator_category IC2;
-
-		return eastl::find_end_impl<ForwardIterator1, ForwardIterator2, BinaryPredicate>
-								   (first1, last1, first2, last2, predicate, IC1(), IC2());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// set_difference
@@ -3462,25 +2587,8 @@ namespace eastl
 								  InputIterator2 first2, InputIterator2 last2,
 								  OutputIterator result)
 	{
-		while((first1 != last1) && (first2 != last2))
-		{
-			if(*first1 < *first2)
-			{
-				*result = *first1;
-				++first1;
-				++result;
-			}
-			else if(*first2 < *first1)
-				++first2;
-			else
-			{
-				++first1;
-				++first2;
-			}
-		}
-
-		return eastl::copy(first1, last1, result);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename InputIterator1, typename InputIterator2, typename OutputIterator, typename Compare>
@@ -3488,29 +2596,8 @@ namespace eastl
 								  InputIterator2 first2, InputIterator2 last2,
 								  OutputIterator result, Compare compare)
 	{
-		while((first1 != last1) && (first2 != last2))
-		{
-			if(compare(*first1, *first2))
-			{
-				EASTL_VALIDATE_COMPARE(!compare(*first2, *first1)); // Validate that the compare function is sane.
-				*result = *first1;
-				++first1;
-				++result;
-			}
-			else if(compare(*first2, *first1))
-			{
-				EASTL_VALIDATE_COMPARE(!compare(*first1, *first2)); // Validate that the compare function is sane.
-				++first2;
-			}
-			else
-			{
-				++first1;
-				++first2;
-			}
-		}
-
-		return eastl::copy(first1, last1, result);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// set_difference_2
@@ -3538,28 +2625,8 @@ namespace eastl
 	                      InputIterator2 first2, InputIterator2 last2,
 	                      OutputIterator result1, OutputIterator result2, Compare compare)
 	{
-		while ((first1 != last1) && (first2 != last2))
-		{
-			if (compare(*first1, *first2))
-			{
-				EASTL_VALIDATE_COMPARE(!compare(*first2, *first1)); // Validate that the compare function is sane.
-				*result1++ = *first1++;
-			}
-			else if (compare(*first2, *first1))
-			{
-				EASTL_VALIDATE_COMPARE(!compare(*first1, *first2)); // Validate that the compare function is sane.
-				*result2++ = *first2++;
-			}
-			else
-			{
-				++first1;
-				++first2;
-			}
-		}
-
-		eastl::copy(first2, last2, result2);
-		eastl::copy(first1, last1, result1);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// set_difference_2
 	///
@@ -3570,8 +2637,8 @@ namespace eastl
 	                      InputIterator2 first2, InputIterator2 last2,
 	                      OutputIterator result1, OutputIterator result2)
 	{
-		eastl::set_difference_2(first1, last1, first2, last2, result1, result2, eastl::less<>{});
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// set_symmetric_difference
@@ -3596,29 +2663,8 @@ namespace eastl
 											InputIterator2 first2, InputIterator2 last2,
 											OutputIterator result)
 	{
-		while((first1 != last1) && (first2 != last2))
-		{
-			if(*first1 < *first2)
-			{
-				*result = *first1;
-				++first1;
-				++result;
-			}
-			else if(*first2 < *first1)
-			{
-				*result = *first2;
-				++first2;
-				++result;
-			}
-			else
-			{
-				++first1;
-				++first2;
-			}
-		}
-
-		return eastl::copy(first2, last2, eastl::copy(first1, last1, result));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename InputIterator1, typename InputIterator2, typename OutputIterator, typename Compare>
@@ -3626,31 +2672,8 @@ namespace eastl
 											InputIterator2 first2, InputIterator2 last2,
 											OutputIterator result, Compare compare)
 	{
-		while((first1 != last1) && (first2 != last2))
-		{
-			if(compare(*first1, *first2))
-			{
-				EASTL_VALIDATE_COMPARE(!compare(*first2, *first1)); // Validate that the compare function is sane.
-				*result = *first1;
-				++first1;
-				++result;
-			}
-			else if(compare(*first2, *first1))
-			{
-				EASTL_VALIDATE_COMPARE(!compare(*first1, *first2)); // Validate that the compare function is sane.
-				*result = *first2;
-				++first2;
-				++result;
-			}
-			else
-			{
-				++first1;
-				++first2;
-			}
-		}
-
-		return eastl::copy(first2, last2, eastl::copy(first1, last1, result));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// set_intersection
@@ -3676,23 +2699,8 @@ namespace eastl
 									InputIterator2 first2, InputIterator2 last2,
 									OutputIterator result)
 	{
-		while((first1 != last1) && (first2 != last2))
-		{
-			if(*first1 < *first2)
-				++first1;
-			else if(*first2 < *first1)
-				++first2;
-			else
-			{
-				*result = *first1;
-				++first1;
-				++first2;
-				++result;
-			}
-		}
-
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename InputIterator1, typename InputIterator2, typename OutputIterator, typename Compare>
@@ -3700,29 +2708,8 @@ namespace eastl
 									InputIterator2 first2, InputIterator2 last2,
 									OutputIterator result, Compare compare)
 	{
-		while((first1 != last1) && (first2 != last2))
-		{
-			if(compare(*first1, *first2))
-			{
-				EASTL_VALIDATE_COMPARE(!compare(*first2, *first1)); // Validate that the compare function is sane.
-				++first1;
-			}
-			else if(compare(*first2, *first1))
-			{
-				EASTL_VALIDATE_COMPARE(!compare(*first1, *first2)); // Validate that the compare function is sane.
-				++first2;
-			}
-			else
-			{
-				*result = *first1;
-				++first1;
-				++first2;
-				++result;
-			}
-		}
-
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -3749,29 +2736,8 @@ namespace eastl
 							 InputIterator2 first2, InputIterator2 last2,
 							 OutputIterator result)
 	{
-		while((first1 != last1) && (first2 != last2))
-		{
-			if(*first1 < *first2)
-			{
-				*result = *first1;
-				++first1;
-			}
-			else if(*first2 < *first1)
-			{
-				*result = *first2;
-				++first2;
-			}
-			else
-			{
-				*result = *first1;
-				++first1;
-				++first2;
-			}
-			++result;
-		}
-
-		return eastl::copy(first2, last2, eastl::copy(first1, last1, result));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename InputIterator1, typename InputIterator2, typename OutputIterator, typename Compare>
@@ -3779,31 +2745,8 @@ namespace eastl
 							 InputIterator2 first2, InputIterator2 last2,
 							 OutputIterator result, Compare compare)
 	{
-		while((first1 != last1) && (first2 != last2))
-		{
-			if(compare(*first1, *first2))
-			{
-				EASTL_VALIDATE_COMPARE(!compare(*first2, *first1)); // Validate that the compare function is sane.
-				*result = *first1;
-				++first1;
-			}
-			else if(compare(*first2, *first1))
-			{
-				EASTL_VALIDATE_COMPARE(!compare(*first1, *first2)); // Validate that the compare function is sane.
-				*result = *first2;
-				++first2;
-			}
-			else
-			{
-				*result = *first1;
-				++first1;
-				++first2;
-			}
-			++result;
-		}
-
-		return eastl::copy(first2, last2, eastl::copy(first1, last1, result));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// set_decomposition
@@ -3829,30 +2772,8 @@ namespace eastl
 	                                  InputIterator2 first2, InputIterator2 last2,
 	                                  OutputIterator1 result1, OutputIterator2 result2, OutputIterator3 result3, Compare compare)
 	{
-		while ((first1 != last1) && (first2 != last2))
-		{
-			if (compare(*first1, *first2))
-			{
-				EASTL_VALIDATE_COMPARE(!compare(*first2, *first1)); // Validate that the compare function is sane.
-				*result1++ = *first1++;
-			}
-			else if (compare(*first2, *first1))
-			{
-				EASTL_VALIDATE_COMPARE(!compare(*first1, *first2)); // Validate that the compare function is sane.
-				*result2++ = *first2++;
-			}
-			else
-			{
-				*result3++ = *first1++;
-				++first2;
-			}
-		}
-
-		eastl::copy(first1, last1, result1);
-		eastl::copy(first2, last2, result2);
-
-		return result3;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// set_decomposition
 	///
@@ -3863,8 +2784,8 @@ namespace eastl
 	OutputIterator3 set_decomposition(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2,
 							  OutputIterator1 result1, OutputIterator2 result2, OutputIterator3 result3)
 	{
-		return eastl::set_decomposition(first1, last1, first2, last2, result1, result2, result3, eastl::less<>{});
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// includes
 	///
@@ -3875,19 +2796,8 @@ namespace eastl
 	bool includes(InputIt1 first1, InputIt1 last1,
 				  InputIt2 first2, InputIt2 last2, Compare comp)
 	{
-		for (; first2 != last2; ++first1)
-		{
-			if (first1 == last1 || comp(*first2, *first1))
-			{
-				return false;
-			}
-			if (!comp(*first1, *first2))
-			{
-				++first2;
-			}
-		}
-		return true;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// includes
 	///
@@ -3898,78 +2808,24 @@ namespace eastl
 	bool includes(InputIt1 first1, InputIt1 last1,
 				  InputIt2 first2, InputIt2 last2)
 	{
-		return eastl::includes(first1, last1, first2, last2, eastl::less<>{});
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// is_permutation
 	///
 	template<typename ForwardIterator1, typename ForwardIterator2>
 	bool is_permutation(ForwardIterator1 first1, ForwardIterator1 last1, ForwardIterator2 first2)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator1>::difference_type difference_type;
-
-		// Skip past any equivalent initial elements.
-		while((first1 != last1) && (*first1 == *first2))
-		{
-			++first1;
-			++first2;
-		}
-
-		if(first1 != last1)
-		{
-			const difference_type first1Size = eastl::distance(first1, last1);
-			ForwardIterator2 last2 = first2;
-			eastl::advance(last2, first1Size);
-
-			for(ForwardIterator1 i = first1; i != last1; ++i)
-			{
-				if(i == eastl::find(first1, i, *i))
-				{
-					const difference_type c = eastl::count(first2, last2, *i);
-
-					if((c == 0) || (c != eastl::count(i, last1, *i)))
-						return false;
-				}
-			}
-		}
-
-		return true;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// is_permutation
 	///
 	template<typename ForwardIterator1, typename ForwardIterator2, class BinaryPredicate>
 	bool is_permutation(ForwardIterator1 first1, ForwardIterator1 last1, ForwardIterator2 first2, BinaryPredicate predicate)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator1>::difference_type difference_type;
-
-		// Skip past any equivalent initial elements.
-		while((first1 != last1) && predicate(*first1, *first2))
-		{
-			++first1;
-			++first2;
-		}
-
-		if(first1 != last1)
-		{
-			const difference_type first1Size = eastl::distance(first1, last1);
-			ForwardIterator2 last2 = first2;
-			eastl::advance(last2, first1Size);
-
-			for(ForwardIterator1 i = first1; i != last1; ++i)
-			{
-				if(i == eastl::find(first1, i, *i, predicate))
-				{
-					const difference_type c = eastl::count(first2, last2, *i, predicate);
-
-					if((c == 0) || (c != eastl::count(i, last1, *i, predicate)))
-						return false;
-				}
-			}
-		}
-
-		return true;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// next_permutation
@@ -4001,45 +2857,14 @@ namespace eastl
 	template<typename BidirectionalIterator, typename Compare>
 	bool next_permutation(BidirectionalIterator first, BidirectionalIterator last, Compare compare)
 	{
-		if(first != last) // If there is anything in the range...
-		{
-			BidirectionalIterator i = last;
-
-			if(first != --i) // If the range has more than one item...
-			{
-				for(;;)
-				{
-					BidirectionalIterator ii(i), j;
-
-					if(compare(*--i, *ii)) // Find two consecutive values where the first is less than the second.
-					{
-						j = last;
-						while(!compare(*i, *--j)) // Find the final value that's greater than the first (it may be equal to the second).
-							{}
-						eastl::iter_swap(i, j);     // Swap the first and the final.
-						eastl::reverse(ii, last);   // Reverse the ranget from second to last.
-						return true;
-					}
-
-					if(i == first) // There are no two consecutive values where the first is less than the second, meaning the range is in reverse order. The reverse ordered range is always the last permutation.
-					{
-						eastl::reverse(first, last);
-						break; // We are done.
-					}
-				}
-			}
-		}
-
-		return false;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<typename BidirectionalIterator>
 	bool next_permutation(BidirectionalIterator first, BidirectionalIterator last)
 	{
-		typedef typename eastl::iterator_traits<BidirectionalIterator>::value_type value_type;
-
-		return eastl::next_permutation(first, last, eastl::less<value_type>());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -4084,66 +2909,31 @@ namespace eastl
 		template<typename ForwardIterator>
 		ForwardIterator rotate_general_impl(ForwardIterator first, ForwardIterator middle, ForwardIterator last)
 		{
-			using eastl::swap;
-
-			ForwardIterator current = middle;
-
-			do {
-				swap(*first++, *current++);
-
-				if(first == middle)
-					middle = current;
-			} while(current != last);
-
-			ForwardIterator result = first;
-			current = middle;
-
-			while(current != last)
-			{
-				swap(*first++, *current++);
-
-				if(first == middle)
-					middle = current;
-				else if(current == last)
-					current = middle;
-			}
-
-			return result; // result points to first + (last - middle).
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		template <typename ForwardIterator>
 		ForwardIterator move_rotate_left_by_one(ForwardIterator first, ForwardIterator last)
 		{
-			typedef typename eastl::iterator_traits<ForwardIterator>::value_type value_type;
-
-			value_type temp(eastl::move(*first));
-			ForwardIterator result = eastl::move(eastl::next(first), last, first); // Note that while our template type is BidirectionalIterator, if the actual
-			*result = eastl::move(temp);                                           // iterator is a RandomAccessIterator then this move will be a memmove for trivially copyable types.
-
-			return result; // result points to the final element in the range.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		template <typename BidirectionalIterator>
 		BidirectionalIterator move_rotate_right_by_one(BidirectionalIterator first, BidirectionalIterator last)
 		{
-			typedef typename eastl::iterator_traits<BidirectionalIterator>::value_type value_type;
-
-			BidirectionalIterator beforeLast = eastl::prev(last);
-			value_type temp(eastl::move(*beforeLast));
-			BidirectionalIterator result = eastl::move_backward(first, beforeLast, last); // Note that while our template type is BidirectionalIterator, if the actual
-			*first = eastl::move(temp);                                                   // iterator is a RandomAccessIterator then this move will be a memmove for trivially copyable types.
-
-			return result; // result points to the first element in the range.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename /*IteratorCategory*/, bool /*is_trivially_copyable*/>
 		struct rotate_helper
 		{
 			template <typename ForwardIterator>
 			static ForwardIterator rotate_impl(ForwardIterator first, ForwardIterator middle, ForwardIterator last)
-				{ return Internal::rotate_general_impl(first, middle, last); }
+				{
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 
 		template <>
@@ -4152,10 +2942,8 @@ namespace eastl
 			template <typename ForwardIterator>
 			static ForwardIterator rotate_impl(ForwardIterator first, ForwardIterator middle, ForwardIterator last)
 			{
-				if(eastl::next(first) == middle) // If moving trivial types by a single element, memcpy is fast for that case.
-					return Internal::move_rotate_left_by_one(first, last);
-				return Internal::rotate_general_impl(first, middle, last);
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 
 		template <>
@@ -4163,7 +2951,9 @@ namespace eastl
 		{
 			template <typename BidirectionalIterator>
 			static BidirectionalIterator rotate_impl(BidirectionalIterator first, BidirectionalIterator middle, BidirectionalIterator last)
-				{ return Internal::rotate_general_impl(first, middle, last); } // rotate_general_impl outperforms the flipping hands algorithm.
+				{
+    __builtin_trap() /* STUB: not implemented */;
+} // rotate_general_impl outperforms the flipping hands algorithm.
 
 			/*
 			// Simplest "flipping hands" implementation. Disabled because it's slower on average than rotate_general_impl.
@@ -4211,25 +3001,15 @@ namespace eastl
 			template <typename BidirectionalIterator>
 			static BidirectionalIterator rotate_impl(BidirectionalIterator first, BidirectionalIterator middle, BidirectionalIterator last)
 			{
-				if(eastl::next(first) == middle) // If moving trivial types by a single element, memcpy is fast for that case.
-					return Internal::move_rotate_left_by_one(first, last);
-				if(eastl::next(middle) == last)
-					return Internal::move_rotate_right_by_one(first, last);
-				return Internal::rotate_general_impl(first, middle, last);
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 
 		template <typename Integer>
 		inline Integer greatest_common_divisor(Integer x, Integer y)
 		{
-			do {
-				Integer t = (x % y);
-				x = y;
-				y = t;
-			} while(y);
-
-			return x;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <>
 		struct rotate_helper<eastl::random_access_iterator_tag, false>
@@ -4240,36 +3020,8 @@ namespace eastl
 			template <typename RandomAccessIterator>
 			static RandomAccessIterator rotate_impl(RandomAccessIterator first, RandomAccessIterator middle, RandomAccessIterator last)
 			{
-				typedef typename iterator_traits<RandomAccessIterator>::difference_type difference_type;
-				typedef typename iterator_traits<RandomAccessIterator>::value_type value_type;
-
-				const difference_type m1 = (middle - first);
-				const difference_type m2 = (last - middle);
-				const difference_type g  = Internal::greatest_common_divisor(m1, m2);
-				value_type temp;
-
-				for(RandomAccessIterator p = first + g; p != first;)
-				{
-					temp = eastl::move(*--p);
-					RandomAccessIterator p1 = p;
-					RandomAccessIterator p2 = p + m1;
-					do
-					{
-						*p1 = eastl::move(*p2);
-						p1 = p2;
-						const difference_type d = (last - p2);
-
-						if(m1 < d)
-							p2 += m1;
-						else
-							p2 = first + (m1 - d);
-					} while(p2 != p);
-
-					*p1 = eastl::move(temp);
-				}
-
-				return first + m2;
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 
 		template <>
@@ -4284,14 +3036,8 @@ namespace eastl
 			template <typename RandomAccessIterator>
 			static RandomAccessIterator rotate_impl(RandomAccessIterator first, RandomAccessIterator middle, RandomAccessIterator last)
 			{
-				if(eastl::next(first) == middle) // If moving trivial types by a single element, memcpy is fast for that case.
-					return Internal::move_rotate_left_by_one(first, last);
-				if(eastl::next(middle) == last)
-					return Internal::move_rotate_right_by_one(first, last);
-				if((last - first) < 32) // For small ranges rotate_general_impl is faster.
-					return Internal::rotate_general_impl(first, middle, last);
-				return Internal::rotate_helper<eastl::random_access_iterator_tag, false>::rotate_impl(first, middle, last);
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 
 	} // namespace Internal
@@ -4300,24 +3046,8 @@ namespace eastl
 	template <typename ForwardIterator>
 	ForwardIterator rotate(ForwardIterator first, ForwardIterator middle, ForwardIterator last)
 	{
-		if(middle != first)
-		{
-			if(middle != last)
-			{
-				typedef typename eastl::iterator_traits<ForwardIterator>::iterator_category IC;
-				typedef typename eastl::iterator_traits<ForwardIterator>::value_type        value_type;
-
-				// the implementations for is_trivially_copyable types simply check whether we have a single element to rotate and if so,
-				// defer to either move_rotate_left_by_one or move_rotate_right_by_one, which are optimized for trivially copyable types.
-				// otherwise, use the same implementation as non-trivially copyable types.
-				return Internal::rotate_helper<IC, eastl::is_trivially_copyable<value_type>::value>::rotate_impl(first, middle, last);
-			}
-
-			return first;
-		}
-
-		return last;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -4330,8 +3060,8 @@ namespace eastl
 	template <typename ForwardIterator, typename OutputIterator>
 	OutputIterator rotate_copy(ForwardIterator first, ForwardIterator middle, ForwardIterator last, OutputIterator result)
 	{
-		return eastl::copy(first, middle, eastl::copy(middle, last, result));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 

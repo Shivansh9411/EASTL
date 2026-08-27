@@ -1,3 +1,4 @@
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -156,8 +157,8 @@ namespace eastl
 		hash_map()
 			: this_type(EASTL_HASH_MAP_DEFAULT_ALLOCATOR)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// hash_map
@@ -168,8 +169,8 @@ namespace eastl
 			: base_type(0, Hash(), mod_range_hashing(), default_ranged_hash(),
 						Predicate(), eastl::use_first<eastl::pair<const Key, T> >(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// hash_map
@@ -184,8 +185,8 @@ namespace eastl
 			: base_type(nBucketCount, hashFunction, mod_range_hashing(), default_ranged_hash(), 
 						predicate, eastl::use_first<eastl::pair<const Key, T> >(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// hash_map(size_type nBucketCount, const allocator_type& allocator)
 		// hash_map(size_type nBucketCount, const Hash& hashFunction, const allocator_type& allocator)
@@ -194,7 +195,8 @@ namespace eastl
 		hash_map(const this_type& x)
 		  : base_type(x)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// hash_map(const this_type& x, const allocator_type& allocator)
 
@@ -208,7 +210,8 @@ namespace eastl
 		hash_map(this_type&& x, const allocator_type& allocator)
 		  : base_type(eastl::move(x), allocator)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// hash_map
@@ -221,14 +224,14 @@ namespace eastl
 			: base_type(ilist.begin(), ilist.end(), nBucketCount, hashFunction, mod_range_hashing(), default_ranged_hash(), 
 						predicate, eastl::use_first<eastl::pair<const Key, T> >(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		hash_map(std::initializer_list<value_type> ilist, const allocator_type& allocator)
 			: base_type(ilist.begin(), ilist.end(), 0, Hash(), mod_range_hashing(), default_ranged_hash(), Predicate(), eastl::use_first<eastl::pair<const Key, T> >(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// hash_map(std::initializer_list<value_type> ilist, size_type nBucketCount, const allocator_type& allocator)
 
@@ -246,8 +249,8 @@ namespace eastl
 			: base_type(first, last, nBucketCount, hashFunction, mod_range_hashing(), default_ranged_hash(), 
 						predicate, eastl::use_first<eastl::pair<const Key, T> >(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// template <typename ForwardIterator>
 		// hash_map(ForwardIterator first, ForwardIterator last, size_type nBucketCount, const allocator_type& allocator)
@@ -257,20 +260,20 @@ namespace eastl
 
 		this_type& operator=(const this_type& x)
 		{
-			return static_cast<this_type&>(base_type::operator=(x));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		this_type& operator=(std::initializer_list<value_type> ilist)
 		{
-			return static_cast<this_type&>(base_type::operator=(ilist));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		this_type& operator=(this_type&& x)
 		{
-			return static_cast<this_type&>(base_type::operator=(eastl::move(x)));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// insert
@@ -281,156 +284,111 @@ namespace eastl
 		/// object on the stack.
 		insert_return_type insert(const key_type& key)
 		{
-			return base_type::DoInsertKey(true_type(), key);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		insert_return_type insert(key_type&& key)
 		{
-			return base_type::DoInsertKey(true_type(), eastl::move(key));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename P, eastl::enable_if_t<eastl::is_constructible_v<value_type, P&&>, bool> = true>
 		insert_return_type insert(P&& otherValue)
 		{
-			return base_type::emplace(eastl::forward<P>(otherValue));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		T& at(const key_type& k) { return DoAt(k); }
+		T& at(const key_type& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-		const T& at(const key_type& k) const { return DoAt(k); }
+		const T& at(const key_type& k) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename KX, typename HX = Hash, typename PX = Predicate,
 			eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<HX> && eastl::detail::is_transparent_comparison_v<PX>, bool> = true>
-		T& at(const KX& k) { return DoAt(k); }
+		T& at(const KX& k) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename KX, typename HX = Hash, typename PX = Predicate,
 			eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<HX>&& eastl::detail::is_transparent_comparison_v<PX>, bool> = true>
-		const T& at(const KX& k) const { return DoAt(k); }
+		const T& at(const KX& k) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		mapped_type& operator[](const key_type& key)
 		{
-			return (*base_type::DoInsertKey(true_type(), key).first).second;
-
-			// Slower reference version:
-			//const typename base_type::iterator it = base_type::find(key);
-			//if(it != base_type::end())
-			//    return (*it).second;
-			//return (*base_type::insert(value_type(key, mapped_type())).first).second;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		mapped_type& operator[](key_type&& key)
 		{
-			// The Standard states that this function "inserts the value value_type(std::move(key), mapped_type())"
-			return (*base_type::DoInsertKey(true_type(), eastl::move(key)).first).second;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename KX, typename... Args, typename HX = Hash, typename PX = Predicate,
 			eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<HX> && eastl::detail::is_transparent_comparison_v<PX>, bool> = true>
 		mapped_type& operator[](KX&& key)
 		{
-			return try_emplace(eastl::forward<KX>(key)).first->second;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// try_emplace API added in C++17
 		template <class... Args>
 		inline insert_return_type try_emplace(const key_type& k, Args&&... args)
 		{
-			return try_emplace_forwarding(k, eastl::forward<Args>(args)...);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <class... Args>
 		inline insert_return_type try_emplace(key_type&& k, Args&&... args) {
-			return try_emplace_forwarding(eastl::move(k), eastl::forward<Args>(args)...);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename KX, typename... Args, typename HX = Hash, typename PX = Predicate,
 			eastl::enable_if_t<!eastl::is_convertible_v<KX&&, const_iterator> && !eastl::is_convertible_v<KX&&, iterator>
 			&& eastl::detail::is_transparent_comparison_v<HX> && eastl::detail::is_transparent_comparison_v<PX>, bool> = true>
 		inline insert_return_type try_emplace(KX&& k, Args&&... args) {
-			return try_emplace_forwarding(eastl::forward<KX>(k), eastl::forward<Args>(args)...);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <class... Args>
 		inline iterator try_emplace(const_iterator, const key_type& k, Args&&... args) {
-			// Currently, the first parameter is ignored.
-			insert_return_type result = try_emplace(k, eastl::forward<Args>(args)...);
-			return base_type::DoGetResultIterator(true_type(), result);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <class... Args>
 		inline iterator try_emplace(const_iterator, key_type&& k, Args&&... args) {
-			// Currently, the first parameter is ignored.
-			insert_return_type result = try_emplace(eastl::move(k), eastl::forward<Args>(args)...);
-			return base_type::DoGetResultIterator(true_type(), result);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename KX, typename... Args, typename HX = Hash, typename PX = Predicate,
 			eastl::enable_if_t<eastl::detail::is_transparent_comparison_v<HX>&& eastl::detail::is_transparent_comparison_v<PX>, bool> = true>
 		inline iterator try_emplace(const_iterator, KX&& k, Args&&... args) {
-			// Currently, the first parameter is ignored.
-			insert_return_type result = try_emplace(eastl::forward<KX>(k), eastl::forward<Args>(args)...);
-			return base_type::DoGetResultIterator(true_type(), result);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	private:
 		template<typename KX>
 		T& DoAt(const KX& k)
 		{
-			iterator it = base_type::find(k);
-
-			if (it == base_type::end())
-			{
-#if EASTL_EXCEPTIONS_ENABLED
-				// throw exeption if exceptions enabled
-				throw std::out_of_range("invalid hash_map<K, T> key");
-#else
-				// assert false if asserts enabled
-				EASTL_ASSERT_MSG(false, "invalid hash_map<K, T> key");
-#endif
-			}
-			// undefined behaviour if exceptions and asserts are disabled and it == end()
-			return it->second;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename KX>
 		const T& DoAt(const KX& k) const
 		{
-			const_iterator it = base_type::find(k);
-
-			if (it == base_type::end())
-			{
-#if EASTL_EXCEPTIONS_ENABLED
-				// throw exeption if exceptions enabled
-				throw std::out_of_range("invalid hash_map<K, T> key");
-#else
-				// assert false if asserts enabled
-				EASTL_ASSERT_MSG(false, "invalid hash_map<K, T> key");
-#endif
-			}
-			// undefined behaviour if exceptions and asserts are disabled and it == end()
-			return it->second;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <class K, class... Args>
 		insert_return_type try_emplace_forwarding(K&& k, Args&&... args)
 		{
-			const auto key_data = base_type::DoFindKeyData(k);
-			if (key_data.node)
-			{ // Node exists, no insertion needed.
-				return eastl::pair<iterator, bool>(
-				    iterator(key_data.node, base_type::mpBucketArray + key_data.bucket_index), false);
-			}
-			else
-			{
-				node_type* const pNodeNew =
-				    base_type::DoAllocateNode(piecewise_construct, eastl::forward_as_tuple(eastl::forward<K>(k)),
-				                              forward_as_tuple(eastl::forward<Args>(args)...));
-				// the key might have been moved from above, so we can't use `k` anymore.
-				const auto& key = base_type::mExtractKey(pNodeNew->mValue);
-				return base_type::template DoInsertUniqueNode<true>(key, key_data.code, key_data.bucket_index, pNodeNew);
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	}; // hash_map
 
 	/// hash_map erase_if
@@ -439,21 +397,8 @@ namespace eastl
 	template <typename Key, typename T, typename Hash, typename Predicate, typename Allocator, bool bCacheHashCode, typename UserPredicate>
 	typename eastl::hash_map<Key, T, Hash, Predicate, Allocator, bCacheHashCode>::size_type erase_if(eastl::hash_map<Key, T, Hash, Predicate, Allocator, bCacheHashCode>& c, UserPredicate predicate)
 	{
-		auto oldSize = c.size();
-		// Erases all elements that satisfy the predicate from the container.
-		for (auto i = c.begin(), last = c.end(); i != last;)
-		{
-			if (predicate(*i))
-			{
-				i = c.erase(i);
-			}
-			else
-			{
-				++i;
-			}
-		}
-		return oldSize - c.size();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// hash_multimap
@@ -500,8 +445,8 @@ namespace eastl
 			: base_type(0, Hash(), mod_range_hashing(), default_ranged_hash(), 
 						Predicate(), eastl::use_first<eastl::pair<const Key, T> >(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// hash_multimap
@@ -516,8 +461,8 @@ namespace eastl
 			: base_type(nBucketCount, hashFunction, mod_range_hashing(), default_ranged_hash(), 
 						predicate, eastl::use_first<eastl::pair<const Key, T> >(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// hash_multimap(size_type nBucketCount, const allocator_type& allocator)
 		// hash_multimap(size_type nBucketCount, const Hash& hashFunction, const allocator_type& allocator)
@@ -526,7 +471,8 @@ namespace eastl
 		hash_multimap(const this_type& x)
 		  : base_type(x)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// hash_multimap(const this_type& x, const allocator_type& allocator)
 
@@ -540,7 +486,8 @@ namespace eastl
 		hash_multimap(this_type&& x, const allocator_type& allocator)
 		  : base_type(eastl::move(x), allocator)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// hash_multimap
@@ -553,14 +500,14 @@ namespace eastl
 			: base_type(ilist.begin(), ilist.end(), nBucketCount, hashFunction, mod_range_hashing(), default_ranged_hash(), 
 						predicate, eastl::use_first<eastl::pair<const Key, T> >(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		hash_multimap(std::initializer_list<value_type> ilist, const allocator_type& allocator)
 			: base_type(ilist.begin(), ilist.end(), 0, Hash(), mod_range_hashing(), default_ranged_hash(), Predicate(), eastl::use_first<eastl::pair<const Key, T> >(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// hash_multimap(std::initializer_list<value_type> ilist, size_type nBucketCount, const allocator_type& allocator)
 
@@ -579,8 +526,8 @@ namespace eastl
 			: base_type(first, last, nBucketCount, hashFunction, mod_range_hashing(), default_ranged_hash(), 
 						predicate, eastl::use_first<eastl::pair<const Key, T> >(), allocator)
 		{
-			// Empty
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// template <typename ForwardIterator>
 		// hash_multimap(ForwardIterator first, ForwardIterator last, size_type nBucketCount, const allocator_type& allocator)
@@ -590,20 +537,20 @@ namespace eastl
 
 		this_type& operator=(const this_type& x)
 		{
-			return static_cast<this_type&>(base_type::operator=(x));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		this_type& operator=(std::initializer_list<value_type> ilist)
 		{
-			return static_cast<this_type&>(base_type::operator=(ilist));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		this_type& operator=(this_type&& x)
 		{
-			return static_cast<this_type&>(base_type::operator=(eastl::move(x)));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// insert
@@ -614,20 +561,20 @@ namespace eastl
 		/// object on the stack.
 		insert_return_type insert(const key_type& key)
 		{
-			return base_type::DoInsertKey(false_type(), key);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		insert_return_type insert(key_type&& key)
 		{
-			return base_type::DoInsertKey(false_type(), eastl::move(key));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename P, eastl::enable_if_t<eastl::is_constructible_v<value_type, P&&>, bool> = true>
 		insert_return_type insert(P&& otherValue)
 		{
-			return base_type::emplace(eastl::forward<P>(otherValue));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // hash_multimap
 
@@ -637,21 +584,8 @@ namespace eastl
 	template <typename Key, typename T, typename Hash, typename Predicate, typename Allocator, bool bCacheHashCode, typename UserPredicate>
 	typename eastl::hash_multimap<Key, T, Hash, Predicate, Allocator, bCacheHashCode>::size_type erase_if(eastl::hash_multimap<Key, T, Hash, Predicate, Allocator, bCacheHashCode>& c, UserPredicate predicate)
 	{
-		auto oldSize = c.size();
-		// Erases all elements that satisfy the predicate from the container.
-		for (auto i = c.begin(), last = c.end(); i != last;)
-		{
-			if (predicate(*i))
-			{
-				i = c.erase(i);
-			}
-			else
-			{
-				++i;
-			}
-		}
-		return oldSize - c.size();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -663,90 +597,32 @@ namespace eastl
 	inline bool operator==(const hash_map<Key, T, Hash, Predicate, Allocator, bCacheHashCode>& a, 
 						   const hash_map<Key, T, Hash, Predicate, Allocator, bCacheHashCode>& b)
 	{
-		typedef typename hash_map<Key, T, Hash, Predicate, Allocator, bCacheHashCode>::const_iterator const_iterator;
-
-		// We implement branching with the assumption that the return value is usually false.
-		if(a.size() != b.size())
-			return false;
-
-		// For map (with its unique keys), we need only test that each element in a can be found in b,
-		// as there can be only one such pairing per element. multimap needs to do a something more elaborate.
-		for(const_iterator ai = a.begin(), aiEnd = a.end(), biEnd = b.end(); ai != aiEnd; ++ai)
-		{
-			const_iterator bi = b.find(ai->first);
-
-			if((bi == biEnd) || !(*ai == *bi))  // We have to compare the values, because lookups are done by keys alone but the full value_type of a map is a key/value pair. 
-				return false;                   // It's possible that two elements in the two containers have identical keys but different values.
-		}
-
-		return true;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if !defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
 	template <typename Key, typename T, typename Hash, typename Predicate, typename Allocator, bool bCacheHashCode>
 	inline bool operator!=(const hash_map<Key, T, Hash, Predicate, Allocator, bCacheHashCode>& a, 
 						   const hash_map<Key, T, Hash, Predicate, Allocator, bCacheHashCode>& b)
 	{
-		return !(a == b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 #endif
 
 	template <typename Key, typename T, typename Hash, typename Predicate, typename Allocator, bool bCacheHashCode>
 	inline bool operator==(const hash_multimap<Key, T, Hash, Predicate, Allocator, bCacheHashCode>& a, 
 						   const hash_multimap<Key, T, Hash, Predicate, Allocator, bCacheHashCode>& b)
 	{
-		typedef typename hash_multimap<Key, T, Hash, Predicate, Allocator, bCacheHashCode>::const_iterator const_iterator;
-		typedef typename eastl::iterator_traits<const_iterator>::difference_type difference_type;
-
-		// We implement branching with the assumption that the return value is usually false.
-		if(a.size() != b.size())
-			return false;
-
-		// We can't simply search for each element of a in b, as it may be that the bucket for 
-		// two elements in a has those same two elements in b but in different order (which should 
-		// still result in equality). Also it's possible that one bucket in a has two elements which 
-		// both match a solitary element in the equivalent bucket in b (which shouldn't result in equality).
-		eastl::pair<const_iterator, const_iterator> aRange;
-		eastl::pair<const_iterator, const_iterator> bRange;
-
-		for(const_iterator ai = a.begin(), aiEnd = a.end(); ai != aiEnd; ai = aRange.second) // For each element in a...
-		{
-			aRange = a.equal_range(ai->first); // Get the range of elements in a that are equal to ai.
-			bRange = b.equal_range(ai->first); // Get the range of elements in b that are equal to ai.
-
-			// We need to verify that aRange == bRange. First make sure the range sizes are equivalent...
-			const difference_type aDistance = eastl::distance(aRange.first, aRange.second);
-			const difference_type bDistance = eastl::distance(bRange.first, bRange.second);
-
-			if(aDistance != bDistance)
-				return false;
-
-			// At this point, aDistance > 0 and aDistance == bDistance.
-			// Implement a fast pathway for the case that there's just a single element.
-			if(aDistance == 1)
-			{
-				if(!(*aRange.first == *bRange.first)) // We have to compare the values, because lookups are done by keys alone but the full value_type of a map is a key/value pair. 
-					return false;                     // It's possible that two elements in the two containers have identical keys but different values. Ditto for the permutation case below.
-			}
-			else
-			{
-				// Check to see if these aRange and bRange are any permutation of each other. 
-				// This check gets slower as there are more elements in the range.
-				if(!eastl::is_permutation(aRange.first, aRange.second, bRange.first))
-					return false;
-			}
-		}
-
-		return true;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if !defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
 	template <typename Key, typename T, typename Hash, typename Predicate, typename Allocator, bool bCacheHashCode>
 	inline bool operator!=(const hash_multimap<Key, T, Hash, Predicate, Allocator, bCacheHashCode>& a, 
 						   const hash_multimap<Key, T, Hash, Predicate, Allocator, bCacheHashCode>& b)
 	{
-		return !(a == b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 #endif
 
 

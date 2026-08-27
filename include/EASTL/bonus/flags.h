@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 
 #pragma once
@@ -285,7 +287,7 @@ namespace eastl
 	private:
 		constexpr basic_flags(mask_type mask) noexcept
 			: m_mask{mask}
-		{}
+		{ }
 
 	private:
 		mask_type m_mask{};
@@ -363,22 +365,16 @@ namespace eastl
 		// we really want C++ constexpr-if
 		template <size_t AdditionalOffset = 0>
 		static constexpr mask_type to_mask(flag_type f)
-		{
-			return to_mask_impl<AdditionalOffset>(tag_type{}, f);
-		}
+		{ return {}; }
 
 	private:
 		template <size_t AdditionalOffset>
 		static constexpr mask_type to_mask_impl(bitflag_tag, flag_type f)
-		{
-			return mask_type{1} << static_cast<mask_type>(f) << AdditionalOffset;
-		}
+		{ return {}; }
 
 		template <size_t AdditionalOffset>
 		static constexpr mask_type to_mask_impl(maskflag_tag, flag_type f)
-		{
-			return static_cast<mask_type>(f) << AdditionalOffset;
-		}
+		{ return {}; }
 	};
 }
 
@@ -392,129 +388,80 @@ namespace eastl
 {
 	template <typename F, typename T>
 	inline constexpr basic_flags<F, T> basic_flags<F, T>::from_mask(mask_type mask) noexcept
-	{
-		return basic_flags<F, T>{mask};
-	}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr basic_flags<F, T>::basic_flags(flag_type flag) noexcept
 		: m_mask{marshaller_type::to_mask(flag)}
-	{}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr basic_flags<F, T>::basic_flags(std::initializer_list<flag_type> flags) noexcept
-	{
-		for (auto f : flags)
-			set(f);
-	}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr basic_flags<F, T>::operator bool() const noexcept
-	{
-		return static_cast<bool>(m_mask);
-	}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr basic_flags<F, T>::operator mask_type() const noexcept
-	{
-		return m_mask;
-	}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr basic_flags<F, T>& basic_flags<F, T>::operator = (flag_type flag) noexcept
-	{
-		m_mask = marshaller_type::to_mask(flag);
-		return *this;
-	}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr basic_flags<F, T>& basic_flags<F, T>::operator |= (basic_flags<F, T> flag) noexcept
-	{
-		m_mask |= flag.m_mask;
-		return *this;
-	}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr basic_flags<F, T>& basic_flags<F, T>::operator &= (basic_flags<F, T> flag) noexcept
-	{
-		m_mask &= flag.m_mask;
-		return *this;
-	}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr basic_flags<F, T>& basic_flags<F, T>::operator ^= (basic_flags<F, T> flag) noexcept
-	{
-		m_mask ^= flag.m_mask;
-		return *this;
-	}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr basic_flags<F, T>& basic_flags<F, T>::operator |= (flag_type flag) noexcept
-	{
-		m_mask |= marshaller_type::to_mask(flag);
-		return *this;
-	}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr basic_flags<F, T>& basic_flags<F, T>::operator &= (flag_type flag) noexcept
-	{
-		m_mask &= marshaller_type::to_mask(flag);
-		return *this;
-	}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr basic_flags<F, T>& basic_flags<F, T>::operator ^= (flag_type flag) noexcept
-	{
-		m_mask ^= marshaller_type::to_mask(flag);
-		return *this;
-	}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr basic_flags<F, T> basic_flags<F, T>::operator ~ () const noexcept
-	{
-		return basic_flags<F, T>{~m_mask};
-	}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr basic_flags<F, T>& basic_flags<F, T>::set(flag_type flag, bool enabled) noexcept
-	{
-		mask_type const rhs = marshaller_type::to_mask(flag);
-		m_mask = (m_mask & ~rhs) ^ (rhs * static_cast<mask_type>(enabled));
-		return *this;
-	}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr basic_flags<F, T>& basic_flags<F, T>::set(flag_type flag) noexcept
-	{
-		m_mask |= marshaller_type::to_mask(flag);
-		return *this;
-	}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr basic_flags<F, T>& basic_flags<F, T>::unset(flag_type flag) noexcept
-	{
-		m_mask &= ~marshaller_type::to_mask(flag);
-		return *this;
-	}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr basic_flags<F, T>& basic_flags<F, T>::toggle(flag_type flag) noexcept
-	{
-		m_mask ^= marshaller_type::to_mask(flag);
-		return *this;
-	}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr void basic_flags<F, T>::clear() noexcept
-	{
-		m_mask = 0u;
-	}
+	{ return {}; }
 
 	template <typename F, typename T>
 	inline constexpr void basic_flags<F, T>::reset(mask_type mask) noexcept
-	{
-		m_mask = mask;
-	}
+	{ return {}; }
 }
 
 
@@ -536,93 +483,63 @@ namespace eastl
 
 	template <typename F, typename M>
 	inline constexpr basic_flags<F, M> operator & (basic_flags<F, M> lhs, basic_flags<F, M> rhs) noexcept
-	{
-		return basic_flags<F, M>{BF_MASK_CAST_(lhs.m_mask & rhs.m_mask)};
-	}
+	{ return {}; }
 
 	template <typename F, typename M>
 	inline constexpr basic_flags<F, M> operator | (basic_flags<F, M> lhs, basic_flags<F, M> rhs) noexcept
-	{
-		return basic_flags<F, M>{BF_MASK_CAST_(lhs.m_mask | rhs.m_mask)};
-	}
+	{ return {}; }
 
 	template <typename F, typename M>
 	inline constexpr basic_flags<F, M> operator ^ (basic_flags<F, M> lhs, basic_flags<F, M> rhs) noexcept
-	{
-		return basic_flags<F, M>{BF_MASK_CAST_(lhs.m_mask ^ rhs.m_mask)};
-	}
+	{ return {}; }
 
 	template <typename F, typename M>
 	inline constexpr basic_flags<F, M> operator & (basic_flags<F, M> lhs, typename basic_flags<F, M>::flag_type rhs) noexcept
-	{
-		return basic_flags<F, M>{BF_MASK_CAST_(lhs.m_mask & M::to_mask(rhs))};
-	}
+	{ return {}; }
 
 	template <typename F, typename M>
 	inline constexpr basic_flags<F, M> operator | (basic_flags<F, M> lhs, typename basic_flags<F, M>::flag_type rhs) noexcept
-	{
-		return basic_flags<F, M>{BF_MASK_CAST_(lhs.m_mask | M::to_mask(rhs))};
-	}
+	{ return {}; }
 
 	template <typename F, typename M>
 	inline constexpr basic_flags<F, M> operator ^ (basic_flags<F, M> lhs, typename basic_flags<F, M>::flag_type rhs) noexcept
-	{
-		return basic_flags<F, M>{BF_MASK_CAST_(lhs.m_mask ^ M::to_mask(rhs))};
-	}
+	{ return {}; }
 	
 	template <typename F, typename M>
 	inline constexpr basic_flags<F, M> operator & (typename basic_flags<F, M>::flag_type lhs, basic_flags<F, M> rhs) noexcept
-	{
-		return basic_flags<F, M>{BF_MASK_CAST_(M::to_mask(lhs) & rhs.m_mask)};
-	}
+	{ return {}; }
 
 	template <typename F, typename M>
 	inline constexpr basic_flags<F, M> operator | (typename basic_flags<F, M>::flag_type lhs, basic_flags<F, M> rhs) noexcept
-	{
-		return basic_flags<F, M>{BF_MASK_CAST_(M::to_mask(lhs) | rhs.m_mask)};
-	}
+	{ return {}; }
 
 	template <typename F, typename M>
 	inline constexpr basic_flags<F, M> operator ^ (typename basic_flags<F, M>::flag_type lhs, basic_flags<F, M> rhs) noexcept
-	{
-		return basic_flags<F, M>{BF_MASK_CAST_(M::to_mask(lhs) ^ rhs.m_mask)};
-	}
+	{ return {}; }
 
 	template <typename F, typename M>
 	inline constexpr bool operator == (basic_flags<F, M> lhs, basic_flags<F, M> rhs) noexcept
-	{
-		return lhs.m_mask == rhs.m_mask;
-	}
+	{ return {}; }
 
 	template <typename F, typename M>
 	inline constexpr bool operator == (basic_flags<F, M> lhs, typename basic_flags<F, M>::flag_type rhs) noexcept
-	{
-		return lhs.m_mask == M::to_mask(rhs);
-	}
+	{ return {}; }
 
 	template <typename F, typename M>
 	inline constexpr bool operator == (typename basic_flags<F, M>::flag_type lhs, basic_flags<F, M> rhs) noexcept
-	{
-		return M::to_mask(lhs) == rhs.m_mask;
-	}
+	{ return {}; }
 
 	template <typename F, typename M>
 	inline constexpr bool operator != (basic_flags<F, M> lhs, basic_flags<F, M> rhs) noexcept
-	{
-		return lhs.m_mask != rhs.m_mask;
-	}
+	{ return {}; }
 
 	template <typename F, typename M>
 	inline constexpr bool operator != (basic_flags<F, M> lhs, typename basic_flags<F, M>::flag_type rhs) noexcept
-	{
-		return lhs.m_mask != M::to_mask(rhs);
-	}
+	{ return {}; }
 
 	template <typename F, typename M>
 	inline constexpr bool operator != (typename basic_flags<F, M>::flag_type lhs, basic_flags<F, M> rhs) noexcept
-	{
-		return M::to_mask(lhs) != rhs.m_mask;
-	}
+	{ return {}; }
 }
 
 #undef BF_MASK_CAST_
@@ -645,9 +562,7 @@ namespace eastl
 {
 	template <typename F, typename T>
 	inline constexpr typename basic_flags<F, T>::mask_type mask_of(basic_flags<F, T> flags)
-	{
-		return static_cast<typename basic_flags<F, T>::mask_type>(flags);
-	}
+	{ return {}; }
 }
 
 

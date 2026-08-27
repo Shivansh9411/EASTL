@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -147,59 +149,39 @@ namespace eastl
 
 
 	inline ref_count_sp::ref_count_sp(int32_t refCount, int32_t weakRefCount) EA_NOEXCEPT
-		: mRefCount(refCount), mWeakRefCount(weakRefCount) {}
+		: mRefCount(refCount), mWeakRefCount(weakRefCount) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline int32_t ref_count_sp::use_count() const EA_NOEXCEPT
 	{
-		return mRefCount.load(memory_order_relaxed);   // To figure out: is this right?
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline void ref_count_sp::addref() EA_NOEXCEPT
 	{
-		mRefCount.fetch_add(1, memory_order_relaxed);
-		mWeakRefCount.fetch_add(1, memory_order_relaxed);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline void ref_count_sp::release()
 	{
-		EASTL_ASSERT((mRefCount.load(memory_order_relaxed) > 0));
-		if(mRefCount.fetch_sub(1, memory_order_release) == 1)
-		{
-			mRefCount.acquire_fence();
-			free_value();
-		}
-
-		weak_release();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline void ref_count_sp::weak_addref() EA_NOEXCEPT
 	{
-		mWeakRefCount.fetch_add(1, memory_order_relaxed);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline void ref_count_sp::weak_release()
 	{
-		EASTL_ASSERT(mWeakRefCount.load(memory_order_relaxed) > 0);
-		if(mWeakRefCount.fetch_sub(1, memory_order_release) == 1)
-		{
-			mWeakRefCount.acquire_fence();
-			free_ref_count_sp();
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	inline ref_count_sp* ref_count_sp::lock() EA_NOEXCEPT
 	{
-		for(int32_t refCountTemp = mRefCount.load(memory_order_relaxed); refCountTemp != 0; )
-		{
-			if(mRefCount.compare_exchange_weak(refCountTemp, refCountTemp + 1, memory_order_relaxed))
-			{
-				mWeakRefCount.fetch_add(1, memory_order_relaxed);
-				return this;
-			}
-		}
-
-		return nullptr;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -221,26 +203,25 @@ namespace eastl
 
 		ref_count_sp_t(value_type value, deleter_type deleter, allocator_type allocator)
 			: ref_count_sp(), mValue(value), mDeleter(eastl::move(deleter)), mAllocator(eastl::move(allocator))
-		{}
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void free_value() EA_NOEXCEPT
 		{
-			mDeleter(mValue);
-			mValue = nullptr;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void free_ref_count_sp() EA_NOEXCEPT
 		{
-			allocator_type allocator = mAllocator;
-			this->~ref_count_sp_t();
-			EASTLFree(allocator, this, sizeof(*this));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		#if EASTL_RTTI_ENABLED
 			void* get_deleter(const std::type_info& type) const EA_NOEXCEPT
 			{
-				return (type == typeid(deleter_type)) ? (void*)&mDeleter : nullptr;
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		#else
 			void* get_deleter() const EA_NOEXCEPT
 			{
@@ -266,32 +247,32 @@ namespace eastl
 		storage_type   mMemory;
 		allocator_type mAllocator;
 
-		value_type* GetValue() { return static_cast<value_type*>(static_cast<void*>(&mMemory)); }
+		value_type* GetValue() {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename... Args>
 		ref_count_sp_t_inst(allocator_type allocator, Args&&... args)
 			: ref_count_sp(), mAllocator(eastl::move(allocator))
 		{
-			new (&mMemory) value_type(eastl::forward<Args>(args)...);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void free_value() EA_NOEXCEPT
 		{
-			GetValue()->~value_type();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void free_ref_count_sp() EA_NOEXCEPT
 		{
-			allocator_type allocator = mAllocator;
-			this->~ref_count_sp_t_inst();
-			EASTLFree(allocator, this, sizeof(*this));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		#if EASTL_RTTI_ENABLED
 			void* get_deleter(const std::type_info&) const EA_NOEXCEPT
 			{
-				return nullptr; // Default base implementation.
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		#else
 			void* get_deleter() const EA_NOEXCEPT
 			{
@@ -313,11 +294,12 @@ namespace eastl
 	                                const enable_shared_from_this<T>* pEnableSharedFromThis,
 	                                const U* pValue)
 	{
-		if (pEnableSharedFromThis)
-			pEnableSharedFromThis->mWeakPtr.assign(const_cast<U*>(pValue), const_cast<ref_count_sp*>(pRefCount));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
-	inline void do_enable_shared_from_this(const ref_count_sp*, ...) {} // Empty specialization. This no-op version is
+	inline void do_enable_shared_from_this(const ref_count_sp*, ...) {
+    __builtin_trap() /* STUB: not implemented */;
+} // Empty specialization. This no-op version is
 	                                                                    // called by shared_ptr when shared_ptr's T type
 	                                                                    // is anything but an enabled_shared_from_this
 	                                                                    // class.
@@ -385,8 +367,8 @@ namespace eastl
 			: mpValue(nullptr),
 			  mpRefCount(nullptr)
 		{
-			// Intentionally leaving mpRefCount as NULL. Can't allocate here due to noexcept.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// Takes ownership of the pointer and sets the reference count
 		/// to the pointer to 1. It is OK if the input pointer is null.
@@ -401,23 +383,16 @@ namespace eastl
 		                    typename eastl::enable_if<eastl::is_convertible<U*, element_type*>::value>::type* = 0)
 		    : mpValue(nullptr), mpRefCount(nullptr) // alloc_internal will set this.
 		{
-			// We explicitly use default_delete<U>. You can use the other version of this constructor to provide a
-			// custom version.
-			alloc_internal(pValue, default_allocator_type(),
-			               default_delete<U>()); // Problem: We want to be able to use default_deleter_type() instead of
-			                                     // default_delete<U>, but if default_deleter_type's type is void or
-			                                     // otherwise mismatched then this will fail to compile. What we really
-			                                     // want to be able to do is "rebind" default_allocator_type to U
-			                                     // instead of its original type.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		shared_ptr(std::nullptr_t) EA_NOEXCEPT
 			: mpValue(nullptr),
 			  mpRefCount(nullptr)
 		{
-			// Intentionally leaving mpRefCount as NULL. Can't allocate here due to noexcept.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// Takes ownership of the pointer and sets the reference count
@@ -435,15 +410,15 @@ namespace eastl
 		           typename eastl::enable_if<eastl::is_convertible<U*, element_type*>::value>::type* = 0)
 		    : mpValue(nullptr), mpRefCount(nullptr)
 		{
-			alloc_internal(pValue, default_allocator_type(), eastl::move(deleter));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename Deleter>
 		shared_ptr(std::nullptr_t, Deleter deleter)
 		    : mpValue(nullptr), mpRefCount(nullptr) // alloc_internal will set this.
 		{
-			alloc_internal(nullptr, default_allocator_type(), eastl::move(deleter));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// Takes ownership of the pointer and sets the reference count
@@ -462,16 +437,16 @@ namespace eastl
 		                    typename eastl::enable_if<eastl::is_convertible<U*, element_type*>::value>::type* = 0)
 		    : mpValue(nullptr), mpRefCount(nullptr) // alloc_internal will set this.
 		{
-			alloc_internal(pValue, eastl::move(allocator), eastl::move(deleter));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename Deleter, typename Allocator>
 		shared_ptr(std::nullptr_t, Deleter deleter, Allocator allocator)
 			: mpValue(nullptr),
 			  mpRefCount(nullptr) // alloc_internal will set this.
 		{
-			alloc_internal(nullptr, eastl::move(allocator), eastl::move(deleter));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// shared_ptr
@@ -484,9 +459,8 @@ namespace eastl
 			: mpValue(sharedPtr.mpValue),
 			  mpRefCount(sharedPtr.mpRefCount)
 		{
-			if(mpRefCount)
-				mpRefCount->addref();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// shared_ptr
@@ -499,9 +473,8 @@ namespace eastl
 		    : mpValue(sharedPtr.mpValue),
 		      mpRefCount(sharedPtr.mpRefCount)
 		{
-			if (mpRefCount)
-				mpRefCount->addref();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// shared_ptr
@@ -525,9 +498,8 @@ namespace eastl
 			: mpValue(pValue),
 			  mpRefCount(sharedPtr.mpRefCount)
 		{
-			if(mpRefCount)
-				mpRefCount->addref();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		shared_ptr(shared_ptr&& sharedPtr) EA_NOEXCEPT
@@ -545,9 +517,8 @@ namespace eastl
 		    : mpValue(sharedPtr.mpValue),
 		      mpRefCount(sharedPtr.mpRefCount)
 		{
-			sharedPtr.mpValue = nullptr;
-			sharedPtr.mpRefCount = nullptr;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// unique_ptr constructor
 		template <typename U, typename Deleter>
@@ -556,8 +527,8 @@ namespace eastl
 		                                     eastl::is_convertible<U*, element_type*>::value>::type* = 0)
 		    : mpValue(nullptr), mpRefCount(nullptr)
 		{
-			alloc_internal(uniquePtr.release(), default_allocator_type(), uniquePtr.get_deleter());
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// unique_ptr constructor
 		// The following is not in the C++11 Standard.
@@ -568,8 +539,8 @@ namespace eastl
 		                                     eastl::is_convertible<U*, element_type*>::value>::type* = 0)
 		    : mpValue(nullptr), mpRefCount(nullptr)
 		{
-			alloc_internal(uniquePtr.release(), allocator, uniquePtr.get_deleter());
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// shared_ptr(weak_ptr)
@@ -583,17 +554,8 @@ namespace eastl
 		                     weakPtr.mpRefCount->lock() :
 		                     weakPtr.mpRefCount) // mpRefCount->lock() addref's the return value for us.
 		{
-			if (!mpRefCount)
-			{
-				mpValue = nullptr; // Question: Is it right for us to NULL this or not?
-
-			#if EASTL_EXCEPTIONS_ENABLED
-				throw eastl::bad_weak_ptr();
-			#else
-				EASTL_FAIL_MSG("eastl::shared_ptr -- bad_weak_ptr");
-			#endif
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// ~shared_ptr
@@ -642,11 +604,8 @@ namespace eastl
 		/// the compiler will generate this function and things will go wrong.
 		shared_ptr& operator=(const shared_ptr& sharedPtr) EA_NOEXCEPT
 		{
-			if(&sharedPtr != this)
-				this_type(sharedPtr).swap(*this);
-
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator=
@@ -660,10 +619,8 @@ namespace eastl
 		typename eastl::enable_if<eastl::is_convertible<U*, element_type*>::value, this_type&>::type
 		operator=(const shared_ptr<U>& sharedPtr) EA_NOEXCEPT
 		{
-			if(!equivalent_ownership(sharedPtr))
-				this_type(sharedPtr).swap(*this);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator=
@@ -673,11 +630,8 @@ namespace eastl
 		/// the compiler will generate this function and things will go wrong.
 		this_type& operator=(shared_ptr&& sharedPtr) EA_NOEXCEPT
 		{
-			if(&sharedPtr != this)
-				this_type(eastl::move(sharedPtr)).swap(*this);
-
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator=
@@ -691,10 +645,8 @@ namespace eastl
 		typename eastl::enable_if<eastl::is_convertible<U*, element_type*>::value, this_type&>::type
 		operator=(shared_ptr<U>&& sharedPtr) EA_NOEXCEPT
 		{
-			if(!equivalent_ownership(sharedPtr))
-				shared_ptr(eastl::move(sharedPtr)).swap(*this);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		// unique_ptr operator=
@@ -702,18 +654,16 @@ namespace eastl
 		typename eastl::enable_if<!eastl::is_array<U>::value && eastl::is_convertible<U*, element_type*>::value, this_type&>::type
 		operator=(unique_ptr<U, Deleter>&& uniquePtr)
 		{
-			// Note that this will use the default EASTL allocator
-			this_type(eastl::move(uniquePtr)).swap(*this);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// reset
 		/// Releases the owned pointer.
 		void reset() EA_NOEXCEPT
 		{
-			this_type().swap(*this);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// reset
@@ -723,8 +673,8 @@ namespace eastl
 		typename eastl::enable_if<eastl::is_convertible<U*, element_type*>::value, void>::type
 		reset(U* pValue)
 		{
-			this_type(pValue).swap(*this);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// reset
@@ -734,8 +684,8 @@ namespace eastl
 		typename eastl::enable_if<eastl::is_convertible<U*, element_type*>::value, void>::type
 		reset(U* pValue, Deleter deleter)
 		{
-			shared_ptr(pValue, deleter).swap(*this);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// reset
@@ -744,8 +694,8 @@ namespace eastl
 		typename eastl::enable_if<eastl::is_convertible<U*, element_type*>::value, void>::type
 		reset(U* pValue, Deleter deleter, const Allocator& allocator)
 		{
-			shared_ptr(pValue, deleter, allocator).swap(*this);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// swap
@@ -754,14 +704,8 @@ namespace eastl
 		/// or manually coordinate the swap.
 		void swap(this_type& sharedPtr) EA_NOEXCEPT
 		{
-			element_type* const pValue = sharedPtr.mpValue;
-			sharedPtr.mpValue = mpValue;
-			mpValue           = pValue;
-
-			ref_count_sp* const pRefCount = sharedPtr.mpRefCount;
-			sharedPtr.mpRefCount = mpRefCount;
-			mpRefCount           = pRefCount;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator*
@@ -771,8 +715,8 @@ namespace eastl
 		///    int x = *ptr;
 		reference_type operator*() const EA_NOEXCEPT
 		{
-			return *mpValue;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// operator->
 		/// Allows access to the owned pointer via operator->()
@@ -782,9 +726,8 @@ namespace eastl
 		///    ptr->DoSomething();
 		element_type* operator->() const EA_NOEXCEPT
 		{
-			// assert(mpValue);
-			return mpValue;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// operator[]
 		/// Index into the array pointed to by the owned pointer.
@@ -812,22 +755,22 @@ namespace eastl
 		///    pX->DoSomething();
 		element_type* get() const EA_NOEXCEPT
 		{
-			return mpValue;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// use_count
 		/// Returns: the number of shared_ptr objects, *this included, that share ownership with *this, or 0 when *this is empty.
 		int use_count() const EA_NOEXCEPT
 		{
-			return mpRefCount ? mpRefCount->use_count() : 0;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// unique
 		/// Returns: use_count() == 1.
 		bool unique() const EA_NOEXCEPT
 		{
-			return (mpRefCount && (mpRefCount->use_count() == 1));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// owner_before
@@ -835,30 +778,21 @@ namespace eastl
 		template <typename U>
 		bool owner_before(const shared_ptr<U>& sharedPtr) const EA_NOEXCEPT
 		{
-			return (mpRefCount < sharedPtr.mpRefCount);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename U>
 		bool owner_before(const weak_ptr<U>& weakPtr) const EA_NOEXCEPT
 		{
-			return (mpRefCount < weakPtr.mpRefCount);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		template <typename Deleter>
 		Deleter* get_deleter() const EA_NOEXCEPT
 		{
-			#if EASTL_RTTI_ENABLED
-				return mpRefCount ? static_cast<Deleter*>(mpRefCount->get_deleter(typeid(typename remove_cv<Deleter>::type))) : nullptr;
-			#else
-				// This is probably unsafe but without typeid there is no way to ensure that the
-				// stored deleter is actually of the templated Deleter type.
-				return nullptr;
-
-				// Alternatively:
-				// return mpRefCount ? static_cast<Deleter*>(mpRefCount->get_deleter()) : nullptr;
-			#endif
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		#ifdef EA_COMPILER_NO_EXPLICIT_CONVERSION_OPERATORS
 			/// Note that below we do not use operator bool(). The reason for this
@@ -885,18 +819,16 @@ namespace eastl
 			///        ++*ptr;
 			explicit operator bool() const EA_NOEXCEPT
 			{
-				return (mpValue != nullptr);
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		#endif
 
 		/// Returns true if the given shared_ptr ows the same T pointer that we do.
 		template <typename U>
 		bool equivalent_ownership(const shared_ptr<U>& sharedPtr) const
 		{
-			// We compare mpRefCount instead of mpValue, because it's feasible that there are two sets of shared_ptr 
-			// objects that are unconnected to each other but happen to own the same value pointer. 
-			return (mpRefCount == sharedPtr.mpRefCount); 
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	protected:
 		// Friend declarations.
@@ -909,39 +841,8 @@ namespace eastl
 		template <typename U, typename Allocator, typename Deleter>
 		void alloc_internal(U pValue, Allocator allocator, Deleter deleter)
 		{
-			typedef ref_count_sp_t<U, Allocator, Deleter> ref_count_type;
-
-			#if EASTL_EXCEPTIONS_ENABLED
-				try
-				{
-					ref_count_type* const pMemory = (ref_count_type*) EASTLAlloc(allocator, sizeof(ref_count_type));
-					if(!pMemory)
-						throw std::bad_alloc();
-					detail::allocator_construct(allocator, pMemory, pValue, eastl::move(deleter), allocator);
-					mpRefCount = pMemory;
-					mpValue = pValue;
-					do_enable_shared_from_this(mpRefCount, pValue, pValue);
-				}
-				catch(...) // The exception would usually be std::bad_alloc.
-				{
-					deleter(pValue); // 20.7.2.2.1 p7: If an exception is thrown, delete p is called.
-					throw;           // Throws: bad_alloc, or an implementation-defined exception when a resource other than memory could not be obtained.
-				}
-			#else
-				ref_count_type* const pMemory = (ref_count_type*)EASTLAlloc(allocator, sizeof(ref_count_type));
-				if(pMemory)
-				{
-					detail::allocator_construct(allocator, pMemory, pValue, eastl::move(deleter), allocator);
-					mpRefCount = pMemory;
-					mpValue = pValue;
-					do_enable_shared_from_this(mpRefCount, pValue, pValue);
-				}
-				else
-				{
-					deleter(pValue);    // We act the same as we do above with exceptions enabled.
-				}
-			#endif
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // class shared_ptr
 
@@ -951,16 +852,16 @@ namespace eastl
 	template <typename T>
 	inline typename shared_ptr<T>::element_type* get_pointer(const shared_ptr<T>& sharedPtr) EA_NOEXCEPT
 	{
-		return sharedPtr.get();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// get_deleter
 	/// returns the deleter in the input shared_ptr.
 	template <typename Deleter, typename T>
 	Deleter* get_deleter(const shared_ptr<T>& sharedPtr) EA_NOEXCEPT
 	{
-		return sharedPtr.template get_deleter<Deleter>();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// swap
 	/// Exchanges the owned pointer beween two shared_ptr objects.
@@ -969,17 +870,16 @@ namespace eastl
 	template <typename T>
 	inline void swap(shared_ptr<T>& a, shared_ptr<T>& b) EA_NOEXCEPT
 	{
-		a.swap(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// shared_ptr comparison operators
 	template <typename T, typename U> 
 	inline bool operator==(const shared_ptr<T>& a, const shared_ptr<U>& b) EA_NOEXCEPT
 	{
-		// assert((a.get() != b.get()) || (a.use_count() == b.use_count()));
-		return (a.get() == b.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 #if defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
 	template <typename T, typename U>
@@ -991,46 +891,39 @@ namespace eastl
 	template <typename T, typename U> 
 	inline bool operator!=(const shared_ptr<T>& a, const shared_ptr<U>& b) EA_NOEXCEPT
 	{
-		// assert((a.get() != b.get()) || (a.use_count() == b.use_count()));
-		return (a.get() != b.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename U> 
 	inline bool operator<(const shared_ptr<T>& a, const shared_ptr<U>& b) EA_NOEXCEPT
 	{
-		//typedef typename eastl::common_type<T*, U*>::type CPointer;
-		//return less<CPointer>()(a.get(), b.get());
-
-		typedef typename eastl::common_type<T*, U*>::type CPointer; // We currently need to make these temporary variables, as otherwise clang complains about CPointer being int*&&&.
-		CPointer pT = a.get();                                      // I wonder if there's something wrong with our common_type type trait implementation.
-		CPointer pU = b.get();                                      // "in instantiation of function template specialization 'eastl::operator<<int, int>, no known conversion from 'element_type *' (aka 'int *') to 'int *&&&' for 1st argument"
-		return less<CPointer>()(pT, pU);                            // It looks like common_type is making CPointer be (e.g.) int*&& instead of int*, though the problem may be in how less<> deals with that.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename U> 
 	inline bool operator>(const shared_ptr<T>& a, const shared_ptr<U>& b) EA_NOEXCEPT
 	{
-		return (b < a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename U> 
 	inline bool operator<=(const shared_ptr<T>& a, const shared_ptr<U>& b) EA_NOEXCEPT
 	{
-		return !(b < a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename U> 
 	inline bool operator>=(const shared_ptr<T>& a, const shared_ptr<U>& b) EA_NOEXCEPT
 	{
-		return !(a < b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 #endif
 
 	template <typename T>
 	inline bool operator==(const shared_ptr<T>& a, std::nullptr_t) EA_NOEXCEPT
 	{
-		return !a;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	#if defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
 	template <typename T>
@@ -1042,68 +935,68 @@ namespace eastl
 	template <typename T>
 	inline bool operator==(std::nullptr_t, const shared_ptr<T>& b) EA_NOEXCEPT
 	{
-		return !b;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline bool operator!=(const shared_ptr<T>& a, std::nullptr_t) EA_NOEXCEPT
 	{
-		return static_cast<bool>(a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline bool operator!=(std::nullptr_t, const shared_ptr<T>& b) EA_NOEXCEPT
 	{
-		return static_cast<bool>(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline bool operator<(const shared_ptr<T>& a, std::nullptr_t) EA_NOEXCEPT
 	{
-		return less<T*>()(a.get(), nullptr);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline bool operator<(std::nullptr_t, const shared_ptr<T>& b) EA_NOEXCEPT
 	{
-		return less<T*>()(nullptr, b.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline bool operator>(const shared_ptr<T>& a, std::nullptr_t) EA_NOEXCEPT
 	{
-		return (nullptr < a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline bool operator>(std::nullptr_t, const shared_ptr<T>& b) EA_NOEXCEPT
 	{
-		return (b < nullptr);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline bool operator<=(const shared_ptr<T>& a, std::nullptr_t) EA_NOEXCEPT
 	{
-		return !(nullptr < a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline bool operator<=(std::nullptr_t, const shared_ptr<T>& b) EA_NOEXCEPT
 	{
-		return !(b < nullptr);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline bool operator>=(const shared_ptr<T>& a, std::nullptr_t) EA_NOEXCEPT
 	{
-		return !(a < nullptr);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline bool operator>=(std::nullptr_t, const shared_ptr<T>& b) EA_NOEXCEPT
 	{
-		return !(nullptr < b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 #endif
 
 
@@ -1121,8 +1014,8 @@ namespace eastl
 	template <typename T, typename U>
 	inline shared_ptr<T> reinterpret_pointer_cast(shared_ptr<U> const& sharedPtr) EA_NOEXCEPT
 	{
-		return shared_ptr<T>(sharedPtr, reinterpret_cast<T*>(sharedPtr.get()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// static_pointer_cast
@@ -1137,12 +1030,14 @@ namespace eastl
 	template <typename T, typename U> 
 	inline shared_ptr<T> static_pointer_cast(const shared_ptr<U>& sharedPtr) EA_NOEXCEPT
 	{
-		return shared_ptr<T>(sharedPtr, static_cast<T*>(sharedPtr.get()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename U> // Retained for support for pre-C++11 shared_ptr.
 	inline shared_ptr<T> static_shared_pointer_cast(const shared_ptr<U>& sharedPtr) EA_NOEXCEPT
-		{ return static_pointer_cast<T, U>(sharedPtr); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1159,12 +1054,14 @@ namespace eastl
 	template <typename T, typename U> 
 	inline shared_ptr<T> const_pointer_cast(const shared_ptr<U>& sharedPtr) EA_NOEXCEPT
 	{
-		return shared_ptr<T>(sharedPtr, const_cast<T*>(sharedPtr.get()));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename U> // Retained for support for pre-C++11 shared_ptr.
 	inline shared_ptr<T> const_shared_pointer_cast(const shared_ptr<U>& sharedPtr) EA_NOEXCEPT
-		{ return const_pointer_cast<T, U>(sharedPtr); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1181,15 +1078,15 @@ namespace eastl
 		template <typename T, typename U>
 		inline shared_ptr<T> dynamic_pointer_cast(const shared_ptr<U>& sharedPtr) EA_NOEXCEPT
 		{
-			if(T* p = dynamic_cast<T*>(sharedPtr.get()))
-				return shared_ptr<T>(sharedPtr, p);
-			return shared_ptr<T>();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename T, typename U> // Retained for support for pre-C++11 shared_ptr.
 		inline typename eastl::enable_if<!eastl::is_array<T>::value && !eastl::is_array<U>::value, shared_ptr<T> >::type
 		dynamic_shared_pointer_cast(const shared_ptr<U>& sharedPtr) EA_NOEXCEPT
-			{ return dynamic_pointer_cast<T, U>(sharedPtr); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	#endif
 
 
@@ -1200,38 +1097,29 @@ namespace eastl
 	struct hash< shared_ptr<T> >
 	{ 
 		size_t operator()(const shared_ptr<T>& x) const EA_NOEXCEPT
-			{ return eastl::hash<T*>()(x.get()); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
 	template <typename T>
 	void allocate_shared_helper(eastl::shared_ptr<T>& sharedPtr, ref_count_sp* pRefCount, T* pValue)
 	{
-		sharedPtr.mpRefCount = pRefCount;
-		sharedPtr.mpValue = pValue;
-		do_enable_shared_from_this(pRefCount, pValue, pValue);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Allocator, typename... Args>
 	shared_ptr<T> allocate_shared(const Allocator& allocator, Args&&... args)
 	{
-		typedef ref_count_sp_t_inst<T, Allocator> ref_count_type;
-		shared_ptr<T> ret;
-		ref_count_type* pRefCount = (ref_count_type*) EASTLAlloc(const_cast<Allocator&>(allocator), sizeof(ref_count_type));
-		if(pRefCount)
-		{
-			detail::allocator_construct(allocator, pRefCount, allocator, eastl::forward<Args>(args)...);
-			allocate_shared_helper(ret, pRefCount, pRefCount->GetValue());
-		}
-		return ret;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename... Args>
 	shared_ptr<T> make_shared(Args&&... args)
 	{
-		// allocate with the default allocator.
-		return eastl::allocate_shared<T>(EASTL_SHARED_PTR_DEFAULT_ALLOCATOR, eastl::forward<Args>(args)...);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1259,54 +1147,44 @@ namespace eastl
 	template <typename T>
 	inline bool atomic_is_lock_free(const shared_ptr<T>*)
 	{
-		// Return true if atomic access to the provided shared_ptr instance is lock-free, false otherwise.
-		// For this to be lock-free, we would have to be able to copy shared_ptr objects in an atomic way 
-		// as opposed to wrapping it with a mutex like we do below. Given the nature of shared_ptr, it's 
-		// probably not feasible to implement these operations without a mutex. atomic_is_lock_free exists
-		// in the C++11 Standard because it also applies to other types such as built-in types which can
-		// be lock-free in their access.
-		return false;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline shared_ptr<T> atomic_load(const shared_ptr<T>* pSharedPtr)
 	{
-		Internal::shared_ptr_auto_mutex autoMutex(pSharedPtr);
-		return *pSharedPtr;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
   
 	template <typename T>
 	inline shared_ptr<T> atomic_load_explicit(const shared_ptr<T>* pSharedPtr, ... /*std::memory_order memoryOrder*/)
 	{
-		return atomic_load(pSharedPtr);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline void atomic_store(shared_ptr<T>* pSharedPtrA, shared_ptr<T> sharedPtrB)
 	{
-		Internal::shared_ptr_auto_mutex autoMutex(pSharedPtrA);
-		pSharedPtrA->swap(sharedPtrB);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline void atomic_store_explicit(shared_ptr<T>* pSharedPtrA, shared_ptr<T> sharedPtrB, ... /*std::memory_order memoryOrder*/)
 	{
-		atomic_store(pSharedPtrA, sharedPtrB);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	shared_ptr<T> atomic_exchange(shared_ptr<T>* pSharedPtrA, shared_ptr<T> sharedPtrB)
 	{
-		Internal::shared_ptr_auto_mutex autoMutex(pSharedPtrA);
-		pSharedPtrA->swap(sharedPtrB);
-		return sharedPtrB;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
   
 	template <typename T>
 	inline shared_ptr<T> atomic_exchange_explicit(shared_ptr<T>* pSharedPtrA, shared_ptr<T> sharedPtrB, ... /*std::memory_order memoryOrder*/)
 	{
-		return atomic_exchange(pSharedPtrA, sharedPtrB);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	// Compares the shared pointers pointed-to by p and expected. If they are equivalent (share ownership of the 
 	// same pointer and refer to the same pointer), assigns sharedPtrNew into *pSharedPtr using the memory ordering constraints 
@@ -1315,35 +1193,26 @@ namespace eastl
 	template <typename T>
 	bool atomic_compare_exchange_strong(shared_ptr<T>* pSharedPtr, shared_ptr<T>* pSharedPtrCondition, shared_ptr<T> sharedPtrNew)
 	{
-		Internal::shared_ptr_auto_mutex autoMutex(pSharedPtr);
-
-		if(pSharedPtr->equivalent_ownership(*pSharedPtrCondition))
-		{
-			*pSharedPtr = sharedPtrNew;
-			return true;
-		}
-
-		*pSharedPtrCondition = *pSharedPtr;
-		return false;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline bool atomic_compare_exchange_weak(shared_ptr<T>* pSharedPtr, shared_ptr<T>* pSharedPtrCondition, shared_ptr<T> sharedPtrNew)
 	{
-		return atomic_compare_exchange_strong(pSharedPtr, pSharedPtrCondition, sharedPtrNew);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T> // Returns true if pSharedPtr was equivalent to *pSharedPtrCondition.
 	inline bool atomic_compare_exchange_strong_explicit(shared_ptr<T>* pSharedPtr, shared_ptr<T>* pSharedPtrCondition, shared_ptr<T> sharedPtrNew, ... /*memory_order memoryOrderSuccess, memory_order memoryOrderFailure*/)
 	{
-		return atomic_compare_exchange_strong(pSharedPtr, pSharedPtrCondition, sharedPtrNew);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	inline bool atomic_compare_exchange_weak_explicit(shared_ptr<T>* pSharedPtr, shared_ptr<T>* pSharedPtrCondition, shared_ptr<T> sharedPtrNew, ... /*memory_order memoryOrderSuccess, memory_order memoryOrderFailure*/)
 	{
-		return atomic_compare_exchange_weak(pSharedPtr, pSharedPtrCondition, sharedPtrNew);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1395,7 +1264,8 @@ namespace eastl
 			: mpValue(nullptr),
 			  mpRefCount(nullptr)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// weak_ptr
@@ -1404,9 +1274,8 @@ namespace eastl
 			: mpValue(weakPtr.mpValue),
 			  mpRefCount(weakPtr.mpRefCount)
 		{
-			if(mpRefCount)
-				mpRefCount->weak_addref();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// weak_ptr
@@ -1427,9 +1296,8 @@ namespace eastl
 			: mpValue(weakPtr.mpValue),
 				mpRefCount(weakPtr.mpRefCount)
 		{
-			if(mpRefCount)
-				mpRefCount->weak_addref();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// weak_ptr
@@ -1440,9 +1308,8 @@ namespace eastl
 		    : mpValue(weakPtr.mpValue),
 		      mpRefCount(weakPtr.mpRefCount)
 		{
-			weakPtr.mpValue = nullptr;
-			weakPtr.mpRefCount = nullptr;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// weak_ptr
@@ -1453,9 +1320,8 @@ namespace eastl
 		    : mpValue(sharedPtr.mpValue),
 		      mpRefCount(sharedPtr.mpRefCount)
 		{
-			if (mpRefCount)
-				mpRefCount->weak_addref();
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// ~weak_ptr
@@ -1470,16 +1336,14 @@ namespace eastl
 		/// assignment to self type.
 		this_type& operator=(const this_type& weakPtr) EA_NOEXCEPT
 		{
-			assign(weakPtr);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		this_type& operator=(this_type&& weakPtr) EA_NOEXCEPT
 		{
-			weak_ptr(eastl::move(weakPtr)).swap(*this);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator=(weak_ptr)
@@ -1487,18 +1351,16 @@ namespace eastl
 		typename eastl::enable_if<eastl::is_convertible<U*, element_type*>::value, this_type&>::type
 		operator=(const weak_ptr<U>& weakPtr) EA_NOEXCEPT
 		{
-			assign(weakPtr);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		template <typename U>
 		typename eastl::enable_if<eastl::is_convertible<U*, element_type*>::value, this_type&>::type
 		operator=(weak_ptr<U>&& weakPtr) EA_NOEXCEPT
 		{
-			weak_ptr(eastl::move(weakPtr)).swap(*this);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator=(shared_ptr)
@@ -1507,61 +1369,35 @@ namespace eastl
 		typename eastl::enable_if<eastl::is_convertible<U*, element_type*>::value, this_type&>::type
 		operator=(const shared_ptr<U>& sharedPtr) EA_NOEXCEPT
 		{
-			if(mpRefCount != sharedPtr.mpRefCount) // This check encompasses assignment to self.
-			{
-				// Release old reference
-				if(mpRefCount)
-					mpRefCount->weak_release();
-
-				mpValue    = sharedPtr.mpValue;
-				mpRefCount = sharedPtr.mpRefCount;
-				if(mpRefCount)
-					mpRefCount->weak_addref();
-			}
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		shared_ptr<T> lock() const EA_NOEXCEPT
 		{
-			// We can't just return shared_ptr<T>(*this), as the object may go stale while we are doing this.
-			shared_ptr<T> temp;
-			temp.mpRefCount = mpRefCount ? mpRefCount->lock() : mpRefCount; // mpRefCount->lock() addref's the return value for us.
-			if(temp.mpRefCount)
-				temp.mpValue = mpValue;
-			return temp;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// Returns: 0 if *this is empty ; otherwise, the number of shared_ptr instances that share ownership with *this.
 		int use_count() const EA_NOEXCEPT
 		{
-			return mpRefCount ? mpRefCount->use_count() : 0;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// Returns: use_count() == 0
 		bool expired() const EA_NOEXCEPT
 		{
-			return (!mpRefCount || (mpRefCount->use_count() == 0));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void reset()
 		{
-			if(mpRefCount)
-				mpRefCount->weak_release();
-
-			mpValue    = nullptr;
-			mpRefCount = nullptr;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void swap(this_type& weakPtr)
 		{
-			T* const pValue = weakPtr.mpValue;
-			weakPtr.mpValue = mpValue;
-			mpValue         = pValue;
-
-			ref_count_sp* const pRefCount = weakPtr.mpRefCount;
-			weakPtr.mpRefCount = mpRefCount;
-			mpRefCount         = pRefCount;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// assign
@@ -1572,19 +1408,8 @@ namespace eastl
 		void assign(const weak_ptr<U>& weakPtr,
 		            typename eastl::enable_if<eastl::is_convertible<U*, element_type*>::value>::type* = 0) EA_NOEXCEPT
 		{
-			if(mpRefCount != weakPtr.mpRefCount) // This check encompasses assignment to self.
-			{
-				// Release old reference
-				if(mpRefCount)
-					mpRefCount->weak_release();
-
-				// Add new reference
-				mpValue    = weakPtr.mpValue;
-				mpRefCount = weakPtr.mpRefCount;
-				if(mpRefCount)
-					mpRefCount->weak_addref();
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// owner_before
@@ -1592,15 +1417,15 @@ namespace eastl
 		template <typename U>
 		bool owner_before(const weak_ptr<U>& weakPtr) const EA_NOEXCEPT
 		{
-			return (mpRefCount < weakPtr.mpRefCount);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// owner_before
 		template <typename U>
 		bool owner_before(const shared_ptr<U>& sharedPtr) const EA_NOEXCEPT
 		{
-			return (mpRefCount < sharedPtr.mpRefCount);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// less_than
@@ -1608,8 +1433,8 @@ namespace eastl
 		template <typename U>
 		bool less_than(const weak_ptr<U>& weakPtr) const EA_NOEXCEPT
 		{
-			return (mpRefCount < weakPtr.mpRefCount);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// assign
@@ -1619,19 +1444,8 @@ namespace eastl
 		///
 		void assign(element_type* pValue, ref_count_sp* pRefCount)
 		{
-			mpValue = pValue;
-
-			if(pRefCount != mpRefCount)
-			{
-				if(mpRefCount)
-					mpRefCount->weak_release();
-
-				mpRefCount = pRefCount;
-
-				if(mpRefCount)
-					mpRefCount->weak_addref();
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	protected:
 		element_type*  mpValue;       /// The (weakly) owned pointer.
@@ -1650,15 +1464,15 @@ namespace eastl
 	template <typename T, typename U>
 	inline bool operator<(const weak_ptr<T>& weakPtr1, const weak_ptr<U>& weakPtr2)
 	{
-		return weakPtr1.owner_before(weakPtr2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	void swap(weak_ptr<T>& weakPtr1, weak_ptr<T>& weakPtr2)
 	{
-		weakPtr1.swap(weakPtr2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -1679,26 +1493,38 @@ namespace eastl
 	struct owner_less< shared_ptr<T> >
 	{
 		bool operator()(shared_ptr<T> const& a, shared_ptr<T> const& b) const EA_NOEXCEPT
-			{ return a.owner_before(b); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		bool operator()(shared_ptr<T> const& a, weak_ptr<T> const& b) const EA_NOEXCEPT
-			{ return a.owner_before(b); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		bool operator()(weak_ptr<T> const& a, shared_ptr<T> const& b) const EA_NOEXCEPT
-			{ return a.owner_before(b); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <typename T>
 	struct owner_less< weak_ptr<T> >
 	{
 		bool operator()(weak_ptr<T> const& a, weak_ptr<T> const& b) const EA_NOEXCEPT
-			{ return a.owner_before(b); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		bool operator()(weak_ptr<T> const& a, shared_ptr<T> const& b) const EA_NOEXCEPT
-			{ return a.owner_before(b); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		bool operator()(shared_ptr<T> const& a, weak_ptr<T> const& b) const EA_NOEXCEPT
-			{ return a.owner_before(b); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <>
@@ -1709,26 +1535,26 @@ namespace eastl
 		template<typename T, typename U>
 		bool operator()(shared_ptr<T> const& a, shared_ptr<U> const& b) const EA_NOEXCEPT
 		{
-			return a.owner_before(b);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename T, typename U>
 		bool operator()(shared_ptr<T> const& a, weak_ptr<U> const& b) const EA_NOEXCEPT
 		{
-			return a.owner_before(b);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename T, typename U>
 		bool operator()(weak_ptr<T> const& a, shared_ptr<U> const& b) const EA_NOEXCEPT
 		{
-			return a.owner_before(b);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template<typename T, typename U>
 		bool operator()(weak_ptr<T> const& a, weak_ptr<U> const& b) const EA_NOEXCEPT
 		{
-			return a.owner_before(b);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 

@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -53,10 +55,8 @@ namespace eastl
 	template <typename T> 
 	inline void swap(T& a, T& b) EA_NOEXCEPT_IF(eastl::is_nothrow_move_constructible<T>::value && eastl::is_nothrow_move_assignable<T>::value)
 	{
-		T temp(EASTL_MOVE(a));  // EASTL_MOVE uses EASTL::move when available, else is a no-op.
-		a = EASTL_MOVE(b);
-		b = EASTL_MOVE(temp);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// is_swappable
@@ -205,12 +205,8 @@ namespace eastl
 		template <typename ForwardIterator1, typename ForwardIterator2>
 		static void iter_swap(ForwardIterator1 a, ForwardIterator2 b)
 		{
-			typedef typename eastl::iterator_traits<ForwardIterator1>::value_type value_type_a;
-
-			value_type_a temp(EASTL_MOVE(*a)); // EASTL_MOVE uses EASTL::move when available, else is a no-op.
-			*a = EASTL_MOVE(*b);
-			*b = EASTL_MOVE(temp); 
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <>
@@ -219,8 +215,8 @@ namespace eastl
 		template <typename ForwardIterator1, typename ForwardIterator2>
 		static void iter_swap(ForwardIterator1 a, ForwardIterator2 b)
 		{
-			swap(*a, *b);  // Don't prefix swap with eastl:: as we want to allow user-defined swaps via argument-dependent lookup.
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 
@@ -239,13 +235,8 @@ namespace eastl
 	template <typename ForwardIterator1, typename ForwardIterator2>
 	inline void iter_swap(ForwardIterator1 a, ForwardIterator2 b)
 	{
-		typedef typename eastl::iterator_traits<ForwardIterator1>::value_type value_type_a;
-		typedef typename eastl::iterator_traits<ForwardIterator2>::value_type value_type_b;
-		typedef typename eastl::iterator_traits<ForwardIterator1>::reference  reference_a;
-		typedef typename eastl::iterator_traits<ForwardIterator2>::reference  reference_b;
-
-		eastl::iter_swap_impl<eastl::conjunction<eastl::is_same<value_type_a, value_type_b>, eastl::is_same<value_type_a&, reference_a>, eastl::is_same<value_type_b&, reference_b>>::value >::iter_swap(a, b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -268,10 +259,8 @@ namespace eastl
 	inline ForwardIterator2
 	swap_ranges(ForwardIterator1 first1, ForwardIterator1 last1, ForwardIterator2 first2)
 	{
-		for(; first1 != last1; ++first1, ++first2)
-			iter_swap(first1, first2); // Don't prefix swap with eastl:: as we want to allow user-defined swaps via argument-dependent lookup.
-		return first2;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// swap
@@ -283,8 +272,8 @@ namespace eastl
 	inline void
 	swap(T (&a)[N], T (&b)[N]) EA_NOEXCEPT_IF(eastl::is_nothrow_swappable<T>::value)
 	{
-		eastl::swap_ranges(a, a + N, b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// exchange
@@ -297,10 +286,8 @@ namespace eastl
 	template <typename T, typename U = T>
 	inline T exchange(T& obj, U&& new_value)
 	{
-		T old_value = eastl::move(obj);
-		obj = eastl::forward<U>(new_value);
-		return old_value;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// as_const
@@ -339,19 +326,27 @@ namespace eastl
 	{
 		template <typename T>
 		inline bool operator!=(const T& x, const T& y)
-			{ return !(x == y); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename T>
 		inline bool operator>(const T& x, const T& y)
-			{ return (y < x); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename T>
 		inline bool operator<=(const T& x, const T& y)
-			{ return !(y < x); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename T>
 		inline bool operator>=(const T& x, const T& y)
-			{ return !(x < y); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	}
 
 
@@ -470,7 +465,8 @@ namespace eastl
 		EA_CONSTEXPR pair()
 		    : first(), second()
 		{
-		}
+    
+}
 
 	#if EASTL_ENABLE_PAIR_FIRST_ELEMENT_CONSTRUCTOR
 		template <typename TT1 = T1, typename TT2 = T2, typename = eastl::enable_if_t<eastl::is_default_constructible_v<TT2>>>
@@ -512,7 +508,8 @@ namespace eastl
 		EA_CPP14_CONSTEXPR pair(pair_first_construct_t, const TT1& x)
 		    : first(x), second()
 		{
-		}
+    
+}
 
 		// GCC has a bug with overloading rvalue and lvalue function templates.	
 		// https://gcc.gnu.org/bugzilla/show_bug.cgi?id=54425	
@@ -524,7 +521,8 @@ namespace eastl
 			EA_CPP14_CONSTEXPR pair(pair_first_construct_t, T1&& x)
 				: first(eastl::move(x)), second()
 			{
-			}
+    
+}
 		#endif
 
 		template <
@@ -534,7 +532,8 @@ namespace eastl
 		EA_CPP14_CONSTEXPR pair(const T1& x, const T2& y)
 		    : first(x), second(y)
 		{
-		}
+    
+}
 
 		EA_CPP14_CONSTEXPR pair(pair&& p) = default;
 		EA_CPP14_CONSTEXPR pair(const pair&) = default;
@@ -548,7 +547,8 @@ namespace eastl
 		EA_CPP14_CONSTEXPR pair(const pair<U, V>& p)
 		    : first(p.first), second(p.second)
 		{
-		}
+    
+}
 
 		template <typename U,
 		          typename V,
@@ -556,19 +556,22 @@ namespace eastl
 		EA_CPP14_CONSTEXPR pair(U&& u, V&& v)
 		    : first(eastl::forward<U>(u)), second(eastl::forward<V>(v))
 		{
-		}
+    
+}
 
 		template <typename U, typename = eastl::enable_if_t<eastl::is_constructible_v<T1, U>>>
 		EA_CPP14_CONSTEXPR pair(U&& x, const T2& y)
 			: first(eastl::forward<U>(x)), second(y)
 		{
-		}
+    
+}
 
 		template <typename V, typename = eastl::enable_if_t<eastl::is_constructible_v<T2, V>>>
 		EA_CPP14_CONSTEXPR pair(const T1& x, V&& y)
 			: first(x), second(eastl::forward<V>(y))
 		{
-		}
+    
+}
 
 		template <typename U,
 		          typename V,
@@ -576,7 +579,8 @@ namespace eastl
 		EA_CPP14_CONSTEXPR pair(pair<U, V>&& p)
 		    : first(eastl::forward<U>(p.first)), second(eastl::forward<V>(p.second))
 		{
-		}
+    
+}
 
 		// Initializes first with arguments of types Args1... obtained by forwarding the elements of first_args and
 		// initializes second with arguments of types Args2... obtained by forwarding the elements of second_args.
@@ -591,7 +595,8 @@ namespace eastl
 		           eastl::make_index_sequence<sizeof...(Args1)>(),
 		           eastl::make_index_sequence<sizeof...(Args2)>())
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	private:
 		// NOTE(rparolin): Internal constructor used to expand the index_sequence required to expand the tuple elements.
@@ -604,7 +609,8 @@ namespace eastl
 			: first(eastl::forward<Args1>(eastl::get<I1>(first_args))...)
 			, second(eastl::forward<Args2>(eastl::get<I2>(second_args))...)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	public:
 		template <typename U,
@@ -612,26 +618,21 @@ namespace eastl
 		          typename = eastl::enable_if_t<eastl::is_assignable_v<T1&, const U&> && eastl::is_assignable_v<T2&, const V&>>>
 		pair& operator=(const pair<U, V>& p)
 		{
-			first = p.first;
-			second = p.second;
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <typename U,
 		          typename V,
 		          typename = eastl::enable_if_t<eastl::is_assignable_v<T1&, U> && eastl::is_assignable_v<T2&, V>>>
 		pair& operator=(pair<U, V>&& p)
 		{
-			first = eastl::forward<U>(p.first);
-			second = eastl::forward<V>(p.second);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void swap(pair& p) EA_NOEXCEPT_IF(eastl::is_nothrow_swappable_v<T1>&& eastl::is_nothrow_swappable_v<T2>)
 		{
-			eastl::iter_swap(&first, &p.first);
-			eastl::iter_swap(&second, &p.second);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	#define EASTL_PAIR_CONFORMANCE 1
@@ -654,7 +655,9 @@ namespace eastl
 		typedef T result_type;
 
 		const T& operator()(const T& x) const
-			{ return x; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	/// use_first
@@ -671,7 +674,9 @@ namespace eastl
 		typedef typename Pair::first_type result_type;
 
 		const result_type& operator()(const Pair& x) const
-			{ return x.first; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	/// use_second
@@ -686,7 +691,9 @@ namespace eastl
 		typedef typename Pair::second_type result_type;
 
 		const result_type& operator()(const Pair& x) const
-			{ return x.second; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 

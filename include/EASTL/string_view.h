@@ -1,3 +1,4 @@
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -57,10 +58,16 @@ namespace eastl
 
 	public:
 		// 21.4.2.1, construction and assignment
-		EA_CONSTEXPR basic_string_view() EA_NOEXCEPT : mpBegin(nullptr), mnCount(0) {}
+		EA_CONSTEXPR basic_string_view() EA_NOEXCEPT : mpBegin(nullptr), mnCount(0) {
+    
+}
 		EA_CONSTEXPR basic_string_view(const basic_string_view& other) EA_NOEXCEPT = default;
-		EA_CONSTEXPR basic_string_view(const T* s, size_type count) : mpBegin(s), mnCount(count) {}
-		EA_CONSTEXPR basic_string_view(const T* s) : mpBegin(s), mnCount(s != nullptr ? CharStrlen(s) : 0) {}
+		EA_CONSTEXPR basic_string_view(const T* s, size_type count) : mpBegin(s), mnCount(count) {
+    
+}
+		EA_CONSTEXPR basic_string_view(const T* s) : mpBegin(s), mnCount(s != nullptr ? CharStrlen(s) : 0) {
+    
+}
 		basic_string_view& operator=(const basic_string_view& view) = default;
 
 		// 21.4.2.2, iterator support
@@ -119,40 +126,25 @@ namespace eastl
 		// 21.4.2.5, modifiers
 		EA_CPP14_CONSTEXPR void swap(basic_string_view& v)
 		{
-			eastl::swap(mpBegin, v.mpBegin);
-			eastl::swap(mnCount, v.mnCount);
-		}
+    
+}
 
 		EA_CPP14_CONSTEXPR void remove_prefix(size_type n)
 		{
-			EASTL_ASSERT_MSG(n <= mnCount, "behavior is undefined if moving past the end of the string");
-			mpBegin += n;
-			mnCount -= n;
-		}
+    
+}
 
 		EA_CPP14_CONSTEXPR void remove_suffix(size_type n)
 		{
-			EASTL_ASSERT_MSG(n <= mnCount, "behavior is undefined if moving past the beginning of the string");
-			mnCount -= n;
-		}
+    
+}
 
 
 		// 21.4.2.6, string operations
 		size_type copy(T* pDestination, size_type count, size_type pos = 0) const
 		{
-			#if EASTL_EXCEPTIONS_ENABLED
-				if(EASTL_UNLIKELY(pos > mnCount))
-					throw std::out_of_range("string_view::copy -- out of range");
-			#elif EASTL_ASSERT_ENABLED
-				if(EASTL_UNLIKELY(pos > mnCount))
-					EASTL_FAIL_MSG("string_view::copy -- out of range");
-			#endif
-
-			count = eastl::min<size_type>(count, mnCount - pos);
-			auto* pResult = CharStringUninitializedCopy(mpBegin + pos, mpBegin + pos + count, pDestination);
-			// *pResult = 0; // don't write the null-terminator
-			return pResult - pDestination;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		EA_CPP14_CONSTEXPR basic_string_view substr(size_type pos = 0, size_type count = npos) const
 		{
@@ -606,13 +598,8 @@ namespace eastl
 	{
 		size_t operator()(const string_view& x) const
 		{
-			string_view::const_iterator p = x.cbegin();
-			string_view::const_iterator end = x.cend();
-			uint32_t result = 2166136261U; // We implement an FNV-like string hash.
-			while (p != end)
-				result = (result * 16777619) ^ (uint8_t)*p++;
-			return (size_t)result;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	#if defined(EA_CHAR8_UNIQUE) && EA_CHAR8_UNIQUE
@@ -634,26 +621,16 @@ namespace eastl
 	{
 		size_t operator()(const u16string_view& x) const
 		{
-			u16string_view::const_iterator p = x.cbegin();
-			u16string_view::const_iterator end = x.cend();
-			uint32_t result = 2166136261U;
-			while (p != end)
-				result = (result * 16777619) ^ (uint16_t)*p++;
-			return (size_t)result;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template<> struct hash<u32string_view>
 	{
 		size_t operator()(const u32string_view& x) const
 		{
-			u32string_view::const_iterator p = x.cbegin();
-			u32string_view::const_iterator end = x.cend();
-			uint32_t result = 2166136261U;
-			while (p != end)
-				result = (result * 16777619) ^ (uint32_t)*p++;
-			return (size_t)result;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	#if defined(EA_WCHAR_UNIQUE) && EA_WCHAR_UNIQUE
@@ -661,13 +638,8 @@ namespace eastl
 		{
 			size_t operator()(const wstring_view& x) const
 			{
-				wstring_view::const_iterator p = x.cbegin();
-				wstring_view::const_iterator end = x.cend();
-				uint32_t result = 2166136261U;
-				while (p != end)
-					result = (result * 16777619) ^ (uint32_t)*p++;
-				return (size_t)result;
-			}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 	#endif
 

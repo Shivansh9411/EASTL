@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -120,21 +122,22 @@ namespace eastl
 		explicit priority_queue(const Allocator& allocator, typename eastl::enable_if<eastl::uses_allocator<container_type, Allocator>::value>::type* = NULL)
 		   : c(allocator), comp()
 		{
-		}    
+    __builtin_trap() /* STUB: not implemented */;
+}    
 
 		template <class Allocator>
 		priority_queue(const this_type& x, const Allocator& allocator, typename eastl::enable_if<eastl::uses_allocator<container_type, Allocator>::value>::type* = NULL)
 			: c(x.c, allocator), comp(x.comp)
 		{
-			eastl::make_heap(c.begin(), c.end(), comp);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <class Allocator>
 		priority_queue(this_type&& x, const Allocator& allocator, typename eastl::enable_if<eastl::uses_allocator<container_type, Allocator>::value>::type* = NULL)
 			: c(eastl::move(x.c), allocator), comp(x.comp)
 		{
-			eastl::make_heap(c.begin(), c.end(), comp);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		explicit priority_queue(const compare_type& compare);
 		explicit priority_queue(const compare_type& compare, container_type&& x);
@@ -218,7 +221,8 @@ namespace eastl
 		: c(),  // To consider: use c(EASTL_PRIORITY_QUEUE_DEFAULT_ALLOCATOR) here, though that would add the requirement that the user supplied container support this.
 		  comp()
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
@@ -226,32 +230,32 @@ namespace eastl
 		: c(),  // To consider: use c(EASTL_PRIORITY_QUEUE_DEFAULT_ALLOCATOR) here, though that would add the requirement that the user supplied container support this.
 		  comp(compare)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
 	inline priority_queue<T, Container, Compare>::priority_queue(const compare_type& compare, const container_type& x)
 		: c(x), comp(compare)
 	{
-		eastl::make_heap(c.begin(), c.end(), comp);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
 	inline priority_queue<T, Container, Compare>::priority_queue(const compare_type& compare, container_type&& x)
 	  : c(eastl::move(x)), comp(compare)
 	{
-		eastl::make_heap(c.begin(), c.end(), comp);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
 	inline priority_queue<T, Container, Compare>::priority_queue(std::initializer_list<value_type> ilist, const compare_type& compare)
 		: c(), comp(compare)
 	{
-		c.insert(c.end(), ilist.begin(), ilist.end());
-		eastl::make_heap(c.begin(), c.end(), comp);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -260,8 +264,8 @@ namespace eastl
 	inline priority_queue<T, Container, Compare>::priority_queue(InputIterator first, InputIterator last)
 		: c(first, last), comp()
 	{
-		eastl::make_heap(c.begin(), c.end(), comp);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
@@ -269,8 +273,8 @@ namespace eastl
 	inline priority_queue<T, Container, Compare>::priority_queue(InputIterator first, InputIterator last, const compare_type& compare)
 		: c(first, last), comp(compare)
 	{
-		eastl::make_heap(c.begin(), c.end(), comp);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
@@ -278,9 +282,8 @@ namespace eastl
 	inline priority_queue<T, Container, Compare>::priority_queue(InputIterator first, InputIterator last, const compare_type& compare, const container_type& x)
 		: c(x), comp(compare)
 	{
-		c.insert(c.end(), first, last);
-		eastl::make_heap(c.begin(), c.end(), comp);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
@@ -288,185 +291,113 @@ namespace eastl
 	inline priority_queue<T, Container, Compare>::priority_queue(InputIterator first, InputIterator last, const compare_type& compare, container_type&& x)
 		: c(eastl::move(x)), comp(compare)
 	{
-		c.insert(c.end(), first, last);
-		eastl::make_heap(c.begin(), c.end(), comp);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
 	inline bool priority_queue<T, Container, Compare>::empty() const
 	{
-		return c.empty();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
 	inline typename priority_queue<T, Container, Compare>::size_type
 	priority_queue<T, Container, Compare>::size() const
 	{
-		return c.size();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
 	inline typename priority_queue<T, Container, Compare>::const_reference
 	priority_queue<T, Container, Compare>::top() const
 	{
-#if EASTL_ASSERT_ENABLED && EASTL_EMPTY_REFERENCE_ASSERT_ENABLED
-		if (EASTL_UNLIKELY(c.empty()))
-			EASTL_FAIL_MSG("priority_queue::top -- empty container");
-#endif
-
-		return c.front();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
 	inline void priority_queue<T, Container, Compare>::push(const value_type& value)
 	{
-		#if EASTL_EXCEPTIONS_ENABLED
-			try
-			{
-				c.push_back(value);
-				eastl::push_heap(c.begin(), c.end(), comp);
-			}
-			catch(...)
-			{
-				c.clear();
-				throw;
-			}
-		#else
-			c.push_back(value);
-			eastl::push_heap(c.begin(), c.end(), comp);
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
 	inline void priority_queue<T, Container, Compare>::push(value_type&& value)
 	{
-		#if EASTL_EXCEPTIONS_ENABLED
-			try
-			{
-				c.push_back(eastl::move(value));
-				eastl::push_heap(c.begin(), c.end(), comp);
-			}
-			catch(...)
-			{
-				c.clear();
-				throw;
-			}
-		#else
-			c.push_back(eastl::move(value));
-			eastl::push_heap(c.begin(), c.end(), comp);
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
 	template <class... Args>
 	inline void priority_queue<T, Container, Compare>::emplace(Args&&... args)
 	{
-		push(value_type(eastl::forward<Args>(args)...)); // The C++11 Standard 23.6.4/1 states that c.emplace is used, but also declares that c doesn't need to have an emplace function.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
 	inline void priority_queue<T, Container, Compare>::pop()
 	{
-#if EASTL_ASSERT_ENABLED
-		if (EASTL_UNLIKELY(c.empty()))
-			EASTL_FAIL_MSG("priority_queue::pop -- empty container");
-#endif
-
-		#if EASTL_EXCEPTIONS_ENABLED
-			try
-			{
-				eastl::pop_heap(c.begin(), c.end(), comp);
-				c.pop_back();
-			}
-			catch(...)
-			{
-				c.clear();
-				throw;
-			}
-		#else
-			eastl::pop_heap(c.begin(), c.end(), comp);
-			c.pop_back();
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
 	inline void priority_queue<T, Container, Compare>::pop(value_type& value)
 	{
-#if EASTL_ASSERT_ENABLED
-		if (EASTL_UNLIKELY(c.empty()))
-			EASTL_FAIL_MSG("priority_queue::pop -- empty container");
-#endif
-
-		value = eastl::move(c.front());  // To consider: value = move_if_noexcept_assignable(c.front());
-		pop();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
 	inline void priority_queue<T, Container, Compare>::change(size_type n) // This function is not in the STL std::priority_queue.
 	{
-#if EASTL_ASSERT_ENABLED
-		if (EASTL_UNLIKELY(n >= c.size()))
-			EASTL_FAIL_MSG("priority_queue::change -- out of range");
-#endif
-
-		eastl::change_heap(c.begin(), c.size(), n, comp);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
 	inline void priority_queue<T, Container, Compare>::remove(size_type n) // This function is not in the STL std::priority_queue.
 	{
-#if EASTL_ASSERT_ENABLED
-		if (EASTL_UNLIKELY(n >= c.size()))
-			EASTL_FAIL_MSG("priority_queue::remove -- out of range");
-#endif
-
-		eastl::remove_heap(c.begin(), c.size(), n, comp);
-		c.pop_back();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
 	inline typename priority_queue<T, Container, Compare>::container_type&
 	priority_queue<T, Container, Compare>::get_container()
 	{
-		return c;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
 	inline const typename priority_queue<T, Container, Compare>::container_type&
 	priority_queue<T, Container, Compare>::get_container() const
 	{
-		return c;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
 	inline void priority_queue<T, Container, Compare>::swap(this_type& x) EA_NOEXCEPT_IF((eastl::is_nothrow_swappable<this_type::container_type>::value && 
 																						  eastl::is_nothrow_swappable<this_type::compare_type>::value))
 	{
-		using eastl::swap;
-		swap(c, x.c);
-		swap(comp, x.comp);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container, typename Compare>
 	inline bool
 	priority_queue<T, Container, Compare>::validate() const
 	{
-		return c.validate() && eastl::is_heap(c.begin(), c.end(), comp);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -477,46 +408,46 @@ namespace eastl
 	template <typename T, typename Container, typename Compare>
 	bool operator==(const priority_queue<T, Container, Compare>& a, const priority_queue<T, Container, Compare>& b)
 	{
-		return (a.c == b.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Container, typename Compare>
 	bool operator<(const priority_queue<T, Container, Compare>& a, const priority_queue<T, Container, Compare>& b)
 	{
-		return (a.c < b.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Container, typename Compare>
 	inline bool operator!=(const priority_queue<T, Container, Compare>& a, const priority_queue<T, Container, Compare>& b)
 	{
-		return !(a.c == b.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Container, typename Compare>
 	inline bool operator>(const priority_queue<T, Container, Compare>& a, const priority_queue<T, Container, Compare>& b)
 	{
-		return (b.c < a.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Container, typename Compare>
 	inline bool operator<=(const priority_queue<T, Container, Compare>& a, const priority_queue<T, Container, Compare>& b)
 	{
-		return !(b.c < a.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Container, typename Compare>
 	inline bool operator>=(const priority_queue<T, Container, Compare>& a, const priority_queue<T, Container, Compare>& b)
 	{
-		return !(a.c < b.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <class T, class Container, class Compare>
 	inline void swap(priority_queue<T, Container, Compare>& a,  priority_queue<T, Container, Compare>& b) EA_NOEXCEPT_IF((eastl::is_nothrow_swappable<typename priority_queue<T, Container, Compare>::container_type>::value && 
 																														  eastl::is_nothrow_swappable<typename priority_queue<T, Container, Compare>::compare_type>::value)) // EDG has a bug and won't let us use Container in this noexcept statement
 	{
-		a.swap(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

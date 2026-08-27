@@ -1,3 +1,4 @@
+#include <stdexcept>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -71,46 +72,59 @@ namespace eastl
 	{
 	public:
 		allocator_malloc(const char* = NULL)
-			{ }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		allocator_malloc(const allocator_malloc&)
-			{ }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		allocator_malloc(const allocator_malloc&, const char*)
-			{ }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		allocator_malloc& operator=(const allocator_malloc&)
-			{ return *this; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		bool operator==(const allocator_malloc&)
-			{ return true; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		bool operator!=(const allocator_malloc&)
-			{ return false; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void* allocate(size_t n, int /*flags*/ = 0)
-			{ return malloc(n); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void* allocate(size_t n, size_t alignment, size_t alignmentOffset, int /*flags*/ = 0)
-		{ 
-			#if EASTL_ALIGNED_MALLOC_AVAILABLE
-				if((alignmentOffset % alignment) == 0) // We check for (offset % alignmnent == 0) instead of (offset == 0) because any block which is aligned on e.g. 64 also is aligned at an offset of 64 by definition. 
-					return memalign(alignment, n); // memalign is more consistently available than posix_memalign.
-			#else
-				if((alignment <= EASTL_SYSTEM_ALLOCATOR_MIN_ALIGNMENT) && ((alignmentOffset % alignment) == 0))
-					return malloc(n);
-			#endif
-			return NULL;
-		}
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void deallocate(void* p, size_t /*n*/)
-			{ free(p); }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		const char* get_name() const
-			{ return "allocator_malloc"; }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		void set_name(const char*)
-			{ }
+			{
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 

@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -40,22 +42,8 @@ namespace eastl
 		reverse_wrapper(C&& c)
 			: mContainer(eastl::forward<C>(c))
 		{
-			/**
-			 * NOTE:
-			 *
-			 * Due to reference collapsing rules of universal references Container type is either
-			 *
-			 * const C&  if the input is a const lvalue
-			 * C&        if the input is a non-const lvalue
-			 * C         if the input is an rvalue
-			 * const C   if the input is a const rvalue thus the object will have to be copied and the copy-ctor will be called
-			 *
-			 *
-			 * Thus we either move the whole container into this object or take a reference to the lvalue avoiding the copy.
-			 * The static_assert below ensures this.
-			 */
-			static_assert(eastl::is_same_v<C, Container>, "Reference collapsed deduced type must be the same as the deduced Container type!");
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		Container mContainer;
 	};
@@ -63,20 +51,20 @@ namespace eastl
 	template <typename Container>
 	auto begin(const reverse_wrapper<Container>& w) -> decltype(eastl::rbegin(w.mContainer))
 	{
-		return eastl::rbegin(w.mContainer);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Container>
 	auto end(const reverse_wrapper<Container>& w) -> decltype(eastl::rend(w.mContainer))
 	{
-		return eastl::rend(w.mContainer);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename Container>
 	reverse_wrapper<Container> reverse(Container&& c)
 	{
-		return reverse_wrapper<Container>(eastl::forward<Container>(c));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 } // namespace eastl
 

@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -196,22 +198,22 @@ namespace eastl
 	template <typename T, typename Pointer, typename Reference>
 	inline IntrusiveSListIterator<T, Pointer, Reference>::IntrusiveSListIterator()
 	{
-		#if EASTL_DEBUG
-			mpNode = NULL;
-		#endif
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Pointer, typename Reference>
 	inline IntrusiveSListIterator<T, Pointer, Reference>::IntrusiveSListIterator(pointer pNode)
 		: mpNode(pNode)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Pointer, typename Reference>
 	inline IntrusiveSListIterator<T, Pointer, Reference>::IntrusiveSListIterator(const iterator& x)
 		: mpNode(x.mpNode)
 	{
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	///////////////////////////////////////////////////////////////////////
@@ -241,55 +243,44 @@ namespace eastl
 	template <typename T>
 	bool operator==(const intrusive_slist<T>& a, const intrusive_slist<T>& b)
 	{
-		// If we store an mSize member for intrusive_slist, we want to take advantage of it here.
-		typename intrusive_slist<T>::const_iterator ia   = a.begin();
-		typename intrusive_slist<T>::const_iterator ib   = b.begin();
-		typename intrusive_slist<T>::const_iterator enda = a.end();
-		typename intrusive_slist<T>::const_iterator endb = b.end();
-
-		while((ia != enda) && (ib != endb) && (*ia == *ib))
-		{
-			++ia;
-			++ib;
-		}
-		return (ia == enda) && (ib == endb);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator<(const intrusive_slist<T>& a, const intrusive_slist<T>& b)
 	{
-		return eastl::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator!=(const intrusive_slist<T>& a, const intrusive_slist<T>& b)
 	{
-		return !(a == b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator>(const intrusive_slist<T>& a, const intrusive_slist<T>& b)
 	{
-		return b < a;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator<=(const intrusive_slist<T>& a, const intrusive_slist<T>& b)
 	{
-		return !(b < a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	bool operator>=(const intrusive_slist<T>& a, const intrusive_slist<T>& b)
 	{
-		return !(a < b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T>
 	void swap(intrusive_slist<T>& a, intrusive_slist<T>& b)
 	{
-		a.swap(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 } // namespace eastl
 

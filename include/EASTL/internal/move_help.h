@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -87,16 +89,15 @@ namespace eastl
 	template <typename T>
 	EA_CPP14_CONSTEXPR T&& forward(typename eastl::remove_reference<T>::type& x) EA_NOEXCEPT
 	{
-		return static_cast<T&&>(x);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T>
 	EA_CPP14_CONSTEXPR T&& forward(typename eastl::remove_reference<T>::type&& x) EA_NOEXCEPT
 	{
-		static_assert(!is_lvalue_reference<T>::value, "forward T isn't lvalue reference");
-		return static_cast<T&&>(x);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// move

@@ -228,82 +228,54 @@ EA_DISABLE_CLANG_WARNING(-Watomic-alignment);
 		using Base::store;												\
 																		\
 		void store(T desired) EA_NOEXCEPT								\
-		{																\
-			EASTL_ATOMIC_STORE_FUNC_IMPL(EASTL_ATOMIC_STORE_SEQ_CST_, bits); \
-		}																\
+		{ __builtin_trap() /* STUB: not implemented */; }																\
 																		\
 		void store(T desired, eastl::internal::memory_order_relaxed_s) EA_NOEXCEPT	\
-		{																\
-			EASTL_ATOMIC_STORE_FUNC_IMPL(EASTL_ATOMIC_STORE_RELAXED_, bits); \
-		}																\
+		{ __builtin_trap() /* STUB: not implemented */; }																\
 																		\
 		void store(T desired, eastl::internal::memory_order_release_s) EA_NOEXCEPT	\
-		{																\
-			EASTL_ATOMIC_STORE_FUNC_IMPL(EASTL_ATOMIC_STORE_RELEASE_, bits); \
-		}																\
+		{ __builtin_trap() /* STUB: not implemented */; }																\
 																		\
 		void store(T desired, eastl::internal::memory_order_seq_cst_s) EA_NOEXCEPT	\
-		{																\
-			EASTL_ATOMIC_STORE_FUNC_IMPL(EASTL_ATOMIC_STORE_SEQ_CST_, bits); \
-		}																\
+		{ __builtin_trap() /* STUB: not implemented */; }																\
 																		\
 	public: /* load */													\
 																		\
 		using Base::load;												\
 																		\
 		T load() const EA_NOEXCEPT										\
-		{																\
-			EASTL_ATOMIC_LOAD_FUNC_IMPL(EASTL_ATOMIC_LOAD_SEQ_CST_, bits); \
-		}																\
+		{ __builtin_trap() /* STUB: not implemented */; }																\
 																		\
 		T load(eastl::internal::memory_order_relaxed_s) const EA_NOEXCEPT \
-		{																\
-			EASTL_ATOMIC_LOAD_FUNC_IMPL(EASTL_ATOMIC_LOAD_RELAXED_, bits); \
-		}																\
+		{ __builtin_trap() /* STUB: not implemented */; }																\
 																		\
 		T load(eastl::internal::memory_order_acquire_s) const EA_NOEXCEPT \
-		{																\
-			EASTL_ATOMIC_LOAD_FUNC_IMPL(EASTL_ATOMIC_LOAD_ACQUIRE_, bits); \
-		}																\
+		{ __builtin_trap() /* STUB: not implemented */; }																\
 																		\
 		T load(eastl::internal::memory_order_seq_cst_s) const EA_NOEXCEPT \
-		{																\
-			EASTL_ATOMIC_LOAD_FUNC_IMPL(EASTL_ATOMIC_LOAD_SEQ_CST_, bits); \
-		}																\
+		{ __builtin_trap() /* STUB: not implemented */; }																\
 																		\
 	public: /* exchange */												\
 																		\
 		using Base::exchange;											\
 																		\
 		T exchange(T desired) EA_NOEXCEPT								\
-		{																\
-			EASTL_ATOMIC_EXCHANGE_FUNC_IMPL(EASTL_ATOMIC_EXCHANGE_SEQ_CST_, bits); \
-		}																\
+		{ __builtin_trap() /* STUB: not implemented */; }																\
 																		\
 		T exchange(T desired, eastl::internal::memory_order_relaxed_s) EA_NOEXCEPT \
-		{																\
-			EASTL_ATOMIC_EXCHANGE_FUNC_IMPL(EASTL_ATOMIC_EXCHANGE_RELAXED_, bits); \
-		}																\
+		{ __builtin_trap() /* STUB: not implemented */; }																\
 																		\
 		T exchange(T desired, eastl::internal::memory_order_acquire_s) EA_NOEXCEPT	\
-		{																\
-			EASTL_ATOMIC_EXCHANGE_FUNC_IMPL(EASTL_ATOMIC_EXCHANGE_ACQUIRE_, bits); \
-		}																\
+		{ __builtin_trap() /* STUB: not implemented */; }																\
 																		\
 		T exchange(T desired, eastl::internal::memory_order_release_s) EA_NOEXCEPT	\
-		{																\
-			EASTL_ATOMIC_EXCHANGE_FUNC_IMPL(EASTL_ATOMIC_EXCHANGE_RELEASE_, bits); \
-		}																\
+		{ __builtin_trap() /* STUB: not implemented */; }																\
 																		\
 		T exchange(T desired, eastl::internal::memory_order_acq_rel_s) EA_NOEXCEPT	\
-		{																\
-			EASTL_ATOMIC_EXCHANGE_FUNC_IMPL(EASTL_ATOMIC_EXCHANGE_ACQ_REL_, bits); \
-		}																\
+		{ __builtin_trap() /* STUB: not implemented */; }																\
 																		\
 		T exchange(T desired, eastl::internal::memory_order_seq_cst_s) EA_NOEXCEPT	\
-		{																\
-			EASTL_ATOMIC_EXCHANGE_FUNC_IMPL(EASTL_ATOMIC_EXCHANGE_SEQ_CST_, bits); \
-		}																\
+		{ __builtin_trap() /* STUB: not implemented */; }																\
 																		\
 	public: /* compare_exchange_weak */									\
 																		\
@@ -318,10 +290,7 @@ EA_DISABLE_CLANG_WARNING(-Watomic-alignment);
 		using Base::operator=;											\
 																		\
 		T operator=(T desired) EA_NOEXCEPT								\
-		{																\
-			store(desired, eastl::memory_order_seq_cst);				\
-			return desired;												\
-		}																\
+		{ __builtin_trap() /* STUB: not implemented */; }																\
 																		\
 		atomic_base_width& operator=(const atomic_base_width&)          EA_NOEXCEPT = delete; \
 		atomic_base_width& operator=(const atomic_base_width&) volatile EA_NOEXCEPT = delete; \

@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -52,25 +54,27 @@ namespace eastl
 		    return invoke(func, eastl::forward<ArgTypes>(args)...);
 	    }
 #else
-	    typename invoke_result<type>::type operator()() const { return invoke_impl(func); }
+	    typename invoke_result<type>::type operator()() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	    template <class A0>
 	    typename invoke_result0<type, A0>::type operator()(A0& a0) const
 	    {
-		    return invoke(func, a0);
-	    }
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	    template <class A0, class A1>
 	    typename invoke_result1<type, A0, A1>::type operator()(A0& a0, A1& a1) const
 	    {
-		    return invoke(func, a0, a1);
-	    }
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	    template <class A0, class A1, class A2>
 	    typename invoke_result2<type, A0, A1, A2>::type operator()(A0& a0, A1& a1, A2& a2) const
 	    {
-		    return invoke(func, a0, a1, a2);
-	    }
+    __builtin_trap() /* STUB: not implemented */;
+}
 #endif
     };  // mem_fn_impl
 
@@ -81,7 +85,9 @@ namespace eastl
 	//
 	template <class R, class T>
 	EASTL_FORCE_INLINE mem_fn_impl<R T::*> mem_fn(R T::*pm)
-	{ return mem_fn_impl<R T::*>(pm); }
+	{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <class R, class T>
 	EASTL_FORCE_INLINE mem_fn_impl<R (T::*)()> mem_fn(R (T::*pm)())

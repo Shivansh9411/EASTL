@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -49,13 +51,9 @@ namespace eastl
 		mutable const this_type* mpNext;
 
 		void link(const linked_array& linkedArray)
-		{   // This code can only be called when we are in a reset state.
-			// assert(!mpArray && (mpNext == mpPrev));
-			mpNext             = linkedArray.mpNext;
-			mpNext->mpPrev     = this;
-			mpPrev             = &linkedArray;
-			linkedArray.mpNext = this;
-		}
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	public:
 		/// element_type
@@ -69,8 +67,8 @@ namespace eastl
 		explicit linked_array(T* pArray = NULL) 
 			: mpArray(pArray)
 		{
-			mpPrev = mpNext = this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// linked_array
@@ -78,11 +76,8 @@ namespace eastl
 		linked_array(const linked_array& linkedArray)
 			: mpArray(linkedArray.mpArray)
 		{
-			if(mpArray)
-				link(linkedArray);
-			else
-				mpPrev = mpNext = this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// ~linked_array
@@ -103,14 +98,8 @@ namespace eastl
 		/// ownership of the new pointer and increments its reference count.
 		linked_array& operator=(const linked_array& linkedArray)
 		{
-			if(linkedArray.mpArray != mpArray)
-			{
-				reset(linkedArray.mpArray);
-				if(linkedArray.mpArray)
-					link(linkedArray);
-			}
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator=
@@ -120,9 +109,8 @@ namespace eastl
 		/// The new pointer can be NULL.
 		linked_array& operator=(T* pArray)
 		{
-			reset(pArray);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// reset
@@ -132,22 +120,8 @@ namespace eastl
 		/// can be null, in which case the use count is set to 1.
 		void reset(T* pArray = NULL)
 		{
-			if(pArray != mpArray)
-			{
-				if(unique())
-				{
-					deleter_type del;
-					del(mpArray);
-				}
-				else
-				{
-					mpPrev->mpNext  = mpNext;
-					mpNext->mpPrev  = mpPrev;
-					mpPrev = mpNext = this;
-				}
-				mpArray = pArray;
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// swap
@@ -175,25 +149,24 @@ namespace eastl
 		/// Returns a reference to the specified item in the owned pointer array. 
 		T& operator[](ptrdiff_t i) const
 		{
-			// assert(mpArray && (i >= 0));
-			return mpArray[i];
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator*
 		/// Returns the owner pointer dereferenced.
 		T& operator*() const
 		{
-			return *mpArray;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator->
 		/// Allows access to the owned pointer via operator->()
 		T* operator->() const
 		{
-			return mpArray;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// get
@@ -202,8 +175,8 @@ namespace eastl
 		/// a thing (automatic conversion) is deemed unsafe.
 		T* get() const
 		{
-			return mpArray;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// use_count
@@ -215,13 +188,8 @@ namespace eastl
 		/// not constant.
 		int use_count() const
 		{
-			int useCount(1);
-			
-			for(const linked_ptr_base* pCurrent = this; pCurrent->mpNext != this; pCurrent = pCurrent->mpNext)
-				++useCount;
-
-			return useCount;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// unique
@@ -229,8 +197,8 @@ namespace eastl
 		/// The return value is true if the owned pointer is null.
 		bool unique() const
 		{
-			return (mpNext == this);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// Implicit operator bool
@@ -252,8 +220,8 @@ namespace eastl
 		/// the owned pointer is null. Some compilers require this and some don't.
 		bool operator!()
 		{
-			return (mpArray == NULL);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// force_delete
@@ -261,21 +229,8 @@ namespace eastl
 		/// pointer by any other owners to be NULL.
 		void force_delete()
 		{
-			T* const pArray = mpArray;
-
-			this_type* p = this;
-			do
-			{
-				this_type* const pNext = const_cast<this_type*>(p->mpNext);
-				p->mpArray = NULL;
-				p->mpNext  = p->mpPrev = p;
-				p = pNext;
-			}
-			while(p != this);
-
-			deleter_type del;
-			del(pArray);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // class linked_array
 
@@ -287,8 +242,8 @@ namespace eastl
 	template <typename T>
 	inline T* get_pointer(const linked_array<T>& linkedArray)
 	{
-		return linkedArray.get();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// operator==
@@ -297,8 +252,8 @@ namespace eastl
 	template <typename T, typename TD, typename U, typename UD>
 	inline bool operator==(const linked_array<T, TD>& linkedArray1, const linked_array<U, UD>& linkedArray2)
 	{
-		return (linkedArray1.get() == linkedArray2.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// operator!=
@@ -307,8 +262,8 @@ namespace eastl
 	template <typename T, typename TD, typename U, typename UD>
 	inline bool operator!=(const linked_array<T, TD>& linkedArray1, const linked_array<U, UD>& linkedArray2)
 	{
-		return (linkedArray1.get() != linkedArray2.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// operator<
@@ -317,8 +272,8 @@ namespace eastl
 	template <typename T, typename TD, typename U, typename UD>
 	inline bool operator<(const linked_array<T, TD>& linkedArray1, const linked_array<U, UD>& linkedArray2)
 	{
-		return (linkedArray1.get() < linkedArray2.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

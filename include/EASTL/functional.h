@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -158,8 +160,8 @@ namespace eastl
 	template <typename T, typename Compare>
 	bool validate_equal_to(const T& a, const T& b, Compare compare)
 	{
-		return compare(a, b) == compare(b, a);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
     template <typename T = void>
     struct not_equal_to
@@ -182,8 +184,8 @@ namespace eastl
 	template <typename T, typename Compare>
 	bool validate_not_equal_to(const T& a, const T& b, Compare compare)
 	{
-		return compare(a, b) == compare(b, a); // We want the not equal comparison results to be equal.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// str_equal_to
 	///
@@ -238,15 +240,15 @@ namespace eastl
 	template <typename T, typename Compare>
 	bool validate_greater(const T& a, const T& b, Compare compare)
 	{
-		return !compare(a, b) || !compare(b, a); // If (a > b), then !(b > a)
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Compare>
 	bool validate_less(const T& a, const T& b, Compare compare)
 	{
-		return !compare(a, b) || !compare(b, a); // If (a < b), then !(b < a)
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// str_less
 	///
@@ -268,26 +270,8 @@ namespace eastl
 	{
 		bool operator()(T a, T b) const
 		{
-			while(static_cast<typename make_unsigned<typename remove_pointer<T>::type>::type>(*a) == 
-				  static_cast<typename make_unsigned<typename remove_pointer<T>::type>::type>(*b))
-			{
-				if(*a == 0)
-					return (*b != 0);
-				++a;
-				++b;
-			}
-
-			char aValue = static_cast<typename remove_pointer<T>::type>(*a);
-			char bValue = static_cast<typename remove_pointer<T>::type>(*b);
-
-			typename make_unsigned<char>::type aValueU = static_cast<typename make_unsigned<char>::type>(aValue);
-			typename make_unsigned<char>::type bValueU = static_cast<typename make_unsigned<char>::type>(bValue);
-
-			return aValueU < bValueU;
-
-			//return (static_cast<typename make_unsigned<typename remove_pointer<T>::type>::type>(*a) < 
-			//        static_cast<typename make_unsigned<typename remove_pointer<T>::type>::type>(*b));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
     template <typename T = void>
@@ -311,8 +295,8 @@ namespace eastl
 	template <typename T, typename Compare>
 	bool validate_greater_equal(const T& a, const T& b, Compare compare)
 	{
-		return !compare(a, b) || !compare(b, a); // If (a >= b), then !(b >= a)
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T = void>
 	struct less_equal
@@ -335,8 +319,8 @@ namespace eastl
 	template <typename T, typename Compare>
 	bool validate_less_equal(const T& a, const T& b, Compare compare)
 	{
-		return !compare(a, b) || !compare(b, a); // If (a <= b), then !(b <= a)
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	// todo: when C++20 support added, add a compare_three_way function object.
 
@@ -501,7 +485,9 @@ namespace eastl
 	template <typename F>
 	struct not_fn_ret
 	{
-		explicit not_fn_ret(F&& f) : mDecayF(eastl::forward<F>(f)) {}
+		explicit not_fn_ret(F&& f) : mDecayF(eastl::forward<F>(f)) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		not_fn_ret(not_fn_ret&& f) = default;
 		not_fn_ret(const not_fn_ret& f) = default;
 
@@ -509,23 +495,31 @@ namespace eastl
 		template <class... Args>
 		auto operator()(Args&&... args) &
 		    -> decltype(!eastl::declval<eastl::invoke_result_t<eastl::decay_t<F>&, Args...>>())
-		{ return !eastl::invoke(mDecayF, eastl::forward<Args>(args)...); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <class... Args>
 		auto operator()(Args&&... args) const &
 		    -> decltype(!eastl::declval<eastl::invoke_result_t<eastl::decay_t<F> const&, Args...>>())
-		{ return !eastl::invoke(mDecayF, eastl::forward<Args>(args)...); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		// overloads for rvalues
 		template <class... Args>
 		auto operator()(Args&&... args) &&
 		    -> decltype(!eastl::declval<eastl::invoke_result_t<eastl::decay_t<F>, Args...>>())
-		{ return !eastl::invoke(eastl::move(mDecayF), eastl::forward<Args>(args)...); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <class... Args>
 		auto operator()(Args&&... args) const &&
 		    -> decltype(!eastl::declval<eastl::invoke_result_t<eastl::decay_t<F> const, Args...>>())
-		{ return !eastl::invoke(eastl::move(mDecayF), eastl::forward<Args>(args)...); }
+		{
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		eastl::decay_t<F> mDecayF;
 	};
@@ -545,8 +539,8 @@ namespace eastl
 	template <class F>
 	inline not_fn_ret<F> not_fn(F&& f)
 	{
-		return not_fn_ret<F>(eastl::forward<F>(f));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	///////////////////////////////////////////////////////////////////////
@@ -562,7 +556,9 @@ namespace eastl
 		template <typename T>
 		struct EnableHashIf<T, true>
 		{
-			size_t operator()(T p) const { return size_t(p); }
+			size_t operator()(T p) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 	} // namespace Internal
 
@@ -573,19 +569,29 @@ namespace eastl
 	struct hash : Internal::EnableHashIf<T, is_enum_v<T>> {};
 
 	template <typename T> struct hash<T*> // Note that we use the pointer as-is and don't divide by sizeof(T*). This is because the table is of a prime size and this division doesn't benefit distribution.
-		{ size_t operator()(T* p) const { return size_t(uintptr_t(p)); } };
+		{ size_t operator()(T* p) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 
 	template <> struct hash<bool>
-		{ size_t operator()(bool val) const { return static_cast<size_t>(val); } };
+		{ size_t operator()(bool val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 
 	template <> struct hash<char>
-		{ size_t operator()(char val) const { return static_cast<size_t>(val); } };
+		{ size_t operator()(char val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 
 	template <> struct hash<signed char>
-		{ size_t operator()(signed char val) const { return static_cast<size_t>(val); } };
+		{ size_t operator()(signed char val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 
 	template <> struct hash<unsigned char>
-		{ size_t operator()(unsigned char val) const { return static_cast<size_t>(val); } };
+		{ size_t operator()(unsigned char val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 
 	#if defined(EA_CHAR8_UNIQUE) && EA_CHAR8_UNIQUE
 		template <> struct hash<char8_t>
@@ -594,43 +600,65 @@ namespace eastl
 
 	#if defined(EA_CHAR16_NATIVE) && EA_CHAR16_NATIVE
 		template <> struct hash<char16_t>
-			{ size_t operator()(char16_t val) const { return static_cast<size_t>(val); } };
+			{ size_t operator()(char16_t val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 	#endif
 
 	#if defined(EA_CHAR32_NATIVE) && EA_CHAR32_NATIVE
 		template <> struct hash<char32_t>
-			{ size_t operator()(char32_t val) const { return static_cast<size_t>(val); } };
+			{ size_t operator()(char32_t val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 	#endif
 
 	// If wchar_t is a native type instead of simply a define to an existing type...
 	#if !defined(EA_WCHAR_T_NON_NATIVE)
 		template <> struct hash<wchar_t>
-			{ size_t operator()(wchar_t val) const { return static_cast<size_t>(val); } };
+			{ size_t operator()(wchar_t val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 	#endif
 
 	template <> struct hash<signed short>
-		{ size_t operator()(signed short val) const { return static_cast<size_t>(val); } };
+		{ size_t operator()(signed short val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 
 	template <> struct hash<unsigned short>
-		{ size_t operator()(unsigned short val) const { return static_cast<size_t>(val); } };
+		{ size_t operator()(unsigned short val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 
 	template <> struct hash<signed int>
-		{ size_t operator()(signed int val) const { return static_cast<size_t>(val); } };
+		{ size_t operator()(signed int val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 
 	template <> struct hash<unsigned int>
-		{ size_t operator()(unsigned int val) const { return static_cast<size_t>(val); } };
+		{ size_t operator()(unsigned int val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 
 	template <> struct hash<signed long>
-		{ size_t operator()(signed long val) const { return static_cast<size_t>(val); } };
+		{ size_t operator()(signed long val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 
 	template <> struct hash<unsigned long>
-		{ size_t operator()(unsigned long val) const { return static_cast<size_t>(val); } };
+		{ size_t operator()(unsigned long val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 
 	template <> struct hash<signed long long>
-		{ size_t operator()(signed long long val) const { return static_cast<size_t>(val); } };
+		{ size_t operator()(signed long long val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 
 	template <> struct hash<unsigned long long>
-		{ size_t operator()(unsigned long long val) const { return static_cast<size_t>(val); } };
+		{ size_t operator()(unsigned long long val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 
 	namespace internal
 	{
@@ -639,27 +667,30 @@ namespace eastl
 		template <typename T>
 		size_t floating_point_hash(T val)
 		{
-			if (val == -0.0)
-			{
-				return eastl::bit_cast<size_t>(static_cast<internal::size_t_sized_floating_point_type>(0.0));
-			}
-
-			return eastl::bit_cast<size_t>(static_cast<internal::size_t_sized_floating_point_type>(val));
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	}
 
 	template <> struct hash<float>
-		{ size_t operator()(float val) const { return internal::floating_point_hash(val); } };
+		{ size_t operator()(float val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 
 	template <> struct hash<double>
-		{ size_t operator()(double val) const { return internal::floating_point_hash(val); } };
+		{ size_t operator()(double val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 
 	template <> struct hash<long double>
-		{ size_t operator()(long double val) const { return internal::floating_point_hash(val); } };
+		{ size_t operator()(long double val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 
 	#if defined(EA_HAVE_INT128) && EA_HAVE_INT128
 	template <> struct hash<uint128_t>
-		{ size_t operator()(uint128_t val) const { return static_cast<size_t>(val); } };
+		{ size_t operator()(uint128_t val) const {
+    __builtin_trap() /* STUB: not implemented */;
+} };
 	#endif
 
 
@@ -679,22 +710,16 @@ namespace eastl
 	{
 		size_t operator()(const char* p) const
 		{
-			uint32_t c, result = 2166136261U;   // FNV1 hash. Perhaps the best string hash. Intentionally uint32_t instead of size_t, so the behavior is the same regardless of size.
-			while((c = (uint8_t)*p++) != 0)     // Using '!=' disables compiler warnings.
-				result = (result * 16777619) ^ c;
-			return (size_t)result;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <> struct hash<const char*>
 	{
 		size_t operator()(const char* p) const
 		{
-			uint32_t c, result = 2166136261U;   // Intentionally uint32_t instead of size_t, so the behavior is the same regardless of size.
-			while((c = (uint8_t)*p++) != 0)     // cast to unsigned 8 bit.
-				result = (result * 16777619) ^ c;
-			return (size_t)result;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 #if EA_CHAR8_UNIQUE
@@ -726,44 +751,32 @@ namespace eastl
 	{
 		size_t operator()(const char16_t* p) const
 		{
-			uint32_t c, result = 2166136261U;   // Intentionally uint32_t instead of size_t, so the behavior is the same regardless of size.
-			while((c = (uint16_t)*p++) != 0)    // cast to unsigned 16 bit.
-				result = (result * 16777619) ^ c;
-			return (size_t)result;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <> struct hash<const char16_t*>
 	{
 		size_t operator()(const char16_t* p) const
 		{
-			uint32_t c, result = 2166136261U;   // Intentionally uint32_t instead of size_t, so the behavior is the same regardless of size.
-			while((c = (uint16_t)*p++) != 0)    // cast to unsigned 16 bit.
-				result = (result * 16777619) ^ c;
-			return (size_t)result;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <> struct hash<char32_t*>
 	{
 		size_t operator()(const char32_t* p) const
 		{
-			uint32_t c, result = 2166136261U;   // Intentionally uint32_t instead of size_t, so the behavior is the same regardless of size.
-			while((c = (uint32_t)*p++) != 0)    // cast to unsigned 32 bit.
-				result = (result * 16777619) ^ c;
-			return (size_t)result;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template <> struct hash<const char32_t*>
 	{
 		size_t operator()(const char32_t* p) const
 		{
-			uint32_t c, result = 2166136261U;   // Intentionally uint32_t instead of size_t, so the behavior is the same regardless of size.
-			while((c = (uint32_t)*p++) != 0)    // cast to unsigned 32 bit.
-				result = (result * 16777619) ^ c;
-			return (size_t)result;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 #if defined(EA_WCHAR_UNIQUE) && EA_WCHAR_UNIQUE
@@ -771,22 +784,16 @@ namespace eastl
 	{
 		size_t operator()(const wchar_t* p) const
 		{
-			uint32_t c, result = 2166136261U;    // Intentionally uint32_t instead of size_t, so the behavior is the same regardless of size.
-			while ((c = (uint32_t)*p++) != 0)    // cast to unsigned 32 bit.
-				result = (result * 16777619) ^ c;
-			return (size_t)result;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 	template<> struct hash<const wchar_t*>
 	{
 		size_t operator()(const wchar_t* p) const
 		{
-			uint32_t c, result = 2166136261U;    // Intentionally uint32_t instead of size_t, so the behavior is the same regardless of size.
-			while ((c = (uint32_t)*p++) != 0)    // cast to unsigned 32 bit.
-				result = (result * 16777619) ^ c;
-			return (size_t)result;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 #endif
 
@@ -806,12 +813,8 @@ namespace eastl
 
 		size_t operator()(const string_type& s) const
 		{
-			const unsigned_value_type* p = (const unsigned_value_type*)s.c_str();
-			uint32_t c, result = 2166136261U;   // Intentionally uint32_t instead of size_t, so the behavior is the same regardless of size.
-			while((c = *p++) != 0)
-				result = (result * 16777619) ^ c;
-			return (size_t)result;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 	};
 
 

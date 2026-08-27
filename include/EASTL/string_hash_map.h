@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -57,7 +59,9 @@ public:
 	typedef typename base::base_type::value_type value_type;
 	typedef typename base::mapped_type mapped_type;
 
-	string_hash_map(const allocator_type& allocator = allocator_type()) : base(allocator) {}
+	string_hash_map(const allocator_type& allocator = allocator_type()) : base(allocator) {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	// Note/warning: the copy constructor does not copy the underlying allocator instance. This
 	// is different from what hash_map does.
@@ -106,8 +110,7 @@ private:
 template<typename T, typename Hash, typename Predicate, typename Allocator>
 string_hash_map<T, Hash, Predicate, Allocator>::string_hash_map(const string_hash_map& src, const allocator_type& allocator) : base(allocator)
 {
-	for (const_iterator i=src.begin(), e=src.end(); i!=e; ++i)
-		base::base_type::insert(eastl::make_pair(strduplicate(i->first), i->second));
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Hash, typename Predicate, typename Allocator>
@@ -119,102 +122,62 @@ string_hash_map<T, Hash, Predicate, Allocator>::~string_hash_map()
 template<typename T, typename Hash, typename Predicate, typename Allocator>
 void string_hash_map<T, Hash, Predicate, Allocator>::clear()
 {
-	for (const_iterator i=base::base_type::begin(), e=base::base_type::end(); i!=e; ++i)
-		free(i->first);
-	base::base_type::clear();
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Hash, typename Predicate, typename Allocator>
 void string_hash_map<T, Hash, Predicate, Allocator>::clear(bool clearBuckets)
 {
-	for (const_iterator i=base::base_type::begin(), e=base::base_type::end(); i!=e; ++i)
-		free(i->first);
-	base::base_type::clear(clearBuckets);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Hash, typename Predicate, typename Allocator>
 typename string_hash_map<T, Hash, Predicate, Allocator>::this_type&
 string_hash_map<T, Hash, Predicate, Allocator>::operator=(const this_type& x)
 {
-	allocator_type allocator = base::base_type::get_allocator();
-	this->~this_type();
-	new (this) this_type(x, allocator);
-	return *this;
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Hash, typename Predicate, typename Allocator>
 typename string_hash_map<T, Hash, Predicate, Allocator>::insert_return_type
 string_hash_map<T, Hash, Predicate, Allocator>::insert(const char* key)
 {
-	return insert(key, mapped_type());
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Hash, typename Predicate, typename Allocator>
 typename string_hash_map<T, Hash, Predicate, Allocator>::insert_return_type
 string_hash_map<T, Hash, Predicate, Allocator>::insert(const char* key, const T& value)
 {
-	EASTL_ASSERT(key);
-	iterator i = base::base_type::find(key);
-	if (i != base::base_type::end())
-	{
-		insert_return_type ret;
-		ret.first = i;
-		ret.second = false;
-		return ret;
-	}
-	return base::base_type::insert(eastl::make_pair(strduplicate(key), value));
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Hash, typename Predicate, typename Allocator>
 eastl::pair<typename string_hash_map<T, Hash, Predicate, Allocator>::iterator, bool>
 string_hash_map<T, Hash, Predicate, Allocator>::insert_or_assign(const char* key, const T& value)
 {
-	iterator i = base::base_type::find(key);
-	if (i != base::base_type::end())
-	{
-		return base::base_type::insert_or_assign(i->first, value);
-	}
-	else
-	{
-		return base::base_type::insert_or_assign(strduplicate(key), value);
-	}
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Hash, typename Predicate, typename Allocator>
 typename string_hash_map<T, Hash, Predicate, Allocator>::iterator
 string_hash_map<T, Hash, Predicate, Allocator>::erase(const_iterator position)
 {
-	const char* key = position->first;
-	iterator result = base::base_type::erase(position);
-	free(key);
-	return result;
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Hash, typename Predicate, typename Allocator>
 typename string_hash_map<T, Hash, Predicate, Allocator>::size_type
 string_hash_map<T, Hash, Predicate, Allocator>::erase(const char* key)
 {
-    const iterator it(base::base_type::find(key));
-
-    if(it != base::base_type::end())
-    {
-        erase(it);
-        return 1;
-    }
-    return 0;
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Hash, typename Predicate, typename Allocator>
 typename string_hash_map<T, Hash, Predicate, Allocator>::mapped_type&
 string_hash_map<T, Hash, Predicate, Allocator>::operator[](const char* key)
 {
-	using base_value_type = typename base::base_type::value_type;
-
-	EASTL_ASSERT(key);
-	iterator i = base::base_type::find(key);
-	if (i != base::base_type::end())
-		return i->second;
-	return base::base_type::insert(base_value_type(pair_first_construct, strduplicate(key))).first->second;
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Hash, typename Predicate, typename Allocator>
@@ -222,7 +185,7 @@ template <class... Args>
 typename string_hash_map<T, Hash, Predicate, Allocator>::insert_return_type
 string_hash_map<T, Hash, Predicate, Allocator>::emplace(const char* key, Args&&...valArgs)
 {
-	return try_emplace(key, eastl::forward<Args>(valArgs)...);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Hash, typename Predicate, typename Allocator>
@@ -230,7 +193,7 @@ template <class... Args>
 typename string_hash_map<T, Hash, Predicate, Allocator>::iterator
 string_hash_map<T, Hash, Predicate, Allocator>::emplace_hint(typename string_hash_map<T, Hash, Predicate, Allocator>::const_iterator hint, const char* key, Args&&...valArgs)
 {
-	return try_emplace(hint, key, eastl::forward<Args>(valArgs)...);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Hash, typename Predicate, typename Allocator>
@@ -238,25 +201,7 @@ template <class... Args>
 typename string_hash_map<T, Hash, Predicate, Allocator>::insert_return_type
 string_hash_map<T, Hash, Predicate, Allocator>::try_emplace(const char* k, Args&&...valArgs)
 {
-	// This is lifted from hash_map::try_emplace_forwarding.  The point is that we don't want to
-	// allocate space for a copy of `k` unless we know we're going to insert it.
-	using hashtable_type = typename base::base_type;
-	const auto key_data = hashtable_type::DoFindKeyData(k);
-	if (key_data.node)
-	{
-		// Node exists, no insertion needed.
-		return eastl::pair<iterator, bool>(
-			iterator(key_data.node, hashtable_type::mpBucketArray + key_data.bucket_index), false);
-	}
-	else
-	{
-		// We're adding a new node, copy the key.
-		const char* keyCopy = strduplicate(k);
-		typename base::node_type* const pNodeNew = hashtable_type::DoAllocateNode(
-			piecewise_construct, eastl::forward_as_tuple(keyCopy), forward_as_tuple(eastl::forward<Args>(valArgs)...));
-		return hashtable_type::template DoInsertUniqueNode<true>(keyCopy, key_data.code, key_data.bucket_index,
-			                                                     pNodeNew);
-	}
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 
@@ -265,27 +210,21 @@ template <class... Args>
 typename string_hash_map<T, Hash, Predicate, Allocator>::iterator
 string_hash_map<T, Hash, Predicate, Allocator>::try_emplace(typename string_hash_map<T, Hash, Predicate, Allocator>::const_iterator hint, const char* key, Args&&...valArgs)
 {
-	EA_UNUSED(hint);
-	// The hint is currently ignored in all our implementations :(
-	auto ret = try_emplace(key, eastl::forward<Args>(valArgs)...);
-	return base::base_type::DoGetResultIterator(true_type(), ret);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Hash, typename Predicate, typename Allocator>
 char*
 string_hash_map<T, Hash, Predicate, Allocator>::strduplicate(const char* str)
 {
-	size_t len = strlen(str);
-	char* result = (char*)EASTLAlloc(base::base_type::get_allocator(), (len + 1));
-	memcpy(result, str, len+1);
-	return result;
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 template<typename T, typename Hash, typename Predicate, typename Allocator>
 void
 string_hash_map<T, Hash, Predicate, Allocator>::free(const char* str)
 {
-	EASTLFree(base::base_type::get_allocator(), (void*)str, 0);
+    __builtin_trap() /* STUB: not implemented */;
 }
 
 

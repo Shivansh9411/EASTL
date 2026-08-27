@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -192,7 +194,9 @@ namespace eastl
 			// language feature. It is the core mechanism of aggregating all the
 			// individual overloads into the overload_set structure.
 			using F = T (*)(T);
-			operator F() const { return nullptr; }
+			operator F() const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 		};
 
 		template <typename...> struct overload_set_impl;

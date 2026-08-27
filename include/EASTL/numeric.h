@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -32,15 +34,8 @@ namespace eastl
 	template <typename InputIterator, typename T>
 	T accumulate(InputIterator first, InputIterator last, T init)
 	{
-		// The C++ standard specifies that we use (init = init + first).
-		// However, for non-built-in types, this is less efficent than 
-		// operator +=, as no temporary is created. Until a serious problem 
-		// is found with using operator +=, we'll use it.
-
-		for(; first != last; ++first)
-			init += *first;
-		return init;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// accumulate
@@ -51,10 +46,8 @@ namespace eastl
 	template <typename InputIterator, typename T, typename BinaryOperation>
 	T accumulate(InputIterator first, InputIterator last, T init, BinaryOperation binary_op)
 	{
-		for(; first != last; ++first)
-			init = binary_op(init, *first);
-		return init;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -70,12 +63,8 @@ namespace eastl
 	template <typename ForwardIterator, typename T>
 	void iota(ForwardIterator first, ForwardIterator last, T value)
 	{
-		while(first != last)
-		{
-			*first++ = value;
-			++value;
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// inner_product
@@ -87,15 +76,8 @@ namespace eastl
 	template <typename InputIterator1, typename InputIterator2, typename T>
 	T inner_product(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, T init)
 	{
-		// The C++ standard specifies that we use (init = init + (*first1 * *first2)).
-		// However, for non-built-in types, this is less efficent than 
-		// operator +=, as no temporary is created. Until a serious problem 
-		// is found with using operator +=, we'll use it.
-
-		for(; first1 != last1; ++first1, ++first2)
-			init += (*first1 * *first2);
-		return init;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// inner_product
@@ -109,10 +91,8 @@ namespace eastl
 	T inner_product(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, T init, 
 					BinaryOperation1 binary_op1, BinaryOperation2 binary_op2)
 	{
-		for(; first1 != last1; ++first1, ++first2)
-			init = binary_op1(init, binary_op2(*first1, *first2));
-		return init;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -129,20 +109,8 @@ namespace eastl
 	template <typename InputIterator, typename OutputIterator>
 	OutputIterator partial_sum(InputIterator first, InputIterator last, OutputIterator result)
 	{
-		typedef typename iterator_traits<InputIterator>::value_type value_type;
-
-		if(first != last)
-		{
-			value_type value(*first);
-			
-			for(*result = value; ++first != last; *++result = value)
-				value += *first; // See discussions above on the decision use += instead of +.
-
-			++result;
-		}
-
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// partial_sum
@@ -156,20 +124,8 @@ namespace eastl
 	template <typename InputIterator, typename OutputIterator, typename BinaryOperation>
 	OutputIterator partial_sum(InputIterator first, InputIterator last, OutputIterator result, BinaryOperation binary_op)
 	{
-		typedef typename iterator_traits<InputIterator>::value_type value_type;
-
-		if(first != last)
-		{
-			value_type value(*first);
-
-			for(*result = value; ++first != last; *++result = value)
-				value = binary_op(value, *first);
-
-			++result;
-		}
-
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -183,25 +139,8 @@ namespace eastl
 	template <typename InputIterator, typename OutputIterator>
 	OutputIterator adjacent_difference(InputIterator first, InputIterator last, OutputIterator result)
 	{
-		typedef typename iterator_traits<InputIterator>::value_type value_type;
-
-		if(first != last)
-		{
-			value_type value(*first);
-
-			for(*result = value; ++first != last; )
-			{
-				const value_type temp(*first);
-
-				*++result = temp - value;
-				value = temp;
-			}
-
-			++result;
-		}
-
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// adjacent_difference
@@ -212,25 +151,8 @@ namespace eastl
 	template <typename InputIterator, typename OutputIterator, typename BinaryOperation>
 	OutputIterator adjacent_difference(InputIterator first, InputIterator last, OutputIterator result, BinaryOperation binary_op)
 	{
-		typedef typename iterator_traits<InputIterator>::value_type value_type;
-
-		if(first != last)
-		{
-			value_type value(*first);
-			
-			for(*result = value; ++first != last; )
-			{
-				const value_type temp(*first);
-
-				*++result = binary_op(temp, value);
-				value = temp;
-			}
-
-			++result;
-		}
-
-		return result;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 }
 

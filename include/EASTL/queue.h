@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -83,19 +85,22 @@ namespace eastl
 		explicit queue(const Allocator& allocator, typename eastl::enable_if<eastl::uses_allocator<container_type, Allocator>::value>::type* = NULL)
 		  : c(allocator)
 		{
-		}    
+    __builtin_trap() /* STUB: not implemented */;
+}    
 
 		template <class Allocator>
 		queue(const this_type& x, const Allocator& allocator, typename eastl::enable_if<eastl::uses_allocator<container_type, Allocator>::value>::type* = NULL)
 		  : c(x.c, allocator)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		template <class Allocator>
 		queue(this_type&& x, const Allocator& allocator, typename eastl::enable_if<eastl::uses_allocator<container_type, Allocator>::value>::type* = NULL)
 		  : c(eastl::move(x.c), allocator)
 		{
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		explicit queue(const container_type& x);
 		explicit queue(container_type&& x);
@@ -153,171 +158,137 @@ namespace eastl
 	inline queue<T, Container>::queue()
 		: c() // To consider: use c(EASTL_QUEUE_DEFAULT_ALLOCATOR) here, though that would add the requirement that the user supplied container support this.
 	{
-		// Empty
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline queue<T, Container>::queue(const Container& x)
 		: c(x)
 	{
-		// Empty
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline queue<T, Container>::queue(Container&& x)
 		: c(eastl::move(x))
 	{
-		// Empty
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline queue<T, Container>::queue(std::initializer_list<value_type> ilist)
 		: c() // We could alternatively use c(ilist) here, but that would require c to have an ilist constructor.
 	{
-		// Better solution but requires an insert function.
-		// c.insert(ilist.begin(), ilist.end());
-
-		// Possibly slower solution but doesn't require an insert function.
-		for(typename std::initializer_list<value_type>::iterator it = ilist.begin(); it != ilist.end(); ++it)
-		{
-			const value_type& value = *it;
-			c.push_back(value);
-		}
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline bool queue<T, Container>::empty() const
 	{
-		return c.empty();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline typename queue<T, Container>::size_type
 	queue<T, Container>::size() const
 	{
-		return c.size();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline typename queue<T, Container>::reference
 	queue<T, Container>::front()
 	{
-#if EASTL_ASSERT_ENABLED && EASTL_EMPTY_REFERENCE_ASSERT_ENABLED
-		if (EASTL_UNLIKELY(c.empty()))
-			EASTL_FAIL_MSG("queue::front -- empty container");
-#endif
-
-		return c.front();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline typename queue<T, Container>::const_reference
 	queue<T, Container>::front() const
 	{
-#if EASTL_ASSERT_ENABLED && EASTL_EMPTY_REFERENCE_ASSERT_ENABLED
-		if (EASTL_UNLIKELY(c.empty()))
-			EASTL_FAIL_MSG("queue::front -- empty container");
-#endif
-
-		return c.front();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline typename queue<T, Container>::reference
 	queue<T, Container>::back()
 	{
-#if EASTL_ASSERT_ENABLED && EASTL_EMPTY_REFERENCE_ASSERT_ENABLED
-		if (EASTL_UNLIKELY(c.empty()))
-			EASTL_FAIL_MSG("queue::back -- empty container");
-#endif
-
-		return c.back();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline typename queue<T, Container>::const_reference
 	queue<T, Container>::back() const
 	{
-#if EASTL_ASSERT_ENABLED && EASTL_EMPTY_REFERENCE_ASSERT_ENABLED
-		if (EASTL_UNLIKELY(c.empty()))
-			EASTL_FAIL_MSG("queue::back -- empty container");
-#endif
-
-		return c.back();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline void queue<T, Container>::push(const value_type& value)
 	{
-		c.push_back(const_cast<value_type&>(value)); // const_cast so that intrusive_list can work. We may revisit this.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline void queue<T, Container>::push(value_type&& x) 
 	{
-		c.push_back(eastl::move(x));
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Container>
 	template <class... Args> 
 	inline decltype(auto) queue<T, Container>::emplace(Args&&... args)
 	{
-		return c.emplace_back(eastl::forward<Args>(args)...);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline void queue<T, Container>::pop()
 	{
-#if EASTL_ASSERT_ENABLED
-		if (EASTL_UNLIKELY(c.empty()))
-			EASTL_FAIL_MSG("queue::pop -- empty container");
-#endif
-
-		c.pop_front();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline typename queue<T, Container>::container_type&
 	queue<T, Container>::get_container()
 	{
-		return c;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	inline const typename queue<T, Container>::container_type&
 	queue<T, Container>::get_container() const
 	{
-		return c;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	void queue<T, Container>::swap(this_type& x) EA_NOEXCEPT_IF((eastl::is_nothrow_swappable<this_type::container_type>::value))
 	{
-		using eastl::swap;
-		swap(c, x.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template <typename T, typename Container>
 	bool queue<T, Container>::validate() const
 	{
-		return c.validate();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	///////////////////////////////////////////////////////////////////////
@@ -327,8 +298,8 @@ namespace eastl
 	template <typename T, typename Container>
 	inline bool operator==(const queue<T, Container>& a, const queue<T, Container>& b)
 	{
-		return (a.c == b.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 #if defined(EA_COMPILER_HAS_THREE_WAY_COMPARISON)
 	template <typename T, typename Container> requires std::three_way_comparable<Container>
 	
@@ -341,38 +312,38 @@ namespace eastl
 	template <typename T, typename Container>
 	inline bool operator!=(const queue<T, Container>& a, const queue<T, Container>& b)
 	{
-		return !(a.c == b.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Container>
 	inline bool operator<(const queue<T, Container>& a, const queue<T, Container>& b)
 	{
-		return (a.c < b.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Container>
 	inline bool operator>(const queue<T, Container>& a, const queue<T, Container>& b)
 	{
-		return (b.c < a.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Container>
 	inline bool operator<=(const queue<T, Container>& a, const queue<T, Container>& b)
 	{
-		return !(b.c < a.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Container>
 	inline bool operator>=(const queue<T, Container>& a, const queue<T, Container>& b)
 	{
-		return !(a.c < b.c);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template <typename T, typename Container>
 	inline void swap(queue<T, Container>& a, queue<T, Container>& b) EA_NOEXCEPT_IF((eastl::is_nothrow_swappable<typename queue<T, Container>::container_type>::value)) // EDG has a bug and won't let us use Container in this noexcept statement
 	{
-		a.swap(b);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

@@ -79,8 +79,7 @@ EA_DISABLE_CLANG_WARNING(-Watomic-alignment);
 
 		EA_CONSTEXPR atomic_integral_base(T desired) EA_NOEXCEPT
 			: Base{ desired }
-		{
-		}
+		{ __builtin_trap() /* STUB: not implemented */; }
 
 		EA_CONSTEXPR atomic_integral_base() EA_NOEXCEPT = default;
 

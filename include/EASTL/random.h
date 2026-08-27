@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -64,8 +66,12 @@ namespace eastl
 			result_type a() const;
 			result_type b() const;
 
-			bool operator==(const param_type& x) const { return (x.mA == mA) && (x.mB == mB); }
-			bool operator!=(const param_type& x) const { return (x.mA != mA) || (x.mB != mB); }
+			bool operator==(const param_type& x) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
+			bool operator!=(const param_type& x) const {
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		protected:
 			IntType mA;
@@ -106,22 +112,22 @@ namespace eastl
 	inline uniform_int_distribution<IntType>::param_type::param_type(IntType aValue, IntType bValue)
 	  : mA(aValue), mB(bValue)
 	{
-		EASTL_ASSERT(aValue <= bValue);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<class IntType>
 	inline typename uniform_int_distribution<IntType>::result_type 
 	uniform_int_distribution<IntType>::param_type::a() const
 	{
-		return mA;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<class IntType>
 	inline typename uniform_int_distribution<IntType>::result_type 
 	uniform_int_distribution<IntType>::param_type::b() const
 	{
-		return mB;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -129,90 +135,80 @@ namespace eastl
 	inline uniform_int_distribution<IntType>::uniform_int_distribution(IntType aValue, IntType bValue) 
 	  : mParam(aValue, bValue)
 	{
-		// Nothing more to do.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<class IntType>
 	inline uniform_int_distribution<IntType>::uniform_int_distribution(const param_type& params) 
 	  : mParam(params)
 	{
-		// Nothing more to do.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<class IntType>
 	void uniform_int_distribution<IntType>::reset()
 	{
-		// Nothing to do.
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<class IntType>
 	template<class Generator>
 	inline typename uniform_int_distribution<IntType>::result_type 
 	uniform_int_distribution<IntType>::operator()(Generator& g)
 	{
-		return operator()(g, mParam);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<class IntType>
 	template<class Generator>
 	inline typename uniform_int_distribution<IntType>::result_type 
 	uniform_int_distribution<IntType>::operator()(Generator& g, const param_type& params)
 	{
-		// This is a tricky function to implement in a generic way for all integral types.
-		// The solution will involve handling the case of signed types and 64 bit types,
-		// probably in a way that uses template metaprogramming to deal with signed ranges.
-
-		// Temporary solution while we research a full solution. It supports only uint8_t,
-		// uint16_t, and uint32_t uniform_int_distribution types.
-		static_assert(eastl::is_unsigned<result_type>::value && (sizeof(result_type) <= 4), "uniform_int_distribution currently supports only uint8_t, uint16_t, uint32_t.");
-
-		result_type v = g();    // Generates a value in the range of (numeric_limits<result_type>::min(), numeric_limits<result_type>::max()).
-		result_type r = (result_type)((v * (uint64_t)((params.b() - params.a()) + 1)) >> (sizeof(result_type) * 8)); // +1 because ranges are inclusive.
-		return params.a() + r;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<class IntType>
 	inline typename uniform_int_distribution<IntType>::result_type
 	uniform_int_distribution<IntType>::a() const
 	{
-		return mParam.mA;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<class IntType>
 	inline typename uniform_int_distribution<IntType>::result_type
 	uniform_int_distribution<IntType>::b() const
 	{
-		return mParam.mB;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	template<class IntType>
 	inline typename uniform_int_distribution<IntType>::param_type
 	uniform_int_distribution<IntType>::param() const
 	{
-		return mParam;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<class IntType>
 	inline void
 	uniform_int_distribution<IntType>::param(const param_type& params)
 	{
-		mParam = params;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<class IntType>
 	inline typename uniform_int_distribution<IntType>::result_type
 	uniform_int_distribution<IntType>::min() const
 	{
-		return mParam.mA;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<class IntType>
 	inline typename uniform_int_distribution<IntType>::result_type
 	uniform_int_distribution<IntType>::max() const
 	{
-		return mParam.mB;
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 
@@ -220,15 +216,15 @@ namespace eastl
 	inline bool operator==(const uniform_int_distribution<ResultType>& lhs,
 						   const uniform_int_distribution<ResultType>& rhs)
 	{
-		return (lhs.param() == rhs.param());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	template<class ResultType>
 	inline bool operator!=(const uniform_int_distribution<ResultType>& lhs,
 						   const uniform_int_distribution<ResultType>& rhs)
 	{
-		return (lhs.param() != rhs.param());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	// EASTL doesn't currently implement IO stream-related functionality.

@@ -21,18 +21,7 @@ namespace eastl
 			{t < u}->std::convertible_to<bool>;
 			{u < t}->std::convertible_to<bool>;
 		}
-		{
-			if constexpr (std::three_way_comparable_with<T, U>)
-			{
-				return t <=> u;
-			}
-			else
-			{
-				return (t < u) ? std::weak_ordering::less :
-				       (u < t) ? std::weak_ordering::greater :
-                                 std::weak_ordering::equivalent;
-			}
-		}
+		{ return {}; }
 	};
 
 	template <typename T, typename U=T>

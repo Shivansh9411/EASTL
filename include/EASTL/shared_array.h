@@ -1,3 +1,4 @@
+#include <cstdlib>
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
@@ -139,11 +140,8 @@ namespace eastl
 			  mpRefCount(NULL),
 			  mAllocator(allocator)
 		{
-			// Allocate memory for the reference count.
-			mpRefCount = (ref_count*) EASTLAlloc(mAllocator, sizeof(ref_count));
-			if(mpRefCount)
-				detail::allocator_construct(mAllocator, mpRefCount, 1);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// shared_array
@@ -157,8 +155,8 @@ namespace eastl
 			  mpRefCount(sharedArray.mpRefCount),
 			  mAllocator(sharedArray.mAllocator)
 		{
-			++*mpRefCount;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// ~shared_array
@@ -190,15 +188,8 @@ namespace eastl
 		/// the compiler will generate this function and things will go wrong.
 		shared_array& operator=(const shared_array& sharedArray)
 		{
-			if(mpArray != sharedArray.mpArray)
-			{
-				// The easiest thing to do is to create a temporary and 
-				// copy ourselves ourselves into it. This is a standard 
-				// method for switching pointer ownership in systems like this.
-				shared_array(sharedArray).swap(*this);
-			}
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator=
@@ -208,9 +199,8 @@ namespace eastl
 		/// pointer, then nothing is done.
 		shared_array& operator=(T* pValue)
 		{
-			reset(pValue);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// reset
@@ -220,32 +210,16 @@ namespace eastl
 		/// can be null, in which case the use count is set to 1.
 		void reset(T* pArray = NULL)
 		{
-			if(pArray != mpArray)
-			{
-				// The easiest thing to do is to create a temporary and 
-				// copy ourselves ourselves into it. This is a standard 
-				// method for switching pointer ownership in systems like this.
-				shared_array(pArray, mAllocator).swap(*this);
-			}
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// swap
 		/// Exchanges the owned pointer beween two shared_array objects.
 		void swap(this_type& sharedArray)
 		{
-			// We leave mAllocator as-is.
-
-			// eastl::swap(mpArray, sharedArray.mpArray);
-			T* const pArray     = sharedArray.mpArray;
-			sharedArray.mpArray = mpArray;
-			mpArray             = pArray;
-
-			// eastl::swap(mpRefCount, sharedArray.mpRefCount);
-			ref_count* const pRefCount = sharedArray.mpRefCount;
-			sharedArray.mpRefCount     = mpRefCount;
-			mpRefCount                 = pRefCount;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 		/// operator[]
@@ -256,9 +230,8 @@ namespace eastl
 		///    int x = ptr[2];
 		T& operator[](ptrdiff_t i) const
 		{
-			// assert(mpArray && (i >= 0));
-			return mpArray[i];
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// operator*
 		/// Returns the owner pointer dereferenced.
@@ -267,9 +240,8 @@ namespace eastl
 		///    int x = *ptr;
 		T& operator*() const
 		{
-			// assert(mpArray);
-			return *mpArray;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// operator->
 		/// Allows access to the owned pointer via operator->()
@@ -279,9 +251,8 @@ namespace eastl
 		///    ptr->DoSomething();
 		T* operator->() const EA_NOEXCEPT
 		{
-			// assert(mpArray);
-			return mpArray;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// get
 		/// Returns the owned pointer. Note that this class does 
@@ -294,26 +265,24 @@ namespace eastl
 		///    pX->DoSomething();
 		T* get() const EA_NOEXCEPT
 		{
-			return mpArray;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// use_count
 		/// Returns the reference count on the owned pointer.
 		/// The return value is one if the owned pointer is null.
 		int use_count() const
 		{
-			// assert(mpRefCount);
-			return (int)*mpRefCount;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// unique
 		/// Returns true if the reference count on the owned pointer is one.
 		/// The return value is true if the owned pointer is null.
 		bool unique() const
 		{
-			// assert(mpRefCount);
-			return (*mpRefCount == 1);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// Implicit operator bool
 		/// Allows for using a scoped_ptr as a boolean. 
@@ -341,28 +310,26 @@ namespace eastl
 		///        assert(false);
 		bool operator!() const EA_NOEXCEPT
 		{
-			return (mpArray == NULL);
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// get_allocator
 		/// Returns the memory allocator associated with this class.
 		const allocator_type& get_allocator() const EA_NOEXCEPT
 		{
-			return mAllocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 		allocator_type& get_allocator() EA_NOEXCEPT
 		{
-			return mAllocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		/// set_allocator
 		/// Sets the memory allocator associated with this class.
 		void set_allocator(const allocator_type& allocator)
 		{
-			if(mpRefCount && mAllocator != allocator)
-				EASTL_THROW_MSG_OR_ASSERT(std::logic_error, "shared_array::set_allocator -- cannot change allocator after allocations have been made.");
-			mAllocator = allocator;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	}; // class shared_array
 
@@ -373,8 +340,8 @@ namespace eastl
 	template <typename T, typename A, typename D>
 	inline T* get_pointer(const shared_array<T, A, D>& sharedArray)
 	{
-		return sharedArray.get();
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 	/// swap
 	/// Exchanges the owned pointer beween two shared_array objects.
@@ -383,8 +350,8 @@ namespace eastl
 	template <typename T, typename A, typename D>
 	inline void swap(shared_array<T, A, D>& sharedArray1, shared_array<T, A, D>& sharedArray2)
 	{
-		sharedArray1.swap(sharedArray2);
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// operator!=
@@ -395,9 +362,8 @@ namespace eastl
 	template <typename T, typename TA, typename TD, typename U, typename UA, typename UD>
 	inline bool operator==(const shared_array<T, TA, TD>& sharedArray1, const shared_array<U, UA, UD>& sharedArray2)
 	{
-		// assert((sharedArray1.get() != sharedArray2.get()) || (sharedArray1.use_count() == sharedArray2.use_count()));
-		return (sharedArray1.get() == sharedArray2.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// operator!=
@@ -408,9 +374,8 @@ namespace eastl
 	template <typename T, typename TA, typename TD, typename U, typename UA, typename UD>
 	inline bool operator!=(const shared_array<T, TA, TD>& sharedArray1, const shared_array<U, UA, UD>& sharedArray2)
 	{
-		// assert((sharedArray1.get() != sharedArray2.get()) || (sharedArray1.use_count() == sharedArray2.use_count()));
-		return (sharedArray1.get() != sharedArray2.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 	/// operator<
@@ -419,8 +384,8 @@ namespace eastl
 	template <typename T, typename TA, typename TD, typename U, typename UA, typename UD>
 	inline bool operator<(const shared_array<T, TA, TD>& sharedArray1, const shared_array<U, UA, UD>& sharedArray2)
 	{
-		return (sharedArray1.get() < sharedArray2.get()); // Alternatively use: std::less<T*>(a.get(), b.get());
-	}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 
 } // namespace eastl

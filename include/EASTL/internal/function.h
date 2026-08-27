@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <cstdlib>
 /////////////////////////////////////////////////////////////////////////////
 // Copyright (c) Electronic Arts Inc. All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
@@ -63,15 +65,13 @@ namespace eastl
 
 		function& operator=(const function& other)
 		{
-			Base::operator=(other);
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		function& operator=(function&& other)
 		{
-			Base::operator=(eastl::move(other));
-			return *this;
-		}
+    __builtin_trap() /* STUB: not implemented */;
+}
 
 		function& operator=(std::nullptr_t p) EA_NOEXCEPT
 		{

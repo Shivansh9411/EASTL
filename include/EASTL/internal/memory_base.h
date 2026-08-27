@@ -28,15 +28,11 @@ namespace eastl
 	///
 	template<typename T>
 	T* addressof(T& value) EA_NOEXCEPT
-	{
-		return reinterpret_cast<T*>(&const_cast<char&>(reinterpret_cast<const volatile char&>(value)));
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 	template<class T, class... Args>
 	EA_CPP14_CONSTEXPR T* construct_at(T* p, Args&&... args)
-	{
-		return ::new (static_cast<void*>(p)) T(eastl::forward<Args>(args)...);
-	}
+	{ __builtin_trap() /* STUB: not implemented */; }
 
 } // namespace eastl
 
